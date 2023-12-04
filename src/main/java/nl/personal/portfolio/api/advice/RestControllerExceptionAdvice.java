@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class RestControllerExceptionAdvice {
 
     @ExceptionHandler({ConstraintViolationException.class, HttpMessageNotReadableException.class})
-    ResponseEntity<String> badRequest(RuntimeException e){
+    private ResponseEntity<String> badRequest(RuntimeException e){
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     @ExceptionHandler(Throwable.class)
-    ResponseEntity<String> internalServerError(Exception e){
+    private ResponseEntity<String> internalServerError(Exception e){
         return ResponseEntity.internalServerError().body(e.getMessage());
     }
 
