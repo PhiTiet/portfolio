@@ -36,7 +36,7 @@ class RestControllerExceptionAdviceTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @ParameterizedTest(name = "{0} must throw {1}")
+    @ParameterizedTest(name = "{0} must result in {1}")
     @MethodSource("exceptionTestCases")
     @WithMockUser
     void exceptionHandling(Throwable throwable, HttpStatus httpStatus) throws Exception {
