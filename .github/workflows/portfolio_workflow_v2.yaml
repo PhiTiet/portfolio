@@ -26,6 +26,8 @@ jobs:
             java-version: '21'
         - name: Build with Maven
           run: mvn clean package
+        - name: List files in target directory
+          run: ls target
     buildImage:
         needs: build
         permissions:
