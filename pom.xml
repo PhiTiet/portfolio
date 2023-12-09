@@ -12,7 +12,7 @@
 
 	<groupId>nl.personal</groupId>
 	<artifactId>portfolio</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<name>portfolio</name>
 
 	<properties>
@@ -58,6 +58,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>portfolio</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
