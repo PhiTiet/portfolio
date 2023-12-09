@@ -15,7 +15,6 @@ env:
         ./kubernetes/my-service.yaml
 jobs:
     buildImage:
-        needs: build
         permissions:
             contents: read
             id-token: write
