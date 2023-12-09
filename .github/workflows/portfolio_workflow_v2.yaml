@@ -14,20 +14,6 @@ env:
         ./kubernetes/my-deployment.yaml
         ./kubernetes/my-service.yaml
 jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
-        - name: Set up Java
-          uses: actions/setup-java@v2
-          with:
-            distribution: 'adopt'
-            java-version: '21'
-        - name: Build with Maven
-          run: mvn clean package
-        - name: List files in target directory
-          run: ls target
     buildImage:
         needs: build
         permissions:
@@ -36,6 +22,13 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+            - name: Set up Java
+              uses: actions/setup-java@v2
+              with:
+                distribution: 'adopt'
+                java-version: '21'
+            - name: Build with Maven
+              run: mvn clean package
             - uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
               name: Azure login
               with:
