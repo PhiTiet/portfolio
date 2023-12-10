@@ -1,5 +1,5 @@
 name: portfolio_workflow_v2
-"on":
+on:
     push:
         branches:
             - main
