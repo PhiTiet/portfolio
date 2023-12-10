@@ -1,8 +1,5 @@
 name: portfolio_workflow_v2
 on:
-    push:
-        branches:
-            - main
     workflow_dispatch: {}
 env:
     ACR_RESOURCE_GROUP: production
