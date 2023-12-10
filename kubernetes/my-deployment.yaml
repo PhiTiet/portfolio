@@ -15,5 +15,3 @@ spec:
       containers:
       - name: portfolio-app
         image: phitiet/portfolio
-      imagePullSecrets:
-        - name: regcred
