@@ -21,6 +21,13 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+            - name: Set up Java
+              uses: actions/setup-java@v4
+              with:
+                distribution: 'adopt'
+                java-version: '21'
+            - name: Build with Maven
+              run: mvn clean package
             - uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
               name: Azure login
               with:
