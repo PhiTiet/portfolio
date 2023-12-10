@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
       - name: portfolio-app
-        image: phitiet/portfolio
+        image: portfolio-image
