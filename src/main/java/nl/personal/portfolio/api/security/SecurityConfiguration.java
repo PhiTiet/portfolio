@@ -20,8 +20,9 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         var anonymousRequestMatcher = new OrRequestMatcher(
-                requestMatcher("/hello/**"),
-                requestMatcher("/anonymous/**")
+                requestMatcher("/"),
+                requestMatcher("/home/**"),
+                requestMatcher("/portfolio/**")
         );
 
         return httpSecurity

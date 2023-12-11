@@ -12,10 +12,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
-@Import({RestControllerExceptionAdvice.class, HelloController.class, SecurityConfiguration.class})
-class HelloControllerTest {
-
-    private static final String BASE_PATH = "/hello";
+@Import({RestControllerExceptionAdvice.class, PortfolioController.class, SecurityConfiguration.class})
+class PortfolioControllerTest {
+    private static final String BASE_PATH = "/portfolio";
 
     @Autowired
     private MockMvc mockMvc;
@@ -24,6 +23,5 @@ class HelloControllerTest {
     void getOk() throws Exception {
         mockMvc.perform(get(BASE_PATH)).andExpect(status().isOk());
     }
-
 
 }
