@@ -13,6 +13,7 @@ env:
     DEPLOYMENT_MANIFEST_PATH: |
         ./kubernetes/my-deployment.yaml
         ./kubernetes/my-service.yaml
+        ./kubernetes/my-ingress.yaml
 jobs:
     buildImage:
         permissions:
