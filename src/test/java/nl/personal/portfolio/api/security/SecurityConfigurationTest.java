@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class SecurityConfigurationTest {
 
-    public static final String ANONYMOUS_URL = "/anonymous/test";
+    public static final String ANONYMOUS_URL = "/home/test";
     public static final String AUTHENTICATED_URL = "/authenticated/test";
 
     @Autowired
