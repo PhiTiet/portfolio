@@ -14,5 +14,5 @@ spec:
               service:
                 name: portfolio-service
                 port:
-                  number: 8080
+                  number: 80
             path: /
