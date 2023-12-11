@@ -11,9 +11,7 @@ env:
     CLUSTER_RESOURCE_GROUP: ota
     CONTAINER_NAME: portfolio-image
     DEPLOYMENT_MANIFEST_PATH: |
-        ./kubernetes/my-deployment.yaml
-        ./kubernetes/my-service.yaml
-        ./kubernetes/my-ingress.yaml
+        ./kubernetes/
 jobs:
     buildImage:
         permissions:

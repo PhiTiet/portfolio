@@ -3,16 +3,19 @@ kind: Ingress
 metadata:
   name: portfolio-ingress
   namespace: portfolio
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
-    - host: phitiet.nl
-      http:
+    - http:
         paths:
-          - pathType: Prefix
+          - path: /(.*)
+            pathType: Prefix
             backend:
               service:
                 name: portfolio-service
                 port:
                   number: 80
-            path: /
