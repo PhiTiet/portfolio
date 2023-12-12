@@ -22,7 +22,9 @@ public class SecurityConfiguration {
         var anonymousRequestMatcher = new OrRequestMatcher(
                 requestMatcher("/"),
                 requestMatcher("/home/**"),
-                requestMatcher("/portfolio/**")
+                requestMatcher("/webjars/**"),
+
+                requestMatcher("/about/**")
         );
 
         return httpSecurity
