@@ -1,6 +1,7 @@
 package nl.personal.portfolio.api;
 
 import nl.personal.portfolio.api.advice.RestControllerExceptionAdvice;
+import nl.personal.portfolio.api.controller.AboutController;
 import nl.personal.portfolio.api.security.SecurityConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
-@Import({RestControllerExceptionAdvice.class, PortfolioController.class, SecurityConfiguration.class})
-class PortfolioControllerTest {
-    private static final String BASE_PATH = "/portfolio";
+@Import({RestControllerExceptionAdvice.class, AboutController.class, SecurityConfiguration.class})
+class AboutControllerTest {
+    private static final String BASE_PATH = "/about";
 
     @Autowired
     private MockMvc mockMvc;

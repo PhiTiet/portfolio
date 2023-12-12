@@ -1,14 +1,14 @@
-package nl.personal.portfolio.api;
+package nl.personal.portfolio.api.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/portfolio")
-public class PortfolioController {
+@RequestMapping("/about")
+public class AboutController {
     @GetMapping
     public String portfolio(){
-        return "portfolio-page";
+        return "about-page";
     }
 }

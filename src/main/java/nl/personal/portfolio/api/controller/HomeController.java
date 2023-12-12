@@ -1,15 +1,15 @@
-package nl.personal.portfolio.api;
+package nl.personal.portfolio.api.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/hello")
-public class HelloController {
+@RequestMapping("/")
+public class HomeController {
 
-    @GetMapping
-    String hello(){
-        return "hello-page";
+    @GetMapping()
+    public String home(){
+        return "home-page";
     }
 }
