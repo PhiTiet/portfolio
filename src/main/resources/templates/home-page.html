@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>About</title>
+    <title>Home</title>
 </head>
 
 <body>
     <section layout:fragment="content">
-
+        <div th:replace="~{fragments/carousel :: carousel}"></div>
     </section>
 </body>
 
