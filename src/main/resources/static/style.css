@@ -1,10 +1,10 @@
 .carousel-item {
-    height: 80vh; /* Set the height to 50% of the viewport height */
-    overflow: hidden; /* Hide any overflow content */
+    height: 80vh;
+    overflow: hidden;
 }
 
 .carousel-inner img {
-    object-fit: cover; /* Ensure the images cover the entire carousel item */
-    height: 100%; /* Set the image height to 100% */
-    width: 100%; /* Ensure the image width covers the entire carousel item */
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }
