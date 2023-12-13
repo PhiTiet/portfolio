@@ -1,19 +1,24 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  annotations:
+    kubernetes.azure.com/tls-cert-keyvault-uri: https://ota-phi-keyvault.vault.azure.net/certificates/portfolio-certificate
   name: portfolio-ingress
   namespace: portfolio
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   ingressClassName: webapprouting.kubernetes.azure.com
   rules:
-    - http:
+    - host: phitiet.nl
+      http:
         paths:
-          - path: /
-            pathType: Prefix
-            backend:
+          - backend:
               service:
                 name: portfolio-service
                 port:
                   number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - phitiet.nl
+      secretName: keyvault-portfolio-ingress
