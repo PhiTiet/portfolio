@@ -8,7 +8,20 @@
 
 <body>
     <section layout:fragment="content">
-        <div th:replace="~{fragments/carousel :: carousel}"></div>
+        <div class="modal-body row">
+            <div class="col-md-6">
+                <div class="row md-6">
+                    <div th:replace="~{fragments/jumbotron :: jumbotron}"></div>
+                </div>
+                <div class="row md-6">
+                    <div th:replace="~{fragments/hobbies :: hobbies}"></div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div th:replace="~{fragments/carousel :: carousel}"></div>
+            </div>
+        </div>
     </section>
 </body>
 
