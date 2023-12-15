@@ -16,8 +16,8 @@ import static nl.personal.portfolio.api.factory.HomePageDetailsTestFactory.homeP
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
-@Import({RestControllerExceptionAdvice.class, HomeController.class, SecurityConfiguration.class})
+@WebMvcTest(HomeController.class)
+@Import({RestControllerExceptionAdvice.class, SecurityConfiguration.class})
 class HomeControllerTest {
 
     private static final String BASE_PATH = "/";
