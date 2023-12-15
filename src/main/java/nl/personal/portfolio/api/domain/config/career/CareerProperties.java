@@ -1,5 +1,7 @@
 package nl.personal.portfolio.api.domain.config.career;
 
+import nl.personal.portfolio.api.domain.Certificate;
+
 import java.time.LocalDate;
 import java.util.List;
 

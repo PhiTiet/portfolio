@@ -3,6 +3,7 @@ package nl.personal.portfolio.api.domain.config.career;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import nl.personal.portfolio.api.domain.Certificate;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.annotation.DateTimeFormat;
