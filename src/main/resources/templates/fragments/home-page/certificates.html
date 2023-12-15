@@ -5,7 +5,22 @@
 </head>
 
 <body>
-<div th:fragment="certificates"></div>
+<div class="container mt-4 border rounded p-4" th:fragment="certificates">
+    <div class="jumbotron text-center">
+        <h3 class="display-4">Certificates</h3>
+    </div>
+    <div th:each="certificate : ${details.certificates}" class="row mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #184ac9;" th:text="${certificate.title}"></h5>
+                <p class="card-text"><strong>Institution: </strong><span th:text="${certificate.institution}"></span>
+                </p>
+                <p class="card-text"><strong>Acquisition Date: </strong> <span
+                        th:text="${certificate.formattedAcquisitionDate()}"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>

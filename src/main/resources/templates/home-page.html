@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Home</title>
 </head>
 
 <body>
-    <section layout:fragment="content" >
-        <div class="modal-body row" th:style="'background: url(/static/images/background_mountain.avif)'">
-            <div class="col-md-6">
-                <div class="row md-6">
-                    <div th:replace="~{fragments/home-page/jumbotron :: jumbotron}"></div>
-                </div>
-                <div class="row md-6">
-                    <div th:replace="~{fragments/home-page/hobbies :: hobbies}"></div>
-                </div>
+<section layout:fragment="content">
+    <div class="modal-body row"> <!-- th:style="'background: url(/static/images/background_mountain.avif)'"-->
+        <div class="col-md-6">
+            <div class="row md-6">
+                <div th:replace="~{fragments/home-page/jumbotron :: jumbotron}"></div>
             </div>
-            <div class="col-md-6">
-                <div th:replace="~{fragments/home-page/carousel :: carousel}"></div>
-            </div>
-
-            <div class="col-md-3">
-                <div th:replace="~{fragments/home-page/certificates :: certificates}"></div>
-            </div>
-            <div class="col-md-9 me-3">
-                <div th:replace="~{fragments/home-page/experience :: experience}"></div>
+            <div class="row md-6">
+                <div th:replace="~{fragments/home-page/hobbies :: hobbies}"></div>
             </div>
         </div>
-    </section>
+        <div class="col-md-6">
+            <div th:replace="~{fragments/home-page/carousel :: carousel}"></div>
+        </div>
+
+        <div class="col-md-3">
+            <div th:replace="~{fragments/home-page/certificates :: certificates}"></div>
+        </div>
+        <div class="col-md-9 me-3">
+            <div th:replace="~{fragments/home-page/experience :: experience}"></div>
+        </div>
+    </div>
+</section>
 </body>
 
 </html>

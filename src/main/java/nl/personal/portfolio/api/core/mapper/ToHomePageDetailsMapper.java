@@ -5,11 +5,11 @@ import nl.personal.portfolio.api.domain.Mapper;
 import nl.personal.portfolio.api.domain.config.career.CareerProperties;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.Period;
-
 import static java.lang.Math.toIntExact;
+import static java.time.LocalDate.now;
+import static java.time.Period.between;
 import static java.time.temporal.ChronoUnit.YEARS;
+import static java.util.Comparator.reverseOrder;
 
 @Component
 public class ToHomePageDetailsMapper implements Mapper<CareerProperties, HomePageDetails> {
@@ -17,10 +17,10 @@ public class ToHomePageDetailsMapper implements Mapper<CareerProperties, HomePag
     @Override
     public HomePageDetails map(CareerProperties careerProperties) {
         return HomePageDetails.builder()
-                .age(toIntExact(YEARS.between(careerProperties.getBirthday(), LocalDate.now())))
-                .professionalProgrammerPeriod(Period.between(careerProperties.getProfessionalCareerStartDate(), LocalDate.now()))
-                .programmerPeriod(Period.between(careerProperties.getProgrammingStartDate(), LocalDate.now()))
-                .certificates(careerProperties.getCertificates())
+                .age(toIntExact(YEARS.between(careerProperties.getBirthday(), now())))
+                .professionalProgrammerPeriod(between(careerProperties.getProfessionalCareerStartDate(), now()))
+                .programmerPeriod(between(careerProperties.getProgrammingStartDate(), now()))
+                .certificates(careerProperties.getCertificates().stream().sorted(reverseOrder()).toList())
                 .build();
     }
 }
