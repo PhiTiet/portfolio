@@ -1,0 +1,24 @@
+career:
+  birthday: 09-12-1999
+  professional-career-start-date: 01-09-2021
+  programming-start-date: 01-07-2018
+  certificates:
+    - title: Level 2 Certificate in ESOL International (Advanced)
+      institution: Cambridge University Press & Assessment English
+      acquisitionDate: 01-06-2016
+
+    - title: M18 English A Language and Literature Higher Level
+      institution: International Baccalaureate
+      acquisitionDate: 01-07-2018
+
+    - title: Bilingual VWO - Atheneum
+      institution: Tabor College Werenfridus
+      acquisitionDate: 01-07-2018
+
+    - title: BSc Computer Science (7,7 GPA)
+      institution: Vrije Universiteit Amsterdam
+      acquisitionDate: 01-08-2021
+
+    - title: Train De Trainer
+      institution: ICM
+      acquisitionDate: 01-07-2023
