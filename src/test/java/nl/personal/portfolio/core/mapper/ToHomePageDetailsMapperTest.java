@@ -1,12 +1,13 @@
-package nl.personal.portfolio.api.core.mapper;
+package nl.personal.portfolio.core.mapper;
 
+import nl.personal.portfolio.api.core.mapper.ToHomePageDetailsMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
-import static nl.personal.portfolio.api.factory.CareerPropertiesTestFactory.careerProperties;
+import static nl.personal.portfolio.factory.CareerPropertiesTestFactory.careerProperties;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ToHomePageDetailsMapperTest {
