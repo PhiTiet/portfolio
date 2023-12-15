@@ -1,4 +1,4 @@
-package nl.personal.portfolio.api.factory;
+package nl.personal.portfolio.factory;
 
 import nl.personal.portfolio.api.domain.Certificate;
 
