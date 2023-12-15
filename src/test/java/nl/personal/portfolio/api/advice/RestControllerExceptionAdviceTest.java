@@ -24,8 +24,8 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
-@Import({RestControllerExceptionAdvice.class, RestControllerExceptionAdviceTest.TestController.class})
+@WebMvcTest(RestControllerExceptionAdvice.class)
+@Import(RestControllerExceptionAdviceTest.TestController.class)
 class RestControllerExceptionAdviceTest {
 
     public static final String TEST_EXCEPTION_URL = "/anonymous/test_exception";
@@ -53,9 +53,9 @@ class RestControllerExceptionAdviceTest {
         );
     }
 
+    @Setter
     @RestController
     static class TestController{
-        @Setter
         private Throwable throwable;
 
         @GetMapping(TEST_EXCEPTION_URL)
