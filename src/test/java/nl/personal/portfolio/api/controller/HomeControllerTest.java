@@ -1,8 +1,8 @@
 package nl.personal.portfolio.api.controller;
 
 import nl.personal.portfolio.api.advice.RestControllerExceptionAdvice;
-import nl.personal.portfolio.api.core.HomePageService;
 import nl.personal.portfolio.api.security.SecurityConfiguration;
+import nl.personal.portfolio.core.HomePageService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

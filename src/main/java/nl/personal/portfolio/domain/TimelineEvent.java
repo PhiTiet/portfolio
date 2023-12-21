@@ -1,10 +1,10 @@
-package nl.personal.portfolio.api.domain;
+package nl.personal.portfolio.domain;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 public record TimelineEvent(
         String employer,

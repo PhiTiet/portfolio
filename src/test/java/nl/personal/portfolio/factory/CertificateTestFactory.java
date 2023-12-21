@@ -1,6 +1,6 @@
 package nl.personal.portfolio.factory;
 
-import nl.personal.portfolio.api.domain.Certificate;
+import nl.personal.portfolio.domain.Certificate;
 
 import java.time.LocalDate;
 

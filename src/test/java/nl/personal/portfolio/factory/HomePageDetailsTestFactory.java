@@ -1,6 +1,6 @@
 package nl.personal.portfolio.factory;
 
-import nl.personal.portfolio.api.domain.HomePageDetails;
+import nl.personal.portfolio.domain.HomePageDetails;
 
 import java.time.Period;
 

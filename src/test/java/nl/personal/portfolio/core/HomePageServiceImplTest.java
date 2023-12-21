@@ -1,8 +1,7 @@
 package nl.personal.portfolio.core;
 
-import nl.personal.portfolio.api.core.HomePageServiceImpl;
-import nl.personal.portfolio.api.core.mapper.ToHomePageDetailsMapper;
-import nl.personal.portfolio.api.domain.config.career.CareerProperties;
+import nl.personal.portfolio.core.mapper.ToHomePageDetailsMapper;
+import nl.personal.portfolio.domain.config.career.CareerProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

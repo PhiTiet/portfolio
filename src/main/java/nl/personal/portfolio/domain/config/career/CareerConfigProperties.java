@@ -1,10 +1,9 @@
-package nl.personal.portfolio.api.domain.config.career;
+package nl.personal.portfolio.domain.config.career;
 
 import lombok.Data;
-import nl.personal.portfolio.api.domain.Certificate;
-import nl.personal.portfolio.api.domain.Skill;
-import nl.personal.portfolio.api.domain.TimelineEvent;
-
+import nl.personal.portfolio.domain.Certificate;
+import nl.personal.portfolio.domain.Skill;
+import nl.personal.portfolio.domain.TimelineEvent;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.annotation.DateTimeFormat;
