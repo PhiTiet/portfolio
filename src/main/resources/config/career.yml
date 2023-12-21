@@ -87,6 +87,24 @@ career:
         classes: fa-solid fa-laptop
         style: "color: #0cac59;"
 
+    - employer: Ordina
+      job-title: Medior Software Engineer
+      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      start: 01-07-2022
+      end:
+      icon:
+        classes: fa-solid fa-laptop-code
+        style: "color: #cc0f5b;"
+
+    - employer: Rabobank
+      job-title: Medior Software Engineer
+      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      start: 01-09-2022
+      end:
+      icon:
+        classes: fa-solid fa-piggy-bank fa-shake
+        style: "color: #e49bd0;"
+
 
 
 
