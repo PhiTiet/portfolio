@@ -1,8 +1,8 @@
-package nl.personal.portfolio.api.core.mapper;
+package nl.personal.portfolio.core.mapper;
 
-import nl.personal.portfolio.api.domain.HomePageDetails;
-import nl.personal.portfolio.api.domain.Mapper;
-import nl.personal.portfolio.api.domain.config.career.CareerProperties;
+import nl.personal.portfolio.domain.HomePageDetails;
+import nl.personal.portfolio.domain.Mapper;
+import nl.personal.portfolio.domain.config.career.CareerProperties;
 import org.springframework.stereotype.Component;
 
 import static java.lang.Math.toIntExact;

@@ -1,8 +1,8 @@
-package nl.personal.portfolio.api.domain.config.career;
+package nl.personal.portfolio.domain.config.career;
 
-import nl.personal.portfolio.api.domain.Certificate;
-import nl.personal.portfolio.api.domain.Skill;
-import nl.personal.portfolio.api.domain.TimelineEvent;
+import nl.personal.portfolio.domain.Certificate;
+import nl.personal.portfolio.domain.Skill;
+import nl.personal.portfolio.domain.TimelineEvent;
 
 import java.time.LocalDate;
 import java.util.List;

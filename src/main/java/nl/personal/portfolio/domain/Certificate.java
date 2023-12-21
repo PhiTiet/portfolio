@@ -1,4 +1,4 @@
-package nl.personal.portfolio.api.domain;
+package nl.personal.portfolio.domain;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;

@@ -1,7 +1,7 @@
 package nl.personal.portfolio.factory;
 
-import nl.personal.portfolio.api.domain.config.career.CareerConfigProperties;
-import nl.personal.portfolio.api.domain.config.career.CareerProperties;
+import nl.personal.portfolio.domain.config.career.CareerConfigProperties;
+import nl.personal.portfolio.domain.config.career.CareerProperties;
 
 import java.time.LocalDate;
 import java.util.Collections;

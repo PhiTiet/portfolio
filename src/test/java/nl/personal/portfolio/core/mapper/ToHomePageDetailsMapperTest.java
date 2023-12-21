@@ -1,6 +1,5 @@
 package nl.personal.portfolio.core.mapper;
 
-import nl.personal.portfolio.api.core.mapper.ToHomePageDetailsMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

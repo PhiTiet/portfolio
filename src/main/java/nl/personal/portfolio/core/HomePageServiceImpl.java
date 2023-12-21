@@ -1,12 +1,10 @@
-package nl.personal.portfolio.api.core;
-
-import nl.personal.portfolio.api.core.mapper.ToHomePageDetailsMapper;
-import nl.personal.portfolio.api.domain.HomePageDetails;
-import nl.personal.portfolio.api.domain.config.career.CareerProperties;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package nl.personal.portfolio.core;
 
 import lombok.RequiredArgsConstructor;
+import nl.personal.portfolio.core.mapper.ToHomePageDetailsMapper;
+import nl.personal.portfolio.domain.HomePageDetails;
+import nl.personal.portfolio.domain.config.career.CareerProperties;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
