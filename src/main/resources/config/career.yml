@@ -53,7 +53,7 @@ career:
   events:
     - employer: DEEN Distribution Centre
       job-title: Storage employee
-      description: cx
+      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       start: 01-01-2015
       end: 01-06-2015
       icon:
@@ -68,6 +68,24 @@ career:
       icon:
         classes: fas fa-regular fa-burger fa-bounce
         style: "color: #e18709;"
+
+    - employer: Lunchroom Cafetaria Celine
+      job-title: All-around employee
+      description: Worked very hard under a strict owner to become disciplined, efficient and handy as a person with a good work ethic.
+      start: 01-01-2016
+      end: 01-01-2020
+      icon:
+        classes: fa-solid fa-utensils style
+        style: "color: #5f7395;"
+
+    - employer: MedIT Solutions B.V.
+      job-title: Junior Software Engineer
+      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      start: 01-09-2021
+      end: 01-07-2022
+      icon:
+        classes: fa-solid fa-laptop
+        style: "color: #0cac59;"
 
 
 
