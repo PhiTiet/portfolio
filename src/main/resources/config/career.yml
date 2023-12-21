@@ -1,5 +1,6 @@
 career:
   birthday: 09-12-1999
+  programming-start-date: 01-07-2018
   professional-career-start-date: 01-09-2021
   certificates:
     - title: Level 2 Certificate in ESOL International (Advanced)
@@ -24,3 +25,20 @@ career:
   skills:
     - name: Java
       proficiency: 9
+    - name: Kubernetes
+      proficiency: 7
+    - name: AKS
+      proficiency: 6
+    - name: Spring Boot
+      proficiency: 8
+    - name: Coaching
+      proficiency: 7
+    - name: Clean Code & Architecture
+      proficiency: 7
+    - name: Github Actions
+      proficiency: 4
+    - name: Python
+      proficiency: 6
+    - name: Bootstrap & Thymeleaf
+      proficiency: 6
+
