@@ -15,7 +15,9 @@
                     <h5 class="card-title" style="color: #184ac9;" th:text="${skill.name}"></h5>
                     <div class="progress">
                         <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
-                             role="progressbar" th:style="'width: ' + ${skill.getProficiencyPercentage} + '%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                             role="progressbar" th:style="'width: ' + ${skill.getProficiencyPercentage} + '%'"  aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+                             role="progressbar" th:style="'width: ' + ${100 - skill.getProficiencyPercentage} + '%'"  aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>

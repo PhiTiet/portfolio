@@ -9,22 +9,23 @@
 
 <body>
 <section layout:fragment="content">
-    <div class="modal-body row"> <!-- th:style="'background: url(/static/images/background_mountain.avif)'"-->
+    <div class="row scheme-color-1">
         <div class="col-md-6">
-            <div class="row md-6">
+            <div class="row md-4">
                 <div th:replace="~{fragments/home-page/jumbotron :: jumbotron}"></div>
             </div>
-            <div class="row md-6">
+            <div class="row md-4">
                 <div th:replace="~{fragments/home-page/hobbies :: hobbies}"></div>
             </div>
-            <div class="row md-6">
-
+            <div class="row md-4">
+                <div>Placeholder</div>
             </div>
         </div>
         <div class="col-md-6">
             <div th:replace="~{fragments/home-page/carousel :: carousel}"></div>
         </div>
-
+    </div>
+    <div class="row scheme-color-2">
         <div class="col-md-3">
             <div th:replace="~{fragments/home-page/certificates :: certificates}"></div>
         </div>
