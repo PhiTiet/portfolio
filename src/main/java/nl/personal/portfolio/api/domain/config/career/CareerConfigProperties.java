@@ -3,6 +3,7 @@ package nl.personal.portfolio.api.domain.config.career;
 import lombok.Data;
 import nl.personal.portfolio.api.domain.Certificate;
 import nl.personal.portfolio.api.domain.Skill;
+import nl.personal.portfolio.api.domain.TimelineEvent;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -28,4 +29,6 @@ public class CareerConfigProperties implements CareerProperties {
     private List<Certificate> certificates;
 
     private List<Skill> skills;
+
+    private List<TimelineEvent> events;
 }

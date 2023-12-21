@@ -41,4 +41,18 @@ career:
       proficiency: 6
     - name: Bootstrap & Thymeleaf
       proficiency: 6
+  events:
+    - title: Deen Distributie
+      description: some
+      icon-html-class: fa-fa somethin
+      start:
+        day-of-month: 2
+        month: 12
+        year: 2002
+      end:
+        day-of-month: 3
+        month: 12
+        year: 2002
+
+
 

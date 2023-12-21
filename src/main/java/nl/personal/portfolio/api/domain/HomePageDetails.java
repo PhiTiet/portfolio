@@ -11,5 +11,6 @@ public record HomePageDetails(
       Period professionalProgrammerPeriod,
       Period programmerPeriod,
       List<Certificate> certificates,
-      List<Skill> skills) {
+      List<Skill> skills,
+      List<TimelineEvent> events) {
 }

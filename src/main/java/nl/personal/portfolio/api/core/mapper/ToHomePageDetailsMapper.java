@@ -22,6 +22,7 @@ public class ToHomePageDetailsMapper implements Mapper<CareerProperties, HomePag
                 .programmerPeriod(between(careerProperties.getProgrammingStartDate(), now()))
                 .certificates(careerProperties.getCertificates().stream().sorted(reverseOrder()).toList())
                 .skills(careerProperties.getSkills().stream().sorted(reverseOrder()).toList())
+                .events(careerProperties.getEvents())
                 .build();
     }
 }

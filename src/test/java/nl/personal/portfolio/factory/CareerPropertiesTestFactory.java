@@ -8,6 +8,7 @@ import java.util.Collections;
 
 import static nl.personal.portfolio.factory.CertificateTestFactory.defaultCertificate;
 import static nl.personal.portfolio.factory.SkillTestFactory.defaultSkill;
+import static nl.personal.portfolio.factory.TimelineEventTestFactory.defaultTimelineEvent;
 
 public class CareerPropertiesTestFactory {
     public static CareerProperties defaultCareerProperties() {
@@ -17,6 +18,7 @@ public class CareerPropertiesTestFactory {
         properties.setProgrammingStartDate(LocalDate.of(2012, 12, 12));
         properties.setCertificates(Collections.nCopies(5, defaultCertificate()));
         properties.setSkills(Collections.nCopies(5, defaultSkill()));
+        properties.setEvents(Collections.nCopies(5, defaultTimelineEvent()));
         return properties;
     }
 }
