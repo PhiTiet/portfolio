@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/about")
 public class AboutController {
     @GetMapping
-    public String portfolio(){
+    public String about() {
         return "about-page";
     }
 }
