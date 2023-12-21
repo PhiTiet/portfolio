@@ -13,10 +13,11 @@
                                            th:style="${event.icon.style}"></i></span>
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title section-two-card-title" th:text="${event.jobTitle}"></h5>
+                    <h5 class="card-title" th:text="${event.jobTitle}"></h5>
                     <strong class="card-text">Employer: </strong><span th:text="${event.employer}"></span>
                     <br>
-                    <span th:text="${event.getWorkPeriod()}"></span>
+                    <span class="text-right position-absolute top-0 end-0 p-2"
+                          th:text="${event.getWorkPeriod()}"></span>
                     <br>
                     <span class="mb-0" th:text="${event.description}"></span>
                 </div>
