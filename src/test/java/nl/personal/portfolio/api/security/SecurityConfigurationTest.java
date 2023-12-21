@@ -39,7 +39,7 @@ class SecurityConfigurationTest {
         static List<Arguments> testCases(){
             return List.of(
                     Arguments.arguments(ANONYMOUS_URL, status().is2xxSuccessful()),
-                    Arguments.arguments(AUTHENTICATED_URL, status().isUnauthorized())
+                    Arguments.arguments(AUTHENTICATED_URL, status().isForbidden())
             );
         }
     }
