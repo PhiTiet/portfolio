@@ -2,6 +2,8 @@ package nl.personal.portfolio.api.domain.config.career;
 
 import lombok.Data;
 import nl.personal.portfolio.api.domain.Certificate;
+import nl.personal.portfolio.api.domain.Skill;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,4 +26,6 @@ public class CareerConfigProperties implements CareerProperties {
     private LocalDate programmingStartDate;
 
     private List<Certificate> certificates;
+
+    private List<Skill> skills;
 }
