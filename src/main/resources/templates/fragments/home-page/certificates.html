@@ -13,10 +13,9 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title section-two-card-title" th:text="${certificate.title}"></h5>
-                <p class="card-text"><strong>Institution: </strong><span th:text="${certificate.institution}"></span>
-                </p>
-                <p class="card-text"><strong>Acquisition Date: </strong> <span
-                        th:text="${certificate.formattedAcquisitionDate()}"></span></p>
+                <strong class="card-text">Institution: </strong><span th:text="${certificate.institution}"></span>
+                <br>
+                <strong class="card-text">Acquisition Date: </strong> <span th:text="${certificate.formattedAcquisitionDate()}"></span>
             </div>
         </div>
     </div>
