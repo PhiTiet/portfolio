@@ -11,14 +11,11 @@
 <section layout:fragment="content" data-bs-spy="scroll" data-bs-target="#my-navbar" data-bs-smooth-scroll="true">
     <div class="row scheme-color-1" id="about-me">
         <div class="col-md-6">
-            <div class="row md-4">
+            <div class="row md-6">
                 <div th:replace="~{fragments/home-page/jumbotron :: jumbotron}"></div>
             </div>
-            <div class="row md-4">
+            <div class="row md-6">
                 <div th:replace="~{fragments/home-page/hobbies :: hobbies}"></div>
-            </div>
-            <div class="row md-4">
-                <div>Placeholder</div>
             </div>
         </div>
         <div class="col-md-6">
@@ -26,14 +23,16 @@
         </div>
     </div>
     <div class="row scheme-color-2" id="cv">
-        <!--TODO: FIX TE DRUK-->
-        <div class="col-md-3">
+        <div class="col-md-12">
+            <div th:replace="~{fragments/home-page/timeline :: timeline}"></div>
+        </div>
+    </div>
+
+    <div class="row scheme-color-2" id="test">
+        <div class="col-md-6">
             <div th:replace="~{fragments/home-page/certificates :: certificates}"></div>
         </div>
         <div class="col-md-6">
-            <div th:replace="~{fragments/home-page/timeline :: timeline}"></div>
-        </div>
-        <div class="col-md-3">
             <div th:replace="~{fragments/home-page/skills :: skills}"></div>
         </div>
     </div>
