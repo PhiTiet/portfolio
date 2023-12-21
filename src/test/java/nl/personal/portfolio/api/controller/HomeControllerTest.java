@@ -11,7 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static nl.personal.portfolio.factory.HomePageDetailsTestFactory.homePageDetails;
+import static nl.personal.portfolio.factory.HomePageDetailsTestFactory.defaultHomePageDetails;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,7 +29,7 @@ class HomeControllerTest {
 
     @Test
     void getOk() throws Exception {
-        Mockito.when(homePageService.getDetails()).thenReturn(homePageDetails());
+        Mockito.when(homePageService.getDetails()).thenReturn(defaultHomePageDetails());
         mockMvc.perform(get(BASE_PATH)).andExpect(status().isOk());
         Mockito.verify(homePageService).getDetails();
     }

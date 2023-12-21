@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static nl.personal.portfolio.factory.HomePageDetailsTestFactory.homePageDetails;
+import static nl.personal.portfolio.factory.HomePageDetailsTestFactory.defaultHomePageDetails;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,7 +24,7 @@ class HomePageServiceImplTest {
 
     @Test
     void getDetails() {
-        when(toHomePageDetailsMapper.map(any(CareerProperties.class))).thenReturn(homePageDetails());
+        when(toHomePageDetailsMapper.map(any(CareerProperties.class))).thenReturn(defaultHomePageDetails());
         sut.getDetails();
         verify(toHomePageDetailsMapper).map(any(CareerProperties.class));
     }
