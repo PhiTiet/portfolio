@@ -4,7 +4,8 @@
 .progress-bar {
     transform: rotate(180deg);
 }
-#home   {
+/*for navbar scrollspy to the firs telement*/
+#about-me {
     padding-top: 50px;
     margin-top: -50px;
 }
@@ -14,19 +15,20 @@
   background-size: cover;
 }
 
+.my-header {
+    font-size: 4vh;
+}
+
 .hobby-card {
     border-radius: 8px;
     transition: transform 0.3s;
     background-color: #CCDDEB;
 }
 
-.my-header {
-    font-size: 4vh;
-}
-
 .hobby-card:hover {
     transform: scale(1.10);
 }
+
 .section-two-card-title{
     color: #4E6E8C;
 }
@@ -48,4 +50,3 @@
 .scheme-color-6 {
     background-color: #4E6E8C;
 }
-
