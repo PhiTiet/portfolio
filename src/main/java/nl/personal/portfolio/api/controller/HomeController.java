@@ -1,5 +1,7 @@
 package nl.personal.portfolio.api.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.RequiredArgsConstructor;
 import nl.personal.portfolio.api.core.HomePageService;
 import org.springframework.stereotype.Controller;

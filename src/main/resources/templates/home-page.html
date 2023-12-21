@@ -8,8 +8,8 @@
 </head>
 
 <body>
-<section layout:fragment="content">
-    <div class="row scheme-color-1">
+<section layout:fragment="content" data-bs-spy="scroll" data-bs-target="#my-navbar" data-bs-smooth-scroll="true">
+    <div class="row scheme-color-1" id="home">
         <div class="col-md-6">
             <div class="row md-4">
                 <div th:replace="~{fragments/home-page/jumbotron :: jumbotron}"></div>
@@ -25,7 +25,7 @@
             <div th:replace="~{fragments/home-page/carousel :: carousel}"></div>
         </div>
     </div>
-    <div class="row scheme-color-2">
+    <div class="row scheme-color-2" id="cv">
         <div class="col-md-3">
             <div th:replace="~{fragments/home-page/certificates :: certificates}"></div>
         </div>

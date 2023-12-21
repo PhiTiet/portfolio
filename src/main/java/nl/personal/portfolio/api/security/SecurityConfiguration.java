@@ -32,9 +32,6 @@ public class SecurityConfiguration {
                         authorization
                                 .requestMatchers(anonymousRequestMatcher).permitAll()
                                 .anyRequest().authenticated())
-                .exceptionHandling(exceptionHandling ->
-                        exceptionHandling
-                                .authenticationEntryPoint(new HttpStatusEntryPoint(UNAUTHORIZED))) // 401 for unauthenticated
                 .build();
 
     }
