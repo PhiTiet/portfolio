@@ -17,10 +17,13 @@ import java.util.List;
 @ConfigurationProperties(prefix = "career")
 public class CareerConfigProperties implements CareerProperties {
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate birthday;
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate professionalCareerStartDate;
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate programmingStartDate;
 
     private List<Certificate> certificates;
