@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
 public record Certificate(
         String title,
         String institution,
-        @DateTimeFormat(pattern = "dd-MM-yyyy")
         LocalDate acquisitionDate) implements Comparable<Certificate> {
 
     public String formattedAcquisitionDate() {
