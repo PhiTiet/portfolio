@@ -3,21 +3,25 @@
 <head>
 </head>
 <body>
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark scheme-color-4" th:fragment="navbar">
+<nav class="navbar navbar-expand-sm navbar-dark scheme-color-4 flex-sm-nowrap flex-wrap fixed-top"
+     id="my-navbar" th:fragment="navbar">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}" >Home</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/about}">about</a>
+        <span class="flex-grow-1"></span>
+        <div class="navbar-collapse collapse flex-grow-1 justify-content-center">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item px-2">
+                    <a class="nav-link" href="#home">Home</a>
+
+                <li class="nav-item px-2">
+                    <a class="nav-link" href="#cv">CV</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a class="nav-link" th:href="@{/about}">About</a>
                 </li>
             </ul>
         </div>
+        <div class="flex-grow-1"></div>
     </div>
 </nav>
-</div>
 </body>
 </html>

@@ -13,7 +13,7 @@ public record Certificate(
         LocalDate acquisitionDate) implements Comparable<Certificate> {
 
     public String formattedAcquisitionDate() {
-        return acquisitionDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        return acquisitionDate.format(DateTimeFormatter.ofPattern("MM-yyyy"));
     }
 
     @Override

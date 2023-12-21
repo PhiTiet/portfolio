@@ -4,6 +4,10 @@
 .progress-bar {
     transform: rotate(180deg);
 }
+#home   {
+    padding-top: 50px;
+    margin-top: -50px;
+}
 .carousel-item {
   height: 80vh;
   min-height: 350px;
@@ -26,7 +30,6 @@
 .section-two-card-title{
     color: #4E6E8C;
 }
-
 .scheme-color-1{
     background-color: #EBDECC;
 }
