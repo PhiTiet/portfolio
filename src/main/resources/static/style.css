@@ -1,3 +1,5 @@
+@media (min-width: 981px) { body { padding-top: 56px; } }
+
 .carousel-item {
   height: 80vh;
   min-height: 350px;
@@ -17,3 +19,20 @@
 .hobby-card:hover {
     transform: scale(1.10);
 }
+
+.scheme-color-1{
+    background-color: #EBDECC;
+}
+.scheme-color-2{
+    background-color: #7492AB;
+}
+.scheme-color-3{
+    background-color: #CCDDEB;
+}
+.scheme-color-4{
+    background-color: #967E5A;
+}
+.scheme-color-5{
+    background-color: #2E506B;
+}
+
