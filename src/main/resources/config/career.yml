@@ -42,17 +42,12 @@ career:
     - name: Bootstrap & Thymeleaf
       proficiency: 6
   events:
-    - title: Deen Distributie
-      description: some
-      icon-html-class: fa-fa somethin
-      start:
-        day-of-month: 2
-        month: 12
-        year: 2002
-      end:
-        day-of-month: 3
-        month: 12
-        year: 2002
+    - employer: DEEN Distribution Centre
+      job-title: Storage employee
+      description: My first job!
+      icon-html-class: fa-regular fa-circle-play
+      start: 01-01-2015
+      end: 31-12-2015
 
 
 
