@@ -25,29 +25,50 @@ career:
   skills:
     - name: Java
       proficiency: 9
+
     - name: Kubernetes
       proficiency: 7
+
     - name: AKS
       proficiency: 6
+
     - name: Spring Boot
       proficiency: 8
+
     - name: Coaching
       proficiency: 7
+
     - name: Clean Code & Architecture
       proficiency: 7
+
     - name: Github Actions
       proficiency: 4
+
     - name: Python
       proficiency: 6
+
     - name: Bootstrap & Thymeleaf
       proficiency: 6
+
   events:
     - employer: DEEN Distribution Centre
       job-title: Storage employee
-      description: My first job!
-      icon-html-class: fa-regular fa-circle-play
+      description: cx
       start: 01-01-2015
-      end: 31-12-2015
+      end: 01-06-2015
+      icon:
+        classes: fas fa-regular fa-circle-play
+        style:
+
+    - employer: McDonald’s
+      job-title: Crew member
+      description: cx
+      start: 01-06-2015
+      end: 01-01-2016
+      icon:
+        classes: fas fa-regular fa-burger fa-bounce
+        style: "color: #e18709;"
+
 
 
 
