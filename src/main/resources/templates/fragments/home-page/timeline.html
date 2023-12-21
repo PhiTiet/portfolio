@@ -3,20 +3,27 @@
 <head></head>
 
 <body>
-<section class="py-5" th:fragment="timeline">
+<div class="container mt-4 border border-dark rounded p-4 scheme-color-6" th:fragment="timeline">
+    <div class="jumbotron text-center">
+        <h2 class="display-4 my-header text-light">Work history</h2>
+    </div>
     <ul class="timeline-with-icons">
         <li class="timeline-item pb-3 mb-0" th:each="event : ${details.events}">
-            <div class="border border-dark rounded p-1">
-                <span class="timeline-icon"><i th:classappend="${event.icon.classes}"
-                                               th:style="${event.icon.style}"></i></span>
-                <div class="fw-bold pt-1" th:text="${event.jobTitle}"></div>
-                <p class="mb-0" th:text="'Employer: ' + ${event.employer}"></p>
-                <p class="mb-1" th:text="${event.getWorkPeriod}"></p>
-                <p class="mb-0" th:text="${event.description}"></p>
+            <span class="timeline-icon"><i th:classappend="${event.icon.classes}"
+                                           th:style="${event.icon.style}"></i></span>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title section-two-card-title" th:text="${event.jobTitle}"></h5>
+                    <strong class="card-text">Employer: </strong><span th:text="${event.employer}"></span>
+                    <br>
+                    <span th:text="${event.getWorkPeriod()}"></span>
+                    <br>
+                    <span class="mb-0" th:text="${event.description}"></span>
+                </div>
             </div>
         </li>
     </ul>
-</section>
+</div>
 </body>
 
 </html>
