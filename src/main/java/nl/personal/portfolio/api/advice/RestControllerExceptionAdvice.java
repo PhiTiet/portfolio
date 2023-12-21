@@ -10,25 +10,28 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import static org.springframework.http.HttpStatus.*;
 
+import lombok.extern.slf4j.Slf4j;
+
 @ControllerAdvice
+@Slf4j
 public class RestControllerExceptionAdvice {
 
     @ExceptionHandler({ConstraintViolationException.class, HttpMessageNotReadableException.class})
     @ResponseStatus(BAD_REQUEST)
-    private void badRequest(){
-
+    private void badRequest(Exception e){
+        log.info(e.getMessage(), e);
     }
 
     @ExceptionHandler({NoHandlerFoundException.class, NoResourceFoundException.class})
     @ResponseStatus(NOT_FOUND)
-    private void notFound(){
-
+    private void notFound(Exception e){
+        log.info(e.getMessage(), e);
     }
 
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
-    private void internalServerError(){
-
+    private void internalServerError(Exception e){
+        log.error(e.getMessage(), e);
     }
 
 }
