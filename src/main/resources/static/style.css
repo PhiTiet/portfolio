@@ -1,5 +1,9 @@
+/*Navbar spacing*/
 @media (min-width: 981px) { body { padding-top: 56px; } }
 
+.progress-bar {
+    transform: rotate(180deg);
+}
 .carousel-item {
   height: 80vh;
   min-height: 350px;
@@ -9,7 +13,7 @@
 .hobby-card {
     border-radius: 8px;
     transition: transform 0.3s;
-    background: rgb(255,255,255);
+    background-color: #CCDDEB;
 }
 
 .my-header {
@@ -18,6 +22,9 @@
 
 .hobby-card:hover {
     transform: scale(1.10);
+}
+.section-two-card-title{
+    color: #4E6E8C;
 }
 
 .scheme-color-1{
@@ -34,5 +41,8 @@
 }
 .scheme-color-5{
     background-color: #2E506B;
+}
+.scheme-color-6 {
+    background-color: #4E6E8C;
 }
 
