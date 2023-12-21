@@ -10,7 +10,7 @@ public record TimelineEvent(
         String employer,
         String jobTitle,
         String description,
-        String iconHtmlClass,
+        Icon icon,
         @DateTimeFormat(pattern = "dd-MM-yyyy")
         LocalDate start,
         @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -25,6 +25,6 @@ public record TimelineEvent(
         var formatter = DateTimeFormatter.ofPattern("MM-yyyy");
         var end = end().isPresent() ? end().get().format(formatter) : "current";
         var start = start().format(formatter);
-        return end + " - " + start;
+        return start + " → " + end;
     }
 }

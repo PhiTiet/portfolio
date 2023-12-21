@@ -4,16 +4,16 @@
 
 <body>
 <section class="py-5" th:fragment="timeline">
-    <ul class="timeline-with-icons" th:each="event : ${details.events}" >
-        <li class="timeline-item mb-5">
-            <span class="timeline-icon">
-                <i class="fas fa-rocket text-primary fa-sm fa-fw"></i>
-            </span>
-
-            <h5 class="fw-bold" th:text="${event.jobTitle}"></h5>
-            <p class="mb-2 fw-bold" th:text="${event.employer}"></p>
-            <p class="mb-2 fw-bold" th:text="${event.getWorkPeriod}"></p>
-            <p th:text="${event.description}"></p>
+    <ul class="timeline-with-icons">
+        <li class="timeline-item pb-3 mb-0" th:each="event : ${details.events}">
+            <div class="border border-dark rounded p-1">
+                <span class="timeline-icon"><i th:classappend="${event.icon.classes}"
+                                               th:style="${event.icon.style}"></i></span>
+                <div class="fw-bold pt-1" th:text="${event.jobTitle}"></div>
+                <p class="mb-0" th:text="'Employer: ' + ${event.employer}"></p>
+                <p class="mb-1" th:text="${event.getWorkPeriod}"></p>
+                <p class="mb-0" th:text="${event.description}"></p>
+            </div>
         </li>
     </ul>
 </section>
