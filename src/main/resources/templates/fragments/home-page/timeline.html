@@ -3,26 +3,20 @@
 <head></head>
 
 <body>
-<!-- Section: Timeline -->
 <section class="py-5" th:fragment="timeline">
-    <ul class="timeline-with-icons">
+    <ul class="timeline-with-icons" th:each="event : ${details.events}" >
         <li class="timeline-item mb-5">
             <span class="timeline-icon">
                 <i class="fas fa-rocket text-primary fa-sm fa-fw"></i>
             </span>
 
-            <h5 class="fw-bold">Title</h5>
-            <p class="mb-2 fw-bold">11 March 2020</p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
-                necessitatibus adipisci, ad alias, voluptate pariatur officia
-                repellendus repellat inventore fugit perferendis totam dolor
-                voluptas et corrupti distinctio maxime corporis optio?
-            </p>
+            <h5 class="fw-bold" th:text="${event.jobTitle}"></h5>
+            <p class="mb-2 fw-bold" th:text="${event.employer}"></p>
+            <p class="mb-2 fw-bold" th:text="${event.getWorkPeriod}"></p>
+            <p th:text="${event.description}"></p>
         </li>
     </ul>
 </section>
-<!-- Section: Timeline -->
 </body>
 
 </html>
