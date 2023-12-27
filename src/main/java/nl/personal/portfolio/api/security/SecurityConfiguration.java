@@ -6,11 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
-
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @Configuration
 @EnableWebSecurity
@@ -22,8 +19,7 @@ public class SecurityConfiguration {
         var anonymousRequestMatcher = new OrRequestMatcher(
                 requestMatcher("/"),
                 requestMatcher("/home/**"),
-                requestMatcher("/static/**"),
-                requestMatcher("/about/**")
+                requestMatcher("/static/**")
         );
 
         return httpSecurity
