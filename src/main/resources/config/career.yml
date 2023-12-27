@@ -104,7 +104,36 @@ career:
       icon:
         classes: fa-solid fa-piggy-bank fa-shake
         style: "color: #e49bd0;"
+  hobbies:
+    - name: Programming
+      icon:
+        classes: fa-solid fa-laptop-code
+        style: "color: #1ad5c0;"
 
+    - name: Food
+      icon:
+        classes: fa-solid fa-utensils fa-bounce
+        style:
+
+    - name: Chess
+      icon:
+        classes: fa-solid fa-chess-board fa-xl
+        style:
+
+    - name: Gaming
+      icon:
+        classes: fa-solid fa-gamepad fa-shake
+        style: "color: #c93c0d;"
+
+    - name: Cooking
+      icon:
+        classes: fa-solid fa-kitchen-set
+        style: "color: #636fab"
+
+    - name: Anime
+      icon:
+        classes: fa-solid fa-eye
+        style: "color: #0b53d0;"
 
 
 

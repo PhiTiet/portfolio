@@ -23,6 +23,7 @@ public class ToHomePageDetailsMapper implements Mapper<CareerProperties, HomePag
                 .certificates(careerProperties.getCertificates().stream().sorted(reverseOrder()).toList())
                 .skills(careerProperties.getSkills().stream().sorted(reverseOrder()).toList())
                 .events(careerProperties.getEvents().stream().sorted(reverseOrder()).toList())
+                .hobbies(careerProperties.getHobbies())
                 .build();
     }
 }

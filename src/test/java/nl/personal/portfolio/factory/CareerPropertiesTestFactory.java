@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 
 import static nl.personal.portfolio.factory.CertificateTestFactory.defaultCertificate;
+import static nl.personal.portfolio.factory.HobbyTestFactory.defaultHobby;
 import static nl.personal.portfolio.factory.SkillTestFactory.defaultSkill;
 import static nl.personal.portfolio.factory.TimelineEventTestFactory.defaultTimelineEvent;
 
@@ -19,6 +20,7 @@ public class CareerPropertiesTestFactory {
         properties.setCertificates(Collections.nCopies(5, defaultCertificate()));
         properties.setSkills(Collections.nCopies(5, defaultSkill()));
         properties.setEvents(Collections.nCopies(5, defaultTimelineEvent()));
+        properties.setHobbies(Collections.nCopies(5, defaultHobby()));
         return properties;
     }
 }
