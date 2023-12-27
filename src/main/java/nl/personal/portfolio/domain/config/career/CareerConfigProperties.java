@@ -2,6 +2,7 @@ package nl.personal.portfolio.domain.config.career;
 
 import lombok.Data;
 import nl.personal.portfolio.domain.Certificate;
+import nl.personal.portfolio.domain.Hobby;
 import nl.personal.portfolio.domain.Skill;
 import nl.personal.portfolio.domain.TimelineEvent;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -30,4 +31,6 @@ public class CareerConfigProperties implements CareerProperties {
     private List<Skill> skills;
 
     private List<TimelineEvent> events;
+
+    private List<Hobby> hobbies;
 }

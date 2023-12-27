@@ -1,6 +1,7 @@
 package nl.personal.portfolio.domain.config.career;
 
 import nl.personal.portfolio.domain.Certificate;
+import nl.personal.portfolio.domain.Hobby;
 import nl.personal.portfolio.domain.Skill;
 import nl.personal.portfolio.domain.TimelineEvent;
 
@@ -19,5 +20,7 @@ public interface CareerProperties {
     List<Skill> getSkills();
 
     List<TimelineEvent> getEvents();
+
+    List<Hobby> getHobbies();
 
 }

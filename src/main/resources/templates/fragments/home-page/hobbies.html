@@ -10,54 +10,12 @@
         <div class="jumbotron text-center">
             <h3 class="display-4 my-header">Hobbies</h3>
         </div>
-
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <div class="col">
+            <div th:each="hobby : ${details.hobbies}" class="col">
                 <div class="card p-3 hobby-card">
                     <div class="d-flex align-items-center justify-content-center">
-                        <p class="card-text mb-0 me-3">Programming</p>
-                        <i class="fa-solid fa-laptop-code" style="color: #1ad5c0;"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card p-3 hobby-card">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <p class="card-text mb-0 me-3">Food</p>
-                        <i class="fa-solid fa-utensils fa-bounce"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card p-3 hobby-card">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <p class="card-text mb-0 me-3">Chess</p>
-                        <i class="fa-solid fa-chess-board fa-xl"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card p-3 hobby-card">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <p class="card-text mb-0 me-3">Gaming</p>
-                        <i class="fa-solid fa-gamepad fa-shake" style="color: #c93c0d;"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card p-3 hobby-card">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <p class="card-text mb-0 me-3">Cooking</p>
-                        <i class="fa-solid fa-kitchen-set" style="color: #636fab;"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card p-3 hobby-card">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <p class="card-text mb-0 me-3">Anime</p>
-                        <i class="fa-solid fa-eye" style="color: #0b53d0;"></i>
-                        <i class="fa-solid fa-eye" style="color: #0b53d0;"></i>
+                        <p th:text="${hobby.name}" class="card-text mb-0 me-3"></p>
+                        <i th:classappend="${hobby.icon.classes}" th:style="${hobby.icon.style}"></i>
                     </div>
                 </div>
             </div>
