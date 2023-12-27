@@ -15,6 +15,10 @@
   background-size: cover;
 }
 
+.formal-font{
+  font-family: "Arial", sans, serif;
+}
+
 .my-header {
     font-size: 4rem;
 }
