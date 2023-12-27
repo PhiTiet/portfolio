@@ -8,13 +8,13 @@
         <h2 class="display-4 my-header text-light">Work history</h2>
     </div>
     <ul class="timeline-with-icons">
-        <li class="timeline-item pb-3 mb-0 " th:each="event : ${details.events}">
+        <li class="timeline-item pb-3 mb-0 formal-font" th:each="event : ${details.events}">
             <span class="timeline-icon"><i th:classappend="${event.icon.classes}"
                                            th:style="${event.icon.style}"></i></span>
             <div class="card scheme-color-3">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${event.jobTitle}"></h5>
-                    <strong class="card-text">Employer: </strong><span th:text="${event.employer}"></span>
+                    <h5 class="card-title fw-bold" th:text="${event.jobTitle}"></h5>
+                    <span class="card-text fw-bold">Employer: </span><span th:text="${event.employer}"></span>
                     <br>
                     <span class="text-right position-absolute top-0 end-0 p-2"
                           th:text="${event.getWorkPeriod()}"></span>

@@ -22,88 +22,7 @@ career:
     - title: Train De Trainer
       institution: ICM
       acquisitionDate: 01-07-2023
-  skills:
-    - name: Java
-      proficiency: 9
 
-    - name: Kubernetes
-      proficiency: 7
-
-    - name: AKS
-      proficiency: 6
-
-    - name: Spring Boot
-      proficiency: 8
-
-    - name: Coaching
-      proficiency: 7
-
-    - name: Clean Code & Architecture
-      proficiency: 7
-
-    - name: Github Actions
-      proficiency: 4
-
-    - name: Python
-      proficiency: 6
-
-    - name: Bootstrap & Thymeleaf
-      proficiency: 6
-
-  events:
-    - employer: DEEN Distribution Centre
-      job-title: Storage employee
-      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      start: 01-01-2015
-      end: 01-06-2015
-      icon:
-        classes: fa-solid fa-flag-checkered fa-beat
-        style: "color: #149f2b;"
-
-    - employer: McDonald’s
-      job-title: Crew member
-      description: cx
-      start: 01-06-2015
-      end: 01-01-2016
-      icon:
-        classes: fas fa-regular fa-burger fa-bounce
-        style: "color: #e18709;"
-
-    - employer: Lunchroom Cafetaria Celine
-      job-title: All-around employee
-      description: Worked very hard under a strict owner to become disciplined, efficient and handy as a person with a good work ethic.
-      start: 01-01-2016
-      end: 01-01-2020
-      icon:
-        classes: fa-solid fa-utensils style
-        style: "color: #5f7395;"
-
-    - employer: MedIT Solutions B.V.
-      job-title: Junior Software Engineer
-      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      start: 01-09-2021
-      end: 01-07-2022
-      icon:
-        classes: fa-solid fa-laptop
-        style: "color: #0cac59;"
-
-    - employer: Ordina
-      job-title: Medior Software Engineer
-      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      start: 01-07-2022
-      end:
-      icon:
-        classes: fa-solid fa-laptop-code
-        style: "color: #cc0f5b;"
-
-    - employer: Rabobank
-      job-title: Medior Software Engineer
-      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      start: 01-09-2022
-      end:
-      icon:
-        classes: fa-solid fa-piggy-bank fa-shake
-        style: "color: #e49bd0;"
   hobbies:
     - name: Programming
       icon:
@@ -135,5 +54,96 @@ career:
         classes: fa-solid fa-eye
         style: "color: #0b53d0;"
 
+  skills:
+    - name: Java
+      proficiency: 9
 
+    - name: Kubernetes
+      proficiency: 7
 
+    - name: AKS
+      proficiency: 6
+
+    - name: Spring Boot
+      proficiency: 8
+
+    - name: Coaching
+      proficiency: 7
+
+    - name: Clean Code & Architecture
+      proficiency: 7
+
+    - name: Github Actions
+      proficiency: 4
+
+    - name: Python
+      proficiency: 6
+
+    - name: Bootstrap 5 & Thymeleaf
+      proficiency: 6
+
+  events:
+    - employer: DEEN Distribution Centre
+      job-title: Storage employee
+      description:
+        I kicked off my career as an Order Picker at DEEN Distribution Centre. It wasn't all boxes and shelves;
+        though that was most of the work.
+      start: 01-01-2015
+      end: 01-06-2015
+      icon:
+        classes: fa-solid fa-flag-checkered fa-beat
+        style: "color: #149f2b;"
+
+    - employer: McDonald’s
+      job-title: Crew member
+      description:
+        I cut my teeth in the fast-food world at McDonald's — a crash course in fast-paced service,
+        teamwork, and the sizzling art of flipping burgers.
+      start: 01-06-2015
+      end: 01-01-2016
+      icon:
+        classes: fas fa-regular fa-burger fa-bounce
+        style: "color: #e18709;"
+
+    - employer: Lunchroom Cafetaria Celine
+      job-title: All-around employee
+      description: I worked very hard under a strict owner to become disciplined, efficient and handy as a person with
+        a good work ethic. Turns out, navigating the Horeca world was a whole different ballgame compared to my
+        McDonald's days. It added layers to my experience, revealing the challenges and flavors of
+        the hospitality industry
+      start: 01-01-2016
+      end: 01-01-2020
+      icon:
+        classes: fa-solid fa-utensils style
+        style: "color: #5f7395;"
+
+    - employer: MedIT Solutions B.V.
+      job-title: Junior Software Engineer
+      description: Stepping into the world of software engineering at a small pharmaceutical company felt like entering
+        a new dimension. Armed with my CS degree, I dove into Java Spring and Scrum methodologies,
+        discovering a whole realm of real-world application that academia only hinted at. It was a hands-on initiation
+        that brought my coding skills to life. I cherish the memories of our extended daily standups, brimming with
+        laughter and jokes, to the point where it hardly felt like I was even at work.
+      start: 01-09-2021
+      end: 01-07-2022
+      icon:
+        classes: fa-solid fa-laptop
+        style: "color: #0cac59;"
+
+    - employer: Ordina
+      job-title: Medior Software Engineer
+      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      start: 01-07-2022
+      end:
+      icon:
+        classes: fa-solid fa-laptop-code
+        style: "color: #cc0f5b;"
+
+    - employer: Rabobank
+      job-title: Medior Software Engineer
+      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      start: 01-09-2022
+      end:
+      icon:
+        classes: fa-solid fa-piggy-bank fa-shake
+        style: "color: #e49bd0;"

@@ -5,24 +5,26 @@
 </head>
 
 <body>
-    <div class="container mt-4 border rounded p-4 scheme-color-3" th:fragment="skills">
-        <div class="jumbotron text-center">
-            <h3 class="display-4 my-header">Skills</h3>
-        </div>
-        <div th:each="skill : ${details.skills}" class="row mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title section-two-card-title" th:text="${skill.name}"></h5>
-                    <div class="progress">
-                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated "
-                             role="progressbar" th:style="'width: ' + ${skill.getProficiencyPercentage} + '%'"  aria-valuemin="0" aria-valuemax="100"></div>
-                        <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
-                             role="progressbar" th:style="'width: ' + ${100 - skill.getProficiencyPercentage} + '%'"  aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+<div class="container mt-4 border rounded p-4 scheme-color-3" th:fragment="skills">
+    <div class="jumbotron text-center">
+        <h3 class="display-4 my-header">Skills</h3>
+    </div>
+    <div th:each="skill : ${details.skills}" class="row mb-3 formal-font">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title section-two-card-title" th:text="${skill.name}"></h5>
+                <div class="progress">
+                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated "
+                         role="progressbar" th:style="'width: ' + ${skill.getProficiencyPercentage} + '%'"
+                         aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+                         role="progressbar" th:style="'width: ' + ${100 - skill.getProficiencyPercentage} + '%'"
+                         aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>
