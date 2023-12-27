@@ -132,7 +132,8 @@ career:
 
     - employer: Ordina
       job-title: Medior Software Engineer
-      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      description: In my ongoing role as a software engineer in secondment, I've found a dynamic and ever-evolving
+        environment. This experience continues to be a journey of growth, exposing me to diverse projects and challenges that keep me engaged and motivated
       start: 01-07-2022
       end:
       icon:
@@ -141,7 +142,9 @@ career:
 
     - employer: Rabobank
       job-title: Medior Software Engineer
-      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      description: In my current role at Rabobank, my journey unfolds as a software engineer, expanding my skills in
+        Scrum and delving deep into Java development and devops. The cutting-edge microservices environment introduces
+        me to Kubernetes and Azure, providing a rich landscape for honing my expertise in modern software engineering.
       start: 01-09-2022
       end:
       icon:
