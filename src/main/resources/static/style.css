@@ -10,13 +10,13 @@
     margin-top: -50px;
 }
 .carousel-item {
-  height: 80vh;
+  height: 35rem;
   min-height: 350px;
   background-size: cover;
 }
 
 .my-header {
-    font-size: 4vh;
+    font-size: 4rem;
 }
 
 .hobby-card {
