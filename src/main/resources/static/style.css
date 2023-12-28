@@ -1,6 +1,6 @@
 /*Navbar spacing*/
 @media (min-width: 981px) { body { padding-top: 56px; } }
-body {overflow-x: hidden;}
+
 a { color: inherit; }
 
 .progress-bar {
