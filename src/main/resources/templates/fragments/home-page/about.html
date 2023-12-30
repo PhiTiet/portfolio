@@ -4,42 +4,38 @@
 <head>
 </head>
 
-<body>
-<div class="container row" th:fragment="about">
-    <div class="col-3">
-        <div class="jumbotron jumbotron-fluid m-3">
-            <h5> About this website</h5>
-            <p class="" th:text="'This site is served by a containerized Java Spring boot
-             application. Currently, the application runs on Java ' + ${details.currentJavaVersion} + ' and Spring
-             boot version ' + ${details.currentSpringBootVersion} +  ' With Thymeleaf templates and Bootstrap 5 as
-             frontend. I intend to keep these versions up to date.
-             As of writing, I\'m hosting the website on Azure\'s Kubernetes Service via a Github Actions workflow which
-             builds and deploys automatically on push. However, the application itself is cloud-provider agnostic
-             so that could change. I might for instance host it on my raspberry-pi due to cost concerns :)'"></p>
+<body th:fragment="about">
+<div class="col-3">
+    <div class="jumbotron jumbotron-fluid m-3">
+        <h5> About this website</h5>
+        <p class="" th:text="'This site is served by a containerized Java Spring boot
+                 application. Currently, the application runs on Java ' + ${details.currentJavaVersion} + ' and Spring
+                 boot version ' + ${details.currentSpringBootVersion} +  ' With Thymeleaf templates and Bootstrap 5 as
+                 frontend. I intend to keep these versions up to date.
+                 As of writing, I\'m hosting the website on Azure\'s Kubernetes Service via a Github Actions workflow which
+                 builds and deploys automatically on push. However, the application itself is cloud-provider agnostic
+                 so that could change. I might for instance host it on my raspberry-pi due to cost concerns :)'"></p>
 
-        </div>
     </div>
-    <div class="col-6 scheme-color-1 my-3  rounded">
-        <img th:src="@{static/images/cloud_architecture.png}" class="d-block w-100" alt="picture of cloud architecture">
-    </div>
-    <div class="col-3">
-        <div class="jumbotron jumbotron-fluid m-3">
-            <h5> Future Improvements</h5>
-            <ul class="list-group list-group-flush ">
-                <li class="list-group-item scheme-color-3">Support Https & DDoS prevention</li>
-                <li class="list-group-item scheme-color-3">Open-source repository safely</li>
-                <li class="list-group-item scheme-color-3">OAuth 2 for login & commenting</li>
-                <li class="list-group-item scheme-color-3">Extend color scheme</li>
-                <li class="list-group-item scheme-color-3">Use a different frontend-framework</li>
-                <li class="list-group-item scheme-color-3">Improved responsiveness</li>
-                <li class="list-group-item scheme-color-3">Further accessibility improvements</li>
-                <li class="list-group-item scheme-color-3">Spicier layout</li>
-            </ul>
-        </div>
-    </div>
-
 </div>
-
+<div class="col-6 scheme-color-1 my-3  rounded">
+    <img th:src="@{static/images/cloud_architecture.png}" class="d-block w-100" alt="picture of cloud architecture">
+</div>
+<div class="col-3">
+    <div class="jumbotron jumbotron-fluid m-3">
+        <h5> Future Improvements</h5>
+        <ul class="list-group list-group-flush ">
+            <li class="list-group-item scheme-color-3">Support Https & DDoS prevention</li>
+            <li class="list-group-item scheme-color-3">Open-source repository safely</li>
+            <li class="list-group-item scheme-color-3">OAuth 2 for login & commenting</li>
+            <li class="list-group-item scheme-color-3">Extend color scheme</li>
+            <li class="list-group-item scheme-color-3">Use a different frontend-framework</li>
+            <li class="list-group-item scheme-color-3">Improved responsiveness</li>
+            <li class="list-group-item scheme-color-3">Further accessibility improvements</li>
+            <li class="list-group-item scheme-color-3">Improve cloud cost efficiency</li>
+        </ul>
+    </div>
+</div>
 </body>
 
 </html>
