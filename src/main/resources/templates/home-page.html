@@ -40,8 +40,13 @@
         <div class="col-1"></div>
     </div>
 
-    <div class="row scheme-color-1" id="letters">
-        <div th:replace="~{fragments/home-page/recommendation :: recommendation}"></div>
+    <div class="row scheme-color-1 py-3" id="letters">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div th:replace="~{fragments/home-page/recommendation :: recommendation}"></div>
+        </div>
+        <div class="col-1"></div>
+
     </div>
     <div class="row scheme-color-2" id="about">
         <div th:replace="~{fragments/home-page/about :: about}"></div>
