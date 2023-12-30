@@ -5,11 +5,56 @@
 </head>
 
 <body th:fragment="recommendation">
-<div class="col-1"></div>
-<div class="col-10">
-    
+<div class="jumbotron text-center">
+    <h3 class="display-4 my-header">Recommendation Letters</h3>
 </div>
-<div class="col-1"></div>
+<div class="accordion accordion-flush" id="recommendationAccordion">
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                Armend Hoxha
+            </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+             data-bs-parent="#recommendationAccordion">
+            <div class="accordion-body"> HERE
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                Rob Smorenburg
+            </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+             data-bs-parent="#recommendationAccordion">
+            <div class="accordion-body">HERE
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Finally...
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+             data-bs-parent="#recommendationAccordion">
+            <div class="accordion-body d-flex justify-content-center">
+                <img th:src="@{static/images/recommendation_meme.jpg}" class=" d-block"
+                     alt="meme wishing I had more recommendation letters :(. I guess you can't have it all.">
+            </div>
+        </div>
+    </div>
+
+</div>
 </body>
 
 </html>
