@@ -16,6 +16,7 @@ class ToHomePageDetailsMapperTest {
     void map() {
         var properties = defaultCareerProperties();
         var result = sut.map(properties);
+        
         assertThat(result.certificates()).isEqualTo(properties.getCertificates());
         assertThat(result.hobbies()).isEqualTo(properties.getHobbies());
         assertThat(result.skills()).isEqualTo(properties.getSkills());
