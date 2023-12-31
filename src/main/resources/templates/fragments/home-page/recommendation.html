@@ -8,6 +8,7 @@
 <div class="jumbotron text-center">
     <h3 class="display-4 my-header">Recommendation Letters</h3>
 </div>
+<hr class="my-4">
 <div class="accordion accordion-flush" id="recommendationAccordion">
 
     <div class="accordion-item">
@@ -19,7 +20,8 @@
         </h2>
         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
              data-bs-parent="#recommendationAccordion">
-            <div class="accordion-body"> HERE
+            <div class="accordion-body">
+                <embed th:src="@{static/pdf/recommendation_letter_armend_hoxha.pdf}" class="min-vh-100 w-100">
             </div>
         </div>
     </div>
@@ -33,7 +35,8 @@
         </h2>
         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
              data-bs-parent="#recommendationAccordion">
-            <div class="accordion-body">HERE
+            <div class="accordion-body d-flex justify-content-center">
+                <embed th:src="@{static/pdf/recommendation_letter_rob_smorgenburg.pdf}" class="min-vh-100 w-100">
             </div>
         </div>
     </div>

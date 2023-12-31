@@ -11,7 +11,7 @@ a { color: inherit; }
 .progress-bar {
     transform: rotate(180deg);
 }
-/*for navbar scrollspy to the firs telement*/
+/*for navbar scrollspy to the first element*/
 #about-me {
     padding-top: 50px;
     margin-top: -50px;
