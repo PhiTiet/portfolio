@@ -10,25 +10,26 @@
 <body>
 <nav layout:fragment="content" data-bs-spy="scroll" data-bs-target="#my-navbar" data-bs-smooth-scroll="true">
 
-    <section>
-        <div class="row scheme-color-1" id="about-me">
-            <div class="col-6">
+    <section class="scheme-color-1">
+        <div class="row" id="about-me">
+            <div class="col">
                 <article th:replace="~{fragments/home-page/aboutme :: aboutme}"></article>
             </div>
 
-            <div class="col-6">
+            <div class="col">
                 <article th:replace="~{fragments/home-page/carousel :: carousel}"></article>
             </div>
         </div>
-        <div class="row scheme-color-1 pb-3">
-            <div class="col-6">
+        <hr class="m-4">
+        <div class="row pb-3">
+            <div class="col">
                 <article th:replace="~{fragments/home-page/hobbies :: hobbies}"></article>
             </div>
 
-            <div class="col-6">
+            <div class="col">
                 <article th:replace="~{fragments/home-page/hobbytext :: hobbytext}"></article>
             </div>
-            
+
         </div>
     </section>
 
