@@ -51,8 +51,8 @@ career:
 
     - name: Anime
       icon:
-        classes: fa-solid fa-eye
-        style: "color: #0b53d0;"
+        classes: fa-solid fa-user-secret
+        style:
 
   skills:
     - name: Java
