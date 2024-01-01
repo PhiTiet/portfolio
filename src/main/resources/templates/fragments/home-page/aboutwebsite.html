@@ -8,7 +8,7 @@
 <div class="col-3">
     <div class="jumbotron jumbotron-fluid m-3">
         <h5> About this website</h5>
-        <p th:text="'This site is served by a containerized Java Spring boot
+        <span th:text="'This site is served by a containerized Java Spring boot
                  application. Currently, the application runs on Java ' + ${details.currentJavaVersion} + ' and Spring
                  boot version ' + ${details.currentSpringBootVersion} +  ' With Thymeleaf templates and Bootstrap 5 as
                  frontend. I intend to keep these versions up to date.
@@ -18,7 +18,12 @@
                  DDoS protection & Https is provided through cloudflare, which acts as a proxy between the DNS and the
                  Ingress controller.Finally, I\'ve made the versions and time-periods dynamic, they\'re calculated
                  serverside. As for the  Spring Boot architecture, I\'ve adhered to a layered architecture with easily
-                 updatable items (experience, hobbies, certificates, and skills) from configuration.'"></p>
+                 updatable items (experience, hobbies, certificates, and skills) from configuration. Check out the
+                 repository for yourself'">
+        </span>
+        <button type="button" class="btn btn-sm btn-outline-success">
+            <a href="https://github.com/PhiTiet/portfolio" target="_blank">here</a>
+        </button>
     </div>
 </div>
 <div class="col-6 scheme-color-3 my-3 rounded py-3">
@@ -27,7 +32,7 @@
 <div class="col-3">
     <div class="jumbotron jumbotron-fluid m-3">
         <h5> Future Improvements</h5>
-        <ul class="list-group list-group-flush ">
+        <ul class="list-group list-group-flush">
             <li class="list-group-item scheme-color-3"><s>Support Https & DDoS prevention</s></li>
             <li class="list-group-item scheme-color-3"><s>Publicize repository safely</s></li>
             <li class="list-group-item scheme-color-3">OAuth 2 for login & commenting</li>

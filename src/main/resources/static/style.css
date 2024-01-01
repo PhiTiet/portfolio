@@ -5,8 +5,10 @@ html, body {
   max-width: 100%;
   overflow-x: hidden;
 }
-
-a { color: inherit; }
+a, u {
+  text-decoration: none;
+  color: inherit;
+}
 
 .progress-bar {
     transform: rotate(180deg);
