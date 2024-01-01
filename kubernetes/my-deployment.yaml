@@ -13,5 +13,5 @@ spec:
         app: portfolio
     spec:
       containers:
-      - name: portfolio-app
-        image: otaRegistry.azurecr.io/portfolio-image:latest
+        - name: portfolio-app
+          image: portfolioProduction.azurecr.io/portfolio-image:latest
