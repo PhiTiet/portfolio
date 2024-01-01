@@ -13,7 +13,7 @@ import static java.util.Comparator.reverseOrder;
 
 @Component
 public class ToHomePageDetailsMapper implements Mapper<CareerProperties, HomePageDetails> {
-
+    //TODO: Use Mapstruct (?)
     @Override
     public HomePageDetails map(CareerProperties careerProperties) {
         return HomePageDetails.builder()
