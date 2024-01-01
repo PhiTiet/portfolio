@@ -21,7 +21,9 @@
         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
              data-bs-parent="#recommendationAccordion">
             <div class="accordion-body">
-                <embed th:src="@{static/pdf/recommendation_letter_armend_hoxha.pdf#toolbar=0}" class="min-vh-100 w-100">
+                <iframe th:src="@{static/pdf/recommendation_letter_armend_hoxha.pdf#toolbar=0}"
+                        class="min-vh-100 w-100">
+                </iframe>
             </div>
         </div>
     </div>
@@ -36,8 +38,8 @@
         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
              data-bs-parent="#recommendationAccordion">
             <div class="accordion-body d-flex justify-content-center">
-                <embed th:src="@{static/pdf/recommendation_letter_rob_smorgenburg.pdf#toolbar=0}"
-                       class="min-vh-100 w-100">
+                <iframe th:src="@{static/pdf/recommendation_letter_rob_smorgenburg.pdf#toolbar=0}"
+                        class="min-vh-100 w-100"></iframe>
             </div>
         </div>
     </div>
