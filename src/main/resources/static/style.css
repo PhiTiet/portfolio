@@ -15,11 +15,22 @@ a, u {
     padding-top: 50px;
     margin-top: -50px;
 }
-.carousel-item {
+.carousel-inner {
+  height: 0;
+  padding-bottom: 80%; /* aspect ratio */
+}
 
-  height: 35rem;
-  min-height: 80%;
-  background-size: cover;
+.carousel-item {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.carousel-item img {
+  height: 100%;
+  object-fit: cover;
 }
 
 .formal-font{

@@ -3,17 +3,19 @@
 <head>
 </head>
 <body>
-<div id="carouselExampleCaptions" class="carousel slide " data-bs-ride="carousel" th:fragment="carousel">
+<div id="carouselExampleCaptions" class="carousel slide " data-bs-ride="carousel" th:fragment="carousel" data-interval="10">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img th:src="@{static/images/self_beach.png}" class="d-block w-100" alt="picture of myself on the beach">
+            <img th:src="@{static/images/self_beach.png}"  alt="picture of myself on the beach">
         </div>
         <div class="carousel-item">
-            <img th:src="@{static/images/self_cat.png}" class="d-block w-100" alt="picture of myself with a cat">
+            <img th:src="@{static/images/self_cat.png}"  alt="picture of myself with a cat">
         </div>
         <div class="carousel-item">
-            <img th:src="@{static/images/self_pieter.png}" class="d-block w-100"
-                 alt="picture of myself with Pieter Bijl">
+            <img th:src="@{static/images/self_pieter.png}" alt="picture of myself with Pieter Bijl">
+        </div>
+        <div class="carousel-item">
+            <img th:src="@{static/images/self_build.png}" alt="Picture of myself during house renovation">
         </div>
     </div>
 </div>
