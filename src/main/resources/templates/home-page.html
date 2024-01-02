@@ -8,10 +8,10 @@
 </head>
 
 <body class="pt-5 mt-3">
-<nav layout:fragment="content" data-bs-spy="scroll" data-bs-target="#my-navbar" data-bs-smooth-scroll="true">
+<nav layout:fragment="content" data-bs-spy="scroll" data-bs-target="#my-navbar" data-bs-smooth-scroll="true" data-bs-offset="0" tabindex="0">
 
-    <section class="scheme-color-1">
-        <div class="row" id="about-me">
+    <section class="scheme-color-1" id="about-me">
+        <div class="row" >
             <div class="col-lg-6">
                 <article th:replace="~{fragments/home-page/aboutme :: aboutme}"></article>
             </div>

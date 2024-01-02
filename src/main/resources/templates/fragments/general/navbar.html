@@ -1,28 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm navbar-dark scheme-color-4 flex-sm-nowrap flex-wrap fixed-top"
+<nav class="navbar navbar-expand-sm navbar-dark scheme-color-6 fixed-top"
      id="my-navbar" th:fragment="navbar">
     <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="/static/images/favicon.ico" alt="" width="30" height="30">
+        </a>
+
         <span class="flex-grow-1"></span>
         <div class="navbar-collapse collapse flex-grow-1 justify-content-center">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item px-2">
-                    <a class="nav-link" href="#about-me">About me</a>
-
+                    <a class="nav-link text-light" href="#about-me">About me</a>
                 <li class="nav-item px-2">
-                    <a class="nav-link" href="#experience">Experience</a>
+                    <a class="nav-link text-light" href="#experience">Experience</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a class="nav-link" href="#skills">Skills</a>
+                    <a class="nav-link text-light" href="#skills">Skills</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a class="nav-link" href="#recommendation">Recommendation</a>
+                    <a class="nav-link text-light" href="#recommendation">Recommendation</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a class="nav-link" href="#about">About</a>
+                    <a class="nav-link text-light" href="#about">About</a>
                 </li>
             </ul>
         </div>
