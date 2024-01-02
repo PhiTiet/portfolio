@@ -17,7 +17,7 @@ a, u {
 }
 .carousel-inner {
   height: 0;
-  padding-bottom: 80%; /* aspect ratio */
+  padding-bottom: 100%; /* aspect ratio */
 }
 
 .carousel-item {
@@ -30,7 +30,6 @@ a, u {
 
 .carousel-item img {
   height: 100%;
-  object-fit: cover;
 }
 
 .formal-font{
