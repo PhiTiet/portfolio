@@ -43,7 +43,7 @@ a, u {
 .hobby-card {
     border-radius: 8px;
     transition: transform 0.3s;
-    background-color: #CCDDEB;
+    background: transparent
 }
 
 .hobby-card:hover {
