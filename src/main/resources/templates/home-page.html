@@ -7,16 +7,16 @@
     <title>Home</title>
 </head>
 
-<body>
+<body class="pt-5">
 <nav layout:fragment="content" data-bs-spy="scroll" data-bs-target="#my-navbar" data-bs-smooth-scroll="true">
 
     <section class="scheme-color-1">
         <div class="row" id="about-me">
-            <div class="col">
+            <div class="col-lg-6">
                 <article th:replace="~{fragments/home-page/aboutme :: aboutme}"></article>
             </div>
 
-            <div class="col">
+            <div class="col-lg-6">
                 <article th:replace="~{fragments/home-page/carousel :: carousel}"></article>
             </div>
         </div>
@@ -35,33 +35,42 @@
 
 
     <section class="row scheme-color-2 pb-3" id="experience">
-        <div class="col">
+        <div class="col-lg-6">
             <article th:replace="~{fragments/home-page/timeline :: timeline}"></article>
         </div>
     </section>
 
     <section class="row scheme-color-5 pb-3" id="skills">
-        <div class="col-1"></div>
-        <div class="col-5">
+        <div class="col-0 col-lg-1"></div>
+        <div class="col-lg-5">
             <article th:replace="~{fragments/home-page/certificates :: certificates}"></article>
         </div>
-        <div class="col-5">
+        <div class="col-lg-5">
             <article th:replace="~{fragments/home-page/skills :: skills}"></article>
         </div>
-        <div class="col-1"></div>
+        <div class="col-0 col-lg-1"></div>
     </section>
 
     <section class="row scheme-color-1 pb-3" id="recommendation">
-        <div class="col-1"></div>
-        <div class="col-10">
+        <div class="col-0 col-lg-1"></div>
+        <div class="col-12 col-lg-10">
             <article th:replace="~{fragments/home-page/recommendation :: recommendation}"></article>
         </div>
-        <div class="col-1"></div>
+        <div class="col-0 col-lg-1"></div>
 
     </section>
 
     <section class="row scheme-color-2" id="about">
-        <article th:replace="~{fragments/home-page/aboutwebsite :: aboutwebsite}"></article>
+        <div class="col-12 col-lg-3">
+            <article th:replace="~{fragments/home-page/aboutwebsite :: aboutwebsite}"></article>
+        </div>
+        <div class="col-12 col-lg-6 scheme-color-3 my-3 rounded py-3">
+            <img th:src="@{static/images/cloud_architecture.png}" class="d-block w-100" alt="picture of cloud architecture">
+        </div>
+        <div class="col-12 col-lg-3">
+            <article th:replace="~{fragments/home-page/improvements :: improvements}"></article>
+
+        </div>
     </section>
 
 </nav>

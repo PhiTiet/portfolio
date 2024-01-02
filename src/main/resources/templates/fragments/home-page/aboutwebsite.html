@@ -4,9 +4,8 @@
 <head>
 </head>
 
-<body th:fragment="aboutwebsite">
-<div class="col-3">
-    <div class="jumbotron jumbotron-fluid m-3">
+<body >
+    <div class="jumbotron jumbotron-fluid m-3" th:fragment="aboutwebsite">
         <h5> About this website</h5>
         <span th:text="'This site is served by a containerized Java Spring boot
                  application. Currently, the application runs on Java ' + ${details.currentJavaVersion} + ' and Spring
@@ -26,28 +25,6 @@
         </button>
         <span>.</span>
     </div>
-</div>
-<div class="col-6 scheme-color-3 my-3 rounded py-3">
-    <img th:src="@{static/images/cloud_architecture.png}" class="d-block w-100" alt="picture of cloud architecture">
-</div>
-<div class="col-3">
-    <div class="jumbotron jumbotron-fluid m-3">
-        <h5> Future Improvements</h5>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item scheme-color-3"><s>Support Https & DDoS prevention</s></li>
-            <li class="list-group-item scheme-color-3"><s>Publicize repository safely</s></li>
-            <li class="list-group-item scheme-color-3">OAuth 2 for login & commenting</li>
-            <li class="list-group-item scheme-color-3">Extend color scheme</li>
-            <li class="list-group-item scheme-color-3">More semantic HTML</li>
-            <li class="list-group-item scheme-color-3">Improved responsiveness</li>
-            <li class="list-group-item scheme-color-3">Further accessibility improvements</li>
-            <li class="list-group-item scheme-color-3"><s>Improve cloud cost efficiency</s></li>
-            <li class="list-group-item scheme-color-3">SonarQube & NexusIQ in pipeline</li>
-            <li class="list-group-item scheme-color-3">Add relevant links to Hobbies</li>
-            <li class="list-group-item scheme-color-3">Contact form</li>
-        </ul>
-    </div>
-</div>
 </body>
 
 </html>
