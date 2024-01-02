@@ -16,7 +16,7 @@ public class HomeController {
 
     @GetMapping()
     public String home(Model model) {
-        var details = homePageService.getDetails();
+        final var details = homePageService.getDetails();
         model.addAttribute("details", details);
         return "home-page";
     }

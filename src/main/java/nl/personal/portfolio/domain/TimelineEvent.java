@@ -24,9 +24,9 @@ public record TimelineEvent(
     }
 
     public String getWorkPeriod() {
-        var formatter = DateTimeFormatter.ofPattern("MM-yyyy");
-        var end = end().isPresent() ? end().get().format(formatter) : "current";
-        var start = start().format(formatter);
+        final var formatter = DateTimeFormatter.ofPattern("MM-yyyy");
+        final var end = end().isPresent() ? end().get().format(formatter) : "current";
+        final var start = start().format(formatter);
         return start + " → " + end;
     }
 }

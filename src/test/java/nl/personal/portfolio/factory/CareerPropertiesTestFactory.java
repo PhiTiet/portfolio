@@ -13,7 +13,7 @@ import static nl.personal.portfolio.factory.TimelineEventTestFactory.defaultTime
 
 public class CareerPropertiesTestFactory {
     public static CareerProperties defaultCareerProperties() {
-        var properties = new CareerConfigProperties();
+        final var properties = new CareerConfigProperties();
         properties.setBirthday(LocalDate.of(1999, 12, 9));
         properties.setProfessionalCareerStartDate(LocalDate.of(1980, 2, 2));
         properties.setProgrammingStartDate(LocalDate.of(2012, 12, 12));

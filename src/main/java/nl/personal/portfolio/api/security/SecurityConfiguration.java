@@ -17,7 +17,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
-        var anonymousRequestMatcher = new OrRequestMatcher(
+        final var anonymousRequestMatcher = new OrRequestMatcher(
                 requestMatcher("/"),
                 requestMatcher("/home/**"),
                 requestMatcher("/static/**")

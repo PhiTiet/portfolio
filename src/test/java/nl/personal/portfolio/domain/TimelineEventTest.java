@@ -13,26 +13,26 @@ class TimelineEventTest {
 
 
     @Test
-    void equals() {
+    void equalsAndHashCode() {
         EqualsVerifier.forClass(TimelineEvent.class).verify();
     }
 
     @Test
     void workPeriodIsCurrent() {
-        var currentPattern = Pattern.compile("^(0[1-9]|1[0-2])-(\\d{4}) → current$");
-        var currentEvent = defaultTimelineEvent().toBuilder().end(Optional.empty()).build();
+        final var currentPattern = Pattern.compile("^(0[1-9]|1[0-2])-(\\d{4}) → current$");
+        final var currentEvent = defaultTimelineEvent().toBuilder().end(Optional.empty()).build();
 
-        var matcher = currentPattern.matcher(currentEvent.getWorkPeriod());
+        final var matcher = currentPattern.matcher(currentEvent.getWorkPeriod());
 
         assertThat(matcher).matches();
     }
 
     @Test
     void workPeriodIsNotCurrent() {
-        var nonCurrentPattern = Pattern.compile("^(0[1-9]|1[0-2])-(\\d{4}) → (0[1-9]|1[0-2])-(\\d{4})$");
-        var nonCurrentEvent = defaultTimelineEvent();
+        final var nonCurrentPattern = Pattern.compile("^(0[1-9]|1[0-2])-(\\d{4}) → (0[1-9]|1[0-2])-(\\d{4})$");
+        final var nonCurrentEvent = defaultTimelineEvent();
 
-        var matcher = nonCurrentPattern.matcher(nonCurrentEvent.getWorkPeriod());
+        final var matcher = nonCurrentPattern.matcher(nonCurrentEvent.getWorkPeriod());
         assertThat(matcher).matches();
 
     }

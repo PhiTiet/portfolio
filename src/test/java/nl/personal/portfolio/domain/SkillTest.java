@@ -10,7 +10,7 @@ class SkillTest {
     private final Skill sut = defaultSkill();
 
     @Test
-    void equals() {
+    void equalsAndHashCode() {
         EqualsVerifier.forClass(Skill.class).verify();
     }
 

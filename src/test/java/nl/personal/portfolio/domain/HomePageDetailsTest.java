@@ -11,7 +11,7 @@ class HomePageDetailsTest {
     private final HomePageDetails sut = defaultHomePageDetails();
 
     @Test
-    void equals() {
+    void equalsAndHashCode() {
         EqualsVerifier.forClass(HomePageDetails.class).verify();
     }
 
