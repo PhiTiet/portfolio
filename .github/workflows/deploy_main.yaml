@@ -6,7 +6,7 @@ name: deploy_main
   workflow_dispatch: { }
 env:
   ACR_RESOURCE_GROUP: production
-  AZURE_CONTAINER_REGISTRY: portfolioProduction
+  AZURE_CONTAINER_REGISTRY: prodPortfolio
   CLUSTER_NAME: production
   CLUSTER_RESOURCE_GROUP: production
   CONTAINER_NAME: portfolio
