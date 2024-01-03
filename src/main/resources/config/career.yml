@@ -57,6 +57,9 @@ career:
   skills:
     - name: Java
       proficiency: 9
+      
+    - name: Microservice architecture
+      proficiency: 7
 
     - name: Kubernetes
       proficiency: 7
