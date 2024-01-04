@@ -70,6 +70,9 @@ career:
     - name: AKS
       proficiency: 6
 
+    - name: OAuth2
+      proficiency: 6
+
     - name: Spring Boot
       proficiency: 8
 
