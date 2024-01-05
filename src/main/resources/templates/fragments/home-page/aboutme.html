@@ -8,36 +8,36 @@
         <h1 class="display-4 text-center">Hey, I'm Phi</h1>
         <hr class="my-4">
 
-        <span class="lead" th:text="
+        <p class="lead" th:text="
         'Hey there! I\'m Phi, your neighborhood software engineer clocking in at ' + ${details.age()} + ' years
         old. I stumbled into the coding world ' + ${details.programmerPeriod().getYears()} + ' years ago. I\'ve been
         in love with the craft ever since, taking pride in my work as I hone my craftsmanship. Truly, the thought that
-         there is always more to learn and improve keeps me striving to improve and practice.'"></span>
+         there is always more to learn and improve keeps me striving to improve and practice.'"></p>
+
+        <span class="lead">
+            For a glimpse in my latest ability in software engineering check out the repository used to build and host
+            this website
+            <a href="https://github.com/PhiTiet/portfolio" target="_blank">
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                    here
+                </button>
+            </a>
+            . If you're instead interested in my programming and problem-solving ability I'd urge you to check out my
+            latest Advent Of Code repository
+            <a href="https://github.com/PhiTiet/AdventOfCode2023" target="_blank">
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                    here
+                </button>
+            </a>
+            .
+        </span>
 
         <a class="lead text-primary" data-bs-toggle="collapse" href="#readMore" role="button" aria-expanded="false" aria-controls="readMore">
             Read more...
         </a>
 
-
+        <br>
         <div class="collapse" id="readMore">
-            <br>
-            <p class="lead">
-                For a glimpse in my latest ability in software engineering check out the repository used to build and host
-                this website
-                <a href="https://github.com/PhiTiet/portfolio" target="_blank">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">
-                        here
-                    </button>
-                </a>
-                . If you're instead interested in my programming and problem-solving ability I'd urge you to check out my
-                latest Advent Of Code repository
-                <a href="https://github.com/PhiTiet/AdventOfCode2023" target="_blank">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">
-                        here
-                    </button>
-                </a>
-                .
-            </p>
 
             <p class="lead" th:text="
         'Professionally, I\'ve been at it for over ' + ${details.professionalProgrammerPeriod().getYears()} + ' years and
