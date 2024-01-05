@@ -11,7 +11,7 @@
     </div>
     <div th:each="skill : ${details.skills}" class="row mb-3 formal-font">
         <h5 class="card-title" th:text="${skill.name}"></h5>
-        <div class="progress p-0">
+        <div class="progress p-0 ">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
                  role="progressbar" th:style="'width: ' + ${skill.getProficiencyPercentage} + '%'"
                  aria-valuemin="0" aria-valuemax="100"></div>
