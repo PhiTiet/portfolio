@@ -1,8 +1,9 @@
+#enable again once AKS environment is desired $$$
 name: deploy_main
 "on":
-  push:
-    branches:
-      - main
+#  push:
+#    branches:
+#      - main
   workflow_dispatch: { }
 env:
   ACR_RESOURCE_GROUP: production
