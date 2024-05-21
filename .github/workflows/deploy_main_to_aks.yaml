@@ -1,5 +1,5 @@
 #enable again once AKS environment is desired $$$
-name: deploy_main
+name: deploy_main_to_aks
 "on":
 #  push:
 #    branches:
