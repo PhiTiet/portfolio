@@ -17,10 +17,11 @@
             However, the website still builds and deploys automatically on push. Because the application itself is c
             loud-provider agnostic , I've (relatively) quickly switched to hosting it on my raspberry-pi due to cost concerns :).
             DDoS protection & Https is provided through cloudflare, which acts as a proxy between the DNS and the
-            Ingress controller. I'm using oznu/cloudflare-ddns to interface with Cloudflare and update my DNS records dynamically
-            ever 5 minutes.
-            Ziggo only provides static IP adresses to its business customers, which I'm not willing to pay, then I might as well
-            host it on Azure.
+            Ingress controller.
+
+            I'm using oznu/cloudflare-ddns to interface with Cloudflare and update my DNS records dynamically every 5 minutes.
+            Ziggo only provides static IP adresses to its business customers, which I'm not willing to pay, because then I might as well
+            host it on Azure without the hassle.
         </p>
 
         <span>
