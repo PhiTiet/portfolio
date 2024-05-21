@@ -13,11 +13,14 @@
                      frontend. I intend to keep these versions up to date.'">
         </p>
         <p>
-            As of writing, I'm hosting the website on Azure's Kubernetes Service via a Github Actions workflow which
-            builds and deploys automatically on push. However, the application itself is cloud-provider agnostic
-            so that could change. I might for instance host it on my raspberry-pi due to cost concerns :).
+            As of writing, I'm no longer hosting the website on Azure's Kubernetes Service via a Github Actions workflow which
+            builds and deploys automatically on push. However, because the application itself is cloud-provider agnostic
+            this has changed. I'm now hosting it on my raspberry-pi due to cost concerns :).
             DDoS protection & Https is provided through cloudflare, which acts as a proxy between the DNS and the
-            Ingress controller.
+            Ingress controller. I'm using oznu/cloudflare-ddns to interface with Cloudflare and update my DNS records dynamically
+            ever 5 minutes.
+            Ziggo only provides static IP adresses to its business customers, which I'm not willing to pay, then I might as well
+            host it on Azure.
         </p>
 
         <span>
