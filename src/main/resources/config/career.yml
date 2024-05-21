@@ -141,21 +141,33 @@ career:
 
     - employer: Ordina
       job-title: Medior Software Engineer
-      description: In my ongoing role as a software engineer in secondment, I've found a dynamic and ever-evolving
+      description: In my previous role as a software engineer in secondment, I've found a dynamic and ever-evolving
         environment. This experience continues to be a journey of growth, exposing me to diverse projects and challenges that keep me engaged and motivated
+        this experience as a consultant surely will contribute to my journey as an engineer.
       start: 01-07-2022
-      end:
+      end: 01-04-2024
       icon:
         classes: fa-solid fa-laptop-code
         style: "color: #cc0f5b;"
 
     - employer: Rabobank
       job-title: Medior Software Engineer
-      description: In my current role at Rabobank, my journey unfolds as a software engineer, expanding my skills in
+      description: In my  previous role at Rabobank, my journey unfolds as a software engineer, expanding my skills in
         Scrum and delving deep into Java development and devops. The cutting-edge microservices environment introduces
         me to Kubernetes and Azure, providing a rich landscape for honing my expertise in modern software engineering.
       start: 01-09-2022
-      end:
+      end: 01-04-2024
       icon:
         classes: fa-solid fa-piggy-bank fa-shake
         style: "color: #e49bd0;"
+
+    - employer: Qualogy
+      job-title: Medior Software Engineer
+      description: My consultancy career continues as I love my current role as Medior Java Software Engineer at Qualogy. 
+        I'm excited for the amazing assignments Qualogy has in store for me!
+      start: 01-04-2024
+      end:
+      icon:
+        classes: fa-solid fa-q
+        style: "color: #b91d1d;"
+
