@@ -34,5 +34,5 @@ jobs:
         run: |
           docker buildx build \
             --platform linux/arm64,linux/amd64 \
-            --tag ${{github.repository}}:latest \
+            --tag ghcr.io/${{github.repository}}:latest \
             --push .
