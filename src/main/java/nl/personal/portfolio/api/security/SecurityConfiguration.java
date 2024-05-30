@@ -25,12 +25,12 @@ public class SecurityConfiguration {
 
         return httpSecurity
                 .headers(headers -> headers
-                    .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
-                    .httpStrictTransportSecurity(HeadersConfigurer.HstsConfig::disable))
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
+                        .httpStrictTransportSecurity(HeadersConfigurer.HstsConfig::disable))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorization -> authorization
-                    .requestMatchers(anonymousRequestMatcher).permitAll()
-                    .anyRequest().authenticated())
+                        .requestMatchers(anonymousRequestMatcher).permitAll()
+                        .anyRequest().authenticated())
                 .build();
 
     }

@@ -18,19 +18,19 @@ public class RestControllerExceptionAdvice {
 
     @ExceptionHandler({ConstraintViolationException.class, HttpMessageNotReadableException.class})
     @ResponseStatus(BAD_REQUEST)
-    private void badRequest(Exception e){
+    private void badRequest(Exception e) {
         log.info(e.getMessage(), e);
     }
 
     @ExceptionHandler({NoHandlerFoundException.class, NoResourceFoundException.class})
     @ResponseStatus(NOT_FOUND)
-    private void notFound(Exception e){
+    private void notFound(Exception e) {
         log.info(e.getMessage(), e);
     }
 
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
-    private void internalServerError(Exception e){
+    private void internalServerError(Exception e) {
         log.error(e.getMessage(), e);
     }
 

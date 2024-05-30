@@ -18,7 +18,7 @@ public class HomeController {
 
     private final HomePageService homePageService;
 
-    @RequestMapping(method = { POST,  GET })
+    @RequestMapping(method = {POST, GET})
     public String home(Model model) {
         final var details = homePageService.getDetails();
         model.addAttribute("details", details);
