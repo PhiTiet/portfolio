@@ -3,7 +3,7 @@
 <head>
 </head>
 <body>
-<div class="carousel slide px-3 pt-4" data-bs-ride="carousel" th:fragment="carousel" data-bs-interval="4500">
+<div class="carousel slide px-3 pt-4" data-bs-ride="carousel" th:fragment="carousel" data-bs-interval="4500" id="myCarousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img th:src="@{static/images/self_cat.png}" alt="Two Pictures of myself with my cat">
@@ -18,6 +18,14 @@
             <img th:src="@{static/images/self_chess.png}" alt="Picture of myself during a chess game OTB">
         </div>
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
 </body>
 </html>
