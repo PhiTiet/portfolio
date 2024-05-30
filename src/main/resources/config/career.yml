@@ -71,7 +71,7 @@ career:
       proficiency: 6
 
     - name: OAuth2
-      proficiency: 6
+      proficiency: 7
 
     - name: Spring Boot
       proficiency: 8
@@ -83,7 +83,7 @@ career:
       proficiency: 7
 
     - name: Github Actions
-      proficiency: 4
+      proficiency: 6
 
     - name: Python
       proficiency: 6
