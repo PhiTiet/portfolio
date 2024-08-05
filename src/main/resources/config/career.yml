@@ -173,7 +173,8 @@ career:
 
     - employer: Ahold Delhaize
       job-title: Software Engineer
-      description:
+      description: Working at Ahold Delhaize is exciting, as a Kotlin software engineer I'm tasked with maintaining and
+        adding to a vast, event-based microservice architecture!
       start: 01-08-2024
       end:
       icon:
