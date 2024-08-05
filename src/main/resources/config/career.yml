@@ -171,3 +171,12 @@ career:
         classes: fa-solid fa-q
         style: "color: #b91d1d;"
 
+    - employer: Ahold Delhaize
+      job-title: Software Engineer
+      description:
+      start: 01-08-2024
+      end:
+      icon:
+        classes: "fa-duotone fa-solid fa-cart-shopping"
+        style:
+
