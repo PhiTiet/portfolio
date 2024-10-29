@@ -13,10 +13,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class HomePageServiceImplTest {
+class CareerServiceImplTest {
 
     @Autowired
-    private HomePageServiceImpl sut;
+    private CareerServiceImpl sut;
 
     @MockBean
     private ToHomePageDetailsMapper toHomePageDetailsMapper;

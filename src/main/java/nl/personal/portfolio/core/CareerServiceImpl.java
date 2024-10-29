@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class HomePageServiceImpl implements HomePageService {
+public class CareerServiceImpl implements CareerService {
     private final CareerProperties careerProperties;
     private final ToHomePageDetailsMapper toHomePageDetailsMapper;
 
