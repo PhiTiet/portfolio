@@ -173,8 +173,12 @@ career:
 
     - employer: Ahold Delhaize
       job-title: Software Engineer
-      description: Working at Ahold Delhaize is exciting, as a Kotlin software engineer I'm tasked with maintaining and
-        adding to a vast, event-based microservice architecture!
+      description: In my role as the sole Kotlin developer on a cross-functional team of Salesforce admins and developers,
+        I revamped legacy Kotlin microservices into robust, compliant services using in-house frameworks.
+        I enforced event-driven Kafka protocols, regularly represented my team in architecture sessions, and introduced clean code,
+        architecture principles, pair programming, and quality gate practices.
+        I led knowledge-sharing initiatives, organized cross-team sessions, and drove our backlog with improvement and roadmap tasks.
+        My work utilized Kotlin, Spring Boot, Kubernetes, ArgoCD, Kafka, and other key technologies.
       start: 01-08-2024
       end:
       icon:
