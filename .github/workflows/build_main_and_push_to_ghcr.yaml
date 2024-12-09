@@ -1,4 +1,4 @@
-name: deploy_main_to_raspberry
+name: build_main_and_push_to_ghcr
 on:
   push:
     branches:
@@ -11,14 +11,12 @@ jobs:
     steps:
       - name: checkout_code
         uses: actions/checkout@v4
+
       - name: setup_java_21
         uses: actions/setup-java@v4
         with:
           distribution: 'adopt'
           java-version: '21'
-
-      - name: setup_docker_buildx
-        uses: docker/setup-buildx-action@v3
 
       - name: build_with_maven
         run: mvn clean package
@@ -31,9 +29,8 @@ jobs:
           password: ${{secrets.GITHUB_TOKEN}}
 
       - name: build_and_push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           context: .
-          platforms: linux/arm64
           tags: ghcr.io/phitiet/portfolio:latest
