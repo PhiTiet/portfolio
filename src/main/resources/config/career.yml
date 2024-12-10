@@ -57,6 +57,9 @@ career:
   skills:
     - name: Java
       proficiency: 9
+
+    - name: Kotlin
+      proficiency: 9
       
     - name: Microservice architecture
       proficiency: 7
