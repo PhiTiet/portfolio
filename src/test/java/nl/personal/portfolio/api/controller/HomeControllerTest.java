@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static nl.personal.portfolio.factory.HomePageDetailsTestFactory.defaultHomePageDetails;
@@ -21,7 +21,7 @@ class HomeControllerTest {
 
     private static final String BASE_PATH = "/";
 
-    @MockBean
+    @MockitoBean
     private CareerService careerService;
 
     @Autowired

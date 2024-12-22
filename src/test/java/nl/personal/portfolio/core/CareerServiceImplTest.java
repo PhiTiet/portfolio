@@ -5,7 +5,7 @@ import nl.personal.portfolio.domain.config.career.CareerProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static nl.personal.portfolio.factory.HomePageDetailsTestFactory.defaultHomePageDetails;
 import static org.mockito.ArgumentMatchers.any;
@@ -18,7 +18,7 @@ class CareerServiceImplTest {
     @Autowired
     private CareerServiceImpl sut;
 
-    @MockBean
+    @MockitoBean
     private ToHomePageDetailsMapper toHomePageDetailsMapper;
 
     @Test
