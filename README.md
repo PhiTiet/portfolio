@@ -5,3 +5,5 @@ AKS,
 Thymleaf & Bootstrap 5,
 Github Actions,
 Kubernetes
+
+This package is deployed and hosted, check it out [here!](https://phitiet.nl)
