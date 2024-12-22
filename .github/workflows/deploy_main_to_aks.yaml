@@ -29,7 +29,7 @@ jobs:
           java-version: '21'
       - name: Build with Maven
         run: mvn clean package
-      - uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
+      - uses: azure/login@a65d910e8af852a8061c627c456678983e180302
         name: Azure login
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -48,7 +48,7 @@ jobs:
       - buildImage
     steps:
       - uses: actions/checkout@v3
-      - uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
+      - uses: azure/login@a65d910e8af852a8061c627c456678983e180302
         name: Azure login
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
