@@ -18,8 +18,7 @@ public class HomeController {
 
     @RequestMapping(method = {POST, GET})
     public String home(Model model) {
-        final var details = careerService.getDetails();
-        model.addAttribute("details", details);
+        model.addAttribute("details", careerService.getDetails());
         return "home-page";
     }
 }
