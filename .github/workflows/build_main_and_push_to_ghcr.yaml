@@ -1,4 +1,7 @@
 name: build_main_and_push_to_ghcr
+permissions:
+  contents: read
+  pull-requests: write
 on:
   push:
     branches:
