@@ -1,6 +1,6 @@
 # Portfolio Website
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/PhiTiet/portfolio/build_and_publish.yml?branch=main)
+![Build Status](https://img.shields.io/github/actions/workflow/status/PhiTiet/portfolio/build_and_publish.yaml?branch=main)
 ![Last Commit](https://img.shields.io/github/last-commit/PhiTiet/portfolio)
 ![Docker Image](https://img.shields.io/docker/image-size/phitiet/portfolio/latest)
 ![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fphitiet.nl)
