@@ -77,6 +77,4 @@ mvn test
 This project uses GitHub Actions for CI/CD. The workflow includes:
 - Building the application.
 - Running tests.
-- Pushing Docker images to Docker Hub.
-- Deploying to AKS.
-
+- Pushing Docker images to GHCR
