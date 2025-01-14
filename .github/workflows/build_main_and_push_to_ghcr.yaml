@@ -27,7 +27,7 @@ jobs:
           java-version: 21
 
       - name: build_with_maven
-        run: mvn clean package
+        run: mvn clean package -B -T 4
 
       - name: login_to_docker
         uses: docker/login-action@v3

@@ -1,4 +1,4 @@
-FROM openjdk:21
+FROM alpine/java:21-jdk
 MAINTAINER Phi
 EXPOSE 80
 COPY target/portfolio.jar app.jar
