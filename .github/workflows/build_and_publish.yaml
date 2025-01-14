@@ -1,4 +1,4 @@
-name: build_main_and_push_to_ghcr
+name: build_and_publish
 
 permissions:
   contents: read
