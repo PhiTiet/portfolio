@@ -5,7 +5,7 @@
 ![Docker Image](https://img.shields.io/docker/image-size/phitiet/portfolio/latest)
 ![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fphitiet.nl)
 
-Welcome to my personal portfolio website repository! This project showcases my skills, experience, and work as a software engineer. It's designed to demonstrate modern software development practices and includes tools and technologies that I actively use.
+Welcome to my personal portfolio website repository! This project showcases my skills, experience, and work as a software engineer. It's designed to demonstrate modern software development practices and includes tools and technologies that I actively use. Nowadays I also avidly code in Kotlin and I aim to replace the frontend design (and maybe stack) in the future.
 
 ## Features
 
