@@ -175,7 +175,7 @@ career:
         style: "color: #b91d1d;"
 
     - employer: Ahold Delhaize
-      job-title: Software Engineer
+      job-title: Senior Software Engineer
       description: In my role as the sole Kotlin developer on a cross-functional team of Salesforce admins and developers,
         I revamped legacy Kotlin microservices into robust, compliant services using in-house frameworks.
         I enforced event-driven Kafka protocols, regularly represented my team in architecture sessions, and introduced clean code,
