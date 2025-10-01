@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: setup_java_21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: adopt
           java-version: 21
