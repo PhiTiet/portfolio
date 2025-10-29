@@ -19,7 +19,14 @@ public class SecurityConfiguration {
         final var anonymousRequestMatcher = new OrRequestMatcher(
                 requestMatcher("/"),
                 requestMatcher("/home/**"),
-                requestMatcher("/static/**")
+                requestMatcher("/static/**"), // legacy (kept for backward compatibility)
+                // newly added static resource patterns
+                requestMatcher("/style.css"),
+                requestMatcher("/favicon.ico"),
+                requestMatcher("/images/**"),
+                requestMatcher("/pdf/**"),
+                requestMatcher("/theme-toggle.js"),
+                requestMatcher("/enhancements.js")
         );
 
         return httpSecurity

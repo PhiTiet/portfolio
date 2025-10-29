@@ -18,9 +18,9 @@
     <properties>
         <java.version>21</java.version>
         <thymeleaf-layout-dialect.version>3.4.0</thymeleaf-layout-dialect.version>
-        <equalsverifier.version>3.19.3</equalsverifier.version>
+        <equalsverifier.version>4.2.1</equalsverifier.version>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

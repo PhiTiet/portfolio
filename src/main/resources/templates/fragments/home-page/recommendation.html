@@ -21,7 +21,7 @@
         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
              data-bs-parent="#recommendationAccordion">
             <div class="accordion-body">
-                <iframe th:src="@{static/pdf/recommendation_letter_armend_hoxha_without_signature.pdf#toolbar=0}"
+                <iframe th:src="@{/pdf/recommendation_letter_armend_hoxha_without_signature.pdf#toolbar=0}"
                         class="min-vh-100 w-100">
                 </iframe>
             </div>
@@ -38,7 +38,7 @@
         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
              data-bs-parent="#recommendationAccordion">
             <div class="accordion-body d-flex justify-content-center">
-                <iframe th:src="@{static/pdf/recommendation_letter_rob_smorgenburg_without_signature.pdf#toolbar=0}"
+                <iframe th:src="@{/pdf/recommendation_letter_rob_smorgenburg_without_signature.pdf#toolbar=0}"
                         class="min-vh-100 w-100"></iframe>
             </div>
         </div>
@@ -54,7 +54,39 @@
         <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
              data-bs-parent="#recommendationAccordion">
             <div class="accordion-body d-flex justify-content-center">
-                <iframe th:src="@{static/pdf/recommendation_rachid_without_signature.pdf#toolbar=0}"
+                <iframe th:src="@{/pdf/recommendation_rachid_without_signature.pdf#toolbar=0}"
+                        class="min-vh-100 w-100"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingFive">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                Pieter Bijl
+            </button>
+        </h2>
+        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive"
+             data-bs-parent="#recommendationAccordion">
+            <div class="accordion-body d-flex justify-content-center">
+                <iframe th:src="@{/pdf/recommendation_letter_pieter_bijl_signature_redacted.pdf#toolbar=0}"
+                        class="min-vh-100 w-100"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingSix">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                Jeroen Dee
+            </button>
+        </h2>
+        <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix"
+             data-bs-parent="#recommendationAccordion">
+            <div class="accordion-body d-flex justify-content-center">
+                <iframe th:src="@{/pdf/recommendation_letter_jeroen_dee_signature_redacted.pdf#toolbar=0}"
                         class="min-vh-100 w-100"></iframe>
             </div>
         </div>
@@ -70,7 +102,7 @@
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
              data-bs-parent="#recommendationAccordion">
             <div class="accordion-body d-flex justify-content-center">
-                <img th:src="@{static/images/recommendation_meme.jpg}" class=" d-block"
+                <img th:src="@{/images/recommendation_meme.jpg}" class=" d-block"
                      alt="meme wishing I had more recommendation letters :(. I guess you can't have it all.">
             </div>
         </div>

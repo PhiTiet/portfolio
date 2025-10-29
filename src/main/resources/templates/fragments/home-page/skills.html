@@ -5,19 +5,18 @@
 </head>
 
 <body>
-<div class="container mt-4 border rounded p-4 scheme-color-3" th:fragment="skills">
-    <div class="jumbotron text-center">
-        <h3 class="display-4 my-header">Skills</h3>
+<div class="container mt-4 border rounded p-4 scheme-color-3" th:fragment="skills" aria-labelledby="skills-heading">
+    <div class="text-center mb-3">
+        <h2 id="skills-heading" class="my-header">Skills</h2>
     </div>
-    <div th:each="skill : ${details.skills}" class="row mb-3 formal-font">
-        <h5 class="card-title" th:text="${skill.name}"></h5>
-        <div class="progress p-0 ">
-            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
-                 role="progressbar" th:style="'width: ' + ${skill.getProficiencyPercentage} + '%'"
-                 aria-valuemin="0" aria-valuemax="100"></div>
-            <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
-                 role="progressbar" th:style="'width: ' + ${100 - skill.getProficiencyPercentage} + '%'"
-                 aria-valuemin="0" aria-valuemax="100"></div>
+    <div th:each="skill : ${details.skills}" class="mb-4 formal-font" data-reveal>
+        <div class="d-flex justify-content-between align-items-center mb-1">
+            <h3 class="h6 mb-0" th:text="${skill.name}"></h3>
+            <span class="text-muted small" th:text="${skill.proficiency} + '/10'"></span>
+        </div>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+             th:aria-valuenow="${skill.getProficiencyPercentage}">
+            <div class="progress-bar bg-success" th:style="'width: ' + ${skill.getProficiencyPercentage} + '%'" th:title="${skill.name} + ' proficiency ' + ${skill.proficiency} + '/10'"></div>
         </div>
     </div>
 </div>
