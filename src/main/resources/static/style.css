@@ -1,3 +1,36 @@
+/* Design tokens & dark mode additions */
+:root {
+    --color-bg-1: #EBDECC;
+    --color-bg-2: #7492AB;
+    --color-bg-3: #CCDDEB;
+    --color-bg-4: #967E5A;
+    --color-bg-5: #2E506B;
+    --color-bg-6: #4E6E8C;
+    --color-text: #1a1d21;
+    --color-text-inverse: #ffffff;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --transition-base: 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+.dark {
+    --color-bg-1: #2b2620;
+    --color-bg-2: #2f4250;
+    --color-bg-3: #1f303c;
+    --color-bg-4: #5a4834;
+    --color-bg-5: #183244;
+    --color-bg-6: #27455a;
+    --color-text: #f5f6f7;
+    --color-text-inverse: #ffffff;
+}
+
+body {
+    color: var(--color-text);
+    background: var(--color-bg-3);
+    transition: background var(--transition-base), color var(--transition-base);
+}
+
 html, body {
     max-width: 100%;
     overflow-x: hidden;
@@ -44,43 +77,28 @@ a, u {
 }
 
 
+/* Improve card hover for hobby */
 .hobby-card {
-    border-radius: 8px;
-    transition: transform 0.3s;
-    background: transparent
+    border-radius: var(--radius-md);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(2px);
 }
-
 .hobby-card:hover {
-    transform: scale(1.10);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 
 .section-two-card-title {
     color: #4E6E8C;
 }
 
-.scheme-color-1 {
-    background-color: #EBDECC;
-}
-
-.scheme-color-2 {
-    background-color: #7492AB;
-}
-
-.scheme-color-3 {
-    background-color: #CCDDEB;
-}
-
-.scheme-color-4 {
-    background-color: #967E5A;
-}
-
-.scheme-color-5 {
-    background-color: #2E506B;
-}
-
-.scheme-color-6 {
-    background-color: #4E6E8C;
-}
+.scheme-color-1 { background-color: var(--color-bg-1); }
+.scheme-color-2 { background-color: var(--color-bg-2); }
+.scheme-color-3 { background-color: var(--color-bg-3); }
+.scheme-color-4 { background-color: var(--color-bg-4); }
+.scheme-color-5 { background-color: var(--color-bg-5); }
+.scheme-color-6 { background-color: var(--color-bg-6); }
 
 /*timeline*/
 .timeline-with-icons {
@@ -111,3 +129,22 @@ a, u {
     align-items: center;
     justify-content: center;
 }
+
+/* Dark mode adjustments for timeline icon background */
+.dark .timeline-with-icons { border-left-color: rgba(255,255,255,0.12); }
+.dark .timeline-with-icons .timeline-icon { background: rgba(255,255,255,0.15); color: var(--color-text-inverse); }
+
+/* Utility for skip link */
+.skip-link { position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden; }
+.skip-link:focus { left: 8px; top: 8px; width:auto; height:auto; padding:8px 12px; background:#000; color:#fff; z-index:10000; border-radius: var(--radius-sm); }
+
+/* Theme toggle button refinement */
+.btn-theme-toggle { border:1px solid rgba(255,255,255,0.5); }
+.btn-theme-toggle:focus-visible { outline:2px solid #fff; outline-offset:2px; }
+
+/* Smooth section transitions */
+section { transition: background-color var(--transition-base); }
+
+/* Reveal animation */
+[data-reveal] { opacity:0; transform: translateY(16px); transition: opacity .6s var(--transition-base), transform .6s var(--transition-base); }
+[data-reveal].revealed { opacity:1; transform: translateY(0); }

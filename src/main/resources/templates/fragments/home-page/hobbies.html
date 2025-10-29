@@ -5,23 +5,23 @@
 </head>
 
 <body>
-    <div class="container rounded pb-3" th:fragment="hobbies">
-        <div class="jumbotron text-center">
-            <h3 class="display-4 my-header">Hobbies</h3>
+    <div class="container rounded pb-3" th:fragment="hobbies" aria-labelledby="hobbies-heading">
+        <div class="text-center mb-3">
+            <h2 id="hobbies-heading" class="my-header">Hobbies</h2>
         </div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <div th:each="hobby : ${details.hobbies}" class="col">
-                <div class="card p-3 hobby-card">
+            <div th:each="hobby : ${details.hobbies}" class="col" data-reveal>
+                <article class="card p-3 hobby-card h-100" th:aria-label="${hobby.name}">
                     <div class="d-flex align-items-center justify-content-center">
-                        <p th:text="${hobby.name}" class="card-text mb-0 me-3"></p>
-                        <i th:classappend="${hobby.icon.classes}" th:style="${hobby.icon.style}"></i>
+                        <p th:text="${hobby.name}" class="card-text mb-0 me-3 fw-semibold"></p>
+                        <i th:classappend="${hobby.icon.classes}" th:style="${hobby.icon.style}" aria-hidden="true"></i>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </div>
 
-    <div class="jumbotron jumbotron-fluid" th:fragment="text">
+    <div class="jumbotron jumbotron-fluid" th:fragment="text" data-reveal>
         <div class="container mt-5">
             <p class="lead"
                th:text="

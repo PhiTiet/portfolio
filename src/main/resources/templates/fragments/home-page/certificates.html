@@ -5,20 +5,18 @@
 </head>
 
 <body>
-<div class="container mt-4 border rounded p-4 scheme-color-3" th:fragment="certificates">
-    <div class="jumbotron text-center">
-        <h3 class="display-4 my-header">Certificates</h3>
+<div class="container mt-4 border rounded p-4 scheme-color-3" th:fragment="certificates" aria-labelledby="certificates-heading">
+    <div class="text-center mb-3">
+        <h2 id="certificates-heading" class="my-header">Certificates</h2>
     </div>
-    <div th:each="certificate : ${details.certificates}" class="row mb-3 formal-font">
-        <div class="card">
+    <div th:each="certificate : ${details.certificates}" class="mb-3 formal-font" data-reveal>
+        <article class="card border-0 shadow-sm h-100">
             <div class="card-body">
-                <h5 class="card-title section-two-card-title" th:text="${certificate.title}"></h5>
-                <strong class="card-text">Institution: </strong><span th:text="${certificate.institution}"></span>
-                <br>
-                <strong class="card-text">Acquisition Date: </strong> <span
-                    th:text="${certificate.formattedAcquisitionDate()}"></span>
+                <h3 class="h6 card-title section-two-card-title mb-1" th:text="${certificate.title}"></h3>
+                <p class="mb-1"><span class="fw-semibold">Institution:</span> <span th:text="${certificate.institution}"></span></p>
+                <p class="mb-0"><span class="fw-semibold">Acquired:</span> <time th:text="${certificate.formattedAcquisitionDate()}"></time></p>
             </div>
-        </div>
+        </article>
     </div>
 </div>
 </body>

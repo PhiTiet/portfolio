@@ -3,26 +3,22 @@
 <head></head>
 
 <body>
-<div class="container mt-4 rounded p-4 " th:fragment="timeline">
-    <div class="jumbotron text-center">
-        <h2 class="display-4 my-header text-light">Work history</h2>
+<div class="container mt-4 rounded p-4" th:fragment="timeline" aria-labelledby="work-history-heading">
+    <div class="text-center mb-3">
+        <h2 id="work-history-heading" class="my-header text-light">Work history</h2>
     </div>
-    <hr class="my-4 mb-3">
-    <ul class="timeline-with-icons">
-        <li class="timeline-item pb-3 mb-0 formal-font" th:each="event : ${details.events}">
+    <ul class="timeline-with-icons list-unstyled m-0 p-0" role="list">
+        <li class="timeline-item pb-3 mb-0 formal-font" th:each="event : ${details.events}" data-reveal>
             <span class="timeline-icon"><i th:classappend="${event.icon.classes}"
                                            th:style="${event.icon.style}"></i></span>
-            <div class="card scheme-color-3">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold" th:text="${event.jobTitle}"></h5>
-                    <span class="card-text fw-bold">Employer: </span><span th:text="${event.employer}"></span>
-                    <br>
-                    <span class="text-right position-absolute top-0 end-0 p-2"
-                          th:text="${event.getWorkPeriod()}"></span>
-                    <br>
-                    <span class="mb-0" th:text="${event.description}"></span>
+            <article class="card scheme-color-3 border-0 shadow-sm h-100">
+                <div class="card-body position-relative">
+                    <h3 class="h5 card-title fw-bold mb-1" th:text="${event.jobTitle}"></h3>
+                    <p class="mb-1"><span class="fw-semibold">Employer:</span> <span th:text="${event.employer}"></span></p>
+                    <p class="text-muted small mb-2 position-absolute top-0 end-0 p-2" th:text="${event.getWorkPeriod()}"></p>
+                    <p class="mb-0" th:text="${event.description}"></p>
                 </div>
-            </div>
+            </article>
         </li>
     </ul>
 </div>
