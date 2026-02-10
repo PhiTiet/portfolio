@@ -12,7 +12,7 @@ My personal portfolio website. Built to showcase my experience, skills, and work
 
 ## Tech Stack
 
-- **Java 21** with **Spring Boot 3**
+- **Java 25** with **Spring Boot 4**
 - **Thymeleaf** with Layout Dialect for server-side rendering
 - **Tailwind CSS 4** and **Alpine.js** for the frontend
 - **HTMX** for progressive enhancement
