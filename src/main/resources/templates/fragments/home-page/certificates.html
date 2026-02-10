@@ -18,8 +18,9 @@
         <article th:each="certificate, iterStat : ${details.certificates}" 
                  class="certificate-card"
                  th:classappend="${#strings.contains(certificate.title, 'BSc') or #strings.contains(certificate.title, 'VWO')} ? 'certificate-education' : 'certificate-professional'"
+                 th:attr="data-delay=${iterStat.index * 80}"
                  x-data="{ show: false }"
-                 x-init="setTimeout(() => show = true, iterStat.index * 80)"
+                 x-init="setTimeout(() => show = true, $el.dataset.delay)"
                  x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             
             <div class="certificate-icon">

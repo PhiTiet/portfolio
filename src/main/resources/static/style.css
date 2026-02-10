@@ -690,19 +690,9 @@ a:hover {
     z-index: 0;
 }
 
-.recommendation-card:first-child {
-    opacity: 1;
-    z-index: 1;
-}
-
 .recommendation-active {
     opacity: 1 !important;
     z-index: 1 !important;
-}
-
-.recommendation-hidden {
-    opacity: 0 !important;
-    z-index: 0 !important;
 }
 
 @media (min-width: 640px) {
@@ -778,6 +768,8 @@ a:hover {
     font-size: 0.9375rem;
     color: var(--color-text-primary);
     margin: 0;
+    text-transform: none;
+    letter-spacing: normal;
 }
 
 .recommendation-role {
@@ -911,19 +903,9 @@ a:hover {
     z-index: 0;
 }
 
-.photo-slide:first-child {
-    opacity: 1;
-    z-index: 1;
-}
-
 .photo-active {
     opacity: 1 !important;
     z-index: 1 !important;
-}
-
-.photo-hidden {
-    opacity: 0 !important;
-    z-index: 0 !important;
 }
 
 .photos-nav {

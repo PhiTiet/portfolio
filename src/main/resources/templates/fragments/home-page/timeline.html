@@ -18,8 +18,9 @@
         <div th:each="event, iterStat : ${details.events}" 
              class="timeline-item"
              th:classappend="${iterStat.first} ? 'timeline-item-current timeline-item-left' : (${iterStat.even} ? 'timeline-item-right' : 'timeline-item-left')"
+             th:attr="data-delay=${iterStat.index * 100}"
              x-data="{ show: false }"
-             x-init="setTimeout(() => show = true, iterStat.index * 100)"
+             x-init="setTimeout(() => show = true, $el.dataset.delay)"
              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
             
             <div class="timeline-marker">

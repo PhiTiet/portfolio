@@ -16,33 +16,49 @@
 
     <div class="hobbies-layout">
         <div class="hobbies-photos"
-             x-data="{ active: 0 }"
-             x-init="setInterval(() => { active = (active + 1) % 4 }, 5000)">
+             x-data="{ active: 0, total: 4, interval: null, next() { this.active = (this.active + 1) % this.total }, go(index) { this.active = index }, start() { this.interval = setInterval(() => { this.next() }, 5000) }, stop() { if (this.interval) { clearInterval(this.interval); this.interval = null } } }"
+             x-init="start()"
+             @mouseenter="stop()"
+             @mouseleave="start()"
+             @focusin="stop()"
+             @focusout="start()">
             
             <div class="photos-wrapper">
                 <img th:src="@{/images/self_chess.png}" 
                      alt="Playing chess"
                      class="photo-slide"
-                     :class="active === 0 ? 'photo-active' : 'photo-hidden'">
+                     x-show="active === 0"
+                     x-transition.opacity.duration.300ms
+                     x-cloak
+                     :class="active === 0 ? 'photo-active' : ''">
                 <img th:src="@{/images/self_cat.png}" 
                      alt="With my cat"
                      class="photo-slide"
-                     :class="active === 1 ? 'photo-active' : 'photo-hidden'">
+                     x-show="active === 1"
+                     x-transition.opacity.duration.300ms
+                     x-cloak
+                     :class="active === 1 ? 'photo-active' : ''">
                 <img th:src="@{/images/self_pieter.png}" 
                      alt="With colleague Pieter"
                      class="photo-slide"
-                     :class="active === 2 ? 'photo-active' : 'photo-hidden'">
+                     x-show="active === 2"
+                     x-transition.opacity.duration.300ms
+                     x-cloak
+                     :class="active === 2 ? 'photo-active' : ''">
                 <img th:src="@{/images/self_beach.png}" 
                      alt="At the beach"
                      class="photo-slide"
-                     :class="active === 3 ? 'photo-active' : 'photo-hidden'">
+                     x-show="active === 3"
+                     x-transition.opacity.duration.300ms
+                     x-cloak
+                     :class="active === 3 ? 'photo-active' : ''">
             </div>
             
             <div class="photos-nav">
-                <button class="photo-dot" :class="active === 0 ? 'active' : ''" @click="active = 0" aria-label="View photo 1"></button>
-                <button class="photo-dot" :class="active === 1 ? 'active' : ''" @click="active = 1" aria-label="View photo 2"></button>
-                <button class="photo-dot" :class="active === 2 ? 'active' : ''" @click="active = 2" aria-label="View photo 3"></button>
-                <button class="photo-dot" :class="active === 3 ? 'active' : ''" @click="active = 3" aria-label="View photo 4"></button>
+                <button class="photo-dot" :class="active === 0 ? 'active' : ''" @click="go(0)" aria-label="View photo 1"></button>
+                <button class="photo-dot" :class="active === 1 ? 'active' : ''" @click="go(1)" aria-label="View photo 2"></button>
+                <button class="photo-dot" :class="active === 2 ? 'active' : ''" @click="go(2)" aria-label="View photo 3"></button>
+                <button class="photo-dot" :class="active === 3 ? 'active' : ''" @click="go(3)" aria-label="View photo 4"></button>
             </div>
         </div>
 
