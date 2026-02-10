@@ -26,7 +26,8 @@ public class SecurityConfiguration {
                 requestMatcher("/images/**"),
                 requestMatcher("/pdf/**"),
                 requestMatcher("/theme-toggle.js"),
-                requestMatcher("/enhancements.js")
+                requestMatcher("/enhancements.js"),
+                requestMatcher("/webjars/**")
         );
 
         return httpSecurity

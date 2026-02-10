@@ -57,42 +57,81 @@ career:
   skills:
     - name: Java
       proficiency: 9
+      icon:
+        classes: fa-brands fa-java
+        style: color:#f89820
 
     - name: Kotlin
       proficiency: 9
-      
+      icon:
+        classes: fa-solid fa-k
+        style: color:#7F52FF
+
     - name: Microservice architecture
       proficiency: 7
+      icon:
+        classes: fa-solid fa-cubes
+        style: color:#2dd4bf
 
     - name: Agile/Scrum
       proficiency: 7
+      icon:
+        classes: fa-solid fa-arrows-spin
+        style: color:#2dd4bf
 
     - name: Kubernetes
       proficiency: 7
+      icon:
+        classes: fa-solid fa-dharmachakra
+        style: color:#326CE5
 
     - name: AKS
       proficiency: 6
+      icon:
+        classes: fa-brands fa-microsoft
+        style: color:#0078D4
 
     - name: OAuth2
       proficiency: 7
+      icon:
+        classes: fa-solid fa-key
+        style: color:#2dd4bf
 
     - name: Spring Boot
       proficiency: 8
+      icon:
+        classes: fa-solid fa-leaf
+        style: color:#6DB33F
 
     - name: Coaching
       proficiency: 7
+      icon:
+        classes: fa-solid fa-chalkboard-user
+        style: color:#2dd4bf
 
     - name: Clean Code & Architecture
       proficiency: 7
+      icon:
+        classes: fa-solid fa-broom
+        style: color:#2dd4bf
 
     - name: Github Actions
       proficiency: 6
+      icon:
+        classes: fa-brands fa-github
+        style: color:#f1f5f9
 
     - name: Python
       proficiency: 6
+      icon:
+        classes: fa-brands fa-python
+        style: color:#3776AB
 
     - name: Bootstrap 5 & Thymeleaf
       proficiency: 6
+      icon:
+        classes: fa-brands fa-bootstrap
+        style: color:#7952B3
 
   events:
     - employer: DEEN Distribution Centre

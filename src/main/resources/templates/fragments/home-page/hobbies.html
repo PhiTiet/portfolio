@@ -5,36 +5,119 @@
 </head>
 
 <body>
-    <div class="container rounded pb-3" th:fragment="hobbies" aria-labelledby="hobbies-heading">
-        <div class="text-center mb-3">
-            <h2 id="hobbies-heading" class="my-header">Hobbies</h2>
+<div th:fragment="hobbies" class="hobbies-section">
+    <div class="text-center mb-12">
+        <span class="badge mb-4">Beyond The Code</span>
+        <h2 class="text-3xl font-bold mb-4" style="color: var(--color-text-primary);">Life Outside Work</h2>
+        <p class="text-lg max-w-2xl mx-auto" style="color: var(--color-text-secondary);">
+            When I'm not pushing commits, here's what keeps me busy.
+        </p>
+    </div>
+
+    <div class="hobbies-layout">
+        <div class="hobbies-photos"
+             x-data="{ active: 0, total: 4, interval: null, next() { this.active = (this.active + 1) % this.total }, go(index) { this.active = index }, start() { this.interval = setInterval(() => { this.next() }, 5000) }, stop() { if (this.interval) { clearInterval(this.interval); this.interval = null } } }"
+             x-init="start()"
+             @mouseenter="stop()"
+             @mouseleave="start()"
+             @focusin="stop()"
+             @focusout="start()">
+            
+            <div class="photos-wrapper">
+                <img th:src="@{/images/self_chess.png}" 
+                     alt="Playing chess"
+                     class="photo-slide"
+                     x-show="active === 0"
+                     x-transition.opacity.duration.300ms
+                     x-cloak
+                     :class="active === 0 ? 'photo-active' : ''">
+                <img th:src="@{/images/self_cat.png}" 
+                     alt="With my cat"
+                     class="photo-slide"
+                     x-show="active === 1"
+                     x-transition.opacity.duration.300ms
+                     x-cloak
+                     :class="active === 1 ? 'photo-active' : ''">
+                <img th:src="@{/images/self_pieter.png}" 
+                     alt="With colleague Pieter"
+                     class="photo-slide"
+                     x-show="active === 2"
+                     x-transition.opacity.duration.300ms
+                     x-cloak
+                     :class="active === 2 ? 'photo-active' : ''">
+                <img th:src="@{/images/self_beach.png}" 
+                     alt="At the beach"
+                     class="photo-slide"
+                     x-show="active === 3"
+                     x-transition.opacity.duration.300ms
+                     x-cloak
+                     :class="active === 3 ? 'photo-active' : ''">
+            </div>
+            
+            <div class="photos-nav">
+                <button class="photo-dot" :class="active === 0 ? 'active' : ''" @click="go(0)" aria-label="View photo 1"></button>
+                <button class="photo-dot" :class="active === 1 ? 'active' : ''" @click="go(1)" aria-label="View photo 2"></button>
+                <button class="photo-dot" :class="active === 2 ? 'active' : ''" @click="go(2)" aria-label="View photo 3"></button>
+                <button class="photo-dot" :class="active === 3 ? 'active' : ''" @click="go(3)" aria-label="View photo 4"></button>
+            </div>
         </div>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <div th:each="hobby : ${details.hobbies}" class="col" data-reveal>
-                <article class="card p-3 hobby-card h-100" th:aria-label="${hobby.name}">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <p th:text="${hobby.name}" class="card-text mb-0 me-3 fw-semibold"></p>
+
+        <div class="hobbies-content">
+            <div class="hobbies-grid">
+                <div th:each="hobby, iterStat : ${details.hobbies}" 
+                     class="hobby-card">
+                    <div class="hobby-icon">
                         <i th:classappend="${hobby.icon.classes}" th:style="${hobby.icon.style}" aria-hidden="true"></i>
                     </div>
-                </article>
+                    <span class="hobby-name" th:text="${hobby.name}"></span>
+                </div>
+            </div>
+
+            <div class="personal-statement">
+                <p>
+                    After work, you'll find me wearing multiple hats — not just the coding kind. 
+                    I'm a foodie exploring culinary wonders, a game enthusiast always down for one more round, 
+                    a home-cook scrolling through recipe videos, and a chess amateur gambit'ing online and over-the-board. 
+                    Whether I'm binge-watching anime or globe-trotting in search of good Wi-Fi, 
+                    there's never a dull moment.
+                </p>
+            </div>
+
+            <div class="languages-section">
+                <h3 class="languages-title">Languages</h3>
+                <div class="languages-grid">
+                    <div class="language-item">
+                        <div class="language-header">
+                            <span class="language-name">Dutch</span>
+                            <span class="language-level">Native</span>
+                        </div>
+                        <div class="language-bar">
+                            <div class="language-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-header">
+                            <span class="language-name">English</span>
+                            <span class="language-level">Native</span>
+                        </div>
+                        <div class="language-bar">
+                            <div class="language-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-header">
+                            <span class="language-name">Vietnamese</span>
+                            <span class="language-level">Conversational</span>
+                        </div>
+                        <div class="language-bar">
+                            <div class="language-fill" style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="jumbotron jumbotron-fluid" th:fragment="text" data-reveal>
-        <div class="container mt-5">
-            <p class="lead"
-               th:text="
-           'After work, you can catch me wearing multiple hats; not just the coding kind.
-            I\'m a foodie exploring the culinary wonders of the world,
-            a (board) game enthusiast always down for one more game,
-            a home-cook hungrily scrolling through youtube recipe videos,
-            an anime enjoyer still wishing I could fire off a kamehameha,
-            a chess amateur gambit\'ing away online and over-the-board,
-            and a globe-trotter seeking Wi-Fi signals wherever I go.'">
-            </p>
-        </div>
-    </div>
+</div>
 </body>
 
 </html>
