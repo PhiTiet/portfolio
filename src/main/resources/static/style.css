@@ -674,12 +674,13 @@ a:hover {
 
 .recommendations-wrapper {
     position: relative;
-    min-height: 20rem;
+    display: grid;
 }
 
 .recommendation-card {
-    position: absolute;
-    inset: 0;
+    grid-area: 1 / 1;
+    display: flex !important;
+    flex-direction: column;
     background-color: var(--color-bg-card);
     border: 1px solid var(--color-border-light);
     border-radius: var(--radius-xl);
@@ -688,11 +689,13 @@ a:hover {
     transition: opacity var(--transition-base);
     opacity: 0;
     z-index: 0;
+    pointer-events: none;
 }
 
 .recommendation-active {
     opacity: 1 !important;
     z-index: 1 !important;
+    pointer-events: auto !important;
 }
 
 @media (min-width: 640px) {
@@ -720,6 +723,7 @@ a:hover {
     color: var(--color-text-secondary);
     margin: 0 0 1.5rem 0;
     font-style: italic;
+    flex: 1;
 }
 
 @media (min-width: 640px) {
