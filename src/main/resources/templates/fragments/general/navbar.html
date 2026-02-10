@@ -5,8 +5,9 @@
 <nav th:fragment="navbar"
      x-data="{ mobileOpen: false, scrolled: false }"
      x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
-     :class="{ 'shadow-md bg-[var(--color-bg-card)]/95 backdrop-blur-md': scrolled, 'bg-transparent': !scrolled }"
-     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+     :class="scrolled ? 'shadow-md' : ''"
+     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+     style="background-color: var(--color-bg-card); border-bottom: 1px solid var(--color-border-light);">
     <div class="container">
         <div class="flex items-center justify-between h-16">
             <a href="#" class="flex items-center gap-2 font-semibold text-lg hover:text-[var(--color-accent)] transition-colors">
@@ -20,21 +21,11 @@
                 <a href="#skills" class="px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Skills</a>
                 <a href="#certificates" class="px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Education</a>
                 <a href="#recommendations" class="px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Recommendations</a>
+                <a href="#hobbies" class="px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Hobbies</a>
+                <a href="#contact" class="px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Contact</a>
             </div>
 
             <div class="flex items-center gap-2">
-                <button id="themeToggle"
-                        type="button"
-                        class="p-2 rounded-md hover:bg-[var(--color-bg-secondary)] transition-colors"
-                        aria-label="Toggle dark mode">
-                    <svg class="theme-icon-light w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                    <svg class="theme-icon-dark w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                </button>
-
                 <button @click="mobileOpen = !mobileOpen"
                         type="button"
                         class="md:hidden p-2 rounded-md hover:bg-[var(--color-bg-secondary)] transition-colors"
@@ -66,6 +57,8 @@
             <a @click="mobileOpen = false" href="#skills" class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Skills</a>
             <a @click="mobileOpen = false" href="#certificates" class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Education</a>
             <a @click="mobileOpen = false" href="#recommendations" class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Recommendations</a>
+            <a @click="mobileOpen = false" href="#hobbies" class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Hobbies</a>
+            <a @click="mobileOpen = false" href="#contact" class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Contact</a>
         </div>
     </div>
 </nav>
