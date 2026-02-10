@@ -797,3 +797,185 @@ img[loading="lazy"] {
     background: linear-gradient(90deg, var(--color-accent), var(--color-accent-hover));
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
+
+.about-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0 0 0 / 0.6);
+    backdrop-filter: blur(4px);
+    padding: 1rem;
+}
+
+.about-panel {
+    width: 100%;
+    max-width: 48rem;
+    max-height: 90vh;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-hover));
+}
+
+.arch-diagram {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+}
+
+.arch-node {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-card);
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+}
+
+.arch-node-dev {
+    border-color: var(--color-accent);
+    background: linear-gradient(135deg, var(--color-accent-subtle), var(--color-bg-card));
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.arch-node-source {
+    border-color: var(--color-text-muted);
+    color: var(--color-text-primary);
+}
+
+.arch-node-ci {
+    border-color: var(--color-accent-light);
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+}
+
+.arch-node-registry {
+    border-color: var(--color-accent-light);
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+}
+
+.arch-node-server {
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+.arch-node-tunnel {
+    border-color: var(--color-accent-light);
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+}
+
+.arch-node-cdn {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+}
+
+.arch-node-domain {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.arch-arrow {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    flex-shrink: 0;
+}
+
+.about-tech-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+}
+
+@media (max-width: 640px) {
+    .about-panel {
+        padding: 1.25rem;
+    }
+
+    .arch-diagram {
+        gap: 0.375rem;
+        padding: 0.75rem;
+    }
+
+    .arch-node {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.6875rem;
+    }
+
+    .arch-arrow {
+        font-size: 0.75rem;
+    }
+}
+
+.about-github-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 1rem;
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+}
+
+.about-github-cta:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-subtle);
+    box-shadow: var(--shadow-md);
+    color: inherit;
+}
+
+.about-github-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    transition: all var(--transition-base);
+}
+
+.about-github-cta:hover .about-github-icon {
+    background-color: var(--color-accent);
+    color: white;
+}

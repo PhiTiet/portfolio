@@ -133,6 +133,12 @@ career:
         classes: fa-solid fa-wind
         style: color:#38BDF8
 
+    - name: OpenCode AI
+      proficiency: 8
+      icon:
+        classes: fa-solid fa-robot
+        style: color:#a78bfa
+
   events:
     - employer: DEEN Distribution Centre
       job-title: Storage employee
