@@ -2,6 +2,7 @@ name: build_and_publish
 
 permissions:
   contents: read
+  pull-requests: write
   packages: write
 
 on:
@@ -41,6 +42,4 @@ jobs:
         with:
           push: true
           context: .
-          tags: |
-            ghcr.io/phitiet/portfolio:latest
-            ghcr.io/phitiet/portfolio:${{ github.sha }}
+          tags: ghcr.io/phitiet/portfolio:latest
