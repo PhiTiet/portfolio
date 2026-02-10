@@ -16,13 +16,13 @@
             </a>
 
             <div class="hidden md:flex items-center gap-1">
-                <a href="#about-me" class="px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">About</a>
-                <a href="#experience" class="px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Experience</a>
-                <a href="#skills" class="px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Skills</a>
-                <a href="#certificates" class="px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Education</a>
-                <a href="#recommendations" class="px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Recommendations</a>
-                <a href="#hobbies" class="px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Hobbies</a>
-                <a href="#contact" class="px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Contact</a>
+                <a href="#about-me" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#certificates" class="nav-link">Education</a>
+                <a href="#recommendations" class="nav-link">Recommendations</a>
+                <a href="#hobbies" class="nav-link">Hobbies</a>
+                <a href="#contact" class="nav-link nav-link-primary">Contact</a>
             </div>
 
             <div class="flex items-center gap-2">
@@ -52,13 +52,13 @@
          x-transition:leave-end="opacity-0 -translate-y-2"
          class="md:hidden bg-[var(--color-bg-card)] border-t border-[var(--color-border)]">
         <div class="container py-3 space-y-1">
-            <a @click="mobileOpen = false" href="#about-me" class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">About</a>
-            <a @click="mobileOpen = false" href="#experience" class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Experience</a>
-            <a @click="mobileOpen = false" href="#skills" class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Skills</a>
-            <a @click="mobileOpen = false" href="#certificates" class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Education</a>
-            <a @click="mobileOpen = false" href="#recommendations" class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Recommendations</a>
-            <a @click="mobileOpen = false" href="#hobbies" class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Hobbies</a>
-            <a @click="mobileOpen = false" href="#contact" class="block px-3 py-2 text-sm font-medium rounded-md hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-accent)] transition-colors">Contact</a>
+            <a x-on:click="mobileOpen = false" href="#about-me" class="nav-link-mobile">About</a>
+            <a x-on:click="mobileOpen = false" href="#experience" class="nav-link-mobile">Experience</a>
+            <a x-on:click="mobileOpen = false" href="#skills" class="nav-link-mobile">Skills</a>
+            <a x-on:click="mobileOpen = false" href="#certificates" class="nav-link-mobile">Education</a>
+            <a x-on:click="mobileOpen = false" href="#recommendations" class="nav-link-mobile">Recommendations</a>
+            <a x-on:click="mobileOpen = false" href="#hobbies" class="nav-link-mobile">Hobbies</a>
+            <a x-on:click="mobileOpen = false" href="#contact" class="nav-link-mobile nav-link-mobile-primary">Contact</a>
         </div>
     </div>
 </nav>

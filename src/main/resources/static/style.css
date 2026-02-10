@@ -1214,3 +1214,97 @@ a:focus:not(:focus-visible) {
 img[loading="lazy"] {
     background-color: var(--color-bg-tertiary);
 }
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.nav-link:hover {
+    color: var(--color-accent);
+    background-color: var(--color-bg-secondary);
+}
+
+.nav-link-primary {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.nav-link-primary:hover {
+    background-color: var(--color-accent-hover);
+    color: white;
+}
+
+.nav-link-mobile {
+    display: block;
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.nav-link-mobile:hover {
+    color: var(--color-accent);
+    background-color: var(--color-bg-secondary);
+}
+
+.nav-link-mobile-primary {
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+}
+
+.nav-link-mobile-primary:hover {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.timeline-item-current .timeline-card {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-lg);
+}
+
+.timeline-icon-current {
+    background-color: var(--color-accent);
+    color: white;
+    transform: scale(1.15);
+}
+
+.timeline-date-current {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.timeline-current-indicator {
+    font-weight: 700;
+    margin-right: 0.5rem;
+}
+
+.timeline-current-indicator::after {
+    content: "·";
+    margin-left: 0.5rem;
+}
+
+.timeline-card-current {
+    border: 2px solid var(--color-accent);
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, var(--color-accent-subtle) 100%);
+}
+
+.timeline-card-current::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-hover));
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}

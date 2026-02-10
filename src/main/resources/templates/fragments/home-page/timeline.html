@@ -17,23 +17,24 @@
         
         <div th:each="event, iterStat : ${details.events}" 
              class="timeline-item"
-             th:classappend="${iterStat.even} ? 'timeline-item-right' : 'timeline-item-left'"
+             th:classappend="${iterStat.first} ? 'timeline-item-current timeline-item-left' : (${iterStat.even} ? 'timeline-item-right' : 'timeline-item-left')"
              x-data="{ show: false }"
              x-init="setTimeout(() => show = true, iterStat.index * 100)"
              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
             
             <div class="timeline-marker">
-                <div class="timeline-icon-wrapper">
+                <div class="timeline-icon-wrapper" th:classappend="${iterStat.first} ? 'timeline-icon-current' : ''">
                     <i th:classappend="${event.icon.classes}" th:style="${event.icon.style}"></i>
                 </div>
             </div>
 
             <div class="timeline-content">
-                <div class="timeline-date-badge">
+                <div class="timeline-date-badge" th:classappend="${iterStat.first} ? 'timeline-date-current' : ''">
+                    <span th:if="${iterStat.first}" class="timeline-current-indicator">Current</span>
                     <span th:text="${event.getWorkPeriod()}"></span>
                 </div>
                 
-                <article class="timeline-card">
+                <article class="timeline-card" th:classappend="${iterStat.first} ? 'timeline-card-current' : ''">
                     <div class="timeline-card-header">
                         <h3 class="timeline-job-title" th:text="${event.jobTitle}"></h3>
                         <p class="timeline-employer">
