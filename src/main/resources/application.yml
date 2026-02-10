@@ -1,5 +1,7 @@
 server.port: 80
 
-spring.config:
-  import:
-    - classpath:/config/career.yml
+spring:
+  threads.virtual.enabled: true
+  config:
+    import:
+      - classpath:/config/career.yml

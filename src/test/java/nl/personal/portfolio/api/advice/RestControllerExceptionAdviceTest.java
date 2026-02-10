@@ -2,6 +2,7 @@ package nl.personal.portfolio.api.advice;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.Setter;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -26,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(RestControllerExceptionAdvice.class)
 @Import(RestControllerExceptionAdviceTest.TestController.class)
+@DisplayName("RestControllerExceptionAdvice")
 class RestControllerExceptionAdviceTest {
 
     public static final String TEST_EXCEPTION_URL = "/anonymous/test_exception";
@@ -39,12 +41,13 @@ class RestControllerExceptionAdviceTest {
     @ParameterizedTest(name = "{0} must result in {1}")
     @MethodSource("exceptionTestCases")
     @WithMockUser
-    void exceptionHandling(Throwable throwable, HttpStatus httpStatus) throws Exception {
-        testController.setThrowable(throwable);
+    @DisplayName("should map exceptions to correct HTTP status")
+    void exceptionHandling(Exception exception, HttpStatus httpStatus) throws Exception {
+        testController.setException(exception);
         mockMvc.perform(get(TEST_EXCEPTION_URL)).andExpect(status().is(httpStatus.value()));
     }
 
-    static List<Arguments> exceptionTestCases(){
+    static List<Arguments> exceptionTestCases() {
         return List.of(
                 arguments(mock(ConstraintViolationException.class), BAD_REQUEST),
                 arguments(mock(HttpMessageNotReadableException.class), BAD_REQUEST),
@@ -55,12 +58,12 @@ class RestControllerExceptionAdviceTest {
 
     @Setter
     @RestController
-    static class TestController{
-        private Throwable throwable;
+    static class TestController {
+        private Exception exception;
 
         @GetMapping(TEST_EXCEPTION_URL)
-        public void get() throws Throwable{
-            throw throwable;
+        public void get() throws Exception {
+            throw exception;
         }
     }
 }

@@ -1,5 +1,6 @@
 package nl.personal.portfolio.api.security;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -20,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DisplayName("SecurityConfiguration")
 class SecurityConfigurationTest {
 
     public static final String ANONYMOUS_URL = "/home/test";
@@ -30,13 +32,14 @@ class SecurityConfigurationTest {
 
     @Nested
     class AnonymousTest {
-        @ParameterizedTest
+        @ParameterizedTest(name = "{0} should return {1}")
         @MethodSource("testCases")
+        @DisplayName("anonymous access")
         void anonymous(String url, ResultMatcher resultMatcher) throws Exception {
             mockMvc.perform(get(url)).andExpect(resultMatcher);
         }
 
-        static List<Arguments> testCases(){
+        static List<Arguments> testCases() {
             return List.of(
                     Arguments.arguments(ANONYMOUS_URL, status().is2xxSuccessful()),
                     Arguments.arguments(AUTHENTICATED_URL, status().isForbidden())
@@ -47,13 +50,14 @@ class SecurityConfigurationTest {
     @Nested
     @WithMockUser
     class AuthenticatedTest {
-        @ParameterizedTest
+        @ParameterizedTest(name = "{0} should return {1}")
         @MethodSource("testCases")
-        void anonymous(String url, ResultMatcher resultMatcher) throws Exception {
+        @DisplayName("authenticated access")
+        void authenticated(String url, ResultMatcher resultMatcher) throws Exception {
             mockMvc.perform(get(url)).andExpect(resultMatcher);
         }
 
-        static List<Arguments> testCases(){
+        static List<Arguments> testCases() {
             return List.of(
                     Arguments.arguments(ANONYMOUS_URL, status().is2xxSuccessful()),
                     Arguments.arguments(AUTHENTICATED_URL, status().is2xxSuccessful())
@@ -61,17 +65,14 @@ class SecurityConfigurationTest {
         }
     }
 
-
     @RestController
     static class TestController {
         @GetMapping(ANONYMOUS_URL)
-        public void getAnonymous(){
-
+        public void getAnonymous() {
         }
 
         @GetMapping(AUTHENTICATED_URL)
-        public void getAuthenticated(){
-
+        public void getAuthenticated() {
         }
     }
 

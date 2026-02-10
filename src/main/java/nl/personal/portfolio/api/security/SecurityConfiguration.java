@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 
+import java.time.Clock;
+
 import static org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher.pathPattern;
 
 @Configuration
@@ -15,18 +17,17 @@ import static org.springframework.security.web.servlet.util.matcher.PathPatternR
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(final HttpSecurity httpSecurity) throws Exception {
 
         final var anonymousRequestMatcher = new OrRequestMatcher(
                 pathPattern("/"),
                 pathPattern("/home/**"),
                 pathPattern("/static/**"),
-                pathPattern("/style.css"),
+                pathPattern("/*.css"),
                 pathPattern("/favicon.ico"),
                 pathPattern("/images/**"),
                 pathPattern("/pdf/**"),
-                pathPattern("/theme-toggle.js"),
-                pathPattern("/enhancements.js"),
+                pathPattern("/*.js"),
                 pathPattern("/webjars/**")
         );
 
@@ -39,5 +40,10 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated())
                 .build();
 
+    }
+
+    @Bean
+    Clock clock() {
+        return Clock.systemDefaultZone();
     }
 }

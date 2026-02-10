@@ -31,7 +31,7 @@
             </div>
             <div class="progress-track">
                 <div class="progress-fill" 
-                     th:style="'--proficiency: ' + ${skill.getProficiencyPercentage} + '%; width: var(--proficiency, 0%)'"
+                     th:style="'--proficiency: ' + ${skill.proficiencyPercentage} + '%; width: var(--proficiency, 0%)'"
                      th:title="${skill.name} + ' - ' + ${skill.proficiency} + ' out of 10'"></div>
             </div>
         </div>

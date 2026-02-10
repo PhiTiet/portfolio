@@ -1,12 +1,13 @@
 package nl.personal.portfolio.domain;
 
-public record Skill(String name, Integer proficiency, Icon icon) implements Comparable<Skill> {
+public record Skill(String name, int proficiency, Icon icon) implements Comparable<Skill> {
+
     @Override
-    public int compareTo(Skill other) {
-        return proficiency.compareTo(other.proficiency);
+    public int compareTo(final Skill other) {
+        return Integer.compare(proficiency, other.proficiency);
     }
 
-    public int getProficiencyPercentage() {
+    public int proficiencyPercentage() {
         return proficiency * 10;
     }
 }

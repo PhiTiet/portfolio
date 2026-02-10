@@ -6,24 +6,24 @@ import nl.personal.portfolio.domain.Hobby;
 import nl.personal.portfolio.domain.Skill;
 import nl.personal.portfolio.domain.TimelineEvent;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import static nl.personal.portfolio.domain.DatePatterns.INPUT_FORMAT;
+
 @Data
-@Configuration
 @ConfigurationProperties(prefix = "career")
 public class CareerConfigProperties implements CareerProperties {
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = INPUT_FORMAT)
     private LocalDate birthday;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = INPUT_FORMAT)
     private LocalDate professionalCareerStartDate;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = INPUT_FORMAT)
     private LocalDate programmingStartDate;
 
     private List<Certificate> certificates;

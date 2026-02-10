@@ -25,6 +25,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 25
+          cache: maven
 
       - name: build_with_maven
         run: mvn clean package -B -T 4

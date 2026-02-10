@@ -14,23 +14,23 @@ import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
 @Slf4j
-public class RestControllerExceptionAdvice {
+public final class RestControllerExceptionAdvice {
 
     @ExceptionHandler({ConstraintViolationException.class, HttpMessageNotReadableException.class})
     @ResponseStatus(BAD_REQUEST)
-    private void badRequest(Exception e) {
+    void badRequest(final Exception e) {
         log.info(e.getMessage(), e);
     }
 
     @ExceptionHandler({NoHandlerFoundException.class, NoResourceFoundException.class})
     @ResponseStatus(NOT_FOUND)
-    private void notFound(Exception e) {
+    void notFound(final Exception e) {
         log.info(e.getMessage(), e);
     }
 
-    @ExceptionHandler(Throwable.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
-    private void internalServerError(Exception e) {
+    void internalServerError(final Exception e) {
         log.error(e.getMessage(), e);
     }
 
