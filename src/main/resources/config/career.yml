@@ -127,11 +127,11 @@ career:
         classes: fa-brands fa-python
         style: color:#3776AB
 
-    - name: Bootstrap 5 & Thymeleaf
+    - name: Tailwind CSS & Thymeleaf
       proficiency: 6
       icon:
-        classes: fa-brands fa-bootstrap
-        style: color:#7952B3
+        classes: fa-solid fa-wind
+        style: color:#38BDF8
 
   events:
     - employer: DEEN Distribution Centre
