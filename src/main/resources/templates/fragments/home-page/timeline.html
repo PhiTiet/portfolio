@@ -3,24 +3,60 @@
 <head></head>
 
 <body>
-<div class="container mt-4 rounded p-4" th:fragment="timeline" aria-labelledby="work-history-heading">
-    <div class="text-center mb-3">
-        <h2 id="work-history-heading" class="my-header text-light">Work history</h2>
+<div th:fragment="timeline" class="timeline-section">
+    <div class="text-center mb-12">
+        <span class="badge mb-4">Career Journey</span>
+        <h2 class="text-3xl font-bold mb-4" style="color: var(--color-text-primary);">Work Experience</h2>
+        <p class="text-lg max-w-2xl mx-auto" style="color: var(--color-text-secondary);">
+            From hospitality roots to senior engineering roles — every step shaped who I am today.
+        </p>
     </div>
-    <ul class="timeline-with-icons list-unstyled m-0 p-0" role="list">
-        <li class="timeline-item pb-3 mb-0 formal-font" th:each="event : ${details.events}" data-reveal>
-            <span class="timeline-icon"><i th:classappend="${event.icon.classes}"
-                                           th:style="${event.icon.style}"></i></span>
-            <article class="card scheme-color-3 border-0 shadow-sm h-100">
-                <div class="card-body position-relative">
-                    <h3 class="h5 card-title fw-bold mb-1" th:text="${event.jobTitle}"></h3>
-                    <p class="mb-1"><span class="fw-semibold">Employer:</span> <span th:text="${event.employer}"></span></p>
-                    <p class="text-muted small mb-2 position-absolute top-0 end-0 p-2" th:text="${event.getWorkPeriod()}"></p>
-                    <p class="mb-0" th:text="${event.description}"></p>
+
+    <div class="timeline">
+        <div class="timeline-line"></div>
+        
+        <div th:each="event, iterStat : ${details.events}" 
+             class="timeline-item"
+             th:classappend="${iterStat.even} ? 'timeline-item-right' : 'timeline-item-left'"
+             x-data="{ show: false }"
+             x-init="setTimeout(() => show = true, iterStat.index * 100)"
+             x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+            
+            <div class="timeline-marker">
+                <div class="timeline-icon-wrapper">
+                    <i th:classappend="${event.icon.classes}" th:style="${event.icon.style}"></i>
                 </div>
-            </article>
-        </li>
-    </ul>
+            </div>
+
+            <div class="timeline-content">
+                <div class="timeline-date-badge">
+                    <span th:text="${event.getWorkPeriod()}"></span>
+                </div>
+                
+                <article class="timeline-card">
+                    <div class="timeline-card-header">
+                        <h3 class="timeline-job-title" th:text="${event.jobTitle}"></h3>
+                        <p class="timeline-employer">
+                            <span th:text="${event.employer}"></span>
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-card-body" 
+                         x-data="{ expanded: false }"
+                         th:with="isLong=${#strings.length(event.description) > 150}">
+                        <p class="timeline-description"
+                           x-bind:class="!expanded && 'line-clamp-3'"
+                           th:text="${event.description}"></p>
+                        <button th:if="${isLong}"
+                                class="timeline-expand-btn"
+                                x-on:click="expanded = !expanded"
+                                x-text="expanded ? 'Show less' : 'Read more'">
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 

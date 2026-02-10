@@ -4,107 +4,92 @@
 <head>
 </head>
 
-<body th:fragment="recommendation">
-<div class="jumbotron text-center">
-    <h3 class="display-4 my-header">Recommendation Letters</h3>
-</div>
-<hr class="my-4">
-<div class="accordion accordion-flush py-3" id="recommendationAccordion">
-
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                Armend Hoxha
-            </button>
-        </h2>
-        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
-             data-bs-parent="#recommendationAccordion">
-            <div class="accordion-body">
-                <iframe th:src="@{/pdf/recommendation_letter_armend_hoxha_without_signature.pdf#toolbar=0}"
-                        class="min-vh-100 w-100">
-                </iframe>
-            </div>
-        </div>
+<body>
+<div th:fragment="recommendation" class="recommendations-section">
+    <div class="text-center mb-12">
+        <span class="badge mb-4">What Others Say</span>
+        <h2 class="text-3xl font-bold mb-4" style="color: var(--color-text-primary);">Recommendations</h2>
+        <p class="text-lg max-w-2xl mx-auto" style="color: var(--color-text-secondary);">
+            Kind words from colleagues and managers I've had the privilege to work with.
+        </p>
     </div>
 
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                Rob Smorenburg
-            </button>
-        </h2>
-        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
-             data-bs-parent="#recommendationAccordion">
-            <div class="accordion-body d-flex justify-content-center">
-                <iframe th:src="@{/pdf/recommendation_letter_rob_smorgenburg_without_signature.pdf#toolbar=0}"
-                        class="min-vh-100 w-100"></iframe>
-            </div>
+    <div class="recommendations-carousel" 
+         x-data="{ 
+             active: 0, 
+             recommendations: [
+                 { name: 'Armend Hoxha', role: 'Tech Lead at Rabobank', quote: 'Phi consistently demonstrated exceptional technical skills and a strong commitment to code quality. His ability to mentor junior developers while delivering complex features made him an invaluable team member.', pdf: '/pdf/recommendation_letter_armend_hoxha_without_signature.pdf' },
+                 { name: 'Rob Smorenburg', role: 'Software Architect at Rabobank', quote: 'Working with Phi was a pleasure. His deep understanding of microservices architecture and Kubernetes, combined with his proactive approach to problem-solving, significantly improved our development processes.', pdf: '/pdf/recommendation_letter_rob_smorgenburg_without_signature.pdf' },
+                 { name: 'Rachid El Kaddouri', role: 'Manager at Ordina', quote: 'Phi brings both technical excellence and strong communication skills to every project. His dedication to clean code principles and willingness to share knowledge made our team stronger.', pdf: '/pdf/recommendation_rachid_without_signature.pdf' },
+                 { name: 'Pieter Bijl', role: 'Senior Developer at MedIT', quote: 'From his first day, Phi showed remarkable initiative and a genuine passion for software engineering. He quickly became a key contributor, always eager to learn and help others grow.', pdf: '/pdf/recommendation_letter_pieter_bijl_signature_redacted.pdf' },
+                 { name: 'Jeroen Dee', role: 'Team Lead at MedIT', quote: 'Phi\\'s combination of technical prowess and interpersonal skills is rare. He consistently delivered high-quality work while fostering a positive and collaborative team environment.', pdf: '/pdf/recommendation_letter_jeroen_dee_signature_redacted.pdf' }
+             ],
+             next() { this.active = (this.active + 1) % this.recommendations.length },
+             prev() { this.active = (this.active - 1 + this.recommendations.length) % this.recommendations.length }
+         }">
+        
+        <div class="recommendations-wrapper">
+            <template x-for="(rec, index) in recommendations" :key="index">
+                <article class="recommendation-card" 
+                         x-show="active === index"
+                         x-transition:enter="transition ease-out duration-300"
+                         x-transition:enter-start="opacity-0 transform translate-x-8"
+                         x-transition:enter-end="opacity-100 transform translate-x-0"
+                         x-transition:leave="transition ease-in duration-200"
+                         x-transition:leave-start="opacity-100 transform translate-x-0"
+                         x-transition:leave-end="opacity-0 transform -translate-x-8">
+                    
+                    <div class="recommendation-quote-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                    </div>
+                    
+                    <blockquote class="recommendation-text" x-text="rec.quote"></blockquote>
+                    
+                    <div class="recommendation-footer">
+                        <div class="recommendation-author">
+                            <div class="recommendation-avatar" x-text="rec.name.split(' ').map(n => n[0]).join('')"></div>
+                            <div>
+                                <p class="recommendation-name" x-text="rec.name"></p>
+                                <p class="recommendation-role" x-text="rec.role"></p>
+                            </div>
+                        </div>
+                        <a :href="rec.pdf" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="recommendation-pdf-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                            </svg>
+                            <span>View Letter</span>
+                        </a>
+                    </div>
+                </article>
+            </template>
         </div>
-    </div>
 
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingFour">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                Rachid El Kaddouri
+        <div class="recommendations-controls">
+            <button class="recommendation-nav-btn" @click="prev()" aria-label="Previous recommendation">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                </svg>
             </button>
-        </h2>
-        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
-             data-bs-parent="#recommendationAccordion">
-            <div class="accordion-body d-flex justify-content-center">
-                <iframe th:src="@{/pdf/recommendation_rachid_without_signature.pdf#toolbar=0}"
-                        class="min-vh-100 w-100"></iframe>
+            
+            <div class="recommendations-dots">
+                <template x-for="(rec, index) in recommendations" :key="index">
+                    <button class="recommendation-dot" 
+                            :class="active === index ? 'active' : ''"
+                            @click="active = index"
+                            :aria-label="'Go to recommendation ' + (index + 1)"></button>
+                </template>
             </div>
-        </div>
-    </div>
-
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingFive">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                Pieter Bijl
+            
+            <button class="recommendation-nav-btn" @click="next()" aria-label="Next recommendation">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
             </button>
-        </h2>
-        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive"
-             data-bs-parent="#recommendationAccordion">
-            <div class="accordion-body d-flex justify-content-center">
-                <iframe th:src="@{/pdf/recommendation_letter_pieter_bijl_signature_redacted.pdf#toolbar=0}"
-                        class="min-vh-100 w-100"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingSix">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                Jeroen Dee
-            </button>
-        </h2>
-        <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix"
-             data-bs-parent="#recommendationAccordion">
-            <div class="accordion-body d-flex justify-content-center">
-                <iframe th:src="@{/pdf/recommendation_letter_jeroen_dee_signature_redacted.pdf#toolbar=0}"
-                        class="min-vh-100 w-100"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                Finally...
-            </button>
-        </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-             data-bs-parent="#recommendationAccordion">
-            <div class="accordion-body d-flex justify-content-center">
-                <img th:src="@{/images/recommendation_meme.jpg}" class=" d-block"
-                     alt="meme wishing I had more recommendation letters :(. I guess you can't have it all.">
-            </div>
         </div>
     </div>
 </div>

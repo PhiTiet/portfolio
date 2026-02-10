@@ -1,4 +1,3 @@
-// Theme toggle script: handles dark/light mode persistence and UI state
 (function() {
   function applyTheme(theme) {
     const root = document.documentElement;
@@ -17,11 +16,11 @@
       const darkIcon = btn.querySelector('.theme-icon-dark');
       if (lightIcon && darkIcon) {
         if (isDark) {
-          lightIcon.classList.add('d-none');
-          darkIcon.classList.remove('d-none');
+          lightIcon.classList.add('hidden');
+          darkIcon.classList.remove('hidden');
         } else {
-          darkIcon.classList.add('d-none');
-            lightIcon.classList.remove('d-none');
+          darkIcon.classList.add('hidden');
+          lightIcon.classList.remove('hidden');
         }
       }
     }
@@ -36,7 +35,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    // initial apply (header inline script already set dark if needed, but ensure icon state matches)
     applyTheme(document.documentElement.classList.contains('dark') ? 'dark' : preferred());
 
     const btn = document.getElementById('themeToggle');
@@ -48,7 +46,6 @@
       applyTheme(theme);
     });
 
-    // Watch system preference changes if user hasn't explicitly chosen
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     mq.addEventListener('change', function(e) {
       try {
@@ -59,4 +56,3 @@
     });
   });
 })();
-

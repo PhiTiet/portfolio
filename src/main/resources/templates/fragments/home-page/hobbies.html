@@ -5,36 +5,115 @@
 </head>
 
 <body>
-    <div class="container rounded pb-3" th:fragment="hobbies" aria-labelledby="hobbies-heading">
-        <div class="text-center mb-3">
-            <h2 id="hobbies-heading" class="my-header">Hobbies</h2>
+<div th:fragment="hobbies" class="hobbies-section">
+    <div class="text-center mb-12">
+        <span class="badge mb-4">Beyond The Code</span>
+        <h2 class="text-3xl font-bold mb-4" style="color: var(--color-text-primary);">Life Outside Work</h2>
+        <p class="text-lg max-w-2xl mx-auto" style="color: var(--color-text-secondary);">
+            When I'm not pushing commits, here's what keeps me busy.
+        </p>
+    </div>
+
+    <div class="hobbies-layout">
+        <div class="hobbies-photos"
+             x-data="{ 
+                 active: 0, 
+                 photos: [
+                     { src: '/images/self_chess.png', alt: 'Playing chess' },
+                     { src: '/images/self_cat.png', alt: 'With my cat' },
+                     { src: '/images/self_pieter.png', alt: 'With colleague Pieter' },
+                     { src: '/images/self_beach.png', alt: 'At the beach' }
+                 ],
+                 next() { this.active = (this.active + 1) % this.photos.length },
+                 prev() { this.active = (this.active - 1 + this.photos.length) % this.photos.length }
+             }"
+             x-init="setInterval(() => next(), 5000)">
+            
+            <div class="photos-wrapper">
+                <template x-for="(photo, index) in photos" :key="index">
+                    <img :src="photo.src" 
+                         :alt="photo.alt"
+                         loading="lazy"
+                         class="photo-slide"
+                         x-show="active === index"
+                         x-transition:enter="transition ease-out duration-500"
+                         x-transition:enter-start="opacity-0 scale-95"
+                         x-transition:enter-end="opacity-100 scale-100"
+                         x-transition:leave="transition ease-in duration-300"
+                         x-transition:leave-start="opacity-100 scale-100"
+                         x-transition:leave-end="opacity-0 scale-95">
+                </template>
+            </div>
+            
+            <div class="photos-nav">
+                <template x-for="(photo, index) in photos" :key="index">
+                    <button class="photo-dot" 
+                            :class="active === index ? 'active' : ''"
+                            @click="active = index"
+                            :aria-label="'View photo ' + (index + 1)"></button>
+                </template>
+            </div>
         </div>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <div th:each="hobby : ${details.hobbies}" class="col" data-reveal>
-                <article class="card p-3 hobby-card h-100" th:aria-label="${hobby.name}">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <p th:text="${hobby.name}" class="card-text mb-0 me-3 fw-semibold"></p>
+
+        <div class="hobbies-content">
+            <div class="hobbies-grid">
+                <div th:each="hobby, iterStat : ${details.hobbies}" 
+                     class="hobby-card"
+                     x-data="{ show: false }"
+                     x-init="setTimeout(() => show = true, iterStat.index * 100)"
+                     x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
+                    <div class="hobby-icon">
                         <i th:classappend="${hobby.icon.classes}" th:style="${hobby.icon.style}" aria-hidden="true"></i>
                     </div>
-                </article>
+                    <span class="hobby-name" th:text="${hobby.name}"></span>
+                </div>
+            </div>
+
+            <div class="personal-statement">
+                <p>
+                    After work, you'll find me wearing multiple hats — not just the coding kind. 
+                    I'm a foodie exploring culinary wonders, a game enthusiast always down for one more round, 
+                    a home-cook scrolling through recipe videos, and a chess amateur gambit'ing online and over-the-board. 
+                    Whether I'm binge-watching anime or globe-trotting in search of good Wi-Fi, 
+                    there's never a dull moment.
+                </p>
+            </div>
+
+            <div class="languages-section">
+                <h3 class="languages-title">Languages</h3>
+                <div class="languages-grid">
+                    <div class="language-item">
+                        <div class="language-header">
+                            <span class="language-name">Dutch</span>
+                            <span class="language-level">Native</span>
+                        </div>
+                        <div class="language-bar">
+                            <div class="language-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-header">
+                            <span class="language-name">English</span>
+                            <span class="language-level">Fluent (C2)</span>
+                        </div>
+                        <div class="language-bar">
+                            <div class="language-fill" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-header">
+                            <span class="language-name">Vietnamese</span>
+                            <span class="language-level">Conversational</span>
+                        </div>
+                        <div class="language-bar">
+                            <div class="language-fill" style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="jumbotron jumbotron-fluid" th:fragment="text" data-reveal>
-        <div class="container mt-5">
-            <p class="lead"
-               th:text="
-           'After work, you can catch me wearing multiple hats; not just the coding kind.
-            I\'m a foodie exploring the culinary wonders of the world,
-            a (board) game enthusiast always down for one more game,
-            a home-cook hungrily scrolling through youtube recipe videos,
-            an anime enjoyer still wishing I could fire off a kamehameha,
-            a chess amateur gambit\'ing away online and over-the-board,
-            and a globe-trotter seeking Wi-Fi signals wherever I go.'">
-            </p>
-        </div>
-    </div>
+</div>
 </body>
 
 </html>

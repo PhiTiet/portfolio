@@ -19,6 +19,8 @@
         <java.version>21</java.version>
         <thymeleaf-layout-dialect.version>3.4.0</thymeleaf-layout-dialect.version>
         <equalsverifier.version>4.2.1</equalsverifier.version>
+        <htmx.version>2.0.4</htmx.version>
+        <alpinejs.version>3.14.8</alpinejs.version>
     </properties>
 
     <dependencies>
@@ -46,6 +48,17 @@
             <groupId>nz.net.ultraq.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
             <version>${thymeleaf-layout-dialect.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>htmx.org</artifactId>
+            <version>${htmx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>alpinejs</artifactId>
+            <version>${alpinejs.version}</version>
         </dependency>
 
         <dependency>
