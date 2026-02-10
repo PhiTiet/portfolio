@@ -1280,6 +1280,8 @@ img[loading="lazy"] {
 }
 
 .timeline-card-current {
+    position: relative;
+    overflow: hidden;
     border: 2px solid var(--color-accent);
     background: linear-gradient(135deg, var(--color-bg-card) 0%, var(--color-accent-subtle) 100%);
 }
