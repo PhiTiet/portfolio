@@ -21,6 +21,7 @@
                 <a href="#certificates" class="nav-link">Education</a>
                 <a href="#recommendations" class="nav-link">Recommendations</a>
                 <a href="#hobbies" class="nav-link">Hobbies</a>
+                <button @click="$dispatch('open-about'); window.location.hash = '#about-me'" type="button" class="nav-link">About Site</button>
                 <a href="#contact" class="nav-link nav-link-primary">Contact</a>
             </div>
 
@@ -57,6 +58,7 @@
             <a x-on:click="mobileOpen = false" href="#certificates" class="nav-link-mobile">Education</a>
             <a x-on:click="mobileOpen = false" href="#recommendations" class="nav-link-mobile">Recommendations</a>
             <a x-on:click="mobileOpen = false" href="#hobbies" class="nav-link-mobile">Hobbies</a>
+            <button x-on:click="mobileOpen = false; $dispatch('open-about'); window.location.hash = '#about-me'" type="button" class="nav-link-mobile text-left w-full">About Site</button>
             <a x-on:click="mobileOpen = false" href="#contact" class="nav-link-mobile nav-link-mobile-primary">Contact</a>
         </div>
     </div>
