@@ -32,7 +32,7 @@
             <div class="relative">
                 <div class="inline-block py-1 px-3 text-xs font-semibold text-[var(--color-accent)] bg-[var(--color-accent-subtle)] rounded-full mb-3" th:classappend="${iterStat.first} ? 'timeline-date-current' : ''">
                     <span th:if="${iterStat.first}" class="timeline-current-indicator">Current</span>
-                    <span th:text="${event.getWorkPeriod()}"></span>
+                    <span th:text="${event.workPeriod()}"></span>
                 </div>
                 
                 <article class="timeline-card" th:classappend="${iterStat.first} ? 'timeline-card-current' : ''">

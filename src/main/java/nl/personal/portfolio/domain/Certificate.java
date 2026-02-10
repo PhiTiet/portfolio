@@ -4,20 +4,22 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
+import static nl.personal.portfolio.domain.DatePatterns.DISPLAY_FORMAT;
+import static nl.personal.portfolio.domain.DatePatterns.INPUT_FORMAT;
 
 public record Certificate(
         String title,
         String institution,
-        @DateTimeFormat(pattern = "dd-MM-yyyy")
+        @DateTimeFormat(pattern = INPUT_FORMAT)
         LocalDate acquisitionDate) implements Comparable<Certificate> {
 
     public String formattedAcquisitionDate() {
-        return acquisitionDate.format(DateTimeFormatter.ofPattern("MM-yyyy"));
+        return acquisitionDate.format(DISPLAY_FORMAT);
     }
 
     @Override
-    public int compareTo(@NotNull Certificate other) {
+    public int compareTo(@NotNull final Certificate other) {
         return acquisitionDate.compareTo(other.acquisitionDate());
     }
 }

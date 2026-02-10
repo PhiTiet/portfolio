@@ -1,0 +1,7 @@
+.git
+.github
+.idea
+.vscode
+*.md
+src/
+!target/portfolio.jar

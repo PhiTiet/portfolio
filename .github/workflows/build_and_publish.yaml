@@ -2,7 +2,6 @@ name: build_and_publish
 
 permissions:
   contents: read
-  pull-requests: write
   packages: write
 
 on:
@@ -25,6 +24,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 25
+          cache: maven
 
       - name: build_with_maven
         run: mvn clean package -B -T 4
@@ -41,4 +41,6 @@ jobs:
         with:
           push: true
           context: .
-          tags: ghcr.io/phitiet/portfolio:latest
+          tags: |
+            ghcr.io/phitiet/portfolio:latest
+            ghcr.io/phitiet/portfolio:${{ github.sha }}
