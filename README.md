@@ -2,61 +2,64 @@
 
 ![Build Status](https://img.shields.io/github/actions/workflow/status/PhiTiet/portfolio/build_and_publish.yaml?branch=main)
 ![Last Commit](https://img.shields.io/github/last-commit/PhiTiet/portfolio)
-![Docker Image](https://img.shields.io/docker/image-size/phitiet/portfolio/latest)
 ![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fphitiet.nl)
 
-Welcome to my personal portfolio website repository! This project showcases my skills, experience, and work as a software engineer. It's designed to demonstrate modern software development practices and includes tools and technologies that I actively use. Nowadays I also avidly code in Kotlin and I aim to replace the frontend design (and maybe stack) in the future.
-
-## Features
-
-- **Responsive Design**: Built with Bootstrap 5 for responsive usability across devices.
-- **Dynamic Content**: Utilizes Thymeleaf for server-side rendering of pages.
-- **Backend Framework**: Powered by Spring Boot, ensuring scalability and maintainability.
-- **Containerized Deployment**: Dockerized for ease of deployment.
-- **CI/CD**: Automated build and deployment with GitHub Actions.
-- **Dependabot/CodeQL** for repeating updates/quality control.
-- **Clean Code & Architecture** Shows my understanding of code and architecture
+My personal portfolio website. Built to showcase my experience, skills, and work as a software engineer while reflecting how I approach software development in practice.
 
 ## Live Website
 
-You can view the live website here: [phitiet.nl](https://phitiet.nl)
+[phitiet.nl](https://phitiet.nl)
+
+## Tech Stack
+
+- **Java 21** with **Spring Boot 3**
+- **Thymeleaf** with Layout Dialect for server-side rendering
+- **Tailwind CSS 4** and **Alpine.js** for the frontend
+- **HTMX** for progressive enhancement
+- **Spring Security** for access control
+- **Docker** for containerized deployment
+- **GitHub Actions** for CI/CD, pushing images to GHCR
+- **Dependabot** and **CodeQL** for dependency updates and code quality
+
+## Features
+
+- Single-page design with anchor-linked sections: experience timeline, skills, certificates, recommendations, and hobbies
+- All career content is driven by YAML configuration -- adding a job, skill, or certificate requires no code changes
+- Dynamic values like age, years of experience, and runtime versions are computed at request time
+- Responsive dark theme built with CSS custom properties
+- Accessibility-first: semantic HTML, ARIA labels, keyboard navigation, reduced-motion support
+- Scroll-reveal animations and interactive components (carousel, expandable text, photo slideshow)
+- Layered architecture with clear separation between API, core, and domain layers
+- Test coverage using JUnit 5, Mockito, AssertJ, and EqualsVerifier with dedicated test factories
 
 ## Project Structure
 
 ```
-├── .github/             # github
-├── src/                 # source code
-├── Dockerfile           # docker 
-├── pom.xml              # maven
-└── README.md            
+src/main/java/nl/personal/portfolio/
+  api/          controllers, security config, exception handling
+  core/         services and mappers
+  domain/       records, interfaces, configuration binding
+
+src/main/resources/
+  config/       career.yml (all portfolio content)
+  templates/    Thymeleaf layout and fragment files
+  static/       CSS, JS, images, PDFs
+
+src/test/       mirrors main structure, includes test factories
 ```
 
 ## Getting Started
 
-Follow these steps to run the project locally:
+```bash
+git clone https://github.com/PhiTiet/portfolio.git
+cd portfolio
+mvn clean install
+mvn spring-boot:run
+```
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/PhiTiet/portfolio.git
-   cd portfolio
-   ```
+Then visit `http://localhost` in your browser.
 
-2. **Build the project**:
-   ```bash
-   mvn clean install
-   ```
-
-3. **Run the application**:
-   ```bash
-   mvn spring-boot:run
-   ```
-
-4. **Access the application**:
-   Visit `http://localhost` in your browser.
-
-## 🐳 Docker
-
-To build and run the Docker container:
+## Docker
 
 ```bash
 docker build -t phitiet/portfolio .
@@ -65,16 +68,14 @@ docker run -p 80:80 phitiet/portfolio
 
 ## Testing
 
-Testing is handled using JUnit 5 and AssertJ.
-
-Run tests with:
 ```bash
 mvn test
 ```
 
-## CI/CD Workflow
+Uses JUnit 5, Mockito, AssertJ, and EqualsVerifier. Test data is created through dedicated factory classes.
 
-This project uses GitHub Actions for CI/CD. The workflow includes:
-- Building the application.
-- Running tests.
-- Pushing Docker images to GHCR
+## CI/CD
+
+GitHub Actions handles the pipeline:
+- **Pull requests** -- build and verify
+- **Push to main** -- build, package, and push a Docker image to GHCR
