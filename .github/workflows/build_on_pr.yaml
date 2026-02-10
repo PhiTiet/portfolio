@@ -17,11 +17,11 @@ jobs:
       - name: checkout_code
         uses: actions/checkout@v6
 
-      - name: setup_java_21
+      - name: setup_java_25
         uses: actions/setup-java@v5
         with:
-          distribution: adopt
-          java-version: 21
+          distribution: temurin
+          java-version: 25
 
       - name: build
         run: mvn clean verify

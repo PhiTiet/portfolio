@@ -6,8 +6,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
+
+import static org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher.pathPattern;
 
 @Configuration
 @EnableWebSecurity
@@ -17,17 +18,16 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         final var anonymousRequestMatcher = new OrRequestMatcher(
-                requestMatcher("/"),
-                requestMatcher("/home/**"),
-                requestMatcher("/static/**"), // legacy (kept for backward compatibility)
-                // newly added static resource patterns
-                requestMatcher("/style.css"),
-                requestMatcher("/favicon.ico"),
-                requestMatcher("/images/**"),
-                requestMatcher("/pdf/**"),
-                requestMatcher("/theme-toggle.js"),
-                requestMatcher("/enhancements.js"),
-                requestMatcher("/webjars/**")
+                pathPattern("/"),
+                pathPattern("/home/**"),
+                pathPattern("/static/**"),
+                pathPattern("/style.css"),
+                pathPattern("/favicon.ico"),
+                pathPattern("/images/**"),
+                pathPattern("/pdf/**"),
+                pathPattern("/theme-toggle.js"),
+                pathPattern("/enhancements.js"),
+                pathPattern("/webjars/**")
         );
 
         return httpSecurity
@@ -39,9 +39,5 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated())
                 .build();
 
-    }
-
-    private AntPathRequestMatcher requestMatcher(String pattern) {
-        return new AntPathRequestMatcher(pattern);
     }
 }
