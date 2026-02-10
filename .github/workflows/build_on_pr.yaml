@@ -2,7 +2,6 @@ name: build_on_pr
 
 permissions:
   contents: read
-  pull-requests: read
 
 on:
   pull_request:
