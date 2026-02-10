@@ -6,8 +6,7 @@
      x-data="{ mobileOpen: false, scrolled: false }"
      x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
      :class="scrolled ? 'shadow-md' : ''"
-     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-     style="background-color: var(--color-bg-card); border-bottom: 1px solid var(--color-border-light);">
+      class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[var(--color-bg-card)] border-b border-[var(--color-border-light)]">
     <div class="container">
         <div class="flex items-center justify-between h-16">
             <a href="#" class="flex items-center gap-2 font-semibold text-lg hover:text-[var(--color-accent)] transition-colors">
