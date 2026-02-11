@@ -28,7 +28,9 @@ public class SecurityConfiguration {
                 pathPattern("/images/**"),
                 pathPattern("/pdf/**"),
                 pathPattern("/*.js"),
-                pathPattern("/webjars/**")
+                pathPattern("/webjars/**"),
+                pathPattern("/robots.txt"),
+                pathPattern("/sitemap.xml")
         );
 
         return httpSecurity
