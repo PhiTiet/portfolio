@@ -210,9 +210,10 @@ career-en:
         style: "color: #e49bd0;"
 
     - employer: Qualogy
-      job-title: Medior Software Engineer
-      description: My consultancy career continues as I love my current role as Medior Java Software Engineer at Qualogy.
+      job-title: Senior Software Engineer
+      description: My consultancy career continues as I love my current role as Senior Java Software Engineer at Qualogy.
         I'm excited for the amazing assignments Qualogy has in store for me!
+        First assignment — Senior Kotlin developer at Ahold Delhaize.
       start: 01-04-2024
       end:
       icon:
