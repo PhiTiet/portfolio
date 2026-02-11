@@ -11,7 +11,8 @@
       class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[var(--color-bg-card)] border-b border-[var(--color-border-light)]">
     <div class="container">
         <div class="flex items-center justify-between h-16">
-            <a href="#" class="flex items-center gap-2 font-semibold text-lg hover:text-[var(--color-accent)] transition-colors">
+            <a href="#" class="flex items-center gap-2 font-semibold text-lg hover:text-[var(--color-accent)] transition-colors"
+               th:attr="aria-label=#{nav.home}">
                 <img th:src="@{/images/favicon.ico}" alt="" width="28" height="28" class="rounded">
                 <span class="hidden sm:inline">Phi Tiet</span>
             </a>
