@@ -198,6 +198,16 @@ a:hover {
     color: var(--color-accent-contrast);
 }
 
+.btn-accent {
+    background-color: var(--color-accent);
+    color: var(--color-accent-contrast);
+}
+
+.btn-accent:hover {
+    background-color: var(--color-accent-hover);
+    color: var(--color-accent-contrast);
+}
+
 .nav-link-mobile-primary {
     background-color: var(--color-accent-subtle);
     color: var(--color-accent);
