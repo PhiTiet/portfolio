@@ -16,6 +16,8 @@ public class HomePageDetailsTestFactory {
                 .hobbies(List.of())
                 .skills(List.of())
                 .events(List.of())
+                .imageVersion("10 Feb 2026")
+                .lastUpdated("10 Feb 2026")
                 .build();
     }
 }

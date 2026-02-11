@@ -164,6 +164,8 @@
                     <div class="flex flex-wrap gap-2">
                         <span class="badge" th:text="'Java ' + ${details.currentJavaVersion()}"></span>
                         <span class="badge" th:text="'Spring Boot ' + ${details.currentSpringBootVersion()}"></span>
+                        <span class="badge" th:text="'Built ' + ${details.imageVersion()}"></span>
+                        <span class="badge" th:text="'Last update ' + ${details.lastUpdated()}"></span>
                     </div>
                 </div>
 
