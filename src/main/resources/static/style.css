@@ -17,6 +17,7 @@
     --color-accent-hover: #5eead4;
     --color-accent-light: #134e4a;
     --color-accent-subtle: #042f2e;
+    --color-accent-contrast: #042f2e;
     
     --color-border: #334155;
     --color-border-light: #1e293b;
@@ -111,7 +112,7 @@ a:hover {
     height: auto;
     padding: 0.75rem 1rem;
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-accent-contrast);
     z-index: 9999;
     border-radius: var(--radius-md);
     font-weight: 500;
@@ -189,12 +190,12 @@ a:hover {
 
 .nav-link-primary {
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-accent-contrast);
 }
 
 .nav-link-primary:hover {
     background-color: var(--color-accent-hover);
-    color: white;
+    color: var(--color-accent-contrast);
 }
 
 .nav-link-mobile-primary {
@@ -204,7 +205,7 @@ a:hover {
 
 .nav-link-mobile-primary:hover {
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-accent-contrast);
 }
 
 .card-interactive {
@@ -332,7 +333,7 @@ a:hover {
     height: 3rem;
     border-radius: var(--radius-full);
     background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
-    color: white;
+    color: var(--color-accent-contrast);
     font-weight: 700;
     font-size: 0.875rem;
     display: flex;
@@ -370,7 +371,7 @@ a:hover {
 
 .btn-accent-subtle:hover {
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-accent-contrast);
 }
 
 .carousel-nav-btn {
@@ -390,7 +391,7 @@ a:hover {
 .carousel-nav-btn:hover {
     background-color: var(--color-accent);
     border-color: var(--color-accent);
-    color: white;
+    color: var(--color-accent-contrast);
 }
 
 .contact-card {
@@ -467,7 +468,7 @@ a:hover {
 
 .footer-social-link:hover {
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-accent-contrast);
     box-shadow: var(--shadow-md);
 }
 
@@ -554,7 +555,7 @@ a:hover {
 
 .timeline-item:hover .timeline-icon-wrapper {
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-accent-contrast);
     transform: scale(1.1);
 }
 
@@ -712,7 +713,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-accent-contrast);
     border: none;
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-lg);
@@ -761,13 +762,13 @@ img[loading="lazy"] {
 
 .timeline-icon-current {
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-accent-contrast);
     transform: scale(1.15);
 }
 
 .timeline-date-current {
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-accent-contrast);
 }
 
 .timeline-current-indicator {
@@ -903,7 +904,7 @@ img[loading="lazy"] {
 .arch-node-domain {
     border-color: var(--color-accent);
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-accent-contrast);
 }
 
 .arch-arrow {
@@ -977,5 +978,5 @@ img[loading="lazy"] {
 
 .about-github-cta:hover .about-github-icon {
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-accent-contrast);
 }
