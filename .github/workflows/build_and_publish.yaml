@@ -28,7 +28,7 @@ jobs:
           cache: maven
 
       - name: build_with_maven
-        run: ./mvnw clean package -B -T 4
+        run: mvn clean package -B -T 4
 
       - name: login_to_docker
         uses: docker/login-action@v3
@@ -42,6 +42,4 @@ jobs:
         with:
           push: true
           context: .
-          tags: |
-            ghcr.io/phitiet/portfolio:latest
-            ghcr.io/phitiet/portfolio:${{ github.sha }}
+          tags: ghcr.io/phitiet/portfolio:latest
