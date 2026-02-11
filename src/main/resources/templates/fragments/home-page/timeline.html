@@ -5,9 +5,9 @@
 <body>
 <div th:fragment="timeline" class="max-w-4xl mx-auto">
     <div class="text-center mb-12">
-        <span class="badge mb-4">Career Journey</span>
-        <h2 id="experience-heading" class="section-title">Work Experience</h2>
-        <p class="section-description">
+        <span class="badge mb-4" th:text="#{experience.badge}">Career Journey</span>
+        <h2 id="experience-heading" class="section-title" th:text="#{experience.title}">Work Experience</h2>
+        <p class="section-description" th:text="#{experience.description}">
             From hospitality roots to senior engineering roles — every step shaped who I am today.
         </p>
     </div>
@@ -31,8 +31,8 @@
 
             <div class="relative">
                 <div class="inline-block py-1 px-3 text-xs font-semibold text-[var(--color-accent)] bg-[var(--color-accent-subtle)] rounded-full mb-3" th:classappend="${iterStat.first} ? 'timeline-date-current' : ''">
-                    <span th:if="${iterStat.first}" class="timeline-current-indicator">Current</span>
-                    <span th:text="${event.workPeriod()}"></span>
+                    <span th:if="${iterStat.first}" class="timeline-current-indicator" th:text="#{experience.current}">Current</span>
+                    <span th:text="${#temporals.format(event.start, 'MM-yyyy') + ' \u2192 ' + (event.end != null ? #temporals.format(event.end, 'MM-yyyy') : #messages.msg('timeline.current'))}"></span>
                 </div>
                 
                 <article class="timeline-card" th:classappend="${iterStat.first} ? 'timeline-card-current' : ''">
@@ -52,7 +52,8 @@
                         <button th:if="${isLong}"
                                 class="inline-block mt-2 p-0 text-[0.8125rem] font-medium text-[var(--color-accent)] bg-none border-none cursor-pointer transition-colors duration-150 hover:text-[var(--color-accent-hover)]"
                                 x-on:click="expanded = !expanded"
-                                x-text="expanded ? 'Show less' : 'Read more'">
+                                th:attr="data-show-less=#{experience.show.less},data-read-more=#{experience.read.more}"
+                                x-text="expanded ? $el.dataset.showLess : $el.dataset.readMore">
                         </button>
                     </div>
                 </article>

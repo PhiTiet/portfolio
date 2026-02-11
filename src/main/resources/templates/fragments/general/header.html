@@ -3,28 +3,28 @@
 <head th:fragment="header">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phi Tiet</title>
+    <title th:text="#{seo.title}">Phi Tiet</title>
     
-    <meta name="description" content="Portfolio of Phi Tiet (Anh Phi), Senior Software Engineer specializing in Java, Kotlin, Spring Boot, Kubernetes, and microservices architecture. Based in the Netherlands.">
+    <meta name="description" th:attr="content=#{seo.description}" content="Portfolio of Phi Tiet (Anh Phi), Senior Software Engineer specializing in Java, Kotlin, Spring Boot, Kubernetes, and microservices architecture. Based in the Netherlands.">
     <meta name="keywords" content="Phi Tiet, Anh Phi, Anh Phi Tiet, anhphi, Software Engineer, Java Developer, Kotlin, Spring Boot, Microservices, Backend Developer, Netherlands">
     <meta name="author" content="Phi Tiet">
     <meta name="robots" content="index, follow">
     
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Phi Tiet - Senior Software Engineer">
-    <meta property="og:description" content="Senior Software Engineer specializing in Java, Kotlin, and Spring Boot. Building robust backend systems and mentoring teams.">
+    <meta property="og:title" th:attr="content=#{seo.og.title}" content="Phi Tiet - Senior Software Engineer">
+    <meta property="og:description" th:attr="content=#{seo.og.description}" content="Senior Software Engineer specializing in Java, Kotlin, and Spring Boot. Building robust backend systems and mentoring teams.">
     <meta property="og:url" content="https://phitiet.nl">
     <meta property="og:site_name" content="Phi Tiet Portfolio">
-    <meta property="og:locale" content="en_US">
+    <meta property="og:locale" th:attr="content=${#locale.language == 'nl'} ? 'nl_NL' : 'en_US'" content="en_US">
     <meta property="og:image" content="https://phitiet.nl/images/main_picture_me_professional.png">
-    <meta property="og:image:alt" content="Phi Tiet - Senior Software Engineer">
+    <meta property="og:image:alt" th:attr="content=#{seo.og.image.alt}" content="Phi Tiet - Senior Software Engineer">
     <meta property="og:image:type" content="image/png">
     
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Phi Tiet - Senior Software Engineer">
-    <meta name="twitter:description" content="Senior Software Engineer specializing in Java, Kotlin, and Spring Boot.">
+    <meta name="twitter:title" th:attr="content=#{seo.og.title}" content="Phi Tiet - Senior Software Engineer">
+    <meta name="twitter:description" th:attr="content=#{seo.twitter.description}" content="Senior Software Engineer specializing in Java, Kotlin, and Spring Boot.">
     <meta name="twitter:image" content="https://phitiet.nl/images/main_picture_me_professional.png">
-    <meta name="twitter:image:alt" content="Phi Tiet - Senior Software Engineer">
+    <meta name="twitter:image:alt" th:attr="content=#{seo.og.image.alt}" content="Phi Tiet - Senior Software Engineer">
     
     <meta name="theme-color" content="#2dd4bf">
     <meta name="color-scheme" content="dark">

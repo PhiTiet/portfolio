@@ -45,9 +45,9 @@
         <div class="container">
             <div class="max-w-3xl mx-auto text-center">
                 <div class="flex flex-col items-center">
-                    <span class="badge mb-4">Let's Connect</span>
-                    <h2 id="contact-heading" class="section-title">Get In Touch</h2>
-                    <p class="text-lg mb-8 max-w-[32rem] text-[var(--color-text-secondary)]">
+                    <span class="badge mb-4" th:text="#{contact.badge}">Let's Connect</span>
+                    <h2 id="contact-heading" class="section-title" th:text="#{contact.title}">Get In Touch</h2>
+                    <p class="text-lg mb-8 max-w-[32rem] text-[var(--color-text-secondary)]" th:text="#{contact.description}">
                         Have a project in mind or just want to chat about software engineering? 
                         I'm always open to discussing new opportunities and ideas.
                     </p>
@@ -60,8 +60,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="contact-label">LinkedIn</p>
-                                <p class="contact-value">Phi Tiet</p>
+                                <p class="contact-label" th:text="#{contact.linkedin}">LinkedIn</p>
+                                <p class="contact-value" th:text="#{contact.linkedin.name}">Phi Tiet</p>
                             </div>
                         </a>
                         
@@ -72,8 +72,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="contact-label">GitHub</p>
-                                <p class="contact-value">PhiTiet</p>
+                                <p class="contact-label" th:text="#{contact.github}">GitHub</p>
+                                <p class="contact-value" th:text="#{contact.github.name}">PhiTiet</p>
                             </div>
                         </a>
                     </div>
