@@ -19,15 +19,15 @@ class HomePageDetailsTest {
     }
 
     @Test
-    @DisplayName("should return current spring boot version")
+    @DisplayName("should return spring boot version")
     void springVersion() {
-        assertThat(sut.currentSpringBootVersion()).isNotBlank();
+        assertThat(sut.springBootVersion()).isNotBlank();
     }
 
     @Test
-    @DisplayName("should return current java version")
+    @DisplayName("should return java version")
     void javaVersion() {
-        assertThat(sut.currentJavaVersion()).isNotBlank();
+        assertThat(sut.javaVersion()).isNotBlank();
     }
 
 }

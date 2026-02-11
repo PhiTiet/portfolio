@@ -2,6 +2,7 @@ package nl.personal.portfolio.core;
 
 import nl.personal.portfolio.core.mapper.ToHomePageDetailsMapper;
 import nl.personal.portfolio.domain.config.career.CareerProperties;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +28,11 @@ class CareerServiceTest {
 
     @Mock
     private ToHomePageDetailsMapper toHomePageDetailsMapper;
+
+    @AfterEach
+    void tearDown() {
+        LocaleContextHolder.resetLocaleContext();
+    }
 
     @Test
     @DisplayName("should delegate to mapper with English career properties for English locale")
