@@ -6,7 +6,10 @@ import java.time.LocalDate;
 
 import static nl.personal.portfolio.factory.IconTestFactory.defaultIcon;
 
-public class TimelineEventTestFactory {
+public final class TimelineEventTestFactory {
+
+    private TimelineEventTestFactory() {
+    }
 
     public static TimelineEvent defaultTimelineEvent() {
         return new TimelineEvent("employer", "jobTitle", "description", defaultIcon(), LocalDate.now().minusDays(1), LocalDate.now());

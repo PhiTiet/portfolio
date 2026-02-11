@@ -26,4 +26,4 @@ jobs:
           cache: maven
 
       - name: build
-        run: mvn clean verify
+        run: ./mvnw clean verify

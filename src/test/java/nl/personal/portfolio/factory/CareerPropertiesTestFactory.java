@@ -11,7 +11,11 @@ import static nl.personal.portfolio.factory.HobbyTestFactory.defaultHobby;
 import static nl.personal.portfolio.factory.SkillTestFactory.defaultSkill;
 import static nl.personal.portfolio.factory.TimelineEventTestFactory.defaultTimelineEvent;
 
-public class CareerPropertiesTestFactory {
+public final class CareerPropertiesTestFactory {
+
+    private CareerPropertiesTestFactory() {
+    }
+
     public static CareerProperties defaultCareerProperties() {
         final var properties = new CareerConfigProperties();
         properties.setBirthday(LocalDate.of(1999, 12, 9));

@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
 @Slf4j
-public final class RestControllerExceptionAdvice {
+public final class GlobalExceptionAdvice {
 
     @ExceptionHandler({ConstraintViolationException.class, HttpMessageNotReadableException.class})
     @ResponseStatus(BAD_REQUEST)

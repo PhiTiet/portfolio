@@ -5,7 +5,10 @@ import nl.personal.portfolio.domain.HomePageDetails;
 import java.time.Period;
 import java.util.List;
 
-public class HomePageDetailsTestFactory {
+public final class HomePageDetailsTestFactory {
+
+    private HomePageDetailsTestFactory() {
+    }
 
     public static HomePageDetails defaultHomePageDetails() {
         return HomePageDetails.builder()
@@ -17,6 +20,8 @@ public class HomePageDetailsTestFactory {
                 .skills(List.of())
                 .events(List.of())
                 .recommendations(List.of())
+                .springBootVersion("3.0.0")
+                .javaVersion("21")
                 .build();
     }
 }

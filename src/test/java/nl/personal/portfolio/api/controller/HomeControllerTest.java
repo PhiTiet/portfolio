@@ -1,6 +1,6 @@
 package nl.personal.portfolio.api.controller;
 
-import nl.personal.portfolio.api.advice.RestControllerExceptionAdvice;
+import nl.personal.portfolio.api.advice.GlobalExceptionAdvice;
 import nl.personal.portfolio.api.security.SecurityConfiguration;
 import nl.personal.portfolio.core.CareerService;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(HomeController.class)
-@Import({RestControllerExceptionAdvice.class, SecurityConfiguration.class})
+@Import({GlobalExceptionAdvice.class, SecurityConfiguration.class})
 @DisplayName("HomeController")
 class HomeControllerTest {
 

@@ -25,10 +25,10 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(RestControllerExceptionAdvice.class)
-@Import(RestControllerExceptionAdviceTest.TestController.class)
-@DisplayName("RestControllerExceptionAdvice")
-class RestControllerExceptionAdviceTest {
+@WebMvcTest(GlobalExceptionAdvice.class)
+@Import(GlobalExceptionAdviceTest.TestController.class)
+@DisplayName("GlobalExceptionAdvice")
+class GlobalExceptionAdviceTest {
 
     public static final String TEST_EXCEPTION_URL = "/anonymous/test_exception";
 

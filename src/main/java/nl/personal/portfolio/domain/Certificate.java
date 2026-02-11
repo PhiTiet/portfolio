@@ -1,6 +1,5 @@
 package nl.personal.portfolio.domain;
 
-import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -19,7 +18,7 @@ public record Certificate(
     }
 
     @Override
-    public int compareTo(@NotNull final Certificate other) {
+    public int compareTo(final Certificate other) {
         return acquisitionDate.compareTo(other.acquisitionDate());
     }
 }

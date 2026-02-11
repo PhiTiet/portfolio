@@ -8,8 +8,6 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 
-import java.time.Clock;
-
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
 @Configuration
@@ -42,10 +40,5 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated())
                 .build();
 
-    }
-
-    @Bean
-    Clock clock() {
-        return Clock.systemDefaultZone();
     }
 }
