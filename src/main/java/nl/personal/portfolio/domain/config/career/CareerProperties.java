@@ -22,5 +22,4 @@ public interface CareerProperties {
     List<TimelineEvent> getEvents();
 
     List<Hobby> getHobbies();
-
 }

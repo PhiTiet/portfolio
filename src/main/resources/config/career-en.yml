@@ -1,4 +1,4 @@
-career:
+career-en:
   birthday: 09-12-1999
   programming-start-date: 01-07-2018
   professional-career-start-date: 01-09-2020
@@ -151,7 +151,7 @@ career:
         classes: fa-solid fa-flag-checkered fa-beat
         style: "color: #149f2b;"
 
-    - employer: McDonald’s
+    - employer: McDonald's
       job-title: Crew member
       description:
         I started my Horeca journey under the golden arches at McDonald's — a crash course in fast-paced service,

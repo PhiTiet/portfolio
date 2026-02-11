@@ -4,4 +4,6 @@ spring:
   threads.virtual.enabled: true
   config:
     import:
-      - classpath:/config/career.yml
+      - classpath:/config/career-en.yml
+      - classpath:/config/career-nl.yml
+      - classpath:/config/recommendations.yml
