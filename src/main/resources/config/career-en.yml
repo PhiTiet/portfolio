@@ -143,7 +143,7 @@ career-en:
     - employer: DEEN Distribution Centre
       job-title: Storage employee
       description:
-        I kicked off my career as an Order Picker at DEEN Distribution Centre. It wasn't all boxes and shelves;
+        I kicked off my career as an Order Picker at DEEN Distribution Centre. It wasn't all boxes and shelves,
         though that was most of the work.
       start: 01-01-2015
       end: 01-06-2015
@@ -164,10 +164,10 @@ career-en:
 
     - employer: Lunchroom Cafetaria Celine
       job-title: All-around employee
-      description: I worked very hard under a strict owner to become disciplined, efficient and handy as a person with
-        a good work ethic. Turns out, navigating the Horeca world was a whole different ballgame compared to my
-        McDonald's days. It added layers to my experience, revealing the challenges and flavors of
-        the hospitality industry
+      description: I worked very hard under a strict owner to become disciplined, efficient, and resourceful — a
+        person with a strong work ethic. Turns out, navigating the Horeca world was a whole different ballgame compared
+        to my McDonald's days. It added layers to my experience, revealing the challenges and flavors of the
+        hospitality industry.
       start: 01-01-2016
       end: 01-01-2020
       icon:
@@ -178,9 +178,9 @@ career-en:
       job-title: Junior Software Engineer
       description: Stepping into the world of software engineering at a small pharmaceutical company felt like entering
         a new dimension. Armed with my CS degree, I dove into Java Spring and Scrum methodologies,
-        discovering a whole realm of real-world application that academia only hinted at. It was a hands-on initiation
-        that brought my coding skills to life. I cherish the memories of our extended daily standups, brimming with
-        laughter and jokes, to the point where it hardly felt like I was even at work.
+        discovering a whole realm of real-world applications that academia had only hinted at. It was a hands-on
+        initiation that brought my coding skills to life. I cherish the memories of our extended daily standups,
+        brimming with laughter and jokes, to the point where they hardly felt like work.
       start: 01-09-2020
       end: 01-07-2022
       icon:
@@ -189,9 +189,9 @@ career-en:
 
     - employer: Ordina
       job-title: Medior Software Engineer
-      description: In my previous role as a software engineer in secondment, I've found a dynamic and ever-evolving
-        environment. This experience continues to be a journey of growth, exposing me to diverse projects and challenges that keep me engaged and motivated
-        this experience as a consultant surely will contribute to my journey as an engineer.
+      description: In my role as a software engineer in secondment, I found a dynamic and ever-evolving environment.
+        This experience was a journey of growth, exposing me to diverse projects and challenges that kept me engaged
+        and motivated. This experience as a consultant surely contributed to my journey as an engineer.
       start: 01-07-2022
       end: 01-04-2024
       icon:
@@ -200,9 +200,9 @@ career-en:
 
     - employer: Rabobank
       job-title: Medior Software Engineer
-      description: In my  previous role at Rabobank, my journey unfolds as a software engineer, expanding my skills in
-        Scrum and delving deep into Java development and devops. The cutting-edge microservices environment introduces
-        me to Kubernetes and Azure, providing a rich landscape for honing my expertise in modern software engineering.
+      description: In my role at Rabobank, my journey unfolded as a software engineer, expanding my skills in Scrum
+        and delving deep into Java development and DevOps. The cutting-edge microservices environment introduced me to
+        Kubernetes and Azure, providing a rich landscape for honing my expertise in modern software engineering.
       start: 01-09-2022
       end: 01-04-2024
       icon:
@@ -211,8 +211,8 @@ career-en:
 
     - employer: Qualogy
       job-title: Medior Software Engineer
-      description: My consultancy career continues as I love my current role as Medior Java Software Engineer at Qualogy. 
-        I'm excited for the amazing assignments Qualogy has in store for me!
+      description: My consultancy career continued at Qualogy, where I served as a Medior Java Software Engineer.
+        I valued the diverse assignments and opportunities Qualogy provided.
       start: 01-04-2024
       end:
       icon:
@@ -226,7 +226,7 @@ career-en:
         I enforced event-driven Kafka protocols, regularly represented my team in architecture sessions, and introduced clean code,
         architecture principles, pair programming, and quality gate practices.
         I led knowledge-sharing initiatives, organized cross-team sessions, and drove our backlog with improvement and roadmap tasks.
-        My work utilized Kotlin, Spring Boot, Kubernetes, ArgoCD, Kafka, and other key technologies.
+        I worked with Kotlin, Spring Boot, Kubernetes, ArgoCD, Kafka, and other key technologies.
       start: 01-08-2024
       end:
       icon:
