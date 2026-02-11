@@ -10,7 +10,7 @@ import org.springframework.security.web.util.matcher.OrRequestMatcher;
 
 import java.time.Clock;
 
-import static org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher.pathPattern;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -20,17 +20,17 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(final HttpSecurity httpSecurity) throws Exception {
 
         final var anonymousRequestMatcher = new OrRequestMatcher(
-                pathPattern("/"),
-                pathPattern("/home/**"),
-                pathPattern("/static/**"),
-                pathPattern("/*.css"),
-                pathPattern("/favicon.ico"),
-                pathPattern("/images/**"),
-                pathPattern("/pdf/**"),
-                pathPattern("/*.js"),
-                pathPattern("/webjars/**"),
-                pathPattern("/robots.txt"),
-                pathPattern("/sitemap.xml")
+                PathPatternRequestMatcher.pathPattern("/"),
+                PathPatternRequestMatcher.pathPattern("/home/**"),
+                PathPatternRequestMatcher.pathPattern("/static/**"),
+                PathPatternRequestMatcher.pathPattern("/*.css"),
+                PathPatternRequestMatcher.pathPattern("/favicon.ico"),
+                PathPatternRequestMatcher.pathPattern("/images/**"),
+                PathPatternRequestMatcher.pathPattern("/pdf/**"),
+                PathPatternRequestMatcher.pathPattern("/*.js"),
+                PathPatternRequestMatcher.pathPattern("/webjars/**"),
+                PathPatternRequestMatcher.pathPattern("/robots.txt"),
+                PathPatternRequestMatcher.pathPattern("/sitemap.xml")
         );
 
         return httpSecurity
