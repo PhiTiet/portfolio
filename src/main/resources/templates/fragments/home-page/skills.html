@@ -7,9 +7,9 @@
 <body>
 <div th:fragment="skills" class="max-w-4xl mx-auto">
     <div class="text-center mb-12">
-        <span class="badge mb-4">What I Work With</span>
-        <h2 id="skills-heading" class="section-title">Technical Skills</h2>
-        <p class="section-description">
+        <span class="badge mb-4" th:text="#{skills.badge}">What I Work With</span>
+        <h2 id="skills-heading" class="section-title" th:text="#{skills.title}">Technical Skills</h2>
+        <p class="section-description" th:text="#{skills.description}">
             Years of hands-on experience building scalable backend systems, 
             coaching teams, and shipping production-grade software.
         </p>
@@ -46,8 +46,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="expertise-title">Backend Development</h3>
-                    <p class="expertise-description">Java, Kotlin, Spring Boot, Microservices</p>
+                    <h3 class="expertise-title" th:text="#{skills.expertise.backend}">Backend Development</h3>
+                    <p class="expertise-description" th:text="#{skills.expertise.backend.desc}">Java, Kotlin, Spring Boot, Microservices</p>
                 </div>
             </div>
             <div class="expertise-card">
@@ -57,8 +57,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="expertise-title">Cloud & DevOps</h3>
-                    <p class="expertise-description">Kubernetes, AKS, GitHub Actions, ArgoCD</p>
+                    <h3 class="expertise-title" th:text="#{skills.expertise.cloud}">Cloud & DevOps</h3>
+                    <p class="expertise-description" th:text="#{skills.expertise.cloud.desc}">Kubernetes, AKS, GitHub Actions, ArgoCD</p>
                 </div>
             </div>
             <div class="expertise-card">
@@ -68,8 +68,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="expertise-title">Leadership</h3>
-                    <p class="expertise-description">Coaching, Clean Code, Architecture</p>
+                    <h3 class="expertise-title" th:text="#{skills.expertise.leadership}">Leadership</h3>
+                    <p class="expertise-description" th:text="#{skills.expertise.leadership.desc}">Coaching, Clean Code, Architecture</p>
                 </div>
             </div>
         </div>

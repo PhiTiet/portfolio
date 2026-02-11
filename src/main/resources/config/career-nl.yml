@@ -1,0 +1,236 @@
+career-nl:
+  birthday: 09-12-1999
+  programming-start-date: 01-07-2018
+  professional-career-start-date: 01-09-2020
+  certificates:
+    - title: Level 2 Certificate in ESOL International (Advanced)
+      institution: Cambridge University Press & Assessment English
+      acquisitionDate: 01-06-2016
+
+    - title: M18 English A Language and Literature Higher Level
+      institution: International Baccalaureate
+      acquisitionDate: 01-07-2018
+
+    - title: Bilingual VWO - Atheneum
+      institution: Tabor College Werenfridus
+      acquisitionDate: 02-07-2018
+
+    - title: BSc Computer Science (7,7 GPA)
+      institution: Vrije Universiteit Amsterdam
+      acquisitionDate: 01-08-2021
+
+    - title: Train De Trainer
+      institution: ICM
+      acquisitionDate: 01-07-2023
+
+  hobbies:
+    - name: Programmeren
+      icon:
+        classes: fa-solid fa-laptop-code
+        style: "color: #1ad5c0;"
+
+    - name: Eten
+      icon:
+        classes: fa-solid fa-utensils fa-bounce
+        style:
+
+    - name: Schaken
+      icon:
+        classes: fa-solid fa-chess-board fa-xl
+        style:
+
+    - name: Gamen
+      icon:
+        classes: fa-solid fa-gamepad fa-shake
+        style: "color: #c93c0d;"
+
+    - name: Koken
+      icon:
+        classes: fa-solid fa-kitchen-set
+        style: "color: #636fab"
+
+    - name: Anime
+      icon:
+        classes: fa-solid fa-user-secret
+        style:
+
+  skills:
+    - name: Java
+      proficiency: 9
+      icon:
+        classes: fa-brands fa-java
+        style: color:#f89820
+
+    - name: Kotlin
+      proficiency: 9
+      icon:
+        classes: fa-solid fa-k
+        style: color:#7F52FF
+
+    - name: Microservice architecture
+      proficiency: 7
+      icon:
+        classes: fa-solid fa-cubes
+        style: color:#2dd4bf
+
+    - name: Agile/Scrum
+      proficiency: 7
+      icon:
+        classes: fa-solid fa-arrows-spin
+        style: color:#2dd4bf
+
+    - name: Kubernetes
+      proficiency: 7
+      icon:
+        classes: fa-solid fa-dharmachakra
+        style: color:#326CE5
+
+    - name: AKS
+      proficiency: 6
+      icon:
+        classes: fa-brands fa-microsoft
+        style: color:#0078D4
+
+    - name: OAuth2
+      proficiency: 7
+      icon:
+        classes: fa-solid fa-key
+        style: color:#2dd4bf
+
+    - name: Spring Boot
+      proficiency: 8
+      icon:
+        classes: fa-solid fa-leaf
+        style: color:#6DB33F
+
+    - name: Coaching
+      proficiency: 7
+      icon:
+        classes: fa-solid fa-chalkboard-user
+        style: color:#2dd4bf
+
+    - name: Clean Code & Architecture
+      proficiency: 7
+      icon:
+        classes: fa-solid fa-broom
+        style: color:#2dd4bf
+
+    - name: Github Actions
+      proficiency: 6
+      icon:
+        classes: fa-brands fa-github
+        style: color:#f1f5f9
+
+    - name: Python
+      proficiency: 6
+      icon:
+        classes: fa-brands fa-python
+        style: color:#3776AB
+
+    - name: Tailwind CSS & Thymeleaf
+      proficiency: 6
+      icon:
+        classes: fa-solid fa-wind
+        style: color:#38BDF8
+
+    - name: OpenCode AI
+      proficiency: 8
+      icon:
+        classes: fa-solid fa-robot
+        style: color:#a78bfa
+
+  events:
+    - employer: DEEN Distribution Centre
+      job-title: Magazijnmedewerker
+      description:
+        Ik begon mijn carriere als orderpicker bij het DEEN Distributiecentrum. Het was niet alleen dozen en stellingen,
+        al was dat wel het grootste deel van het werk.
+      start: 01-01-2015
+      end: 01-06-2015
+      icon:
+        classes: fa-solid fa-flag-checkered fa-beat
+        style: "color: #149f2b;"
+
+    - employer: McDonald's
+      job-title: Crewlid
+      description:
+        Ik begon mijn horeca-avontuur onder de gouden bogen van McDonald's — een spoedcursus in snel werken,
+        samenwerken en de kunst van het hamburgers bakken.
+      start: 01-06-2015
+      end: 01-01-2016
+      icon:
+        classes: fas fa-regular fa-burger fa-bounce
+        style: "color: #e18709;"
+
+    - employer: Lunchroom Cafetaria Celine
+      job-title: Allround medewerker
+      description: Ik werkte keihard onder een strenge eigenaar om gedisciplineerd, efficient en handig te worden als
+        persoon met een goede werkhouding. De horeca bleek een heel ander verhaal dan mijn McDonald's-tijd. Het voegde
+        lagen toe aan mijn ervaring en liet me de uitdagingen en smaken van de horecawereld ontdekken.
+      start: 01-01-2016
+      end: 01-01-2020
+      icon:
+        classes: fa-solid fa-utensils style
+        style: "color: #5f7395;"
+
+    - employer: MedIT Solutions B.V.
+      job-title: Junior Software Engineer
+      description: De wereld van software engineering binnenstappen bij een klein farmaceutisch bedrijf voelde als een
+        nieuwe dimensie betreden. Gewapend met mijn informatica-diploma dook ik in Java Spring en Scrum, en ontdekte
+        een hele wereld van praktische toepassingen waar de universiteit alleen maar naar hintte. Het was een hands-on
+        kennismaking die mijn programmeervaardigheden tot leven bracht. Ik koester de herinneringen aan onze uitgelopen
+        daily standups, vol gelach en grappen, tot het punt waarop het nauwelijks voelde alsof ik aan het werk was.
+      start: 01-09-2020
+      end: 01-07-2022
+      icon:
+        classes: fa-solid fa-laptop
+        style: "color: #0cac59;"
+
+    - employer: Ordina
+      job-title: Medior Software Engineer
+      description: In mijn vorige rol als software engineer in detachering vond ik een dynamische en steeds veranderende
+        omgeving. Deze ervaring was een reis van groei, met diverse projecten en uitdagingen die me betrokken en
+        gemotiveerd hielden. Deze ervaring als consultant heeft zeker bijgedragen aan mijn reis als engineer.
+      start: 01-07-2022
+      end: 01-04-2024
+      icon:
+        classes: fa-solid fa-laptop-code
+        style: "color: #cc0f5b;"
+
+    - employer: Rabobank
+      job-title: Medior Software Engineer
+      description: In mijn vorige rol bij Rabobank ontvouwde mijn reis als software engineer zich, waarbij ik mijn
+        vaardigheden in Scrum uitbreidde en diep dook in Java-ontwikkeling en devops. De geavanceerde
+        microservices-omgeving introduceerde me in Kubernetes en Azure, een rijke omgeving om mijn expertise in moderne
+        software engineering aan te scherpen.
+      start: 01-09-2022
+      end: 01-04-2024
+      icon:
+        classes: fa-solid fa-piggy-bank fa-shake
+        style: "color: #e49bd0;"
+
+    - employer: Qualogy
+      job-title: Medior Software Engineer
+      description: Mijn consultancy-carriere gaat door en ik ben dol op mijn huidige rol als Medior Java Software
+        Engineer bij Qualogy. Ik kijk uit naar de geweldige opdrachten die Qualogy voor me in petto heeft!
+      start: 01-04-2024
+      end:
+      icon:
+        classes: fa-solid fa-q
+        style: "color: #b91d1d;"
+
+    - employer: Ahold Delhaize
+      job-title: Senior Software Engineer
+      description: In mijn rol als enige Kotlin-ontwikkelaar in een cross-functioneel team van Salesforce-beheerders
+        en -ontwikkelaars, heb ik legacy Kotlin-microservices omgebouwd tot robuuste, conforme services met interne
+        frameworks. Ik handhaafde event-driven Kafka-protocollen, vertegenwoordigde regelmatig mijn team in
+        architectuursessies en introduceerde clean code, architectuurprincipes, pair programming en quality
+        gate-praktijken. Ik leidde kennisdelingssessies, organiseerde cross-team sessies en stuurde onze backlog aan
+        met verbeter- en roadmaptaken. Mijn werk maakte gebruik van Kotlin, Spring Boot, Kubernetes, ArgoCD, Kafka en
+        andere belangrijke technologieen.
+      start: 01-08-2024
+      end:
+      icon:
+        classes: "fa-duotone fa-solid fa-cart-shopping"
+        style:
+

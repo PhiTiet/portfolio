@@ -7,9 +7,9 @@
 <body>
 <div th:fragment="hobbies" class="max-w-4xl mx-auto">
     <div class="text-center mb-12">
-        <span class="badge mb-4">Beyond The Code</span>
-        <h2 id="hobbies-heading" class="section-title">Life Outside Work</h2>
-        <p class="section-description">
+        <span class="badge mb-4" th:text="#{hobbies.badge}">Beyond The Code</span>
+        <h2 id="hobbies-heading" class="section-title" th:text="#{hobbies.title}">Life Outside Work</h2>
+        <p class="section-description" th:text="#{hobbies.description}">
             When I'm not pushing commits, here's what keeps me busy.
         </p>
     </div>
@@ -25,7 +25,7 @@
             
             <div class="relative aspect-[4/3] rounded-[var(--radius-xl)] overflow-hidden bg-[var(--color-bg-tertiary)] shadow-[var(--shadow-lg)]">
                 <img th:src="@{/images/self_chess.png}" 
-                     alt="Playing chess"
+                     th:alt="#{hobbies.photo.chess}"
                      class="photo-slide"
                      loading="lazy"
                      x-show="active === 0"
@@ -33,7 +33,7 @@
                      x-cloak
                      :class="active === 0 ? 'photo-active' : ''">
                 <img th:src="@{/images/self_cat.png}" 
-                     alt="With my cat"
+                     th:alt="#{hobbies.photo.cat}"
                      class="photo-slide"
                      loading="lazy"
                      x-show="active === 1"
@@ -41,7 +41,7 @@
                      x-cloak
                      :class="active === 1 ? 'photo-active' : ''">
                 <img th:src="@{/images/self_pieter.png}" 
-                     alt="With colleague Pieter"
+                     th:alt="#{hobbies.photo.pieter}"
                      class="photo-slide"
                      loading="lazy"
                      x-show="active === 2"
@@ -49,7 +49,7 @@
                      x-cloak
                      :class="active === 2 ? 'photo-active' : ''">
                 <img th:src="@{/images/self_beach.png}" 
-                     alt="At the beach"
+                     th:alt="#{hobbies.photo.beach}"
                      class="photo-slide"
                      loading="lazy"
                      x-show="active === 3"
@@ -59,10 +59,10 @@
             </div>
             
             <div class="flex justify-center gap-2 mt-4">
-                <button class="photo-dot" :class="active === 0 ? 'active' : ''" @click="go(0)" aria-label="View photo 1"></button>
-                <button class="photo-dot" :class="active === 1 ? 'active' : ''" @click="go(1)" aria-label="View photo 2"></button>
-                <button class="photo-dot" :class="active === 2 ? 'active' : ''" @click="go(2)" aria-label="View photo 3"></button>
-                <button class="photo-dot" :class="active === 3 ? 'active' : ''" @click="go(3)" aria-label="View photo 4"></button>
+                <button class="photo-dot" :class="active === 0 ? 'active' : ''" @click="go(0)" th:attr="aria-label=#{hobbies.photo.view(1)}"></button>
+                <button class="photo-dot" :class="active === 1 ? 'active' : ''" @click="go(1)" th:attr="aria-label=#{hobbies.photo.view(2)}"></button>
+                <button class="photo-dot" :class="active === 2 ? 'active' : ''" @click="go(2)" th:attr="aria-label=#{hobbies.photo.view(3)}"></button>
+                <button class="photo-dot" :class="active === 3 ? 'active' : ''" @click="go(3)" th:attr="aria-label=#{hobbies.photo.view(4)}"></button>
             </div>
         </div>
 
@@ -78,7 +78,7 @@
             </div>
 
             <div class="p-6 bg-[var(--color-accent-subtle)] rounded-[var(--radius-lg)] border-l-[3px] border-l-[var(--color-accent)]">
-                <p class="text-[0.9375rem] leading-[1.8] text-[var(--color-text-secondary)] m-0">
+                <p class="text-[0.9375rem] leading-[1.8] text-[var(--color-text-secondary)] m-0" th:text="#{hobbies.about}">
                     After work, you'll find me wearing multiple hats — not just the coding kind. 
                     I'm a foodie exploring culinary wonders, a game enthusiast always down for one more round, 
                     a home-cook scrolling through recipe videos, and a chess amateur gambit'ing online and over-the-board. 
@@ -88,12 +88,12 @@
             </div>
 
             <div class="pt-4">
-                <h3 class="text-base font-bold text-[var(--color-text-primary)] m-0 mb-4">Languages</h3>
+                <h3 class="text-base font-bold text-[var(--color-text-primary)] m-0 mb-4" th:text="#{hobbies.languages}">Languages</h3>
                 <div class="flex flex-col gap-3">
                     <div class="flex flex-col gap-1.5">
                         <div class="flex justify-between items-center">
-                            <span class="language-name">Dutch</span>
-                            <span class="language-level">Native</span>
+                            <span class="language-name" th:text="#{hobbies.lang.dutch}">Dutch</span>
+                            <span class="language-level" th:text="#{hobbies.lang.native}">Native</span>
                         </div>
                         <div class="progress-track">
                             <div class="progress-fill" style="width: 100%"></div>
@@ -101,8 +101,8 @@
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <div class="flex justify-between items-center">
-                            <span class="language-name">English</span>
-                            <span class="language-level">Native</span>
+                            <span class="language-name" th:text="#{hobbies.lang.english}">English</span>
+                            <span class="language-level" th:text="#{hobbies.lang.native}">Native</span>
                         </div>
                         <div class="progress-track">
                             <div class="progress-fill" style="width: 100%"></div>
@@ -110,8 +110,8 @@
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <div class="flex justify-between items-center">
-                            <span class="language-name">Vietnamese</span>
-                            <span class="language-level">Conversational</span>
+                            <span class="language-name" th:text="#{hobbies.lang.vietnamese}">Vietnamese</span>
+                            <span class="language-level" th:text="#{hobbies.lang.conversational}">Conversational</span>
                         </div>
                         <div class="progress-track">
                             <div class="progress-fill" style="width: 60%"></div>

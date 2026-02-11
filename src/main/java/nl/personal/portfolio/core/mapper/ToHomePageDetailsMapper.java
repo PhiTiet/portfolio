@@ -3,6 +3,7 @@ package nl.personal.portfolio.core.mapper;
 import lombok.RequiredArgsConstructor;
 import nl.personal.portfolio.domain.HomePageDetails;
 import nl.personal.portfolio.domain.config.career.CareerProperties;
+import nl.personal.portfolio.domain.config.recommendation.RecommendationConfigProperties;
 import org.springframework.stereotype.Component;
 
 import java.time.Clock;
@@ -18,6 +19,7 @@ import static java.util.Comparator.reverseOrder;
 public final class ToHomePageDetailsMapper {
 
     private final Clock clock;
+    private final RecommendationConfigProperties recommendationConfigProperties;
 
     public HomePageDetails map(final CareerProperties careerProperties) {
         var today = LocalDate.now(clock);
@@ -29,6 +31,7 @@ public final class ToHomePageDetailsMapper {
                 .skills(careerProperties.getSkills().stream().sorted(reverseOrder()).toList())
                 .events(careerProperties.getEvents().stream().sorted(reverseOrder()).toList())
                 .hobbies(careerProperties.getHobbies())
+                .recommendations(recommendationConfigProperties.getItems())
                 .build();
     }
 }

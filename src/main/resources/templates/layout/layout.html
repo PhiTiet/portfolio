@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" th:lang="${#locale.language}">
 
 <head>
     <div th:replace="~{fragments/general/header :: header}"></div>
@@ -9,7 +9,7 @@
 </head>
 
 <body class="min-h-screen flex flex-col">
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#main-content" class="skip-link" th:text="#{skip.link}">Skip to main content</a>
 
     <header>
         <div th:replace="~{fragments/general/navbar :: navbar}"></div>
@@ -33,6 +33,7 @@
             @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
             class="scroll-to-top"
             aria-label="Scroll to top"
+            th:attr="aria-label=#{scroll.to.top}"
             x-cloak>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />

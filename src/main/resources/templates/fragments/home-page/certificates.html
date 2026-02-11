@@ -7,9 +7,9 @@
 <body>
 <div th:fragment="certificates" class="max-w-4xl mx-auto">
     <div class="text-center mb-12">
-        <span class="badge mb-4">Credentials</span>
-        <h2 id="certificates-heading" class="section-title">Education & Certificates</h2>
-        <p class="section-description">
+        <span class="badge mb-4" th:text="#{certificates.badge}">Credentials</span>
+        <h2 id="certificates-heading" class="section-title" th:text="#{certificates.title}">Education & Certificates</h2>
+        <p class="section-description" th:text="#{certificates.description}">
             Academic foundation and professional certifications that back up my expertise.
         </p>
     </div>
@@ -40,9 +40,9 @@
 
             <div class="flex-1">
                 <div class="inline-block text-[0.6875rem] font-semibold uppercase tracking-wide text-[var(--color-accent)] mb-2">
-                    <span th:if="${#strings.contains(certificate.title, 'BSc') or #strings.contains(certificate.title, 'VWO')}">Education</span>
-                    <span th:if="${#strings.contains(certificate.title, 'ESOL') or #strings.contains(certificate.title, 'English')}">Language</span>
-                    <span th:if="${#strings.contains(certificate.title, 'Trainer')}">Professional</span>
+                    <span th:if="${#strings.contains(certificate.title, 'BSc') or #strings.contains(certificate.title, 'VWO')}" th:text="#{certificates.category.education}">Education</span>
+                    <span th:if="${#strings.contains(certificate.title, 'ESOL') or #strings.contains(certificate.title, 'English')}" th:text="#{certificates.category.language}">Language</span>
+                    <span th:if="${#strings.contains(certificate.title, 'Trainer')}" th:text="#{certificates.category.professional}">Professional</span>
                 </div>
                 <h3 class="text-base font-bold text-[var(--color-text-primary)] m-0 mb-2 leading-snug" th:text="${certificate.title}"></h3>
                 <p class="text-[0.8125rem] text-[var(--color-text-secondary)] m-0 leading-normal" th:text="${certificate.institution}"></p>
