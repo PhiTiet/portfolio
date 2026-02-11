@@ -34,7 +34,15 @@ public class SecurityConfiguration {
         return httpSecurity
                 .headers(headers -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
-                        .httpStrictTransportSecurity(HeadersConfigurer.HstsConfig::disable))
+                        .httpStrictTransportSecurity(HeadersConfigurer.HstsConfig::disable)
+                        .contentSecurityPolicy(csp -> csp.policyDirectives(
+                                "default-src 'self'; " +
+                                "script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net https://kit.fontawesome.com https://ka-p.fontawesome.com; " +
+                                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://ka-p.fontawesome.com https://ka-f.fontawesome.com; " +
+                                "font-src 'self' https://fonts.gstatic.com https://ka-p.fontawesome.com https://ka-f.fontawesome.com; " +
+                                "img-src 'self' data:; " +
+                                "connect-src 'self' https://ka-p.fontawesome.com https://ka-f.fontawesome.com https://cdn.jsdelivr.net"
+                        )))
                 .authorizeHttpRequests(authorization -> authorization
                         .requestMatchers(anonymousRequestMatcher).permitAll()
                         .anyRequest().authenticated())
