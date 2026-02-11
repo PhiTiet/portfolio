@@ -19,7 +19,6 @@
         <java.version>25</java.version>
         <thymeleaf-layout-dialect.version>3.4.0</thymeleaf-layout-dialect.version>
         <equalsverifier.version>4.3.1</equalsverifier.version>
-        <htmx.version>2.0.8</htmx.version>
         <alpinejs.version>3.15.8</alpinejs.version>
     </properties>
 
@@ -46,11 +45,6 @@
             <version>${thymeleaf-layout-dialect.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>htmx.org</artifactId>
-            <version>${htmx.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>alpinejs</artifactId>

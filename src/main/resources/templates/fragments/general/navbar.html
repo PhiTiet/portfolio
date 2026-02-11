@@ -6,6 +6,8 @@
      x-data="{ mobileOpen: false, scrolled: false }"
      x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
      :class="scrolled ? 'shadow-md' : ''"
+     aria-label="Main navigation"
+     th:attr="aria-label=#{nav.aria.label}"
       class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[var(--color-bg-card)] border-b border-[var(--color-border-light)]">
     <div class="container">
         <div class="flex items-center justify-between h-16">
