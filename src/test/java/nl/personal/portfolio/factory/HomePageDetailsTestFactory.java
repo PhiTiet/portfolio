@@ -16,6 +16,7 @@ public class HomePageDetailsTestFactory {
                 .hobbies(List.of())
                 .skills(List.of())
                 .events(List.of())
+                .recommendations(List.of())
                 .build();
     }
 }

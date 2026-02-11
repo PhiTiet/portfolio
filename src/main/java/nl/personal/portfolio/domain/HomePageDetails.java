@@ -14,7 +14,8 @@ public record HomePageDetails(
         List<Certificate> certificates,
         List<Hobby> hobbies,
         List<Skill> skills,
-        List<TimelineEvent> events) {
+        List<TimelineEvent> events,
+        List<Recommendation> recommendations) {
 
     public String currentSpringBootVersion() {
         return SpringBootVersion.getVersion();
