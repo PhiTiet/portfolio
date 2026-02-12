@@ -18,6 +18,7 @@
         <div th:each="event, iterStat : ${details.events}" 
              class="timeline-item"
              th:classappend="${iterStat.first} ? 'timeline-item-current timeline-item-left' : (${iterStat.even} ? 'timeline-item-right' : 'timeline-item-left')"
+             th:id="${'timeline-' + #strings.toLowerCase(#strings.substringBefore(event.employer + ' ', ' '))}"
              th:attr="data-delay=${iterStat.index * 100}"
              x-data="{ show: false }"
              x-init="setTimeout(() => show = true, $el.dataset.delay)"
@@ -54,6 +55,11 @@
                                 th:attr="data-show-less=#{experience.show.less},data-read-more=#{experience.read.more}"
                                 x-text="expanded ? $el.dataset.showLess : $el.dataset.readMore">
                         </button>
+                    </div>
+                    <div th:if="${#strings.contains('Ahold Delhaize,Rabobank,Qualogy,MedIT Solutions B.V.', event.employer)}"
+                         class="mt-3 pt-3 border-t border-[var(--color-border)]">
+                        <a th:href="${'#project-' + #strings.toLowerCase(#strings.substringBefore(event.employer + ' ', ' '))}"
+                           class="project-timeline-link" th:text="#{projects.view.project}">View project</a>
                     </div>
                 </article>
             </div>

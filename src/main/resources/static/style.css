@@ -1105,6 +1105,25 @@ img[loading="lazy"] {
     color: var(--color-accent-contrast);
 }
 
+.project-timeline-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.project-timeline-link::after {
+    content: '\2192';
+}
+
+.project-timeline-link:hover {
+    color: var(--color-accent-hover);
+}
+
 .contact-form-label {
     display: block;
     font-size: 0.875rem;

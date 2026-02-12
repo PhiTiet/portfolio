@@ -18,21 +18,21 @@
 
             <div class="hidden md:flex items-center gap-1">
                 <a href="#about-me" class="nav-link" th:text="#{nav.about}">About</a>
+                <a href="#recommendations" class="nav-link" th:text="#{nav.recommendations}">Recommendations</a>
                 <a href="#experience" class="nav-link" th:text="#{nav.experience}">Experience</a>
                 <a href="#skills" class="nav-link" th:text="#{nav.skills}">Skills</a>
                 <a href="#projects" class="nav-link" th:text="#{nav.projects}">Projects</a>
                 <a href="#certificates" class="nav-link" th:text="#{nav.education}">Education</a>
-                <a href="#recommendations" class="nav-link" th:text="#{nav.recommendations}">Recommendations</a>
                 <a href="#hobbies" class="nav-link" th:text="#{nav.hobbies}">Hobbies</a>
                 <a href="#contact" class="nav-link nav-link-primary" th:text="#{nav.contact}">Contact</a>
             </div>
 
             <div class="flex items-center gap-2">
                 <div class="flex items-center gap-1">
-                    <a href="?lang=en" aria-label="English"
+                    <a href="?lang=en" data-lang-switch aria-label="English"
                        class="text-2xl leading-none transition-opacity"
                        th:classappend="${#locale.language == 'en'} ? 'opacity-100' : 'opacity-40 hover:opacity-70'">&#127468;&#127463;</a>
-                    <a href="?lang=nl" aria-label="Nederlands"
+                    <a href="?lang=nl" data-lang-switch aria-label="Nederlands"
                        class="text-2xl leading-none transition-opacity"
                        th:classappend="${#locale.language == 'nl'} ? 'opacity-100' : 'opacity-40 hover:opacity-70'">&#127475;&#127473;</a>
                 </div>
@@ -78,11 +78,11 @@
          class="md:hidden bg-[var(--color-bg-card)] border-t border-[var(--color-border)]">
         <div class="container py-3 space-y-1">
             <a x-on:click="mobileOpen = false" href="#about-me" class="nav-link-mobile" th:text="#{nav.about}">About</a>
+            <a x-on:click="mobileOpen = false" href="#recommendations" class="nav-link-mobile" th:text="#{nav.recommendations}">Recommendations</a>
             <a x-on:click="mobileOpen = false" href="#experience" class="nav-link-mobile" th:text="#{nav.experience}">Experience</a>
             <a x-on:click="mobileOpen = false" href="#skills" class="nav-link-mobile" th:text="#{nav.skills}">Skills</a>
             <a x-on:click="mobileOpen = false" href="#projects" class="nav-link-mobile" th:text="#{nav.projects}">Projects</a>
             <a x-on:click="mobileOpen = false" href="#certificates" class="nav-link-mobile" th:text="#{nav.education}">Education</a>
-            <a x-on:click="mobileOpen = false" href="#recommendations" class="nav-link-mobile" th:text="#{nav.recommendations}">Recommendations</a>
             <a x-on:click="mobileOpen = false" href="#hobbies" class="nav-link-mobile" th:text="#{nav.hobbies}">Hobbies</a>
             <a x-on:click="mobileOpen = false" href="#contact" class="nav-link-mobile nav-link-mobile-primary" th:text="#{nav.contact}">Contact</a>
         </div>
