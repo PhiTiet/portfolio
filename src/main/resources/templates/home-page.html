@@ -11,13 +11,19 @@
 
     <section th:replace="~{fragments/home-page/hero :: hero}"></section>
 
-    <section id="experience" class="section section-alt" aria-labelledby="experience-heading">
+    <section id="recommendations" class="section section-alt" aria-labelledby="recommendations-heading">
+        <div class="container">
+            <div th:replace="~{fragments/home-page/recommendation :: recommendation}"></div>
+        </div>
+    </section>
+
+    <section id="experience" class="section" aria-labelledby="experience-heading">
         <div class="container">
             <div th:replace="~{fragments/home-page/timeline :: timeline}"></div>
         </div>
     </section>
 
-    <section id="skills" class="section" aria-labelledby="skills-heading">
+    <section id="skills" class="section section-alt" aria-labelledby="skills-heading">
         <div class="container">
             <div th:replace="~{fragments/home-page/skills :: skills}"></div>
         </div>
@@ -35,13 +41,7 @@
         </div>
     </section>
 
-    <section id="recommendations" class="section" aria-labelledby="recommendations-heading">
-        <div class="container">
-            <div th:replace="~{fragments/home-page/recommendation :: recommendation}"></div>
-        </div>
-    </section>
-
-    <section id="hobbies" class="section section-alt" aria-labelledby="hobbies-heading">
+    <section id="hobbies" class="section" aria-labelledby="hobbies-heading">
         <div class="container">
             <div th:replace="~{fragments/home-page/hobbies :: hobbies}"></div>
         </div>
