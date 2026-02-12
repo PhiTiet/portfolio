@@ -11,6 +11,7 @@ public record ContactRequest(
 
         @NotBlank(message = "{contact.validation.email.required}")
         @Email(message = "{contact.validation.email.invalid}")
+        @Size(max = 254, message = "{contact.validation.email.size}")
         String email,
 
         @NotBlank(message = "{contact.validation.message.required}")

@@ -11,10 +11,12 @@ public class ContactService {
     private static final Logger log = LoggerFactory.getLogger(ContactService.class);
 
     public void processContactForm(ContactRequest request) {
-        log.info("Received contact form from {} ({}) with message length: {}",
+        log.debug("Received contact form from {} ({}) with message length: {}",
                 request.name(),
                 request.email(),
                 request.message().length());
+
+        log.info("Contact form submitted - message length: {}", request.message().length());
 
         // TODO: Implement email sending or notification service
         // For now, just log the contact request

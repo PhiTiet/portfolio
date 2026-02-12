@@ -1,7 +1,6 @@
 package nl.personal.portfolio.api.controller;
 
 import nl.personal.portfolio.core.ContactService;
-import nl.personal.portfolio.domain.ContactRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,6 +37,7 @@ class ContactControllerTest {
             """;
 
         mockMvc.perform(post("/api/contact")
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isOk())
@@ -55,6 +56,7 @@ class ContactControllerTest {
             """;
 
         mockMvc.perform(post("/api/contact")
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isBadRequest());
@@ -72,6 +74,7 @@ class ContactControllerTest {
             """;
 
         mockMvc.perform(post("/api/contact")
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isBadRequest());
@@ -89,6 +92,7 @@ class ContactControllerTest {
             """;
 
         mockMvc.perform(post("/api/contact")
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isBadRequest());
@@ -100,6 +104,7 @@ class ContactControllerTest {
         String requestBody = "{}";
 
         mockMvc.perform(post("/api/contact")
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isBadRequest());

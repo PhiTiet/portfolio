@@ -24,16 +24,13 @@ public final class GlobalExceptionAdvice {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionAdvice.class);
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(BAD_REQUEST)
     public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException e) {
         Map<String, Object> errors = new HashMap<>();
         errors.put("message", "Validation failed");
 
         Map<String, String> fieldErrors = new HashMap<>();
-        e.getBindingResult().getAllErrors().forEach(error -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            fieldErrors.put(fieldName, errorMessage);
+        e.getBindingResult().getFieldErrors().forEach(error -> {
+            fieldErrors.put(error.getField(), error.getDefaultMessage());
         });
         errors.put("errors", fieldErrors);
 
