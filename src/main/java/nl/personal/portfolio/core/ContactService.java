@@ -10,6 +10,12 @@ public class ContactService {
 
     private static final Logger log = LoggerFactory.getLogger(ContactService.class);
 
+    private final DiscordWebhookClient discordWebhookClient;
+
+    public ContactService(DiscordWebhookClient discordWebhookClient) {
+        this.discordWebhookClient = discordWebhookClient;
+    }
+
     public void processContactForm(ContactRequest request) {
         log.debug("Received contact form from {} with message length: {}",
                 request.name(),
@@ -17,7 +23,6 @@ public class ContactService {
 
         log.info("Contact form submitted - message length: {}", request.message().length());
 
-        // TODO: Implement email sending or notification service
-        // For now, just log the contact request
+        discordWebhookClient.sendMessage(request.name(), request.email(), request.message());
     }
 }
