@@ -7,3 +7,14 @@ spring:
       - classpath:/config/career-en.yml
       - classpath:/config/career-nl.yml
       - classpath:/config/recommendations.yml
+  web:
+    resources:
+      cache:
+        period: 365d
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: /**
+  jackson:
+    default-property-inclusion: non_null

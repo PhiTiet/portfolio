@@ -6,6 +6,10 @@
     <style>
         [x-cloak] { display: none !important; }
     </style>
+    <th:block th:if="${_csrf}">
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    </th:block>
     <script th:src="@{/theme-init.js}"></script>
 </head>
 
@@ -42,6 +46,7 @@
 
     <script src="https://kit.fontawesome.com/b73a5b4c7a.js" crossorigin="anonymous"></script>
     <script th:src="@{/enhancements.js}" defer></script>
+    <script th:src="@{/contact-form.js}" defer></script>
     <script th:src="@{/webjars/alpinejs/3.15.8/dist/cdn.min.js}" defer></script>
 </body>
 </html>
