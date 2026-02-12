@@ -60,16 +60,44 @@
                 </div>
             </div>
 
-            <div class="order-1 lg:order-2 flex justify-center" x-data="{ shown: false }" x-init="setTimeout(() => shown = true, 300)">
+            <div class="order-1 lg:order-2 flex justify-center" x-data="{ shown: false }" x-init="setTimeout(() => shown = true, 300)" aria-hidden="true">
                 <div :class="shown ? 'opacity-100 scale-100' : 'opacity-0 scale-95'" class="relative transition duration-1000">
                     <div class="absolute -inset-4 bg-gradient-to-tr from-[var(--color-accent)] to-[var(--color-accent-hover)] rounded-full opacity-20 blur-2xl"></div>
-                    <div class="relative">
-                        <img th:src="@{/images/main_picture_me_professional.png}"
-                             alt="Phi Tiet"
-                             class="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 object-cover rounded-full shadow-xl ring-4 ring-[var(--color-bg-card)]"
-                             loading="eager"
-                             decoding="async"
-                             fetchpriority="high">
+                    <div class="orbit-container">
+                        <div class="orbit-center">
+                            <img th:src="@{/images/main_picture_me_professional.png}"
+                                 alt="Phi Tiet"
+                                 class="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 object-cover rounded-full shadow-xl ring-4 ring-[var(--color-bg-card)]"
+                                 loading="eager"
+                                 decoding="async"
+                                 fetchpriority="high">
+                        </div>
+                        <th:block th:with="split=${T(Math).min(7, details.skills.size())}">
+                        <div class="orbit-ring orbit-ring-inner">
+                            <div class="orbit-path"></div>
+                            <th:block th:with="innerSkills=${details.skills.subList(0, split)}">
+                                <div th:each="skill, iter : ${innerSkills}"
+                                     class="orbit-icon"
+                                     th:style="'--angle: ' + ${(360.0 / innerSkills.size()) * iter.index} + 'deg'">
+                                    <div class="orbit-icon-inner" th:title="${skill.name}">
+                                        <i th:classappend="${skill.icon.classes}" th:style="${skill.icon.style}" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                        <div class="orbit-ring orbit-ring-outer" th:if="${details.skills.size() > split}">
+                            <div class="orbit-path"></div>
+                            <th:block th:with="outerSkills=${details.skills.subList(split, details.skills.size())}">
+                                <div th:each="skill, iter : ${outerSkills}"
+                                     class="orbit-icon"
+                                     th:style="'--angle: ' + ${(360.0 / outerSkills.size()) * iter.index} + 'deg'">
+                                    <div class="orbit-icon-inner" th:title="${skill.name}">
+                                        <i th:classappend="${skill.icon.classes}" th:style="${skill.icon.style}" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                        </th:block>
                     </div>
                 </div>
             </div>
