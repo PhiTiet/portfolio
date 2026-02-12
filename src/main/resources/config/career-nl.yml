@@ -133,6 +133,12 @@ career-nl:
         classes: fa-solid fa-wind
         style: color:#38BDF8
 
+    - name: AI-Driven Development
+      proficiency: 8
+      icon:
+        classes: fa-solid fa-wand-magic-sparkles
+        style: color:#a78bfa
+
     - name: OpenCode AI
       proficiency: 8
       icon:
