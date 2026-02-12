@@ -134,7 +134,7 @@ career-nl:
         style: color:#38BDF8
 
     - name: AI-Driven Development
-      proficiency: 8
+      proficiency: 9
       icon:
         classes: fa-solid fa-wand-magic-sparkles
         style: color:#a78bfa
