@@ -6,9 +6,11 @@ document.addEventListener('alpine:init', () => {
         submitted: false,
         submitting: false,
         error: null,
+        fieldErrors: {},
         async submit() {
             this.submitting = true;
             this.error = null;
+            this.fieldErrors = {};
             try {
                 const csrfMeta = document.querySelector('meta[name="_csrf"]');
                 const csrfHeaderMeta = document.querySelector('meta[name="_csrf_header"]');
@@ -31,7 +33,11 @@ document.addEventListener('alpine:init', () => {
                     this.submitted = true;
                 } else {
                     const data = await response.json();
-                    this.error = data.message || 'An error occurred. Please try again.';
+                    if (data.errors) {
+                        this.fieldErrors = data.errors;
+                    } else {
+                        this.error = data.message || 'An error occurred. Please try again.';
+                    }
                 }
             } catch (e) {
                 this.error = 'Network error. Please try again.';

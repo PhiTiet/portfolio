@@ -92,20 +92,23 @@
                                     <div>
                                         <label for="contact-name" class="contact-form-label" th:text="#{contact.form.name}">Name</label>
                                         <input type="text" id="contact-name" name="name" x-model="name" required
-                                               class="contact-form-input"
+                                               :class="fieldErrors.name ? 'contact-form-input border-red-500 focus:border-red-500 focus:ring-red-500' : 'contact-form-input'"
                                                th:attr="placeholder=#{contact.form.name.placeholder}">
+                                        <p x-show="fieldErrors.name" x-text="fieldErrors.name" class="mt-1 text-sm text-red-400"></p>
                                     </div>
                                     <div>
                                         <label for="contact-email" class="contact-form-label" th:text="#{contact.form.email}">Email</label>
                                         <input type="email" id="contact-email" name="email" x-model="email" required autocomplete="email"
-                                               class="contact-form-input"
+                                               :class="fieldErrors.email ? 'contact-form-input border-red-500 focus:border-red-500 focus:ring-red-500' : 'contact-form-input'"
                                                th:attr="placeholder=#{contact.form.email.placeholder}">
+                                        <p x-show="fieldErrors.email" x-text="fieldErrors.email" class="mt-1 text-sm text-red-400"></p>
                                     </div>
                                     <div>
                                         <label for="contact-message" class="contact-form-label" th:text="#{contact.form.message}">Message</label>
                                         <textarea id="contact-message" name="message" x-model="message" required rows="4"
-                                                  class="contact-form-input resize-none"
+                                                  :class="fieldErrors.message ? 'contact-form-input resize-none border-red-500 focus:border-red-500 focus:ring-red-500' : 'contact-form-input resize-none'"
                                                   th:attr="placeholder=#{contact.form.message.placeholder}"></textarea>
+                                        <p x-show="fieldErrors.message" x-text="fieldErrors.message" class="mt-1 text-sm text-red-400"></p>
                                     </div>
                                     <button type="submit"
                                             :disabled="submitting || !name || !email || !message"
