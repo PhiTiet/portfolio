@@ -42,29 +42,29 @@
 }
 
 html.light {
-    --color-bg-primary: #f8fafc;
-    --color-bg-secondary: #f1f5f9;
-    --color-bg-tertiary: #e2e8f0;
-    --color-bg-card: #ffffff;
-    --color-bg-card-hover: #f1f5f9;
+    --color-bg-primary: #d0d8e5;
+    --color-bg-secondary: #c3cde0;
+    --color-bg-tertiary: #adb9cc;
+    --color-bg-card: #dbe3ef;
+    --color-bg-card-hover: #c3cde0;
 
     --color-text-primary: #0f172a;
-    --color-text-secondary: #475569;
-    --color-text-muted: #64748b;
+    --color-text-secondary: #2d3d52;
+    --color-text-muted: #475b73;
 
     --color-accent: #0d9488;
     --color-accent-hover: #0f766e;
-    --color-accent-light: #ccfbf1;
-    --color-accent-subtle: #f0fdfa;
+    --color-accent-light: #99e8de;
+    --color-accent-subtle: #c2ede7;
     --color-accent-contrast: #ffffff;
 
-    --color-border: #e2e8f0;
-    --color-border-light: #f1f5f9;
+    --color-border: #b0bdd0;
+    --color-border-light: #c3cde0;
 
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.12), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.12), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.12), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 html {

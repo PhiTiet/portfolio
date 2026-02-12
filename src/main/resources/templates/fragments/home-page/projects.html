@@ -11,7 +11,7 @@
         </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <a href="https://github.com/PhiTiet/portfolio" target="_blank" rel="noopener noreferrer"
            class="project-card group"
            x-data="{ show: false }" x-init="setTimeout(() => show = true, 0)"
@@ -74,9 +74,34 @@
                 A Kotlin Spring Boot service that monitors hockey schedules and sends automated notifications.
             </p>
             <div class="flex flex-wrap gap-1.5">
-                <span class="project-tag">Kotlin</span>
+                <span class="project-tag">Java</span>
                 <span class="project-tag">Spring Boot</span>
                 <span class="project-tag">Docker</span>
+            </div>
+        </div>
+
+        <div class="project-card project-card-private"
+             x-data="{ show: false }" x-init="setTimeout(() => show = true, 300)"
+             x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="icon-box icon-box-accent">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 4h8a4 4 0 014 4v6a4 4 0 01-4 4H8a4 4 0 01-4-4V8a4 4 0 014-4zm0 14l-2 3m10-3l2 3M9 8h6M9 12h6"/>
+                    </svg>
+                </div>
+                <div class="flex items-center gap-2">
+                    <h3 class="font-semibold text-[0.9375rem] text-[var(--color-text-primary)]" th:text="#{projects.kutns.title}">kut-ns</h3>
+                    <span class="project-private-badge" th:text="#{projects.private}">Private</span>
+                </div>
+            </div>
+            <p class="text-sm text-[var(--color-text-muted)] mb-4 flex-1" th:text="#{projects.kutns.description}">
+                A satirical website where frustrated Dutch commuters click a button to vent about NS, with a live heatmap.
+            </p>
+            <div class="flex flex-wrap gap-1.5">
+                <span class="project-tag">Kotlin</span>
+                <span class="project-tag">Spring Boot</span>
+                <span class="project-tag">HTMX</span>
+                <span class="project-tag">Tailwind CSS</span>
             </div>
         </div>
     </div>

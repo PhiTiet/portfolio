@@ -31,8 +31,7 @@
 
             <div class="relative">
                 <div class="inline-block py-1 px-3 text-xs font-semibold text-[var(--color-accent)] bg-[var(--color-accent-subtle)] rounded-full mb-3" th:classappend="${iterStat.first} ? 'timeline-date-current' : ''">
-                    <span th:if="${iterStat.first}" class="timeline-current-indicator" th:text="#{experience.current}">Current</span>
-                    <span th:text="${#temporals.format(event.start, 'MM-yyyy') + ' \u2192 ' + (event.end != null ? #temporals.format(event.end, 'MM-yyyy') : #messages.msg('timeline.current'))}"></span>
+                    <span th:text="${#temporals.format(event.start, 'MM-yyyy') + ' → ' + (event.end != null ? #temporals.format(event.end, 'MM-yyyy') : #messages.msg('timeline.current'))}"></span>
                 </div>
                 
                 <article class="timeline-card" th:classappend="${iterStat.first} ? 'timeline-card-current' : ''">
