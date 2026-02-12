@@ -29,10 +29,12 @@ public class SecurityConfiguration {
                 PathPatternRequestMatcher.pathPattern("/*.js"),
                 PathPatternRequestMatcher.pathPattern("/webjars/**"),
                 PathPatternRequestMatcher.pathPattern("/robots.txt"),
-                PathPatternRequestMatcher.pathPattern("/sitemap.xml")
+                PathPatternRequestMatcher.pathPattern("/sitemap.xml"),
+                PathPatternRequestMatcher.pathPattern("/api/contact")
         );
 
         return httpSecurity
+                .csrf(csrf -> csrf.ignoringRequestMatchers(PathPatternRequestMatcher.pathPattern("/api/**")))
                 .headers(headers -> {
                     headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin);
                     headers.httpStrictTransportSecurity(HeadersConfigurer.HstsConfig::disable);

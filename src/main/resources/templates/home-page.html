@@ -88,12 +88,33 @@
                                   message: '',
                                   submitted: false,
                                   submitting: false,
-                                  submit() {
+                                  error: null,
+                                  async submit() {
                                       this.submitting = true;
-                                      setTimeout(() => {
-                                          this.submitted = true;
+                                      this.error = null;
+                                      try {
+                                          const response = await fetch('/api/contact', {
+                                              method: 'POST',
+                                              headers: {
+                                                  'Content-Type': 'application/json'
+                                              },
+                                              body: JSON.stringify({
+                                                  name: this.name,
+                                                  email: this.email,
+                                                  message: this.message
+                                              })
+                                          });
+                                          if (response.ok) {
+                                              this.submitted = true;
+                                          } else {
+                                              const data = await response.json();
+                                              this.error = data.message || 'An error occurred. Please try again.';
+                                          }
+                                      } catch (e) {
+                                          this.error = 'Network error. Please try again.';
+                                      } finally {
                                           this.submitting = false;
-                                      }, 800);
+                                      }
                                   }
                               }"
                               @submit.prevent="submit()"
@@ -101,6 +122,7 @@
 
                             <template x-if="!submitted">
                                 <div class="space-y-4">
+                                    <div x-show="error" class="p-3 bg-red-500/10 border border-red-500/20 rounded-[var(--radius-md)] text-red-400 text-sm" x-text="error"></div>
                                     <div>
                                         <label for="contact-name" class="contact-form-label" th:text="#{contact.form.name}">Name</label>
                                         <input type="text" id="contact-name" name="name" x-model="name" required
