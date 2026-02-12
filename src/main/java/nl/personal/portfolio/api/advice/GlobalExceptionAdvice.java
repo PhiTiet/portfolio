@@ -3,6 +3,7 @@ package nl.personal.portfolio.api.advice;
 import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,10 +26,19 @@ public final class GlobalExceptionAdvice {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionAdvice.class);
 
+    private final MessageSource messageSource;
+    private final LocaleResolver localeResolver;
+
+    public GlobalExceptionAdvice(MessageSource messageSource, LocaleResolver localeResolver) {
+        this.messageSource = messageSource;
+        this.localeResolver = localeResolver;
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException e) {
+    public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException e, HttpServletRequest request) {
         Map<String, Object> errors = new HashMap<>();
-        errors.put("message", "Validation failed");
+        var locale = localeResolver.resolveLocale(request);
+        errors.put("message", messageSource.getMessage("contact.validation.failed", null, "Validation failed", locale));
 
         Map<String, String> fieldErrors = new HashMap<>();
         e.getBindingResult().getFieldErrors().forEach(error -> {

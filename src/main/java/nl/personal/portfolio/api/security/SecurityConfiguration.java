@@ -34,6 +34,7 @@ public class SecurityConfiguration {
         );
 
         return httpSecurity
+                .csrf(csrf -> csrf.ignoringRequestMatchers(PathPatternRequestMatcher.pathPattern("/api/contact")))
                 .headers(headers -> {
                     headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin);
                     headers.httpStrictTransportSecurity(HeadersConfigurer.HstsConfig::disable);

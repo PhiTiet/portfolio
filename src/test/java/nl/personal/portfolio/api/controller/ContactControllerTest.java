@@ -1,6 +1,5 @@
 package nl.personal.portfolio.api.controller;
 
-import nl.personal.portfolio.core.ContactService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ class ContactControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ContactService contactService;
 
     @Test
     @DisplayName("should accept valid contact form submission")
@@ -59,7 +55,9 @@ class ContactControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Validation failed"))
+                .andExpect(jsonPath("$.errors.name").exists());
     }
 
     @Test
@@ -77,7 +75,9 @@ class ContactControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Validation failed"))
+                .andExpect(jsonPath("$.errors.email").exists());
     }
 
     @Test
@@ -95,7 +95,9 @@ class ContactControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Validation failed"))
+                .andExpect(jsonPath("$.errors.message").exists());
     }
 
     @Test
@@ -107,6 +109,8 @@ class ContactControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Validation failed"))
+                .andExpect(jsonPath("$.errors").exists());
     }
 }
