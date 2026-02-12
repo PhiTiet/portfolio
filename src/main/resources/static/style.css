@@ -662,6 +662,24 @@ a:hover {
     border-left: 3px solid var(--color-text-muted);
 }
 
+.thesis-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background-color: var(--color-accent-subtle);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.thesis-link:hover {
+    background-color: var(--color-accent);
+    color: var(--color-accent-contrast);
+}
+
 .recommendation-card {
     grid-area: 1 / 1;
     display: flex !important;
