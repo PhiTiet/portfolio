@@ -58,29 +58,7 @@
                         I'm always open to discussing new opportunities and ideas.
                     </p>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-[32rem] mb-10">
-                        <a href="https://www.linkedin.com/in/phi-tiet-804886220/" target="_blank" rel="noopener noreferrer" class="contact-card">
-                            <div class="icon-circle">
-                                <svg th:replace="~{fragments/general/icons :: linkedin(iconClass='w-6 h-6')}"></svg>
-                            </div>
-                            <div>
-                                <p class="contact-label" th:text="#{contact.linkedin}">LinkedIn</p>
-                                <p class="contact-value" th:text="#{contact.linkedin.name}">Phi Tiet</p>
-                            </div>
-                        </a>
-                        
-                        <a href="https://github.com/PhiTiet" target="_blank" rel="noopener noreferrer" class="contact-card">
-                            <div class="icon-circle">
-                                <svg th:replace="~{fragments/general/icons :: github(iconClass='w-6 h-6')}"></svg>
-                            </div>
-                            <div>
-                                <p class="contact-label" th:text="#{contact.github}">GitHub</p>
-                                <p class="contact-value" th:text="#{contact.github.name}">PhiTiet</p>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="w-full max-w-[32rem]">
+                    <div class="w-full max-w-[32rem] mb-10">
                         <h3 class="text-lg font-semibold text-[var(--color-text-primary)] mb-6" th:text="#{contact.form.title}">Send a Message</h3>
                         <form x-data="contactForm"
                               @submit.prevent="submit()"
@@ -134,6 +112,28 @@
                                 </div>
                             </template>
                         </form>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-[32rem] mt-10">
+                        <a href="https://www.linkedin.com/in/phi-tiet-804886220/" target="_blank" rel="noopener noreferrer" class="contact-card">
+                            <div class="icon-circle">
+                                <svg th:replace="~{fragments/general/icons :: linkedin(iconClass='w-6 h-6')}"></svg>
+                            </div>
+                            <div>
+                                <p class="contact-label" th:text="#{contact.linkedin}">LinkedIn</p>
+                                <p class="contact-value" th:text="#{contact.linkedin.name}">Phi Tiet</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://github.com/PhiTiet" target="_blank" rel="noopener noreferrer" class="contact-card">
+                            <div class="icon-circle">
+                                <svg th:replace="~{fragments/general/icons :: github(iconClass='w-6 h-6')}"></svg>
+                            </div>
+                            <div>
+                                <p class="contact-label" th:text="#{contact.github}">GitHub</p>
+                                <p class="contact-value" th:text="#{contact.github.name}">PhiTiet</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
