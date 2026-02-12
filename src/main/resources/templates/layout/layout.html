@@ -6,14 +6,7 @@
     <style>
         [x-cloak] { display: none !important; }
     </style>
-    <script>
-        (function() {
-            var theme = localStorage.getItem('theme');
-            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-                document.documentElement.classList.add('light');
-            }
-        })();
-    </script>
+    <script th:src="@{/theme-init.js}"></script>
 </head>
 
 <body class="min-h-screen flex flex-col">

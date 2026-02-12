@@ -42,29 +42,33 @@
 }
 
 html.light {
-    --color-bg-primary: #c4d2e8;
-    --color-bg-secondary: #b5c6e0;
-    --color-bg-tertiary: #9bb0d0;
-    --color-bg-card: #d0ddf0;
-    --color-bg-card-hover: #b5c6e0;
+    --color-bg-primary: #dbeafe;
+    --color-bg-secondary: #bfdbfe;
+    --color-bg-tertiary: #93c5fd;
+    --color-bg-card: #eff6ff;
+    --color-bg-card-hover: #dbeafe;
 
-    --color-text-primary: #0c1629;
-    --color-text-secondary: #1e3355;
-    --color-text-muted: #3a5278;
+    --color-text-primary: #1e293b;
+    --color-text-secondary: #334155;
+    --color-text-muted: #475569;
 
     --color-accent: #0d9488;
     --color-accent-hover: #0f766e;
-    --color-accent-light: #99e8de;
-    --color-accent-subtle: #b8e8e0;
+    --color-accent-light: #99f6e4;
+    --color-accent-subtle: #ccfbf1;
     --color-accent-contrast: #ffffff;
 
-    --color-border: #9aafce;
-    --color-border-light: #b5c6e0;
+    --color-border: #93c5fd;
+    --color-border-light: #bfdbfe;
 
-    --shadow-sm: 0 1px 2px 0 rgb(15 40 80 / 0.1);
-    --shadow-md: 0 4px 6px -1px rgb(15 40 80 / 0.12), 0 2px 4px -2px rgb(15 40 80 / 0.08);
-    --shadow-lg: 0 10px 15px -3px rgb(15 40 80 / 0.12), 0 4px 6px -4px rgb(15 40 80 / 0.08);
-    --shadow-xl: 0 20px 25px -5px rgb(15 40 80 / 0.12), 0 8px 10px -6px rgb(15 40 80 / 0.08);
+    --shadow-sm: 0 1px 2px 0 rgb(30 58 138 / 0.08);
+    --shadow-md: 0 4px 6px -1px rgb(30 58 138 / 0.1), 0 2px 4px -2px rgb(30 58 138 / 0.06);
+    --shadow-lg: 0 10px 15px -3px rgb(30 58 138 / 0.1), 0 4px 6px -4px rgb(30 58 138 / 0.06);
+    --shadow-xl: 0 20px 25px -5px rgb(30 58 138 / 0.1), 0 8px 10px -6px rgb(30 58 138 / 0.06);
+}
+
+html.light .fa-github {
+    color: #24292f !important;
 }
 
 html {
@@ -1164,10 +1168,8 @@ img[loading="lazy"] {
 }
 
 .orbit-container {
-    --orbit-size: 18rem;
-    --orbit-inner-inset: 2rem;
-    --orbit-inner-radius: calc((var(--orbit-size) - var(--orbit-inner-inset) * 2) / 2);
-    --orbit-outer-radius: calc(var(--orbit-size) / 2);
+    --orbit-size: 24rem;
+    --orbit-radius: 9rem;
     position: relative;
     width: var(--orbit-size);
     height: var(--orbit-size);
@@ -1175,15 +1177,15 @@ img[loading="lazy"] {
 
 @media (min-width: 640px) {
     .orbit-container {
-        --orbit-size: 22rem;
-        --orbit-inner-inset: 2.5rem;
+        --orbit-size: 30rem;
+        --orbit-radius: 11.5rem;
     }
 }
 
 @media (min-width: 1024px) {
     .orbit-container {
-        --orbit-size: 26rem;
-        --orbit-inner-inset: 3rem;
+        --orbit-size: 34rem;
+        --orbit-radius: 13rem;
     }
 }
 
@@ -1191,18 +1193,12 @@ img[loading="lazy"] {
     position: absolute;
     inset: 0;
     border-radius: 9999px;
+    z-index: 10;
 }
 
-.orbit-ring-inner {
-    inset: var(--orbit-inner-inset);
-    --orbit-duration: 45s;
+.orbit-ring-single {
+    --orbit-duration: 90s;
     animation: orbit-cw var(--orbit-duration) linear infinite;
-}
-
-.orbit-ring-outer {
-    inset: 0;
-    --orbit-duration: 60s;
-    animation: orbit-ccw var(--orbit-duration) linear infinite;
 }
 
 .orbit-path {
@@ -1221,14 +1217,7 @@ img[loading="lazy"] {
     height: 2.25rem;
     margin-left: -1.125rem;
     margin-top: -1.125rem;
-}
-
-.orbit-ring-inner .orbit-icon {
-    transform: rotate(var(--angle)) translateX(var(--orbit-inner-radius)) rotate(calc(-1 * var(--angle)));
-}
-
-.orbit-ring-outer .orbit-icon {
-    transform: rotate(var(--angle)) translateX(var(--orbit-outer-radius)) rotate(calc(-1 * var(--angle)));
+    transform: rotate(var(--angle)) translateX(var(--orbit-radius)) rotate(calc(-1 * var(--angle)));
 }
 
 .orbit-icon-inner {
@@ -1242,6 +1231,10 @@ img[loading="lazy"] {
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-sm);
     font-size: 1rem;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    animation: orbit-ccw var(--orbit-duration) linear infinite;
     transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
@@ -1250,29 +1243,17 @@ img[loading="lazy"] {
     border-color: var(--color-accent);
 }
 
-.orbit-container:hover .orbit-ring {
-    animation-play-state: paused;
-}
-
-.orbit-ring-inner .orbit-icon-inner {
-    animation: orbit-ccw var(--orbit-duration) linear infinite;
-}
-
-.orbit-ring-outer .orbit-icon-inner {
-    animation: orbit-cw var(--orbit-duration) linear infinite;
-}
-
-.orbit-container:hover .orbit-icon-inner {
-    animation-play-state: paused;
-}
-
 .orbit-center {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;
+    pointer-events: none;
+}
+
+.orbit-center img {
+    pointer-events: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
