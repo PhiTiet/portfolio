@@ -82,54 +82,9 @@
 
                     <div class="w-full max-w-[32rem]">
                         <h3 class="text-lg font-semibold text-[var(--color-text-primary)] mb-6" th:text="#{contact.form.title}">Send a Message</h3>
-                        <form x-data="contactForm()"
+                        <form x-data="contactForm"
                               @submit.prevent="submit()"
                               class="space-y-4 text-left">
-                            <script>
-                                function contactForm() {
-                                    return {
-                                        name: '',
-                                        email: '',
-                                        message: '',
-                                        submitted: false,
-                                        submitting: false,
-                                        error: null,
-                                        async submit() {
-                                            this.submitting = true;
-                                            this.error = null;
-                                            try {
-                                                const csrfMeta = document.querySelector('meta[name=\"_csrf\"]');
-                                                const csrfHeaderMeta = document.querySelector('meta[name=\"_csrf_header\"]');
-                                                const headers = {
-                                                    'Content-Type': 'application/json'
-                                                };
-                                                if (csrfMeta && csrfHeaderMeta) {
-                                                    headers[csrfHeaderMeta.getAttribute('content')] = csrfMeta.getAttribute('content');
-                                                }
-                                                const response = await fetch('/api/contact', {
-                                                    method: 'POST',
-                                                    headers: headers,
-                                                    body: JSON.stringify({
-                                                        name: this.name,
-                                                        email: this.email,
-                                                        message: this.message
-                                                    })
-                                                });
-                                                if (response.ok) {
-                                                    this.submitted = true;
-                                                } else {
-                                                    const data = await response.json();
-                                                    this.error = data.message || 'An error occurred. Please try again.';
-                                                }
-                                            } catch (e) {
-                                                this.error = 'Network error. Please try again.';
-                                            } finally {
-                                                this.submitting = false;
-                                            }
-                                        }
-                                    }
-                                }
-                            </script>
 
                             <template x-if="!submitted">
                                 <div class="space-y-4">
