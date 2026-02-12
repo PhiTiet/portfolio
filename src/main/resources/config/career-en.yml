@@ -115,7 +115,7 @@ career-en:
         classes: fa-solid fa-broom
         style: color:#2dd4bf
 
-    - name: Github Actions
+    - name: GitHub Actions
       proficiency: 6
       icon:
         classes: fa-brands fa-github
@@ -173,7 +173,7 @@ career-en:
       description: I worked very hard under a strict owner to become disciplined, efficient and handy as a person with
         a good work ethic. Turns out, navigating the Horeca world was a whole different ballgame compared to my
         McDonald's days. It added layers to my experience, revealing the challenges and flavors of
-        the hospitality industry
+        the hospitality industry.
       start: 01-01-2016
       end: 01-01-2020
       icon:
