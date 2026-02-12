@@ -115,7 +115,7 @@ career-nl:
         classes: fa-solid fa-broom
         style: color:#2dd4bf
 
-    - name: Github Actions
+    - name: GitHub Actions
       proficiency: 6
       icon:
         classes: fa-brands fa-github
@@ -206,7 +206,7 @@ career-nl:
     - employer: Rabobank
       job-title: Medior Software Engineer
       description: In mijn vorige rol bij Rabobank ontvouwde mijn reis als software engineer zich, waarbij ik mijn
-        vaardigheden in Scrum uitbreidde en diep dook in Java-ontwikkeling en devops. De geavanceerde
+        vaardigheden in Scrum uitbreidde en diep dook in Java-ontwikkeling en DevOps. De geavanceerde
         microservices-omgeving introduceerde me in Kubernetes en Azure, een rijke omgeving om mijn expertise in moderne
         software engineering aan te scherpen.
       start: 01-09-2022
