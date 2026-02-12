@@ -24,6 +24,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest(GlobalExceptionAdvice.class)
 @Import(GlobalExceptionAdviceTest.TestController.class)
@@ -42,17 +43,20 @@ class GlobalExceptionAdviceTest {
     @MethodSource("exceptionTestCases")
     @WithMockUser
     @DisplayName("should map exceptions to correct HTTP status")
-    void exceptionHandling(Exception exception, HttpStatus httpStatus) throws Exception {
+    void exceptionHandling(Exception exception, HttpStatus httpStatus, String expectedView) throws Exception {
         testController.setException(exception);
-        mockMvc.perform(get(TEST_EXCEPTION_URL)).andExpect(status().is(httpStatus.value()));
+        var result = mockMvc.perform(get(TEST_EXCEPTION_URL)).andExpect(status().is(httpStatus.value()));
+        if (expectedView != null) {
+            result.andExpect(view().name(expectedView));
+        }
     }
 
     static List<Arguments> exceptionTestCases() {
         return List.of(
-                arguments(mock(ConstraintViolationException.class), BAD_REQUEST),
-                arguments(mock(HttpMessageNotReadableException.class), BAD_REQUEST),
-                arguments(mock(RuntimeException.class), INTERNAL_SERVER_ERROR),
-                arguments(mock(Exception.class), INTERNAL_SERVER_ERROR)
+                arguments(mock(ConstraintViolationException.class), BAD_REQUEST, "error/400"),
+                arguments(mock(HttpMessageNotReadableException.class), BAD_REQUEST, "error/400"),
+                arguments(mock(RuntimeException.class), INTERNAL_SERVER_ERROR, "error/500"),
+                arguments(mock(Exception.class), INTERNAL_SERVER_ERROR, "error/500")
         );
     }
 

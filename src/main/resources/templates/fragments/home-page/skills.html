@@ -29,7 +29,9 @@
                 </div>
                 <span class="text-xs font-medium text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] py-0.5 px-2 rounded-full" th:text="${skill.proficiency} + '/10'"></span>
             </div>
-            <div class="progress-track">
+            <div class="progress-track" role="progressbar"
+                 th:attr="aria-valuenow=${skill.proficiency * 10},aria-label=${skill.name}"
+                 aria-valuemin="0" aria-valuemax="100">
                 <div class="progress-fill" 
                      th:style="'--proficiency: ' + ${skill.proficiencyPercentage} + '%; width: var(--proficiency, 0%)'"
                      th:title="${skill.name} + ' - ' + ${skill.proficiency} + ' out of 10'"></div>
