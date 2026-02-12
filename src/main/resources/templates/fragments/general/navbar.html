@@ -29,10 +29,10 @@
 
             <div class="flex items-center gap-2">
                 <div class="flex items-center gap-1">
-                    <a href="?lang=en" aria-label="English"
+                    <a href="?lang=en" data-lang-switch aria-label="English"
                        class="text-2xl leading-none transition-opacity"
                        th:classappend="${#locale.language == 'en'} ? 'opacity-100' : 'opacity-40 hover:opacity-70'">&#127468;&#127463;</a>
-                    <a href="?lang=nl" aria-label="Nederlands"
+                    <a href="?lang=nl" data-lang-switch aria-label="Nederlands"
                        class="text-2xl leading-none transition-opacity"
                        th:classappend="${#locale.language == 'nl'} ? 'opacity-100' : 'opacity-40 hover:opacity-70'">&#127475;&#127473;</a>
                 </div>
