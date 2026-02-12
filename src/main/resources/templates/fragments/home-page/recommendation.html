@@ -15,7 +15,12 @@
     </div>
 
     <div class="relative" 
-         x-data th:attr="x-data=${'{ active: 0, total: ' + details.recommendations().size() + ', next() { this.active = (this.active + 1) % this.total }, prev() { this.active = (this.active - 1 + this.total) % this.total } }'}">
+         th:attr="x-data=${'{ active: 0, total: ' + details.recommendations().size() + ', next() { this.active = (this.active + 1) % this.total }, prev() { this.active = (this.active - 1 + this.total) % this.total } }'}"
+         @keydown.left.prevent="prev()"
+         @keydown.right.prevent="next()"
+         role="region"
+         aria-roledescription="carousel"
+         th:aria-label="#{recommendations.title}">
         
         <div class="relative grid" aria-live="polite">
             <article th:each="rec, iterStat : ${details.recommendations()}"

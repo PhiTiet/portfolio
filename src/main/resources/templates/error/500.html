@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="#{error.500.title}">Server Error</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <section class="min-h-[70vh] flex items-center justify-center py-[var(--spacing-section)]">
+        <div class="container">
+            <div class="max-w-lg mx-auto text-center">
+                <p class="text-6xl font-bold text-[var(--color-accent)] mb-4">500</p>
+                <h1 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4" th:text="#{error.500.heading}">Something Went Wrong</h1>
+                <p class="text-[var(--color-text-secondary)] mb-8" th:text="#{error.500.message}">
+                    An unexpected error occurred. Please try again later.
+                </p>
+                <a href="/" class="btn-accent inline-flex items-center gap-2 py-2.5 px-5 font-medium text-sm rounded-[var(--radius-md)]">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    <span th:text="#{error.back.home}">Back to Home</span>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+
+</html>

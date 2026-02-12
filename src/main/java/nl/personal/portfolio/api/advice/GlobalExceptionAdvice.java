@@ -24,14 +24,16 @@ public final class GlobalExceptionAdvice {
 
     @ExceptionHandler({NoHandlerFoundException.class, NoResourceFoundException.class})
     @ResponseStatus(NOT_FOUND)
-    void notFound(final Exception e) {
+    String notFound(final Exception e) {
         log.info(e.getMessage(), e);
+        return "error/404";
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
-    void internalServerError(final Exception e) {
+    String internalServerError(final Exception e) {
         log.error(e.getMessage(), e);
+        return "error/500";
     }
 
 }
