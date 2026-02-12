@@ -10,6 +10,6 @@ public final class CertificateTestFactory {
     }
 
     public static Certificate defaultCertificate() {
-        return new Certificate("certificate", "institution", LocalDate.now());
+        return new Certificate("certificate", "institution", LocalDate.now(), null);
     }
 }

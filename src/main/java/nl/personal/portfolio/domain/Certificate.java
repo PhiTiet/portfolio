@@ -11,7 +11,8 @@ public record Certificate(
         String title,
         String institution,
         @DateTimeFormat(pattern = INPUT_FORMAT)
-        LocalDate acquisitionDate) implements Comparable<Certificate> {
+        LocalDate acquisitionDate,
+        String thesisUrl) implements Comparable<Certificate> {
 
     public String formattedAcquisitionDate() {
         return acquisitionDate.format(DISPLAY_FORMAT);
