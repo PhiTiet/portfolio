@@ -18,8 +18,9 @@ public final class GlobalExceptionAdvice {
 
     @ExceptionHandler({ConstraintViolationException.class, HttpMessageNotReadableException.class})
     @ResponseStatus(BAD_REQUEST)
-    void badRequest(final Exception e) {
+    String badRequest(final Exception e) {
         log.info(e.getMessage(), e);
+        return "error/400";
     }
 
     @ExceptionHandler({NoHandlerFoundException.class, NoResourceFoundException.class})

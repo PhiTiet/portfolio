@@ -13,37 +13,37 @@
 
     <section id="experience" class="section section-alt" aria-labelledby="experience-heading">
         <div class="container">
-            <article th:replace="~{fragments/home-page/timeline :: timeline}"></article>
+            <div th:replace="~{fragments/home-page/timeline :: timeline}"></div>
         </div>
     </section>
 
     <section id="skills" class="section" aria-labelledby="skills-heading">
         <div class="container">
-            <article th:replace="~{fragments/home-page/skills :: skills}"></article>
+            <div th:replace="~{fragments/home-page/skills :: skills}"></div>
         </div>
     </section>
 
     <section id="projects" class="section" aria-labelledby="projects-heading">
         <div class="container">
-            <article th:replace="~{fragments/home-page/projects :: projects}"></article>
+            <div th:replace="~{fragments/home-page/projects :: projects}"></div>
         </div>
     </section>
 
     <section id="certificates" class="section section-alt" aria-labelledby="certificates-heading">
         <div class="container">
-            <article th:replace="~{fragments/home-page/certificates :: certificates}"></article>
+            <div th:replace="~{fragments/home-page/certificates :: certificates}"></div>
         </div>
     </section>
 
     <section id="recommendations" class="section" aria-labelledby="recommendations-heading">
         <div class="container">
-            <article th:replace="~{fragments/home-page/recommendation :: recommendation}"></article>
+            <div th:replace="~{fragments/home-page/recommendation :: recommendation}"></div>
         </div>
     </section>
 
     <section id="hobbies" class="section section-alt" aria-labelledby="hobbies-heading">
         <div class="container">
-            <article th:replace="~{fragments/home-page/hobbies :: hobbies}"></article>
+            <div th:replace="~{fragments/home-page/hobbies :: hobbies}"></div>
         </div>
     </section>
 
@@ -126,7 +126,6 @@
                                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                         </svg>
-                                        <span x-text="submitting ? '' : ''" style="display:none"></span>
                                         <span th:text="#{contact.form.send}">Send Message</span>
                                     </button>
                                 </div>

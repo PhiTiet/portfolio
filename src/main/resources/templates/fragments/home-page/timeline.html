@@ -25,7 +25,7 @@
             
             <div class="timeline-marker">
                 <div class="timeline-icon-wrapper" th:classappend="${iterStat.first} ? 'timeline-icon-current' : ''">
-                    <i th:classappend="${event.icon.classes}" th:style="${event.icon.style}"></i>
+                    <i th:classappend="${event.icon.classes}" th:style="${event.icon.style}" aria-hidden="true"></i>
                 </div>
             </div>
 
