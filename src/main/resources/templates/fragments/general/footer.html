@@ -4,24 +4,7 @@
 <body>
 <footer th:fragment="footer" class="bg-[var(--color-bg-secondary)] border-t border-[var(--color-border)]">
     <div class="container py-12">
-        <div class="flex flex-col items-center gap-6">
-            <div class="flex items-center gap-4">
-                <a href="https://www.linkedin.com/in/phi-tiet-804886220/"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="footer-social-link"
-                   th:attr="aria-label=#{footer.linkedin}">
-                    <svg th:replace="~{fragments/general/icons :: linkedin(iconClass='w-5 h-5')}"></svg>
-                </a>
-                <a href="https://github.com/PhiTiet"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="footer-social-link"
-                   th:attr="aria-label=#{footer.github}">
-                    <svg th:replace="~{fragments/general/icons :: github(iconClass='w-5 h-5')}"></svg>
-                </a>
-            </div>
-
+        <div class="flex flex-col items-center">
             <div class="text-center">
                 <p class="text-sm text-[var(--color-text-muted)]" th:text="#{footer.built.with}">
                     Built with Spring Boot, Thymeleaf, Alpine.js &amp; Tailwind CSS

@@ -498,20 +498,6 @@ a:hover {
     background-color: var(--color-bg-secondary);
 }
 
-.footer-social-link {
-    padding: 0.75rem;
-    border-radius: var(--radius-full);
-    background-color: var(--color-bg-card);
-    box-shadow: var(--shadow-sm);
-    transition: all 200ms ease;
-}
-
-.footer-social-link:hover {
-    background-color: var(--color-accent);
-    color: var(--color-accent-contrast);
-    box-shadow: var(--shadow-md);
-}
-
 .timeline {
     position: relative;
     padding: 1rem 0;
