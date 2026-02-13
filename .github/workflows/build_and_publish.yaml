@@ -30,6 +30,30 @@ jobs:
       - name: build_with_maven
         run: mvn clean package -B -T 4
 
+      - name: pmd_code_review
+        continue-on-error: true
+        run: |
+          echo "Running PMD code review..."
+          mvn pmd:pmd -DsourceEncoding=UTF-8 -Dpmd.skipDist=true
+
+          if [ -f target/pmd.xml ]; then
+            VIOLATION_COUNT=$(grep -c "<violation" target/pmd.xml || echo "0")
+            echo "PMD found $VIOLATION_COUNT violation(s)"
+
+            echo "### PMD Code Review" >> $GITHUB_STEP_SUMMARY
+            if [ "$VIOLATION_COUNT" -gt 0 ]; then
+              echo "Found **$VIOLATION_COUNT** violation(s):" >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+              xmllint --xpath "//violation" target/pmd.xml 2>/dev/null >> $GITHUB_STEP_SUMMARY || cat target/pmd.xml >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+            else
+              echo "PMD check passed - no violations found" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "### PMD Code Review" >> $GITHUB_STEP_SUMMARY
+            echo "PMD report not generated" >> $GITHUB_STEP_SUMMARY
+          fi
+
       - name: login_to_docker
         uses: docker/login-action@v3
         with:
