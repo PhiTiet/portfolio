@@ -10,7 +10,6 @@
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div class="order-2 lg:order-1 text-center lg:text-left" x-data="{ shown: false }" x-init="setTimeout(() => shown = true, 100)">
                 <div :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'" class="transition duration-700">
-                    <p class="text-xs sm:text-sm font-medium text-[var(--color-text-muted)] mb-1 tracking-wide uppercase" th:text="#{hero.welcome}">Welcome to my self-built portfolio website!</p>
                     <p class="text-[var(--color-accent)] font-medium mb-2" th:text="#{hero.greeting}">Hey there, I'm</p>
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4 text-[var(--color-text-primary)]" th:text="#{hero.name}">
                         Phi Tiet
