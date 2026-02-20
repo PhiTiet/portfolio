@@ -114,9 +114,33 @@
         <span th:text="#{projects.personal}">Personal</span>
     </h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="project-card"
+             x-data="{ show: false }" x-init="setTimeout(() => show = true, 400)"
+             x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="icon-box icon-box-accent">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                </div>
+                <div class="flex items-center gap-2">
+                    <h4 class="font-semibold text-[0.9375rem] text-[var(--color-text-primary)]" th:text="#{projects.dailytalktopics.title}">Daily Talk Topics</h4>
+                    <span class="project-wip-badge" th:text="#{projects.in.progress}">In Progress</span>
+                </div>
+            </div>
+            <p class="text-sm text-[var(--color-text-muted)] mb-4 flex-1" th:text="#{projects.dailytalktopics.description}"></p>
+            <div class="flex flex-wrap gap-1.5">
+                <span class="project-tag">Kotlin</span>
+                <span class="project-tag">Spring Boot</span>
+                <span class="project-tag">React Native</span>
+                <span class="project-tag">Expo</span>
+                <span class="project-tag">PostgreSQL</span>
+            </div>
+        </div>
+
         <a href="https://github.com/PhiTiet/portfolio" target="_blank" rel="noopener noreferrer"
            class="project-card group"
-           x-data="{ show: false }" x-init="setTimeout(() => show = true, 400)"
+           x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)"
            x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
@@ -138,7 +162,7 @@
         </a>
 
         <div class="project-card"
-             x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)"
+             x-data="{ show: false }" x-init="setTimeout(() => show = true, 600)"
              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
@@ -167,7 +191,7 @@
         </div>
 
         <div class="project-card project-card-private"
-             x-data="{ show: false }" x-init="setTimeout(() => show = true, 600)"
+             x-data="{ show: false }" x-init="setTimeout(() => show = true, 700)"
              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
@@ -192,7 +216,7 @@
 
         <a href="https://kutns.nl" target="_blank" rel="noopener noreferrer"
            class="project-card group"
-             x-data="{ show: false }" x-init="setTimeout(() => show = true, 700)"
+              x-data="{ show: false }" x-init="setTimeout(() => show = true, 800)"
              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
