@@ -114,9 +114,10 @@
         <span th:text="#{projects.personal}">Personal</span>
     </h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="project-card"
-             x-data="{ show: false }" x-init="setTimeout(() => show = true, 400)"
-             x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
+        <a href="https://dailytalktopics.com" target="_blank" rel="noopener noreferrer"
+           class="project-card group"
+           x-data="{ show: false }" x-init="setTimeout(() => show = true, 400)"
+           x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -124,7 +125,7 @@
                     </svg>
                 </div>
                 <div class="flex items-center gap-2">
-                    <h4 class="font-semibold text-[0.9375rem] text-[var(--color-text-primary)]" th:text="#{projects.dailytalktopics.title}">Daily Talk Topics</h4>
+                    <h4 class="font-semibold text-[0.9375rem] text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors" th:text="#{projects.dailytalktopics.title}">Daily Talk Topics</h4>
                     <span class="project-wip-badge" th:text="#{projects.in.progress}">In Progress</span>
                 </div>
             </div>
@@ -136,7 +137,7 @@
                 <span class="project-tag">Expo</span>
                 <span class="project-tag">PostgreSQL</span>
             </div>
-        </div>
+        </a>
 
         <a href="https://github.com/PhiTiet/portfolio" target="_blank" rel="noopener noreferrer"
            class="project-card group"
