@@ -1088,6 +1088,17 @@ img[loading="lazy"] {
     color: var(--color-text-muted);
 }
 
+.project-wip-badge {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--radius-full);
+    background-color: oklch(0.97 0.05 90);
+    color: oklch(0.55 0.14 70);
+}
+
 .project-tag {
     font-size: 0.6875rem;
     font-weight: 500;
