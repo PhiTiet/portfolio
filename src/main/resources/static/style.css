@@ -1318,22 +1318,22 @@ img[loading="lazy"] {
 .chessboard-layer--active {
     pointer-events: auto;
     z-index: 2;
-    background-color: color-mix(in srgb, var(--color-bg-primary) 80%, transparent);
+    background-color: color-mix(in srgb, var(--color-bg-primary) 65%, transparent);
 }
 
 .chessboard-layer--active .cb {
-    opacity: 0.75;
+    opacity: 0.45;
 }
 
 html.light .chessboard-layer--active .cb {
     opacity: 0.65;
 }
 
-.chessboard-layer--active .chessboard-title { opacity: 1; }
-.chessboard-layer--active .chessboard-notation { opacity: 1; }
-.chessboard-layer--active .chessboard-flavor { opacity: 0.9; }
-.chessboard-layer--active .chessboard-meta { opacity: 0.85; }
-.chessboard-layer--active .chessboard-link { opacity: 1; }
+.chessboard-layer--active .chessboard-title { opacity: 0.85; }
+.chessboard-layer--active .chessboard-notation { opacity: 0.9; }
+.chessboard-layer--active .chessboard-flavor { opacity: 0.75; }
+.chessboard-layer--active .chessboard-meta { opacity: 0.7; }
+.chessboard-layer--active .chessboard-link { opacity: 0.85; }
 
 /* Recommendation content fade when viewing board */
 .recommendations-content {
