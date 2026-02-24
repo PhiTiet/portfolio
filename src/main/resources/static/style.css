@@ -3,24 +3,28 @@
 :root {
     --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-    --color-bg-primary: #0f172a;
-    --color-bg-secondary: #1e293b;
-    --color-bg-tertiary: #334155;
-    --color-bg-card: #1e293b;
-    --color-bg-card-hover: #334155;
+    /* Tokyo Night — backgrounds */
+    --color-bg-primary: #1a1b26;
+    --color-bg-secondary: #24283b;
+    --color-bg-tertiary: #2f3549;
+    --color-bg-card: #24283b;
+    --color-bg-card-hover: #2f3549;
 
-    --color-text-primary: #f1f5f9;
-    --color-text-secondary: #cbd5e1;
-    --color-text-muted: #94a3b8;
+    /* Tokyo Night — text */
+    --color-text-primary: #c0caf5;
+    --color-text-secondary: #a9b1d6;
+    --color-text-muted: #565f89;
 
-    --color-accent: #2dd4bf;
-    --color-accent-hover: #5eead4;
-    --color-accent-light: #134e4a;
-    --color-accent-subtle: #042f2e;
-    --color-accent-contrast: #042f2e;
+    /* Tokyo Night — accent: electric blue #7aa2f7 */
+    --color-accent: #7aa2f7;
+    --color-accent-hover: #89b4fa;
+    --color-accent-light: #1e2a4a;
+    --color-accent-subtle: #192038;
+    --color-accent-contrast: #1a1b26;
 
-    --color-border: #334155;
-    --color-border-light: #1e293b;
+    /* Tokyo Night — borders */
+    --color-border: #3b4261;
+    --color-border-light: #24283b;
 
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
@@ -42,33 +46,36 @@
 }
 
 html.light {
-    --color-bg-primary: #dbeafe;
-    --color-bg-secondary: #bfdbfe;
-    --color-bg-tertiary: #93c5fd;
-    --color-bg-card: #eff6ff;
-    --color-bg-card-hover: #dbeafe;
+    /* Steel blue-grey — cool, clean, no purple */
+    --color-bg-primary: #dde8f0;
+    --color-bg-secondary: #cfdcea;
+    --color-bg-tertiary: #bfcfde;
+    --color-bg-card: #edf3f8;
+    --color-bg-card-hover: #dde8f0;
 
-    --color-text-primary: #1e293b;
-    --color-text-secondary: #334155;
-    --color-text-muted: #475569;
+    /* Text — dark blue-grey, no purple */
+    --color-text-primary: #0f2132;
+    --color-text-secondary: #2a4257;
+    --color-text-muted: #5e7a90;
 
-    --color-accent: #0d9488;
-    --color-accent-hover: #0f766e;
-    --color-accent-light: #99f6e4;
-    --color-accent-subtle: #ccfbf1;
+    /* Accent — pure blue, no purple shift */
+    --color-accent: #1a73e8;
+    --color-accent-hover: #1558b0;
+    --color-accent-light: #b3d1f8;
+    --color-accent-subtle: #cfe2fc;
     --color-accent-contrast: #ffffff;
 
-    --color-border: #93c5fd;
-    --color-border-light: #bfdbfe;
+    --color-border: #b8cfe0;
+    --color-border-light: #cfdcea;
 
-    --shadow-sm: 0 1px 2px 0 rgb(30 58 138 / 0.08);
-    --shadow-md: 0 4px 6px -1px rgb(30 58 138 / 0.1), 0 2px 4px -2px rgb(30 58 138 / 0.06);
-    --shadow-lg: 0 10px 15px -3px rgb(30 58 138 / 0.1), 0 4px 6px -4px rgb(30 58 138 / 0.06);
-    --shadow-xl: 0 20px 25px -5px rgb(30 58 138 / 0.1), 0 8px 10px -6px rgb(30 58 138 / 0.06);
+    --shadow-sm: 0 1px 2px 0 rgb(15 33 50 / 0.08);
+    --shadow-md: 0 4px 6px -1px rgb(15 33 50 / 0.1), 0 2px 4px -2px rgb(15 33 50 / 0.07);
+    --shadow-lg: 0 10px 15px -3px rgb(15 33 50 / 0.1), 0 4px 6px -4px rgb(15 33 50 / 0.07);
+    --shadow-xl: 0 20px 25px -5px rgb(15 33 50 / 0.12), 0 8px 10px -6px rgb(15 33 50 / 0.08);
 }
 
 html.light .fa-github {
-    color: #24292f !important;
+    color: #0f2132 !important;
 }
 
 html {
@@ -1095,8 +1102,8 @@ img[loading="lazy"] {
     letter-spacing: 0.05em;
     padding: 0.125rem 0.5rem;
     border-radius: var(--radius-full);
-    background-color: oklch(0.97 0.05 90);
-    color: oklch(0.55 0.14 70);
+    background-color: #2a2415;
+    color: #e0af68;
 }
 
 .project-tag {
