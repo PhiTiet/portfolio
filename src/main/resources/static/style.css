@@ -1378,6 +1378,20 @@ html.light .chessboard-layer--active .cb {
     margin: 0.25rem 0 0;
 }
 
+.cb-mn {
+    opacity: 0.5;
+}
+
+.cb-hl {
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.cb-hl--active {
+    opacity: 1;
+    color: var(--color-chess-btn);
+}
+
 .chessboard-meta {
     font-family: var(--font-sans);
     font-size: 0.625rem;
@@ -1620,7 +1634,41 @@ html.light .cb {
 .cb-move-bPb7  { animation: sm-bPb7  30s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-    .cb-piece {
+    .cb-piece,
+    .cb-hl {
         animation: none !important;
     }
 }
+
+/* ── Move highlight animations (synced with piece animations) ──────────── */
+@keyframes hl-1  { 0%,3%  { opacity:.5;color:inherit } 3.1%,8%   { opacity:1;color:var(--color-chess-btn) } 8.1%,100%  { opacity:.5;color:inherit } }
+@keyframes hl-2  { 0%,8%  { opacity:.5;color:inherit } 8.1%,13%  { opacity:1;color:var(--color-chess-btn) } 13.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-3  { 0%,13% { opacity:.5;color:inherit } 13.1%,18% { opacity:1;color:var(--color-chess-btn) } 18.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-4  { 0%,18% { opacity:.5;color:inherit } 18.1%,23% { opacity:1;color:var(--color-chess-btn) } 23.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-5  { 0%,23% { opacity:.5;color:inherit } 23.1%,28% { opacity:1;color:var(--color-chess-btn) } 28.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-6  { 0%,28% { opacity:.5;color:inherit } 28.1%,33% { opacity:1;color:var(--color-chess-btn) } 33.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-7  { 0%,33% { opacity:.5;color:inherit } 33.1%,38% { opacity:1;color:var(--color-chess-btn) } 38.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-8  { 0%,38% { opacity:.5;color:inherit } 38.1%,43% { opacity:1;color:var(--color-chess-btn) } 43.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-9  { 0%,43% { opacity:.5;color:inherit } 43.1%,48% { opacity:1;color:var(--color-chess-btn) } 48.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-10 { 0%,48% { opacity:.5;color:inherit } 48.1%,53% { opacity:1;color:var(--color-chess-btn) } 53.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-11 { 0%,53% { opacity:.5;color:inherit } 53.1%,58% { opacity:1;color:var(--color-chess-btn) } 58.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-12 { 0%,58% { opacity:.5;color:inherit } 58.1%,63% { opacity:1;color:var(--color-chess-btn) } 63.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-13 { 0%,63% { opacity:.5;color:inherit } 63.1%,68% { opacity:1;color:var(--color-chess-btn) } 68.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-14 { 0%,68% { opacity:.5;color:inherit } 68.1%,73% { opacity:1;color:var(--color-chess-btn) } 73.1%,100% { opacity:.5;color:inherit } }
+@keyframes hl-15 { 0%,73% { opacity:.5;color:inherit } 73.1%,76% { opacity:1;color:var(--color-chess-btn) } 76.1%,100% { opacity:.5;color:inherit } }
+
+.cb-hl-1  { animation: hl-1  30s ease-in-out infinite; }
+.cb-hl-2  { animation: hl-2  30s ease-in-out infinite; }
+.cb-hl-3  { animation: hl-3  30s ease-in-out infinite; }
+.cb-hl-4  { animation: hl-4  30s ease-in-out infinite; }
+.cb-hl-5  { animation: hl-5  30s ease-in-out infinite; }
+.cb-hl-6  { animation: hl-6  30s ease-in-out infinite; }
+.cb-hl-7  { animation: hl-7  30s ease-in-out infinite; }
+.cb-hl-8  { animation: hl-8  30s ease-in-out infinite; }
+.cb-hl-9  { animation: hl-9  30s ease-in-out infinite; }
+.cb-hl-10 { animation: hl-10 30s ease-in-out infinite; }
+.cb-hl-11 { animation: hl-11 30s ease-in-out infinite; }
+.cb-hl-12 { animation: hl-12 30s ease-in-out infinite; }
+.cb-hl-13 { animation: hl-13 30s ease-in-out infinite; }
+.cb-hl-14 { animation: hl-14 30s ease-in-out infinite; }
+.cb-hl-15 { animation: hl-15 30s ease-in-out infinite; }
