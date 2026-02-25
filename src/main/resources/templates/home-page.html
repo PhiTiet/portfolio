@@ -13,64 +13,72 @@
 
     <section id="recommendations" class="section section-alt chessboard-bg" aria-labelledby="recommendations-heading"
              x-data="{ viewBoard: false }">
-        <div class="chessboard-layer" x-bind:class="viewBoard && 'chessboard-layer--active'">
-            <div class="chessboard-wrapper">
-                <div class="cb" aria-hidden="true">
-                    <span class="cb-piece cb-wR cb-static" style="--file:0;--rank:7"></span>
-                    <span class="cb-piece cb-wN cb-move-wNb1" style="--file:1;--rank:7"></span>
-                    <span class="cb-piece cb-wB cb-static" style="--file:2;--rank:7"></span>
-                    <span class="cb-piece cb-wQ cb-static" style="--file:3;--rank:7"></span>
-                    <span class="cb-piece cb-wK cb-move-wKe1" style="--file:4;--rank:7"></span>
-                    <span class="cb-piece cb-wB cb-move-wBf1" style="--file:5;--rank:7"></span>
-                    <span class="cb-piece cb-wN cb-move-wNg1" style="--file:6;--rank:7"></span>
-                    <span class="cb-piece cb-wR cb-move-wRh1" style="--file:7;--rank:7"></span>
-                    <span class="cb-piece cb-wP cb-static" style="--file:0;--rank:6"></span>
-                    <span class="cb-piece cb-wP cb-static" style="--file:1;--rank:6"></span>
-                    <span class="cb-piece cb-wP cb-move-wPc2" style="--file:2;--rank:6"></span>
-                    <span class="cb-piece cb-wP cb-move-wPd2" style="--file:3;--rank:6"></span>
-                    <span class="cb-piece cb-wP cb-move-wPe2" style="--file:4;--rank:6"></span>
-                    <span class="cb-piece cb-wP cb-static" style="--file:5;--rank:6"></span>
-                    <span class="cb-piece cb-wP cb-static" style="--file:6;--rank:6"></span>
-                    <span class="cb-piece cb-wP cb-static" style="--file:7;--rank:6"></span>
-                    <span class="cb-piece cb-bP cb-move-bPa7" style="--file:0;--rank:1"></span>
-                    <span class="cb-piece cb-bP cb-move-bPb7" style="--file:1;--rank:1"></span>
-                    <span class="cb-piece cb-bP cb-move-bPc7" style="--file:2;--rank:1"></span>
-                    <span class="cb-piece cb-bP cb-static" style="--file:3;--rank:1"></span>
-                    <span class="cb-piece cb-bP cb-move-bPe7" style="--file:4;--rank:1"></span>
-                    <span class="cb-piece cb-bP cb-static" style="--file:5;--rank:1"></span>
-                    <span class="cb-piece cb-bP cb-static" style="--file:6;--rank:1"></span>
-                    <span class="cb-piece cb-bP cb-static" style="--file:7;--rank:1"></span>
-                    <span class="cb-piece cb-bR cb-static" style="--file:0;--rank:0"></span>
-                    <span class="cb-piece cb-bN cb-move-bNb8" style="--file:1;--rank:0"></span>
-                    <span class="cb-piece cb-bB cb-static" style="--file:2;--rank:0"></span>
-                    <span class="cb-piece cb-bQ cb-static" style="--file:3;--rank:0"></span>
-                    <span class="cb-piece cb-bK cb-static" style="--file:4;--rank:0"></span>
-                    <span class="cb-piece cb-bB cb-static" style="--file:5;--rank:0"></span>
-                    <span class="cb-piece cb-bN cb-static" style="--file:6;--rank:0"></span>
-                    <span class="cb-piece cb-bR cb-static" style="--file:7;--rank:0"></span>
-                </div>
-                <div class="chessboard-footer">
-                    <p class="chessboard-title" th:text="#{chess.title}">Sicilian Defence: Smith-Morra Gambit Accepted</p>
-                    <p class="chessboard-notation"><span class="cb-mn">1.</span><span class="cb-hl cb-hl-1">e4</span> <span class="cb-hl cb-hl-2">c5</span> <span class="cb-mn">2.</span><span class="cb-hl cb-hl-3">d4</span> <span class="cb-hl cb-hl-4">cxd4</span> <span class="cb-mn">3.</span><span class="cb-hl cb-hl-5">c3</span> <span class="cb-hl cb-hl-6">dxc3</span> <span class="cb-mn">4.</span><span class="cb-hl cb-hl-7">Nxc3</span> <span class="cb-hl cb-hl-8">Nc6</span> <span class="cb-mn">5.</span><span class="cb-hl cb-hl-9">Nf3</span> <span class="cb-hl cb-hl-10">e6</span> <span class="cb-mn">6.</span><span class="cb-hl cb-hl-11">Bc4</span> <span class="cb-hl cb-hl-12">a6</span> <span class="cb-mn">7.</span><span class="cb-hl cb-hl-13">O-O</span> <span class="cb-hl cb-hl-14">b5</span> <span class="cb-mn">8.</span><span class="cb-hl cb-hl-15">Bd3</span></p>
-                    <p class="chessboard-flavor" th:text="#{chess.flavor}">I'm a Gambit player. I love playing the Smith-Morra Gambit positions as both colours!</p>
-                    <p class="chessboard-meta" th:text="#{chess.meta}">Animated with CSS</p>
-                    <button type="button" class="chessboard-toggle-btn" @click="viewBoard = !viewBoard"
-                            th:attr="data-show=#{chess.btn.show},data-hide=#{chess.btn.hide}"
-                            x-text="viewBoard ? $el.dataset.hide : $el.dataset.show">
-                    </button>
-                    <a x-show="viewBoard" href="https://en.wikipedia.org/wiki/Smith%E2%80%93Morra_Gambit#4.Nxc3" target="_blank" rel="noopener noreferrer"
-                       class="chessboard-link" style="font-size: 0.6rem;">
-                        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                        </svg>
-                        Wikipedia
-                    </a>
+        <div class="chessboard-stack">
+            <div class="chessboard-stack-board">
+                <div class="chessboard-layer" x-bind:class="viewBoard && 'chessboard-layer--active'">
+                    <div class="chessboard-wrapper">
+                        <div class="cb" aria-hidden="true">
+                            <span class="cb-piece cb-wR cb-static" style="--file:0;--rank:7"></span>
+                            <span class="cb-piece cb-wN cb-move-wNb1" style="--file:1;--rank:7"></span>
+                            <span class="cb-piece cb-wB cb-static" style="--file:2;--rank:7"></span>
+                            <span class="cb-piece cb-wQ cb-static" style="--file:3;--rank:7"></span>
+                            <span class="cb-piece cb-wK cb-move-wKe1" style="--file:4;--rank:7"></span>
+                            <span class="cb-piece cb-wB cb-move-wBf1" style="--file:5;--rank:7"></span>
+                            <span class="cb-piece cb-wN cb-move-wNg1" style="--file:6;--rank:7"></span>
+                            <span class="cb-piece cb-wR cb-move-wRh1" style="--file:7;--rank:7"></span>
+                            <span class="cb-piece cb-wP cb-static" style="--file:0;--rank:6"></span>
+                            <span class="cb-piece cb-wP cb-static" style="--file:1;--rank:6"></span>
+                            <span class="cb-piece cb-wP cb-move-wPc2" style="--file:2;--rank:6"></span>
+                            <span class="cb-piece cb-wP cb-move-wPd2" style="--file:3;--rank:6"></span>
+                            <span class="cb-piece cb-wP cb-move-wPe2" style="--file:4;--rank:6"></span>
+                            <span class="cb-piece cb-wP cb-static" style="--file:5;--rank:6"></span>
+                            <span class="cb-piece cb-wP cb-static" style="--file:6;--rank:6"></span>
+                            <span class="cb-piece cb-wP cb-static" style="--file:7;--rank:6"></span>
+                            <span class="cb-piece cb-bP cb-move-bPa7" style="--file:0;--rank:1"></span>
+                            <span class="cb-piece cb-bP cb-move-bPb7" style="--file:1;--rank:1"></span>
+                            <span class="cb-piece cb-bP cb-move-bPc7" style="--file:2;--rank:1"></span>
+                            <span class="cb-piece cb-bP cb-static" style="--file:3;--rank:1"></span>
+                            <span class="cb-piece cb-bP cb-move-bPe7" style="--file:4;--rank:1"></span>
+                            <span class="cb-piece cb-bP cb-static" style="--file:5;--rank:1"></span>
+                            <span class="cb-piece cb-bP cb-static" style="--file:6;--rank:1"></span>
+                            <span class="cb-piece cb-bP cb-static" style="--file:7;--rank:1"></span>
+                            <span class="cb-piece cb-bR cb-static" style="--file:0;--rank:0"></span>
+                            <span class="cb-piece cb-bN cb-move-bNb8" style="--file:1;--rank:0"></span>
+                            <span class="cb-piece cb-bB cb-static" style="--file:2;--rank:0"></span>
+                            <span class="cb-piece cb-bQ cb-static" style="--file:3;--rank:0"></span>
+                            <span class="cb-piece cb-bK cb-static" style="--file:4;--rank:0"></span>
+                            <span class="cb-piece cb-bB cb-static" style="--file:5;--rank:0"></span>
+                            <span class="cb-piece cb-bN cb-static" style="--file:6;--rank:0"></span>
+                            <span class="cb-piece cb-bR cb-static" style="--file:7;--rank:0"></span>
+                        </div>
+                        <div class="chessboard-footer">
+                            <p class="chessboard-title" th:text="#{chess.title}">Sicilian Defence: Smith-Morra Gambit Accepted</p>
+                            <p class="chessboard-notation"><span class="cb-mn">1.</span><span class="cb-hl cb-hl-1">e4</span> <span class="cb-hl cb-hl-2">c5</span> <span class="cb-mn">2.</span><span class="cb-hl cb-hl-3">d4</span> <span class="cb-hl cb-hl-4">cxd4</span> <span class="cb-mn">3.</span><span class="cb-hl cb-hl-5">c3</span> <span class="cb-hl cb-hl-6">dxc3</span> <span class="cb-mn">4.</span><span class="cb-hl cb-hl-7">Nxc3</span> <span class="cb-hl cb-hl-8">Nc6</span> <span class="cb-mn">5.</span><span class="cb-hl cb-hl-9">Nf3</span> <span class="cb-hl cb-hl-10">e6</span> <span class="cb-mn">6.</span><span class="cb-hl cb-hl-11">Bc4</span> <span class="cb-hl cb-hl-12">a6</span> <span class="cb-mn">7.</span><span class="cb-hl cb-hl-13">O-O</span> <span class="cb-hl cb-hl-14">b5</span> <span class="cb-mn">8.</span><span class="cb-hl cb-hl-15">Bd3</span></p>
+                            <p class="chessboard-flavor" th:text="#{chess.flavor}">I'm a Gambit player. I love playing the Smith-Morra Gambit positions as both colours!</p>
+                            <p class="chessboard-meta" th:text="#{chess.meta}">Animated with CSS</p>
+                            <div class="chessboard-controls hidden sm:flex">
+                                <button type="button" class="chessboard-toggle-btn" @click="viewBoard = !viewBoard"
+                                        th:attr="data-show=#{chess.btn.show},data-hide=#{chess.btn.hide}"
+                                        x-text="viewBoard ? $el.dataset.hide : $el.dataset.show">
+                                </button>
+                                <a x-show="viewBoard" href="https://en.wikipedia.org/wiki/Smith%E2%80%93Morra_Gambit#4.Nxc3" target="_blank" rel="noopener noreferrer"
+                                   class="chessboard-link" style="font-size: 0.6rem;">
+                                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                                    </svg>
+                                    Wikipedia
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container relative z-1 recommendations-content"
-             x-bind:class="viewBoard && 'recommendations-content--hidden'">
-            <div th:replace="~{fragments/home-page/recommendation :: recommendation}"></div>
+            <div class="chessboard-stack-content recommendations-content"
+                 x-bind:class="viewBoard && 'recommendations-content--hidden'">
+                <div class="container">
+                    <div th:replace="~{fragments/home-page/recommendation :: recommendation}"></div>
+                </div>
+            </div>
         </div>
     </section>
 

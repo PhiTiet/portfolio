@@ -1310,23 +1310,51 @@ img[loading="lazy"] {
 
 .chessboard-bg {
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
-.chessboard-layer {
-    position: absolute;
-    inset: 0;
+.chessboard-stack {
+    display: grid;
+}
+
+.chessboard-stack-board,
+.chessboard-stack-content {
+    grid-row: 1 / -1;
+    grid-column: 1 / -1;
+}
+
+.chessboard-stack-board {
     display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: none;
     z-index: 0;
+}
+
+.chessboard-stack-content {
+    z-index: 1;
+    pointer-events: none;
+}
+
+.chessboard-stack-content > * {
+    pointer-events: auto;
+}
+
+.chessboard-layer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
     transition: opacity var(--transition-base);
-    overflow: hidden;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 .chessboard-layer--active {
     pointer-events: auto;
+}
+
+.chessboard-stack-board:has(.chessboard-layer--active) {
     z-index: 2;
     background-color: color-mix(in srgb, var(--color-bg-primary) 65%, transparent);
 }
@@ -1360,13 +1388,7 @@ html.light .chessboard-layer--active .cb {
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
-    padding-top: 6rem;
-}
-
-@media (min-width: 640px) {
-    .chessboard-wrapper {
-        padding-top: 14rem;
-    }
+    padding-top: 1.5rem;
 }
 
 .chessboard-footer {
@@ -1492,6 +1514,14 @@ html.light .chessboard-layer--active .cb {
 .chessboard-toggle-btn:hover {
     background-color: color-mix(in srgb, var(--color-chess-btn) 25%, transparent);
     border-color: color-mix(in srgb, var(--color-chess-btn) 60%, transparent);
+}
+
+.chessboard-controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+    pointer-events: auto;
 }
 
 .chessboard-toggle-btn::before {
