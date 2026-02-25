@@ -1302,6 +1302,7 @@ img[loading="lazy"] {
 
 .chessboard-bg {
     position: relative;
+    overflow: hidden;
 }
 
 .chessboard-layer {
@@ -1312,7 +1313,8 @@ img[loading="lazy"] {
     justify-content: center;
     pointer-events: none;
     z-index: 0;
-    transition: opacity var(--transition-normal);
+    transition: opacity var(--transition-base);
+    overflow: hidden;
 }
 
 .chessboard-layer--active {
@@ -1337,7 +1339,7 @@ html.light .chessboard-layer--active .cb {
 
 /* Recommendation content fade when viewing board */
 .recommendations-content {
-    transition: opacity var(--transition-normal);
+    transition: opacity var(--transition-base);
 }
 
 .recommendations-content--hidden {
@@ -1350,12 +1352,19 @@ html.light .chessboard-layer--active .cb {
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
-    padding-top: 14rem;
+    padding-top: 6rem;
+}
+
+@media (min-width: 640px) {
+    .chessboard-wrapper {
+        padding-top: 14rem;
+    }
 }
 
 .chessboard-footer {
     text-align: center;
     pointer-events: auto;
+    max-width: 90vw;
 }
 
 .chessboard-title {
@@ -1367,6 +1376,14 @@ html.light .chessboard-layer--active .cb {
     opacity: 0.4;
     letter-spacing: 0.02em;
     margin: 0;
+    max-width: 90vw;
+    text-align: center;
+}
+
+@media (max-width: 640px) {
+    .chessboard-title {
+        font-size: 0.9rem;
+    }
 }
 
 .chessboard-notation {
@@ -1376,6 +1393,15 @@ html.light .chessboard-layer--active .cb {
     opacity: 0.5;
     letter-spacing: 0.04em;
     margin: 0.25rem 0 0;
+    max-width: 90vw;
+    text-align: center;
+}
+
+@media (max-width: 640px) {
+    .chessboard-notation {
+        font-size: 0.625rem;
+        letter-spacing: 0.02em;
+    }
 }
 
 .cb-mn {
@@ -1410,8 +1436,9 @@ html.light .chessboard-layer--active .cb {
     color: var(--color-text-secondary);
     opacity: 0.45;
     margin: 0.4rem 0 0;
-    white-space: nowrap;
     line-height: 1.4;
+    text-align: center;
+    max-width: 90vw;
 }
 
 .chessboard-link {
