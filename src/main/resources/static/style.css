@@ -1356,7 +1356,6 @@ img[loading="lazy"] {
 
 .chessboard-stack-board:has(.chessboard-layer--active) {
     z-index: 2;
-    background-color: color-mix(in srgb, var(--color-bg-primary) 65%, transparent);
 }
 
 .chessboard-layer--active .cb {
