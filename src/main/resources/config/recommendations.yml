@@ -1,31 +1,36 @@
 recommendations:
   items:
-    - quote: "Phi is equipped with qualities that have propelled him in the direction of becoming a high-class software engineer. I've seen him grow, and I've been impressed by the speed he learns new things. He's a critical thinker and possesses an intensely inquisitive mind. His contribution to the team, his curiosity to understand current solutions and provide better ones were unmatched."
-      authorName: Armend Hoxha
-      authorInitials: AH
-      authorRole: Senior Software Engineer at Rabobank
-      letterPdf: /pdf/recommendation_letter_armend_hoxha_without_signature.pdf
-
-    - quote: "Phi is eager to learn and has a broad interest in software engineering. When pairing he shows that he understands the assignment, asks the right questions and points out improvements that I have missed. Phi is a passionate software engineer with well-developed hard and soft skills who is constantly willing to improve."
-      authorName: Rob Smorenburg
-      authorInitials: RS
-      authorRole: "Full-stack Lead Developer / Java Chapter Lead"
-      letterPdf: /pdf/recommendation_letter_rob_smorgenburg_without_signature.pdf
-
-    - quote: "As a software engineer, Phi has an incredible talent for writing clean and efficient code and has a deep understanding of how everything fits together. His curiosity and versatility make him stand out, and he's always eager to learn and adapt. What makes Phi stand out even more is his proactive attitude - always bringing new ideas, tools, or techniques to the team."
-      authorName: Rachid El Kaddouri
-      authorInitials: RE
-      authorRole: Salesforce Technical Architect
-      letterPdf: /pdf/recommendation_rachid_without_signature.pdf
-
     - quote: "Phi is someone who not only delivers a working project, but also pays real attention to good design with proper tests and the right solutions. In short, a true craftsman with incredible talent, an eye for detail, and a healthy mindset - something I rarely encounter in the software industry."
       authorName: Pieter Bijl
       authorInitials: PB
       authorRole: Senior Software Engineer at GSS
       letterPdf: /pdf/recommendation_letter_pieter_bijl_signature_redacted.pdf
+      date: 2025-09-23
 
     - quote: "Phi adheres to a high quality standard with regards to engineering. He thinks of and practices programming in patterns, testing and providing constructive feedback. One of the most exemplary characteristics of Phi is his ability to deliver support in stressful situations. The moment the team needed to step up, Phi was there. We could depend on him."
       authorName: Jeroen Dee
       authorInitials: JD
       authorRole: AI/Quality Shepherd
       letterPdf: /pdf/recommendation_letter_jeroen_dee_signature_redacted.pdf
+      date: 2025-04-25
+
+    - quote: "As a software engineer, Phi has an incredible talent for writing clean and efficient code and has a deep understanding of how everything fits together. His curiosity and versatility make him stand out, and he's always eager to learn and adapt. What makes Phi stand out even more is his proactive attitude - always bringing new ideas, tools, or techniques to the team."
+      authorName: Rachid El Kaddouri
+      authorInitials: RE
+      authorRole: Salesforce Technical Architect
+      letterPdf: /pdf/recommendation_rachid_without_signature.pdf
+      date: 2024-11-21
+
+    - quote: "Phi is eager to learn and has a broad interest in software engineering. When pairing he shows that he understands the assignment, asks the right questions and points out improvements that I have missed. Phi is a passionate software engineer with well-developed hard and soft skills who is constantly willing to improve."
+      authorName: Rob Smorenburg
+      authorInitials: RS
+      authorRole: "Full-stack Lead Developer / Java Chapter Lead"
+      letterPdf: /pdf/recommendation_letter_rob_smorgenburg_without_signature.pdf
+      date: 2023-12-05
+
+    - quote: "Phi is equipped with qualities that have propelled him in the direction of becoming a high-class software engineer. I've seen him grow, and I've been impressed by the speed he learns new things. He's a critical thinker and possesses an intensely inquisitive mind. His contribution to the team, his curiosity to understand current solutions and provide better ones were unmatched."
+      authorName: Armend Hoxha
+      authorInitials: AH
+      authorRole: Senior Software Engineer at Rabobank
+      letterPdf: /pdf/recommendation_letter_armend_hoxha_without_signature.pdf
+      date: 2023-11-22

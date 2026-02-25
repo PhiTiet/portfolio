@@ -414,6 +414,14 @@ a:hover {
     margin: 0;
 }
 
+.recommendation-date {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    display: block;
+    margin-top: 0.125rem;
+}
+
 .btn-accent-subtle {
     display: inline-flex;
     align-items: center;

@@ -45,7 +45,7 @@ class ToHomePageDetailsMapperTest {
 
     private static RecommendationConfigProperties createRecommendationProperties() {
         var properties = new RecommendationConfigProperties();
-        properties.setItems(List.of(new Recommendation("Great engineer", "John Doe", "JD", "Senior Engineer", "/pdf/test.pdf")));
+        properties.setItems(List.of(new Recommendation("Great engineer", "John Doe", "JD", "Senior Engineer", "/pdf/test.pdf", LocalDate.of(2024, 1, 15))));
         return properties;
     }
 

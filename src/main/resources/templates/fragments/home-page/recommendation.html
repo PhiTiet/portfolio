@@ -41,6 +41,7 @@
                         <div>
                             <p class="author-name" th:text="${rec.authorName()}"></p>
                             <p class="author-role" th:text="${rec.authorRole()}"></p>
+                            <time class="recommendation-date" th:datetime="${rec.date()}" th:text="${#temporals.format(rec.date(), 'MMMM d, yyyy')}"></time>
                         </div>
                     </div>
                     <a th:href="${rec.letterPdf()}" target="_blank" rel="noopener noreferrer" class="btn-accent-subtle"
