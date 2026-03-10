@@ -1,6 +1,8 @@
 package nl.personal.portfolio.api.advice;
 
 import jakarta.validation.ConstraintViolationException;
+import nl.personal.portfolio.api.security.ContactRateLimitExceededException;
+import nl.personal.portfolio.core.ContactDeliveryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -36,8 +38,7 @@ public final class GlobalExceptionAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException e, HttpServletRequest request) {
         Map<String, Object> errors = new HashMap<>();
-        var locale = localeResolver.resolveLocale(request);
-        errors.put("message", messageSource.getMessage("contact.validation.failed", null, "Validation failed", locale));
+        errors.put("message", resolveMessage(request, "contact.validation.failed", "Validation failed"));
 
         Map<String, String> fieldErrors = new HashMap<>();
         e.getBindingResult().getFieldErrors().forEach(error -> {
@@ -46,6 +47,25 @@ public final class GlobalExceptionAdvice {
         errors.put("errors", fieldErrors);
 
         return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler(ContactDeliveryException.class)
+    public ResponseEntity<Map<String, String>> handleContactDeliveryFailure(ContactDeliveryException exception,
+                                                                            HttpServletRequest request) {
+        return ResponseEntity.status(SERVICE_UNAVAILABLE).body(Map.of(
+                "message", resolveMessage(request, "contact.delivery.failed",
+                        "Unable to send your message right now. Please try again later.")));
+    }
+
+    @ExceptionHandler(ContactRateLimitExceededException.class)
+    public ResponseEntity<Map<String, Object>> handleContactRateLimitExceeded(ContactRateLimitExceededException exception,
+                                                                              HttpServletRequest request) {
+        return ResponseEntity.status(TOO_MANY_REQUESTS)
+                .header("Retry-After", String.valueOf(exception.getRetryAfterSeconds()))
+                .body(Map.of(
+                        "message", resolveMessage(request, "contact.rate.limit.exceeded",
+                                "You're sending messages too quickly. Please wait and try again."),
+                        "retryAfterSeconds", exception.getRetryAfterSeconds()));
     }
 
     @ExceptionHandler({ConstraintViolationException.class, HttpMessageNotReadableException.class})
@@ -67,6 +87,11 @@ public final class GlobalExceptionAdvice {
     String internalServerError(final Exception e) {
         log.error(e.getMessage(), e);
         return "error/500";
+    }
+
+    private String resolveMessage(HttpServletRequest request, String key, String defaultMessage, Object... args) {
+        var locale = localeResolver.resolveLocale(request);
+        return messageSource.getMessage(key, args, defaultMessage, locale);
     }
 
 }

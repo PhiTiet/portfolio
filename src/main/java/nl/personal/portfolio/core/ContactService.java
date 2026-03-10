@@ -21,8 +21,8 @@ public class ContactService {
                 request.name(),
                 request.message().length());
 
-        log.info("Contact form submitted - message length: {}", request.message().length());
-
         discordWebhookClient.sendMessage(request.name(), request.email(), request.message());
+
+        log.info("Contact form delivered - message length: {}", request.message().length());
     }
 }

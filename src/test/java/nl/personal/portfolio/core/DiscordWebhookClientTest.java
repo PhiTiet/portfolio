@@ -6,6 +6,7 @@ import org.mockito.Answers;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -39,8 +40,8 @@ class DiscordWebhookClientTest {
     }
 
     @Test
-    @DisplayName("should skip sending when webhook URL is not configured")
-    void sendMessage_withoutConfiguredUrl_skips() {
+    @DisplayName("should fail when webhook URL is not configured")
+    void sendMessage_withoutConfiguredUrl_throwsException() {
         var restClient = mock(RestClient.class);
         var restClientBuilder = mock(RestClient.Builder.class);
 
@@ -48,14 +49,16 @@ class DiscordWebhookClientTest {
 
         var client = new DiscordWebhookClient("", restClientBuilder);
 
-        client.sendMessage("John Doe", "john@example.com", "Test message");
+        assertThatThrownBy(() -> client.sendMessage("John Doe", "john@example.com", "Test message"))
+                .isInstanceOf(ContactDeliveryException.class)
+                .hasMessage("Discord webhook URL not configured");
 
         verifyNoInteractions(restClient);
     }
 
     @Test
-    @DisplayName("should handle errors gracefully when webhook fails")
-    void sendMessage_whenWebhookFails_logsError() {
+    @DisplayName("should fail when webhook call throws an error")
+    void sendMessage_whenWebhookFails_throwsException() {
         var requestBodyUriSpec = mock(RestClient.RequestBodyUriSpec.class, Answers.RETURNS_SELF);
         var requestBodySpec = mock(RestClient.RequestBodySpec.class, Answers.RETURNS_SELF);
         var responseSpec = mock(RestClient.ResponseSpec.class);
@@ -70,7 +73,9 @@ class DiscordWebhookClientTest {
 
         var client = new DiscordWebhookClient("https://discord.webhook.url", restClientBuilder);
 
-        client.sendMessage("John Doe", "john@example.com", "Test message");
+        assertThatThrownBy(() -> client.sendMessage("John Doe", "john@example.com", "Test message"))
+                .isInstanceOf(ContactDeliveryException.class)
+                .hasMessage("Unexpected error while sending contact form");
 
         verify(requestBodySpec).retrieve();
     }

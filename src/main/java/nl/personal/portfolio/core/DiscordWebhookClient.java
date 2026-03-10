@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestClientResponseException;
 
 import java.util.Map;
 
@@ -26,8 +28,8 @@ public class DiscordWebhookClient {
 
     public void sendMessage(String name, String email, String message) {
         if (webhookUrl == null || webhookUrl.isBlank()) {
-            log.warn("Discord webhook URL not configured, skipping message send");
-            return;
+            log.error("Discord webhook URL not configured");
+            throw new ContactDeliveryException("Discord webhook URL not configured");
         }
 
         try {
@@ -51,8 +53,15 @@ public class DiscordWebhookClient {
                     .toBodilessEntity();
 
             log.info("Successfully sent contact form to Discord");
-        } catch (Exception e) {
-            log.error("Failed to send message to Discord webhook: {}", e.getMessage(), e);
+        } catch (RestClientResponseException exception) {
+            log.warn("Discord webhook rejected contact form with status {}", exception.getStatusCode());
+            throw new ContactDeliveryException("Discord webhook rejected contact form", exception);
+        } catch (RestClientException exception) {
+            log.error("Failed to reach Discord webhook");
+            throw new ContactDeliveryException("Failed to reach Discord webhook", exception);
+        } catch (Exception exception) {
+            log.error("Unexpected error while sending contact form to Discord");
+            throw new ContactDeliveryException("Unexpected error while sending contact form", exception);
         }
     }
 }

@@ -22,3 +22,7 @@ spring:
 portfolio:
   discord:
     webhook-url: ${DISCORD_WEBHOOK_URL:}
+  contact:
+    rate-limit:
+      max-requests: 5
+      window: 10m

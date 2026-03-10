@@ -1,7 +1,8 @@
 package nl.personal.portfolio.api.advice;
 
 import jakarta.validation.ConstraintViolationException;
-import lombok.Setter;
+import nl.personal.portfolio.api.security.ContactRateLimitExceededException;
+import nl.personal.portfolio.core.ContactDeliveryException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -55,15 +56,20 @@ class GlobalExceptionAdviceTest {
         return List.of(
                 arguments(mock(ConstraintViolationException.class), BAD_REQUEST, "error/400"),
                 arguments(mock(HttpMessageNotReadableException.class), BAD_REQUEST, "error/400"),
+                arguments(new ContactDeliveryException("Discord unavailable"), HttpStatus.SERVICE_UNAVAILABLE, null),
+                arguments(new ContactRateLimitExceededException(60), HttpStatus.TOO_MANY_REQUESTS, null),
                 arguments(mock(RuntimeException.class), INTERNAL_SERVER_ERROR, "error/500"),
                 arguments(mock(Exception.class), INTERNAL_SERVER_ERROR, "error/500")
         );
     }
 
-    @Setter
     @RestController
     static class TestController {
         private Exception exception;
+
+        void setException(Exception exception) {
+            this.exception = exception;
+        }
 
         @GetMapping(TEST_EXCEPTION_URL)
         public void get() throws Exception {
