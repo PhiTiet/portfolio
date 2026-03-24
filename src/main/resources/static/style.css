@@ -1177,6 +1177,34 @@ img[loading="lazy"] {
     max-height: 10rem;
     overflow-y: auto;
     transition: all var(--transition-base);
+    position: relative;
+}
+
+.oss-scroll-hint {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2.5rem;
+    background: linear-gradient(to bottom, transparent, var(--color-bg-card));
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 0.25rem;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.oss-scroll-hint svg {
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-text-muted);
+    animation: oss-bounce 1.5s infinite;
+}
+
+@keyframes oss-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
 }
 
 .oss-list {
