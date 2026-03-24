@@ -244,10 +244,9 @@
         <span class="w-8 h-[2px] bg-[var(--color-accent)]"></span>
         <span th:text="#{projects.opensource}">Open-Source Contributions</span>
     </h3>
-    <ul class="space-y-3"
+    <ul class="space-y-3 transition-all duration-500"
         x-data="{ show: false }" x-init="setTimeout(() => show = true, 900)"
-        x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
-        class="transition-all duration-500">
+        x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
         <li>
             <a href="https://github.com/thijsvanloef/palworld-server-docker/pull/811"
                target="_blank" rel="noopener noreferrer"
