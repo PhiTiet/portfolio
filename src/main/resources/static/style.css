@@ -1170,21 +1170,60 @@ img[loading="lazy"] {
     color: var(--color-accent-hover);
 }
 
-.oss-contribution-item {
-    display: block;
-    padding: 1rem 1.25rem;
+.oss-list-container {
     background-color: var(--color-bg-card);
     border: 1px solid var(--color-border-light);
     border-radius: var(--radius-lg);
+    max-height: 10rem;
+    overflow-y: auto;
     transition: all var(--transition-base);
+}
+
+.oss-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.oss-contribution-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
     text-decoration: none;
+    transition: background-color var(--transition-fast);
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.oss-list li:last-child .oss-contribution-item {
+    border-bottom: none;
 }
 
 .oss-contribution-item:hover {
-    border-color: var(--color-accent);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
+    background-color: var(--color-bg-tertiary);
     color: inherit;
+}
+
+.oss-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    color: var(--color-accent);
+    flex-shrink: 0;
+}
+
+.oss-repo {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    white-space: nowrap;
+}
+
+.oss-title {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .contact-form-label {
