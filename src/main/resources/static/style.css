@@ -1170,6 +1170,23 @@ img[loading="lazy"] {
     color: var(--color-accent-hover);
 }
 
+.oss-contribution-item {
+    display: block;
+    padding: 1rem 1.25rem;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+    text-decoration: none;
+}
+
+.oss-contribution-item:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+    color: inherit;
+}
+
 .contact-form-label {
     display: block;
     font-size: 0.875rem;
