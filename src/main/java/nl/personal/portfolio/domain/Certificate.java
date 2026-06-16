@@ -12,14 +12,9 @@ public record Certificate(
         String institution,
         @DateTimeFormat(pattern = INPUT_FORMAT)
         LocalDate acquisitionDate,
-        String thesisUrl) implements Comparable<Certificate> {
+        String thesisUrl) {
 
     public String formattedAcquisitionDate() {
         return acquisitionDate.format(DISPLAY_FORMAT);
-    }
-
-    @Override
-    public int compareTo(final Certificate other) {
-        return acquisitionDate.compareTo(other.acquisitionDate());
     }
 }

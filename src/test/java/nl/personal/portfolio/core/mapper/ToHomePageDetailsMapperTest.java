@@ -1,6 +1,9 @@
 package nl.personal.portfolio.core.mapper;
 
+import nl.personal.portfolio.domain.Certificate;
 import nl.personal.portfolio.domain.Recommendation;
+import nl.personal.portfolio.domain.Skill;
+import nl.personal.portfolio.domain.TimelineEvent;
 import nl.personal.portfolio.domain.config.recommendation.RecommendationConfigProperties;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,10 +36,10 @@ class ToHomePageDetailsMapperTest {
         final var properties = defaultCareerProperties();
         final var result = sut.map(properties);
 
-        assertThat(result.certificates()).isEqualTo(properties.getCertificates());
+        assertThat(result.certificates()).extracting(Certificate::title).containsExactly("new", "middle", "old");
         assertThat(result.hobbies()).isEqualTo(properties.getHobbies());
-        assertThat(result.skills()).isEqualTo(properties.getSkills());
-        assertThat(result.events()).isEqualTo(properties.getEvents());
+        assertThat(result.skills()).extracting(Skill::name).containsExactly("high", "middle", "low");
+        assertThat(result.events()).extracting(TimelineEvent::employer).containsExactly("new", "middle", "old");
         assertThat(result.recommendations()).isEqualTo(recommendationConfigProperties.getItems());
         assertThat(result.professionalProgrammerPeriod()).isEqualTo(Period.between(properties.getProfessionalCareerStartDate(), FIXED_DATE));
         assertThat(result.programmerPeriod()).isEqualTo(Period.between(properties.getProgrammingStartDate(), FIXED_DATE));

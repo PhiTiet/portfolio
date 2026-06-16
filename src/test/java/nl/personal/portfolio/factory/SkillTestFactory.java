@@ -9,6 +9,10 @@ public final class SkillTestFactory {
     }
 
     public static Skill defaultSkill() {
-        return new Skill("skillName", 10, new Icon("fa-solid fa-code", "color:#2dd4bf"));
+        return skill("skillName", 10);
+    }
+
+    public static Skill skill(final String name, final int proficiency) {
+        return new Skill(name, proficiency, new Icon("fa-solid fa-code", "color:#2dd4bf"));
     }
 }

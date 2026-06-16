@@ -2,13 +2,11 @@ package nl.personal.portfolio.core;
 
 import nl.personal.portfolio.core.mapper.ToHomePageDetailsMapper;
 import nl.personal.portfolio.domain.config.career.CareerProperties;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.util.Locale;
 
@@ -29,19 +27,13 @@ class CareerServiceTest {
     @Mock
     private ToHomePageDetailsMapper toHomePageDetailsMapper;
 
-    @AfterEach
-    void tearDown() {
-        LocaleContextHolder.resetLocaleContext();
-    }
-
     @Test
     @DisplayName("should delegate to mapper with English career properties for English locale")
     void getDetails_englishLocale_delegatesToMapperWithEnglishProperties() {
-        LocaleContextHolder.setLocale(Locale.ENGLISH);
         var sut = new CareerService(englishCareerProperties, dutchCareerProperties, toHomePageDetailsMapper);
         when(toHomePageDetailsMapper.map(englishCareerProperties)).thenReturn(defaultHomePageDetails());
 
-        sut.getDetails();
+        sut.getDetails(Locale.ENGLISH);
 
         verify(toHomePageDetailsMapper).map(englishCareerProperties);
     }
@@ -49,11 +41,10 @@ class CareerServiceTest {
     @Test
     @DisplayName("should delegate to mapper with Dutch career properties for Dutch locale")
     void getDetails_dutchLocale_delegatesToMapperWithDutchProperties() {
-        LocaleContextHolder.setLocale(Locale.of("nl"));
         var sut = new CareerService(englishCareerProperties, dutchCareerProperties, toHomePageDetailsMapper);
         when(toHomePageDetailsMapper.map(dutchCareerProperties)).thenReturn(defaultHomePageDetails());
 
-        sut.getDetails();
+        sut.getDetails(Locale.of("nl"));
 
         verify(toHomePageDetailsMapper).map(dutchCareerProperties);
     }
@@ -61,11 +52,10 @@ class CareerServiceTest {
     @Test
     @DisplayName("should fall back to English for unsupported locale")
     void getDetails_unsupportedLocale_fallsBackToEnglish() {
-        LocaleContextHolder.setLocale(Locale.FRENCH);
         var sut = new CareerService(englishCareerProperties, dutchCareerProperties, toHomePageDetailsMapper);
         when(toHomePageDetailsMapper.map(englishCareerProperties)).thenReturn(defaultHomePageDetails());
 
-        sut.getDetails();
+        sut.getDetails(Locale.FRENCH);
 
         verify(toHomePageDetailsMapper).map(englishCareerProperties);
     }

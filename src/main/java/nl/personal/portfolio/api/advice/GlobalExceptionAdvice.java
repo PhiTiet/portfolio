@@ -15,8 +15,9 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -28,24 +29,29 @@ public final class GlobalExceptionAdvice {
     private final MessageSource messageSource;
     private final LocaleResolver localeResolver;
 
-    public GlobalExceptionAdvice(MessageSource messageSource, LocaleResolver localeResolver) {
+    public GlobalExceptionAdvice(final MessageSource messageSource, final LocaleResolver localeResolver) {
         this.messageSource = messageSource;
         this.localeResolver = localeResolver;
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException e, HttpServletRequest request) {
-        Map<String, Object> errors = new HashMap<>();
+    public ResponseEntity<ValidationErrorResponse> handleValidationErrors(
+            final MethodArgumentNotValidException e,
+            final HttpServletRequest request) {
         var locale = localeResolver.resolveLocale(request);
-        errors.put("message", messageSource.getMessage("contact.validation.failed", null, "Validation failed", locale));
+        var message = messageSource.getMessage("contact.validation.failed", null, "Validation failed", locale);
 
-        Map<String, String> fieldErrors = new HashMap<>();
-        e.getBindingResult().getFieldErrors().forEach(error -> {
-            fieldErrors.put(error.getField(), error.getDefaultMessage());
-        });
-        errors.put("errors", fieldErrors);
+        return ResponseEntity.badRequest().body(new ValidationErrorResponse(message, fieldErrors(e)));
+    }
 
-        return ResponseEntity.badRequest().body(errors);
+    private static Map<String, String> fieldErrors(final MethodArgumentNotValidException exception) {
+        return exception.getBindingResult().getFieldErrors().stream()
+                .collect(Collectors.toMap(
+                        fieldError -> fieldError.getField(),
+                        fieldError -> fieldError.getDefaultMessage(),
+                        (first, ignored) -> first,
+                        LinkedHashMap::new
+                ));
     }
 
     @ExceptionHandler({ConstraintViolationException.class, HttpMessageNotReadableException.class})
@@ -69,4 +75,6 @@ public final class GlobalExceptionAdvice {
         return "error/500";
     }
 
+    public record ValidationErrorResponse(String message, Map<String, String> errors) {
+    }
 }

@@ -6,8 +6,8 @@ import org.springframework.web.client.RestClient;
 
 import java.time.Clock;
 
-@Configuration
-public class AppConfig {
+@Configuration(proxyBeanMethods = false)
+public final class AppConfig {
 
     @Bean
     Clock clock() {

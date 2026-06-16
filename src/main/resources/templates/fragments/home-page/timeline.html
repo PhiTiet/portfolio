@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head></head>
-
-<body>
-<div th:fragment="timeline" class="max-w-4xl mx-auto">
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="timeline" class="max-w-4xl mx-auto">
     <div class="text-center mb-12">
         <span class="badge mb-4" th:text="#{experience.badge}">Career Journey</span>
         <h2 id="experience-heading" class="section-title" th:text="#{experience.title}">Work Experience</h2>
@@ -16,13 +11,11 @@
         <div class="timeline-line"></div>
         
         <div th:each="event, iterStat : ${details.events}" 
-             class="timeline-item"
-             th:classappend="${iterStat.first} ? 'timeline-item-current timeline-item-left' : (${iterStat.even} ? 'timeline-item-right' : 'timeline-item-left')"
-             th:id="${'timeline-' + #strings.toLowerCase(#strings.substringBefore(event.employer + ' ', ' '))}"
-             th:attr="data-delay=${iterStat.index * 100}"
-             x-data="{ show: false }"
-             x-init="setTimeout(() => show = true, $el.dataset.delay)"
-             x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+              class="timeline-item"
+              th:classappend="${iterStat.first} ? 'timeline-item-current timeline-item-left' : (${iterStat.even} ? 'timeline-item-right' : 'timeline-item-left')"
+              th:id="${'timeline-' + #strings.toLowerCase(#strings.substringBefore(event.employer + ' ', ' '))}"
+              th:attr="x-data=|reveal(${iterStat.index * 100})|"
+              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
             
             <div class="timeline-marker">
                 <div class="timeline-icon-wrapper" th:classappend="${iterStat.first} ? 'timeline-icon-current' : ''">
@@ -66,6 +59,3 @@
         </div>
     </div>
 </div>
-</body>
-
-</html>

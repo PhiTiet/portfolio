@@ -1,7 +1,6 @@
 package nl.personal.portfolio.api.advice;
 
 import jakarta.validation.ConstraintViolationException;
-import lombok.Setter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -60,10 +59,13 @@ class GlobalExceptionAdviceTest {
         );
     }
 
-    @Setter
     @RestController
     static class TestController {
         private Exception exception;
+
+        void setException(final Exception exception) {
+            this.exception = exception;
+        }
 
         @GetMapping(TEST_EXCEPTION_URL)
         public void get() throws Exception {

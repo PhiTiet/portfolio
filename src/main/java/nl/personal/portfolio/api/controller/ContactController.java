@@ -3,27 +3,29 @@ package nl.personal.portfolio.api.controller;
 import jakarta.validation.Valid;
 import nl.personal.portfolio.core.ContactService;
 import nl.personal.portfolio.domain.ContactRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/contact")
-public class ContactController {
+public final class ContactController {
+
+    private static final ContactSubmissionResponse SUCCESS = new ContactSubmissionResponse("success");
 
     private final ContactService contactService;
 
-    public ContactController(ContactService contactService) {
+    public ContactController(final ContactService contactService) {
         this.contactService = contactService;
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, String>> submitContactForm(@Valid @RequestBody ContactRequest request) {
+    public ContactSubmissionResponse submitContactForm(@Valid @RequestBody final ContactRequest request) {
         contactService.processContactForm(request);
-        return ResponseEntity.ok(Map.of("message", "success"));
+        return SUCCESS;
+    }
+
+    public record ContactSubmissionResponse(String message) {
     }
 }

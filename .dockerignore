@@ -3,5 +3,6 @@
 .idea
 .vscode
 *.md
-src/
+src
+target/*
 !target/portfolio.jar

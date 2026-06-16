@@ -11,17 +11,17 @@ public final class HomePageDetailsTestFactory {
     }
 
     public static HomePageDetails defaultHomePageDetails() {
-        return HomePageDetails.builder()
-                .age(69)
-                .programmerPeriod(Period.ofYears(5))
-                .professionalProgrammerPeriod(Period.ofYears(4))
-                .certificates(List.of())
-                .hobbies(List.of())
-                .skills(List.of())
-                .events(List.of())
-                .recommendations(List.of())
-                .springBootVersion("3.0.0")
-                .javaVersion("21")
-                .build();
+        return new HomePageDetails(
+                69,
+                Period.ofYears(4),
+                Period.ofYears(5),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                "3.0.0",
+                "21"
+        );
     }
 }

@@ -1,12 +1,12 @@
 package nl.personal.portfolio.core;
 
+import nl.personal.portfolio.domain.config.discord.DiscordProperties;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Answers;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @DisplayName("DiscordWebhookClient")
@@ -27,7 +27,7 @@ class DiscordWebhookClientTest {
         when(requestBodySpec.retrieve()).thenReturn(responseSpec);
         when(responseSpec.toBodilessEntity()).thenReturn(null);
 
-        var client = new DiscordWebhookClient("https://discord.webhook.url", restClientBuilder);
+        var client = new DiscordWebhookClient(discordProperties("https://discord.webhook.url"), restClientBuilder);
 
         client.sendMessage("John Doe", "john@example.com", "Test message");
 
@@ -46,7 +46,7 @@ class DiscordWebhookClientTest {
 
         when(restClientBuilder.build()).thenReturn(restClient);
 
-        var client = new DiscordWebhookClient("", restClientBuilder);
+        var client = new DiscordWebhookClient(discordProperties(""), restClientBuilder);
 
         client.sendMessage("John Doe", "john@example.com", "Test message");
 
@@ -68,10 +68,14 @@ class DiscordWebhookClientTest {
         when(requestBodySpec.retrieve()).thenReturn(responseSpec);
         when(responseSpec.toBodilessEntity()).thenThrow(new RuntimeException("Webhook error"));
 
-        var client = new DiscordWebhookClient("https://discord.webhook.url", restClientBuilder);
+        var client = new DiscordWebhookClient(discordProperties("https://discord.webhook.url"), restClientBuilder);
 
         client.sendMessage("John Doe", "john@example.com", "Test message");
 
         verify(requestBodySpec).retrieve();
+    }
+
+    private static DiscordProperties discordProperties(final String webhookUrl) {
+        return new DiscordProperties(webhookUrl);
     }
 }

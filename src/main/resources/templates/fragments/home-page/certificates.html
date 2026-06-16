@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-</head>
-
-<body>
-<div th:fragment="certificates" class="max-w-4xl mx-auto">
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="certificates" class="max-w-4xl mx-auto">
     <div class="text-center mb-12">
         <span class="badge mb-4" th:text="#{certificates.badge}">Credentials</span>
         <h2 id="certificates-heading" class="section-title" th:text="#{certificates.title}">Education & Certificates</h2>
@@ -16,12 +9,10 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         <article th:each="certificate, iterStat : ${details.certificates}" 
-                 class="certificate-card"
-                 th:classappend="${#strings.contains(certificate.title, 'BSc') or #strings.contains(certificate.title, 'VWO')} ? 'certificate-education' : 'certificate-professional'"
-                 th:attr="data-delay=${iterStat.index * 80}"
-                 x-data="{ show: false }"
-                 x-init="setTimeout(() => show = true, $el.dataset.delay)"
-                 x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
+                  class="certificate-card"
+                  th:classappend="${#strings.contains(certificate.title, 'BSc') or #strings.contains(certificate.title, 'VWO')} ? 'certificate-education' : 'certificate-professional'"
+                  th:attr="x-data=|reveal(${iterStat.index * 80})|"
+                  x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             
             <div class="icon-box bg-[var(--color-accent-subtle)] text-[var(--color-accent)] mb-4">
                 <svg th:if="${#strings.contains(certificate.title, 'BSc') or #strings.contains(certificate.title, 'VWO')}" 
@@ -64,6 +55,3 @@
         </article>
     </div>
 </div>
-</body>
-
-</html>

@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head></head>
-<body>
-<div th:fragment="projects" class="max-w-4xl mx-auto">
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="projects" class="max-w-4xl mx-auto">
     <div class="text-center mb-12">
         <span class="badge mb-4" th:text="#{projects.badge}">What I've Built</span>
         <h2 id="projects-heading" class="section-title" th:text="#{projects.title}">Projects</h2>
@@ -17,7 +13,7 @@
     </h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         <div id="project-ahold" class="project-card"
-             x-data="{ show: false }" x-init="setTimeout(() => show = true, 0)"
+             x-data="reveal(0)"
              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
@@ -41,7 +37,7 @@
         </div>
 
         <div id="project-rabobank" class="project-card"
-             x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)"
+             x-data="reveal(100)"
              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
@@ -65,7 +61,7 @@
         </div>
 
         <div id="project-qualogy" class="project-card"
-             x-data="{ show: false }" x-init="setTimeout(() => show = true, 200)"
+             x-data="reveal(200)"
              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
@@ -87,7 +83,7 @@
         </div>
 
         <div id="project-medit" class="project-card"
-             x-data="{ show: false }" x-init="setTimeout(() => show = true, 300)"
+             x-data="reveal(300)"
              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
@@ -116,7 +112,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <a href="https://dailytalktopics.com" target="_blank" rel="noopener noreferrer"
            class="project-card group"
-           x-data="{ show: false }" x-init="setTimeout(() => show = true, 400)"
+           x-data="reveal(400)"
            x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
@@ -140,7 +136,7 @@
 
         <a href="https://github.com/PhiTiet/portfolio" target="_blank" rel="noopener noreferrer"
            class="project-card group"
-           x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)"
+           x-data="reveal(500)"
            x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
@@ -162,7 +158,7 @@
         </a>
 
         <div class="project-card"
-             x-data="{ show: false }" x-init="setTimeout(() => show = true, 600)"
+             x-data="reveal(600)"
              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
@@ -191,7 +187,7 @@
         </div>
 
         <div class="project-card project-card-private"
-             x-data="{ show: false }" x-init="setTimeout(() => show = true, 700)"
+             x-data="reveal(700)"
              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
@@ -216,7 +212,7 @@
 
         <a href="https://kutns.nl" target="_blank" rel="noopener noreferrer"
            class="project-card group"
-              x-data="{ show: false }" x-init="setTimeout(() => show = true, 800)"
+           x-data="reveal(800)"
              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex items-center gap-3 mb-3">
                 <div class="icon-box icon-box-accent">
@@ -245,8 +241,7 @@
         <span th:text="#{projects.opensource}">Open-Source Contributions</span>
     </h3>
     <div class="oss-list-container"
-         x-data="{ show: false, atBottom: false }"
-         x-init="setTimeout(() => show = true, 900)"
+         x-data="scrollReveal(900)"
          x-on:scroll="atBottom = ($el.scrollTop + $el.clientHeight >= $el.scrollHeight - 4)"
          x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
         <ul class="oss-list">
@@ -318,5 +313,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>

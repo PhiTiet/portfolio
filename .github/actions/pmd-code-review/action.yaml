@@ -1,0 +1,27 @@
+name: pmd-code-review
+description: Run PMD and write a concise report to the GitHub step summary.
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        set -euo pipefail
+
+        mvn pmd:pmd -DsourceEncoding=UTF-8 -Dpmd.skipDist=true
+        echo "### PMD Code Review" >> "$GITHUB_STEP_SUMMARY"
+
+        if [ ! -f target/pmd.xml ]; then
+          echo "PMD report not generated" >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+        fi
+
+        violation_count=$(grep -c "<violation" target/pmd.xml || true)
+        if [ "$violation_count" -eq 0 ]; then
+          echo "PMD check passed - no violations found" >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+        fi
+
+        echo "Found **$violation_count** violation(s):" >> "$GITHUB_STEP_SUMMARY"
+        echo '```' >> "$GITHUB_STEP_SUMMARY"
+        xmllint --xpath "//violation" target/pmd.xml 2>/dev/null >> "$GITHUB_STEP_SUMMARY" || cat target/pmd.xml >> "$GITHUB_STEP_SUMMARY"
+        echo '```' >> "$GITHUB_STEP_SUMMARY"

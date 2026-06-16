@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head></head>
-<body>
-<nav th:fragment="navbar"
+<nav xmlns:th="http://www.thymeleaf.org"
+     th:fragment="navbar"
      x-data="{ mobileOpen: false, scrolled: false }"
      x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
      :class="scrolled ? 'shadow-md' : ''"
@@ -88,5 +85,3 @@
         </div>
     </div>
 </nav>
-</body>
-</html>

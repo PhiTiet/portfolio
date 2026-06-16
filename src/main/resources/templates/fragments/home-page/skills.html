@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-</head>
-
-<body>
-<div th:fragment="skills" class="max-w-4xl mx-auto">
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="skills" class="max-w-4xl mx-auto">
     <div class="text-center mb-12">
         <span class="badge mb-4" th:text="#{skills.badge}">What I Work With</span>
         <h2 id="skills-heading" class="section-title" th:text="#{skills.title}">Technical Skills</h2>
@@ -17,11 +10,9 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         <div th:each="skill, iterStat : ${details.skills}" 
-             class="card-interactive p-5"
-             th:attr="data-delay=${iterStat.index * 50}"
-             x-data="{ show: false }"
-             x-init="setTimeout(() => show = true, $el.dataset.delay)"
-             x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
+              class="card-interactive p-5"
+              th:attr="x-data=|reveal(${iterStat.index * 50})|"
+              x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             <div class="flex justify-between items-center mb-3">
                 <div class="flex items-center gap-2">
                     <i th:classappend="${skill.icon.classes}" th:style="${skill.icon.style}" class="text-lg" aria-hidden="true"></i>
@@ -77,6 +68,3 @@
         </div>
     </div>
 </div>
-</body>
-
-</html>

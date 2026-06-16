@@ -5,8 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class LocalizedCareerConfiguration {
+@Configuration(proxyBeanMethods = false)
+public final class LocalizedCareerConfiguration {
 
     @Bean
     @ConfigurationProperties(prefix = "career-en")
