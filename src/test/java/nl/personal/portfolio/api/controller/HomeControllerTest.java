@@ -50,6 +50,8 @@ class HomeControllerTest {
 
         mockMvc.perform(get(BASE_PATH).locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
+                .andExpect(content().string(containsString("/webjars/alpinejs/3.15.12/dist/cdn.min-")))
+                .andExpect(content().string(not(containsString("/webjars/alpinejs/3.15.8/"))))
                 .andExpect(content().string(containsString("project-live-badge")))
                 .andExpect(content().string(containsString(">Live</span>")))
                 .andExpect(content().string(containsString("A live Android app")))
