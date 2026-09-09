@@ -22,6 +22,9 @@
     --color-accent-subtle: #192038;
     --color-accent-contrast: #1a1b26;
 
+    --color-success: #9ece6a;
+    --color-success-subtle: #1d2b20;
+
     /* Chess button — amber/gold */
     --color-chess-btn: #e0af68;
     --color-chess-btn-hover: #d9a54e;
@@ -70,6 +73,9 @@ html.light {
     --color-accent-light: #b3d1f8;
     --color-accent-subtle: #cfe2fc;
     --color-accent-contrast: #ffffff;
+
+    --color-success: #276738;
+    --color-success-subtle: #d5ead9;
 
     --color-border: #b8cfe0;
     --color-border-light: #cfdcea;
@@ -1115,15 +1121,15 @@ img[loading="lazy"] {
     color: var(--color-text-muted);
 }
 
-.project-wip-badge {
+.project-live-badge {
     font-size: 0.625rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     padding: 0.125rem 0.5rem;
     border-radius: var(--radius-full);
-    background-color: #2a2415;
-    color: #e0af68;
+    background-color: var(--color-success-subtle);
+    color: var(--color-success);
 }
 
 .project-tag {
