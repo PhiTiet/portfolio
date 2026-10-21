@@ -2,133 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head></head>
 <body>
-<section th:fragment="hero" id="about-me" class="relative min-h-[90vh] flex items-center overflow-hidden" x-data="{ aboutOpen: false }" @keydown.escape.window="aboutOpen = false" @open-about.window="aboutOpen = true" x-effect="document.body.style.overflow = aboutOpen ? 'hidden' : ''">
-    <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-bg-primary)] via-[var(--color-bg-secondary)] to-[var(--color-accent-subtle)] opacity-80"></div>
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E&quot;);"></div>
-
-    <div class="container relative z-10">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div class="order-2 lg:order-1 text-center lg:text-left" x-data="{ shown: false }" x-init="setTimeout(() => shown = true, 100)">
-                <div :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'" class="transition duration-700">
-                    <p class="text-[var(--color-accent)] font-medium mb-2" th:text="#{hero.greeting}">Hey there, I'm</p>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4 text-[var(--color-text-primary)]" th:text="#{hero.name}">
-                        Phi Tiet
-                    </h1>
-                    <p class="text-xl sm:text-2xl font-medium mb-6 text-[var(--color-text-secondary)]" th:text="#{hero.title}">
-                        Senior Software Engineer
-                    </p>
+<section th:fragment="hero" id="about-me" class="hero" x-data @open-about.window="$refs.aboutDialog.showModal()">
+    <div class="container">
+        <div class="hero-layout">
+            <div class="hero-copy">
+                <div class="hero-identity">
+                <div class="hero-heading">
+                <p class="eyebrow" th:text="#{hero.greeting}">Hi, I'm</p>
+                <h1 th:text="#{hero.name}">Phi Tiet</h1>
+                <p class="hero-role" th:text="#{hero.title}">Senior Software Engineer</p>
                 </div>
-
-                <div :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'" class="transition duration-700 delay-200 mb-8">
-                    <p class="text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 text-[var(--color-text-secondary)]"
-                       th:text="#{hero.description(${details.professionalProgrammerPeriod().getYears()})}">
-                    </p>
+                <figure class="portrait">
+                    <img th:src="@{/images/main_picture_me_professional.png}" alt="Phi Tiet" width="320" height="400" loading="eager" decoding="async" fetchpriority="high">
+                </figure>
                 </div>
-
-                <div :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'" class="transition duration-700 delay-400 flex flex-wrap gap-4 justify-center lg:justify-start mb-8">
-                    <a href="#experience" class="btn-accent inline-flex items-center justify-center gap-2 py-2.5 px-5 font-medium text-sm rounded-[var(--radius-md)] transition-all duration-150 cursor-pointer border-none focus-visible:outline-2 focus-visible:outline-[var(--color-accent)] focus-visible:outline-offset-2 focus-visible:shadow-[0_0_0_4px_var(--color-accent-light)]">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                        <span th:text="#{hero.view.work}">View My Work</span>
-                    </a>
-                    <a href="#contact" class="inline-flex items-center justify-center gap-2 py-2.5 px-5 font-medium text-sm rounded-[var(--radius-md)] transition-all duration-150 cursor-pointer bg-transparent border border-[var(--color-border)] text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-[var(--color-accent)] focus-visible:outline-offset-2 focus-visible:shadow-[0_0_0_4px_var(--color-accent-light)]">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                        </svg>
-                        <span th:text="#{hero.get.in.touch}">Get in Touch</span>
-                    </a>
-                    <button @click="aboutOpen = true" type="button" class="inline-flex items-center justify-center gap-2 py-2.5 px-5 font-medium text-sm rounded-[var(--radius-md)] transition-all duration-150 cursor-pointer bg-transparent border border-[var(--color-border)] text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-[var(--color-accent)] focus-visible:outline-offset-2 focus-visible:shadow-[0_0_0_4px_var(--color-accent-light)]">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span th:text="#{hero.about.website}">About This Website</span>
-                    </button>
-                </div>
-
-                <div :class="shown ? 'opacity-100' : 'opacity-0'" class="transition duration-700 delay-500 flex gap-4 justify-center lg:justify-start">
-                    <a href="https://github.com/PhiTiet" target="_blank" rel="noopener noreferrer"
-                       class="social-link"
-                       th:attr="aria-label=#{hero.github.profile}">
-                        <svg th:replace="~{fragments/general/icons :: github(iconClass='w-6 h-6')}"></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/phi-tiet-804886220/" target="_blank" rel="noopener noreferrer"
-                       class="social-link"
-                       th:attr="aria-label=#{hero.linkedin.profile}">
-                        <svg th:replace="~{fragments/general/icons :: linkedin(iconClass='w-6 h-6')}"></svg>
-                    </a>
-                </div>
-            </div>
-
-            <div class="order-1 lg:order-2 flex justify-center" x-data="{ shown: false }" x-init="setTimeout(() => shown = true, 300)">
-                <div :class="shown ? 'opacity-100 scale-100' : 'opacity-0 scale-95'" class="relative transition duration-1000">
-                    <div class="absolute -inset-4 bg-gradient-to-tr from-[var(--color-accent)] to-[var(--color-accent-hover)] rounded-full opacity-20 blur-2xl"></div>
-                    <div class="orbit-container">
-                        <div class="orbit-center">
-                            <img th:src="@{/images/main_picture_me_professional.png}"
-                                 alt="Phi Tiet"
-                                 class="w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 object-cover rounded-full shadow-xl ring-4 ring-[var(--color-bg-card)]"
-                                 loading="eager"
-                                 decoding="async"
-                                 fetchpriority="high">
-                        </div>
-                        <div class="orbit-ring orbit-ring-single">
-                            <div class="orbit-path"></div>
-                            <div th:each="skill, iter : ${details.skills}"
-                                 class="orbit-icon"
-                                 th:style="'--angle: ' + ${(360.0 / details.skills.size()) * iter.index} + 'deg'">
-                                <a href="#skills" class="orbit-icon-inner" th:title="${skill.name}">
-                                    <i th:classappend="${skill.icon.classes}" th:style="${skill.icon.style}" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <p class="hero-description" th:text="#{hero.description(${details.professionalProgrammerPeriod().getYears()})}"></p>
+                <div class="hero-actions">
+                    <a href="#projects" class="button btn-accent"><span th:text="#{hero.view.work}">View my work</span><span aria-hidden="true">↗</span></a>
+                    <a href="#contact" class="button button-secondary" th:text="#{hero.get.in.touch}">Get in touch</a>
                 </div>
             </div>
         </div>
-
+        <div class="hero-footnote">
+            <div class="hero-links">
+                <a href="https://github.com/PhiTiet" target="_blank" rel="noopener noreferrer" th:attr="aria-label=#{hero.github.profile}"><svg th:replace="~{fragments/general/icons :: github(iconClass='w-4 h-4')}"></svg>GitHub</a>
+                <a href="https://www.linkedin.com/in/phi-tiet-804886220/" target="_blank" rel="noopener noreferrer" th:attr="aria-label=#{hero.linkedin.profile}"><svg th:replace="~{fragments/general/icons :: linkedin(iconClass='w-4 h-4')}"></svg>LinkedIn</a>
+                <button @click="$refs.aboutDialog.showModal()" type="button" th:text="#{hero.about.website}">About this site</button>
+            </div>
+            <a href="#experience"><span th:text="#{hero.scroll.experience}">Explore my experience</span><span aria-hidden="true">↓</span></a>
+        </div>
     </div>
-
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block z-10" x-data="{ shown: false }" x-init="setTimeout(() => shown = true, 800)">
-        <a :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'" 
-           class="transition duration-500 flex flex-col items-center gap-2 hover:text-[var(--color-accent)] text-[var(--color-text-muted)]"
-           href="#recommendations"
-           th:attr="aria-label=#{hero.scroll.experience}">
-            <span class="text-sm font-medium" th:text="#{hero.scroll.down}">Scroll down</span>
-            <svg class="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-        </a>
-    </div>
-
-    <div x-show="aboutOpen" x-cloak class="about-overlay" @click.self="aboutOpen = false">
-        <div x-show="aboutOpen"
-             x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0 scale-95 translate-y-4"
-             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
-             class="about-panel" role="dialog" aria-modal="true" aria-labelledby="about-title"
-             x-data="{ focusTrap(open) { if (!open) return; $nextTick(() => { const btn = $el.querySelector('button'); if (btn) btn.focus(); }); } }"
-             x-effect="focusTrap(aboutOpen)"
-             @keydown.tab.prevent="
-                 const focusable = [...$el.querySelectorAll('a[href], button, input, [tabindex]:not([tabindex=\'-1\'])')];
-                 if (!focusable.length) return;
-                 const first = focusable[0];
-                 const last = focusable[focusable.length - 1];
-                 if ($event.shiftKey) {
-                     if (document.activeElement === first) { last.focus(); }
-                     else { const idx = focusable.indexOf(document.activeElement); focusable[Math.max(0, idx - 1)].focus(); }
-                 } else {
-                     if (document.activeElement === last) { first.focus(); }
-                     else { const idx = focusable.indexOf(document.activeElement); focusable[Math.min(focusable.length - 1, idx + 1)].focus(); }
-                 }
-             ">
+    <dialog x-ref="aboutDialog" class="about-panel" aria-labelledby="about-title" @click="if ($event.target === $el) $el.close()">
+        <div>
 
             <div class="flex items-center justify-between mb-6">
                 <h2 id="about-title" class="text-2xl font-bold text-[var(--color-text-primary)]" th:text="#{about.title}">About This Website</h2>
-                <button @click="aboutOpen = false" type="button" class="p-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-secondary)] transition-colors text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]" th:attr="aria-label=#{about.close}">
+                <button @click="$refs.aboutDialog.close()" type="button" autofocus class="p-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-secondary)] transition-colors text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]" th:attr="aria-label=#{about.close}">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -237,7 +146,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </dialog>
 </section>
 </body>
 </html>

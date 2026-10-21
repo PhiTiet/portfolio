@@ -62,6 +62,27 @@ mvn spring-boot:run
 
 Then visit `http://localhost` in your browser.
 
+### Frontend build
+
+The hero features a permanent portrait. The hobbies section includes an original, flat SVG chess set.
+chess.js validates the Smith-Morra opening; the native Web Animations API animates
+the pieces. Playback supports pause, restart, stepping, and seeking, respects
+reduced motion, and stops advancing when offscreen or in a background tab.
+
+Tailwind CSS is compiled locally rather than in the browser. Generated CSS and
+JavaScript are checked in, so Maven and Docker builds do not need Node.js.
+After changing templates or frontend sources, use Node.js 22 or newer:
+
+```bash
+npm ci
+npm run test:scene
+npm run build
+```
+
+Edit `src/main/frontend/site.css`, `chess-scene.js`, and `opening.js`, not the
+generated `src/main/resources/static/site.css` or `hero-scene.js` files.
+CSS source detection includes all Thymeleaf templates and static JavaScript.
+
 ## Docker
 
 ```bash
@@ -77,6 +98,20 @@ mvn test
 
 Uses JUnit 5, Mockito, AssertJ, and EqualsVerifier. Test data is created through dedicated factory classes.
 
+With the application running at `http://127.0.0.1:8080` and Chrome installed:
+
+```bash
+npm run test:scene
+npm run test:browser
+```
+
+Set `PORTFOLIO_URL` to test another local port. Playwright covers English/Dutch,
+light/dark themes, desktop/mobile layouts down to 320px, keyboard interactions,
+chess playback, reduced motion, doubled text, and mocked contact submission.
+axe-core checks the page and dialog; manual assistive-technology verification
+is still needed for a full accessibility audit. Screenshots are written to
+`target/playwright/`.
+
 ## CI/CD
 
 GitHub Actions handles the pipeline:
@@ -86,3 +121,8 @@ GitHub Actions handles the pipeline:
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+Third-party library notices are included in `hero-scene.js.LEGAL.txt`.
+Retained assets from the earlier 3D prototype keep their original attribution
+in `src/main/resources/static/images/chess-scene/v1/CREDITS.txt`; the current
+page does not load them.

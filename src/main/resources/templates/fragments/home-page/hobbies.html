@@ -5,8 +5,8 @@
 </head>
 
 <body>
-<div th:fragment="hobbies" class="max-w-4xl mx-auto">
-    <div class="text-center mb-12">
+<div th:fragment="hobbies" class="section-layout">
+    <div class="section-heading">
         <span class="badge mb-4" th:text="#{hobbies.badge}">Beyond The Code</span>
         <h2 id="hobbies-heading" class="section-title" th:text="#{hobbies.title}">Life Outside Work</h2>
         <p class="section-description" th:text="#{hobbies.description}">
@@ -14,14 +14,9 @@
         </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-12 md:items-start">
+    <div class="hobbies-layout">
         <div class="relative"
-             x-data="{ active: 0, total: 4, interval: null, next() { this.active = (this.active + 1) % this.total }, go(index) { this.active = index }, start() { this.interval = setInterval(() => { this.next() }, 5000) }, stop() { if (this.interval) { clearInterval(this.interval); this.interval = null } } }"
-             x-init="start()"
-             @mouseenter="stop()"
-             @mouseleave="start()"
-             @focusin="stop()"
-             @focusout="start()">
+             x-data="{ active: 0, go(index) { this.active = index } }">
             
             <div class="relative aspect-[4/3] rounded-[var(--radius-xl)] overflow-hidden bg-[var(--color-bg-tertiary)] shadow-[var(--shadow-lg)]">
                 <img th:src="@{/images/self_chess.png}" 
@@ -120,6 +115,26 @@
                 </div>
             </div>
         </div>
+        <figure class="chess-scene" aria-labelledby="chess-scene-title" th:attr="data-start=#{scene.start}">
+            <div class="chess-scene-heading"><span class="eyebrow" th:text="#{scene.eyebrow}">A little strategy</span></div>
+            <div class="chess-board" data-chess-board aria-hidden="true"></div>
+            <figcaption>
+                <h3 id="chess-scene-title" th:text="#{scene.title}">Smith-Morra Gambit</h3>
+                <p class="chess-notation" data-scene-notation th:text="#{scene.start}">Starting position</p>
+                <div class="chess-playback" role="group" th:attr="aria-label=#{scene.controls}" hidden data-scene-playback>
+                    <button type="button" data-scene-play th:attr="data-pause=#{scene.pause},data-play=#{scene.play},data-replay=#{scene.replay}" th:text="#{scene.play}">Play</button>
+                    <button type="button" data-scene-reset th:text="#{scene.restart}">Restart</button>
+                    <button type="button" data-scene-next th:text="#{scene.next}">Next move</button>
+                </div>
+                <details class="chess-details">
+                    <summary th:text="#{scene.details}">The opening & the story</summary>
+                    <p th:text="#{scene.description.chess}"></p>
+                    <ol class="chess-moves" data-scene-moves th:attr="aria-label=#{scene.moves}"></ol>
+                    <a href="https://en.wikipedia.org/wiki/Smith%E2%80%93Morra_Gambit#4.Nxc3" target="_blank" rel="noopener noreferrer" th:text="#{scene.learn}">Explore the opening ↗</a>
+                </details>
+                <span class="sr-only" data-scene-status role="status"></span>
+            </figcaption>
+        </figure>
     </div>
 </div>
 </body>

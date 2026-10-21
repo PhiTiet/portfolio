@@ -11,74 +11,9 @@
 
     <section th:replace="~{fragments/home-page/hero :: hero}"></section>
 
-    <section id="recommendations" class="section section-alt chessboard-bg" aria-labelledby="recommendations-heading"
-             x-data="{ viewBoard: false }">
-        <div class="chessboard-stack">
-            <div class="chessboard-stack-board">
-                <div class="chessboard-layer" x-bind:class="viewBoard && 'chessboard-layer--active'">
-                    <div class="chessboard-wrapper">
-                        <div class="cb" aria-hidden="true">
-                            <span class="cb-piece cb-wR cb-static" style="--file:0;--rank:7"></span>
-                            <span class="cb-piece cb-wN cb-move-wNb1" style="--file:1;--rank:7"></span>
-                            <span class="cb-piece cb-wB cb-static" style="--file:2;--rank:7"></span>
-                            <span class="cb-piece cb-wQ cb-static" style="--file:3;--rank:7"></span>
-                            <span class="cb-piece cb-wK cb-move-wKe1" style="--file:4;--rank:7"></span>
-                            <span class="cb-piece cb-wB cb-move-wBf1" style="--file:5;--rank:7"></span>
-                            <span class="cb-piece cb-wN cb-move-wNg1" style="--file:6;--rank:7"></span>
-                            <span class="cb-piece cb-wR cb-move-wRh1" style="--file:7;--rank:7"></span>
-                            <span class="cb-piece cb-wP cb-static" style="--file:0;--rank:6"></span>
-                            <span class="cb-piece cb-wP cb-static" style="--file:1;--rank:6"></span>
-                            <span class="cb-piece cb-wP cb-move-wPc2" style="--file:2;--rank:6"></span>
-                            <span class="cb-piece cb-wP cb-move-wPd2" style="--file:3;--rank:6"></span>
-                            <span class="cb-piece cb-wP cb-move-wPe2" style="--file:4;--rank:6"></span>
-                            <span class="cb-piece cb-wP cb-static" style="--file:5;--rank:6"></span>
-                            <span class="cb-piece cb-wP cb-static" style="--file:6;--rank:6"></span>
-                            <span class="cb-piece cb-wP cb-static" style="--file:7;--rank:6"></span>
-                            <span class="cb-piece cb-bP cb-move-bPa7" style="--file:0;--rank:1"></span>
-                            <span class="cb-piece cb-bP cb-move-bPb7" style="--file:1;--rank:1"></span>
-                            <span class="cb-piece cb-bP cb-move-bPc7" style="--file:2;--rank:1"></span>
-                            <span class="cb-piece cb-bP cb-static" style="--file:3;--rank:1"></span>
-                            <span class="cb-piece cb-bP cb-move-bPe7" style="--file:4;--rank:1"></span>
-                            <span class="cb-piece cb-bP cb-static" style="--file:5;--rank:1"></span>
-                            <span class="cb-piece cb-bP cb-static" style="--file:6;--rank:1"></span>
-                            <span class="cb-piece cb-bP cb-static" style="--file:7;--rank:1"></span>
-                            <span class="cb-piece cb-bR cb-static" style="--file:0;--rank:0"></span>
-                            <span class="cb-piece cb-bN cb-move-bNb8" style="--file:1;--rank:0"></span>
-                            <span class="cb-piece cb-bB cb-static" style="--file:2;--rank:0"></span>
-                            <span class="cb-piece cb-bQ cb-static" style="--file:3;--rank:0"></span>
-                            <span class="cb-piece cb-bK cb-static" style="--file:4;--rank:0"></span>
-                            <span class="cb-piece cb-bB cb-static" style="--file:5;--rank:0"></span>
-                            <span class="cb-piece cb-bN cb-static" style="--file:6;--rank:0"></span>
-                            <span class="cb-piece cb-bR cb-static" style="--file:7;--rank:0"></span>
-                        </div>
-                        <div class="chessboard-footer">
-                            <p class="chessboard-title" th:text="#{chess.title}">Sicilian Defence: Smith-Morra Gambit Accepted</p>
-                            <p class="chessboard-notation"><span class="cb-mn">1.</span><span class="cb-hl cb-hl-1">e4</span> <span class="cb-hl cb-hl-2">c5</span> <span class="cb-mn">2.</span><span class="cb-hl cb-hl-3">d4</span> <span class="cb-hl cb-hl-4">cxd4</span> <span class="cb-mn">3.</span><span class="cb-hl cb-hl-5">c3</span> <span class="cb-hl cb-hl-6">dxc3</span> <span class="cb-mn">4.</span><span class="cb-hl cb-hl-7">Nxc3</span> <span class="cb-hl cb-hl-8">Nc6</span> <span class="cb-mn">5.</span><span class="cb-hl cb-hl-9">Nf3</span> <span class="cb-hl cb-hl-10">e6</span> <span class="cb-mn">6.</span><span class="cb-hl cb-hl-11">Bc4</span> <span class="cb-hl cb-hl-12">a6</span> <span class="cb-mn">7.</span><span class="cb-hl cb-hl-13">O-O</span> <span class="cb-hl cb-hl-14">b5</span> <span class="cb-mn">8.</span><span class="cb-hl cb-hl-15">Bd3</span></p>
-                            <p class="chessboard-flavor" th:text="#{chess.flavor}">I'm a Gambit player. I love playing the Smith-Morra Gambit positions as both colours!</p>
-                            <p class="chessboard-meta" th:text="#{chess.meta}">Animated with CSS</p>
-                            <div class="chessboard-controls hidden sm:flex">
-                                <button type="button" class="chessboard-toggle-btn" @click="viewBoard = !viewBoard"
-                                        th:attr="data-show=#{chess.btn.show},data-hide=#{chess.btn.hide}"
-                                        x-text="viewBoard ? $el.dataset.hide : $el.dataset.show">
-                                </button>
-                                <a x-show="viewBoard" href="https://en.wikipedia.org/wiki/Smith%E2%80%93Morra_Gambit#4.Nxc3" target="_blank" rel="noopener noreferrer"
-                                   class="chessboard-link" style="font-size: 0.6rem;">
-                                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                                    </svg>
-                                    Wikipedia
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="chessboard-stack-content recommendations-content"
-                 x-bind:class="viewBoard && 'recommendations-content--hidden'">
-                <div class="container">
-                    <div th:replace="~{fragments/home-page/recommendation :: recommendation}"></div>
-                </div>
-            </div>
+    <section id="recommendations" class="section section-alt" aria-labelledby="recommendations-heading">
+        <div class="container">
+            <div th:replace="~{fragments/home-page/recommendation :: recommendation}"></div>
         </div>
     </section>
 
@@ -112,18 +47,30 @@
         </div>
     </section>
 
-    <section id="contact" class="py-[var(--spacing-section)] bg-[linear-gradient(135deg,var(--color-accent-subtle)_0%,var(--color-bg-primary)_50%,var(--color-bg-secondary)_100%)]" aria-labelledby="contact-heading">
+    <section id="contact" class="section section-alt" aria-labelledby="contact-heading">
         <div class="container">
-            <div class="max-w-3xl mx-auto text-center">
-                <div class="flex flex-col items-center">
+            <div>
+                <div class="contact-grid">
+                    <div class="contact-intro">
                     <span class="badge mb-4" th:text="#{contact.badge}">Let's Connect</span>
                     <h2 id="contact-heading" class="section-title" th:text="#{contact.title}">Get In Touch</h2>
                     <p class="text-lg mb-8 max-w-[32rem] text-[var(--color-text-secondary)]" th:text="#{contact.description}">
                         Have a project in mind or just want to chat about software engineering? 
                         I'm always open to discussing new opportunities and ideas.
                     </p>
+                    <div class="contact-links">
+                        <a href="https://www.linkedin.com/in/phi-tiet-804886220/" target="_blank" rel="noopener noreferrer" class="contact-card">
+                            <div class="icon-circle"><svg th:replace="~{fragments/general/icons :: linkedin(iconClass='w-6 h-6')}"></svg></div>
+                            <div><p class="contact-label" th:text="#{contact.linkedin}">LinkedIn</p><p class="contact-value" th:text="#{contact.linkedin.name}">Phi Tiet</p></div>
+                        </a>
+                        <a href="https://github.com/PhiTiet" target="_blank" rel="noopener noreferrer" class="contact-card">
+                            <div class="icon-circle"><svg th:replace="~{fragments/general/icons :: github(iconClass='w-6 h-6')}"></svg></div>
+                            <div><p class="contact-label" th:text="#{contact.github}">GitHub</p><p class="contact-value" th:text="#{contact.github.name}">PhiTiet</p></div>
+                        </a>
+                    </div>
+                    </div>
                     
-                    <div class="w-full max-w-[32rem] mb-10">
+                    <div class="contact-form-panel">
                         <h3 class="text-lg font-semibold text-[var(--color-text-primary)] mb-6" th:text="#{contact.form.title}">Send a Message</h3>
                         <form x-data="contactForm"
                               @submit.prevent="submit()"
@@ -134,24 +81,27 @@
                                     <div x-show="error" class="p-3 bg-red-500/10 border border-red-500/20 rounded-[var(--radius-md)] text-red-400 text-sm" x-text="error"></div>
                                     <div>
                                         <label for="contact-name" class="contact-form-label" th:text="#{contact.form.name}">Name</label>
-                                        <input type="text" id="contact-name" name="name" x-model="name" required
+                                        <input type="text" id="contact-name" name="name" x-model="name" required autocomplete="name"
+                                               :aria-invalid="!!fieldErrors.name" aria-describedby="contact-name-error"
                                                :class="fieldErrors.name ? 'contact-form-input border-red-500 focus:border-red-500 focus:ring-red-500' : 'contact-form-input'"
                                                th:attr="placeholder=#{contact.form.name.placeholder}">
-                                        <p x-show="fieldErrors.name" x-text="fieldErrors.name" class="mt-1 text-sm text-red-400"></p>
+                                         <p id="contact-name-error" x-show="fieldErrors.name" x-text="fieldErrors.name" class="mt-1 text-sm text-red-400"></p>
                                     </div>
                                     <div>
                                         <label for="contact-email" class="contact-form-label" th:text="#{contact.form.email}">Email</label>
                                         <input type="email" id="contact-email" name="email" x-model="email" required autocomplete="email"
+                                               :aria-invalid="!!fieldErrors.email" aria-describedby="contact-email-error"
                                                :class="fieldErrors.email ? 'contact-form-input border-red-500 focus:border-red-500 focus:ring-red-500' : 'contact-form-input'"
                                                th:attr="placeholder=#{contact.form.email.placeholder}">
-                                        <p x-show="fieldErrors.email" x-text="fieldErrors.email" class="mt-1 text-sm text-red-400"></p>
+                                         <p id="contact-email-error" x-show="fieldErrors.email" x-text="fieldErrors.email" class="mt-1 text-sm text-red-400"></p>
                                     </div>
                                     <div>
                                         <label for="contact-message" class="contact-form-label" th:text="#{contact.form.message}">Message</label>
                                         <textarea id="contact-message" name="message" x-model="message" required rows="4"
+                                                  :aria-invalid="!!fieldErrors.message" aria-describedby="contact-message-error"
                                                   :class="fieldErrors.message ? 'contact-form-input resize-none border-red-500 focus:border-red-500 focus:ring-red-500' : 'contact-form-input resize-none'"
                                                   th:attr="placeholder=#{contact.form.message.placeholder}"></textarea>
-                                        <p x-show="fieldErrors.message" x-text="fieldErrors.message" class="mt-1 text-sm text-red-400"></p>
+                                        <p id="contact-message-error" x-show="fieldErrors.message" x-text="fieldErrors.message" class="mt-1 text-sm text-red-400"></p>
                                     </div>
                                     <button type="submit"
                                             :disabled="submitting || !name || !email || !message"
@@ -179,27 +129,6 @@
                         </form>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-[32rem] mt-10">
-                        <a href="https://www.linkedin.com/in/phi-tiet-804886220/" target="_blank" rel="noopener noreferrer" class="contact-card">
-                            <div class="icon-circle">
-                                <svg th:replace="~{fragments/general/icons :: linkedin(iconClass='w-6 h-6')}"></svg>
-                            </div>
-                            <div>
-                                <p class="contact-label" th:text="#{contact.linkedin}">LinkedIn</p>
-                                <p class="contact-value" th:text="#{contact.linkedin.name}">Phi Tiet</p>
-                            </div>
-                        </a>
-                        
-                        <a href="https://github.com/PhiTiet" target="_blank" rel="noopener noreferrer" class="contact-card">
-                            <div class="icon-circle">
-                                <svg th:replace="~{fragments/general/icons :: github(iconClass='w-6 h-6')}"></svg>
-                            </div>
-                            <div>
-                                <p class="contact-label" th:text="#{contact.github}">GitHub</p>
-                                <p class="contact-value" th:text="#{contact.github.name}">PhiTiet</p>
-                            </div>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>

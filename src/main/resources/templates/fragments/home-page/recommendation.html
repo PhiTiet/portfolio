@@ -5,8 +5,8 @@
 </head>
 
 <body>
-<div th:fragment="recommendation" class="max-w-4xl mx-auto">
-    <div class="text-center mb-12">
+<div th:fragment="recommendation" class="section-layout">
+    <div class="section-heading">
         <span class="badge mb-4" th:text="#{recommendations.badge}">What Others Say</span>
         <h2 id="recommendations-heading" class="section-title" th:text="#{recommendations.title}">Recommendations</h2>
         <p class="section-description" th:text="#{recommendations.description}">
@@ -14,7 +14,7 @@
         </p>
     </div>
 
-    <div class="relative" 
+    <div class="relative section-body"
          th:attr="x-data=${'{ active: 0, total: ' + details.recommendations().size() + ', next() { this.active = (this.active + 1) % this.total }, prev() { this.active = (this.active - 1 + this.total) % this.total } }'}"
          @keydown.left.prevent="prev()"
          @keydown.right.prevent="next()"

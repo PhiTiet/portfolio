@@ -69,4 +69,41 @@ class HomeControllerTest {
                 .andExpect(content().string(not(containsString("iOS en Android"))));
     }
 
+    @Test
+    @DisplayName("should show the portrait, hobbies chess scene, and all sections")
+    void home_englishLocale_rendersPersonalSceneAndOriginalSections() throws Exception {
+        Mockito.when(careerService.getDetails()).thenReturn(defaultHomePageDetails());
+
+        mockMvc.perform(get(BASE_PATH).param("lang", "en"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("data-chess-board")))
+                .andExpect(content().string(containsString("class=\"portrait\"")))
+                .andExpect(content().string(containsString("<dialog")))
+                .andExpect(content().string(not(containsString("hero-scene-canvas"))))
+                .andExpect(content().string(not(containsString("@tailwindcss/browser"))))
+                .andExpect(content().string(containsString("data-scene-next")))
+                .andExpect(content().string(containsString("data-scene-reset")))
+                .andExpect(content().string(containsString("data-scene-moves")))
+                .andExpect(content().string(containsString("Smith-Morra Gambit")))
+                .andExpect(content().string(not(containsString("Phi&#39;s gambit"))))
+                .andExpect(content().string(containsString("id=\"recommendations\"")))
+                .andExpect(content().string(containsString("id=\"experience\"")))
+                .andExpect(content().string(containsString("id=\"skills\"")))
+                .andExpect(content().string(containsString("id=\"certificates\"")))
+                .andExpect(content().string(containsString("id=\"hobbies\"")))
+                .andExpect(content().string(not(containsString("workshop.css"))));
+    }
+
+    @Test
+    @DisplayName("should translate the personal scene into Dutch")
+    void home_dutchLocale_translatesPersonalScene() throws Exception {
+        Mockito.when(careerService.getDetails()).thenReturn(defaultHomePageDetails());
+
+        mockMvc.perform(get(BASE_PATH).param("lang", "nl"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Volgende zet")))
+                .andExpect(content().string(containsString("Mijn favoriete opening is het Smith-Morra.")))
+                .andExpect(content().string(not(containsString("??scene."))));
+    }
+
 }

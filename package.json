@@ -1,0 +1,22 @@
+{
+  "name": "portfolio-frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:css && npm run build:scene",
+    "build:css": "tailwindcss -i src/main/frontend/site.css -o src/main/resources/static/site.css --minify",
+    "build:scene": "esbuild src/main/frontend/chess-scene.js --bundle --minify --format=iife --target=es2022 --legal-comments=external --outfile=src/main/resources/static/hero-scene.js",
+    "test:scene": "node --test src/test/frontend/*.test.js",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "chess.js": "1.4.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.64.1",
+    "@tailwindcss/cli": "4.3.0",
+    "esbuild": "0.28.2",
+    "tailwindcss": "4.3.0"
+  }
+}

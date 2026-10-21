@@ -3,20 +3,20 @@
 <head></head>
 <body>
 <nav th:fragment="navbar"
-     x-data="{ mobileOpen: false, scrolled: false }"
-     x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
-     :class="scrolled ? 'shadow-md' : ''"
+     x-data="{ mobileOpen: false }"
+     @keydown.escape.window="mobileOpen = false"
+     @click.outside="mobileOpen = false"
      th:attr="aria-label=#{nav.aria.label}"
-      class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[var(--color-bg-card)] border-b border-[var(--color-border-light)]">
+      class="site-nav">
     <div class="container">
         <div class="flex items-center justify-between h-16">
             <a href="#" class="flex items-center gap-2 font-semibold text-lg hover:text-[var(--color-accent)] transition-colors"
                th:attr="aria-label=#{nav.home}">
                 <img th:src="@{/images/favicon.ico}" alt="" width="28" height="28" class="rounded">
-                <span class="hidden sm:inline">Phi Tiet</span>
+                <span>Phi Tiet<span class="brand-dot">.</span></span>
             </a>
 
-            <div class="hidden md:flex items-center gap-1">
+            <div class="desktop-nav items-center gap-1">
                 <a href="#about-me" class="nav-link" th:text="#{nav.about}">About</a>
                 <a href="#recommendations" class="nav-link" th:text="#{nav.recommendations}">Recommendations</a>
                 <a href="#experience" class="nav-link" th:text="#{nav.experience}">Experience</a>
@@ -28,13 +28,11 @@
             </div>
 
             <div class="flex items-center gap-2">
-                <div class="flex items-center gap-1">
+                <div class="language-switch">
                     <a href="?lang=en" data-lang-switch aria-label="English"
-                       class="text-2xl leading-none transition-opacity"
-                       th:classappend="${#locale.language == 'en'} ? 'opacity-100' : 'opacity-40 hover:opacity-70'">&#127468;&#127463;</a>
+                       lang="en" hreflang="en" th:attr="aria-current=${#locale.language == 'en'} ? 'true' : null">EN</a>
                     <a href="?lang=nl" data-lang-switch aria-label="Nederlands"
-                       class="text-2xl leading-none transition-opacity"
-                       th:classappend="${#locale.language == 'nl'} ? 'opacity-100' : 'opacity-40 hover:opacity-70'">&#127475;&#127473;</a>
+                       lang="nl" hreflang="nl" th:attr="aria-current=${#locale.language == 'nl'} ? 'true' : null">NL</a>
                 </div>
                 <button x-data="{ light: document.documentElement.classList.contains('light') }"
                         @click="light = !light; document.documentElement.classList.toggle('light'); localStorage.setItem('theme', light ? 'light' : 'dark')"
@@ -51,7 +49,7 @@
                 </button>
                 <button @click="mobileOpen = !mobileOpen"
                         type="button"
-                        class="md:hidden p-2 rounded-md hover:bg-[var(--color-bg-secondary)] transition-colors"
+                        class="mobile-toggle p-2 rounded-md hover:bg-[var(--color-bg-secondary)] transition-colors"
                         :aria-expanded="mobileOpen"
                         aria-controls="mobile-menu"
                         th:attr="aria-label=#{nav.toggle.menu}">
@@ -75,7 +73,7 @@
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-2"
          id="mobile-menu"
-         class="md:hidden bg-[var(--color-bg-card)] border-t border-[var(--color-border)]">
+          class="mobile-menu bg-[var(--color-bg-card)] border-t border-[var(--color-border)]">
         <div class="container py-3 space-y-1">
             <a x-on:click="mobileOpen = false" href="#about-me" class="nav-link-mobile" th:text="#{nav.about}">About</a>
             <a x-on:click="mobileOpen = false" href="#recommendations" class="nav-link-mobile" th:text="#{nav.recommendations}">Recommendations</a>

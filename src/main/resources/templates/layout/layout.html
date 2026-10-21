@@ -35,7 +35,7 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 translate-y-4"
-            @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+             @click="window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })"
             class="scroll-to-top"
             th:attr="aria-label=#{scroll.to.top}"
             x-cloak>
@@ -46,6 +46,7 @@
 
     <script src="https://kit.fontawesome.com/b73a5b4c7a.js" crossorigin="anonymous"></script>
     <script th:src="@{/enhancements.js}" defer></script>
+    <script th:src="@{/hero-scene.js}" defer></script>
     <script th:src="@{/contact-form.js}" defer></script>
     <script th:src="@{/webjars/alpinejs/3.15.12/dist/cdn.min.js}" defer></script>
 </body>

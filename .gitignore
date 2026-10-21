@@ -34,3 +34,4 @@ build/
 
 ### Build output ###
 bin/
+node_modules/

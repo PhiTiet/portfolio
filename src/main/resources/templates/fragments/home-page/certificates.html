@@ -5,8 +5,8 @@
 </head>
 
 <body>
-<div th:fragment="certificates" class="max-w-4xl mx-auto">
-    <div class="text-center mb-12">
+<div th:fragment="certificates" class="section-layout">
+    <div class="section-heading">
         <span class="badge mb-4" th:text="#{certificates.badge}">Credentials</span>
         <h2 id="certificates-heading" class="section-title" th:text="#{certificates.title}">Education & Certificates</h2>
         <p class="section-description" th:text="#{certificates.description}">
@@ -14,14 +14,10 @@
         </p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="credentials-grid">
         <article th:each="certificate, iterStat : ${details.certificates}" 
                  class="certificate-card"
-                 th:classappend="${#strings.contains(certificate.title, 'BSc') or #strings.contains(certificate.title, 'VWO')} ? 'certificate-education' : 'certificate-professional'"
-                 th:attr="data-delay=${iterStat.index * 80}"
-                 x-data="{ show: false }"
-                 x-init="setTimeout(() => show = true, $el.dataset.delay)"
-                 x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
+                 th:classappend="${#strings.contains(certificate.title, 'BSc') or #strings.contains(certificate.title, 'VWO')} ? 'certificate-education' : 'certificate-professional'">
             
             <div class="icon-box bg-[var(--color-accent-subtle)] text-[var(--color-accent)] mb-4">
                 <svg th:if="${#strings.contains(certificate.title, 'BSc') or #strings.contains(certificate.title, 'VWO')}" 
