@@ -13,7 +13,7 @@ import java.util.List;
 import static nl.personal.portfolio.domain.DatePatterns.INPUT_FORMAT;
 
 @Data
-public class CareerConfigProperties implements CareerProperties {
+public class CareerConfigProperties {
 
     @DateTimeFormat(pattern = INPUT_FORMAT)
     private LocalDate birthday;

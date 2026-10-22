@@ -2,13 +2,25 @@ package nl.personal.portfolio.domain;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class CareerHighlightTest {
+class DomainValuesTest {
+
+    @Test
+    void formatsCertificateDateAsMonthAndYear() {
+        var certificate = new Certificate("Certificate", "Institute", LocalDate.of(2024, 2, 9), null);
+        assertThat(certificate.formattedAcquisitionDate()).isEqualTo("02-2024");
+    }
+
+    @Test
+    void convertsProficiencyToPercentage() {
+        assertThat(new Skill("Java", 7, null).proficiencyPercentage()).isEqualTo(70);
+    }
 
     @Test
     void missingCollectionsBecomeEmpty() {

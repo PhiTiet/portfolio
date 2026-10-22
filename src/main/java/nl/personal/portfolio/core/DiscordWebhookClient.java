@@ -1,5 +1,6 @@
 package nl.personal.portfolio.core;
 
+import nl.personal.portfolio.domain.ContactRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +25,9 @@ public class DiscordWebhookClient {
         this.restClient = restClientBuilder.build();
     }
 
-    public void sendMessage(String name, String email, String message) {
+    public void sendMessage(ContactRequest request) {
+        log.debug("Received contact form from {} with message length: {}", request.name(), request.message().length());
+        log.info("Contact form submitted - message length: {}", request.message().length());
         if (webhookUrl == null || webhookUrl.isBlank()) {
             log.warn("Discord webhook URL not configured, skipping message send");
             return;
@@ -35,9 +38,9 @@ public class DiscordWebhookClient {
                     "title", "New Contact Form Submission",
                     "color", 5814783,
                     "fields", new Object[]{
-                            Map.of("name", "Name", "value", name, "inline", false),
-                            Map.of("name", "Email", "value", email, "inline", false),
-                            Map.of("name", "Message", "value", message, "inline", false)
+                            Map.of("name", "Name", "value", request.name(), "inline", false),
+                            Map.of("name", "Email", "value", request.email(), "inline", false),
+                            Map.of("name", "Message", "value", request.message(), "inline", false)
                     }
             );
 

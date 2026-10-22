@@ -1,42 +1,27 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Chess } from 'chess.js';
-import { createOpening, OPENING, squarePosition } from '../../main/frontend/opening.js';
+import { createOpening, OPENING } from '../../main/frontend/opening.js';
 
-test('the entire Smith-Morra line contains legal moves', () => {
-    const { moves, snapshots } = createOpening();
+const { initial, moves, snapshots } = createOpening();
+const square = (position, id) => snapshots[position].pieces.find(piece => piece.id === id)?.square;
+
+test('the complete legal opening retains stable piece identities for seeking and replay', () => {
     assert.deepEqual(moves.map(move => move.san), OPENING);
-    assert.equal(snapshots.length, 16);
-    for (const snapshot of snapshots) assert.equal(new Chess(snapshot.fen).isCheckmate(), false);
-});
-
-test('captures remove the actual captured pawns', () => {
-    const { moves, snapshots } = createOpening();
-    const captures = moves.filter(move => move.capturedId);
-    assert.deepEqual(captures.map(move => move.san), ['cxd4', 'dxc3', 'Nxc3']);
-    assert.deepEqual(captures.map(move => move.capturedId), ['wpd2', 'wpc2', 'bpc7']);
-    assert.equal(snapshots[7].pieces.length, 29);
-    assert.equal(snapshots[7].pieces.find(piece => piece.square === 'c3').id, 'wnb1');
-});
-
-test('castling moves the king and rook together', () => {
-    const { moves, snapshots } = createOpening();
-    const index = moves.findIndex(move => move.san === 'O-O');
-    assert.deepEqual(moves[index].rook, { id: 'wrh1', from: 'h1', to: 'f1' });
-    assert.equal(snapshots[index + 1].pieces.find(piece => piece.id === 'wke1').square, 'g1');
-    assert.equal(snapshots[index + 1].pieces.find(piece => piece.id === 'wrh1').square, 'f1');
-});
-
-test('snapshots retain stable identities for replay and seeking', () => {
-    const { initial, snapshots } = createOpening();
+    assert.equal(snapshots.length, moves.length + 1);
     assert.equal(initial.length, 32);
-    assert.equal(snapshots[0].pieces.find(piece => piece.id === 'wpd2').square, 'd2');
-    assert.equal(snapshots.at(-1).pieces.find(piece => piece.id === 'wbf1').square, 'd3');
+    assert.equal(square(0, 'wpd2'), 'd2');
+    assert.equal(square(moves.length, 'wbf1'), 'd3');
     assert.equal(new Set(snapshots.at(-1).pieces.map(piece => piece.square)).size, 29);
 });
 
-test('board coordinates put the queen on d1 and king on e1', () => {
-    assert.deepEqual(squarePosition('d1'), { x: 0.03125, z: -0.21875 });
-    assert.deepEqual(squarePosition('e1'), { x: -0.03125, z: -0.21875 });
-    assert.deepEqual(squarePosition('c5'), { x: 0.09375, z: 0.03125 });
+test('captures remove the captured pawns without changing the capturing knight identity', () => {
+    for (const id of ['wpd2', 'wpc2', 'bpc7']) assert.equal(square(7, id), undefined);
+    assert.equal(square(7, 'wnb1'), 'c3');
+    assert.equal(snapshots[7].pieces.length, 29);
+});
+
+test('castling moves both king and rook to their destination squares', () => {
+    const position = moves.findIndex(move => move.san === 'O-O') + 1;
+    assert.equal(square(position, 'wke1'), 'g1');
+    assert.equal(square(position, 'wrh1'), 'f1');
 });

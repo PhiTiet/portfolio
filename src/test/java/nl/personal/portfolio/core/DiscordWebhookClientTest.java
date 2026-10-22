@@ -1,77 +1,62 @@
 package nl.personal.portfolio.core;
 
-import org.junit.jupiter.api.DisplayName;
+import nl.personal.portfolio.domain.ContactRequest;
 import org.junit.jupiter.api.Test;
-import org.mockito.Answers;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestClient;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
-@DisplayName("DiscordWebhookClient")
 class DiscordWebhookClientTest {
 
+    private static final String WEBHOOK_URL = "https://discord.example/webhook";
+    private static final ContactRequest CONTACT = new ContactRequest("John Doe", "john@example.com", "Hello from the portfolio.");
+    private final RestClient.Builder builder = RestClient.builder();
+    private final MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
+
     @Test
-    @DisplayName("should send message to Discord webhook when URL is configured")
-    void sendMessage_withConfiguredUrl_sendsToWebhook() {
-        var requestBodyUriSpec = mock(RestClient.RequestBodyUriSpec.class, Answers.RETURNS_SELF);
-        var requestBodySpec = mock(RestClient.RequestBodySpec.class, Answers.RETURNS_SELF);
-        var responseSpec = mock(RestClient.ResponseSpec.class);
-        var restClient = mock(RestClient.class);
-        var restClientBuilder = mock(RestClient.Builder.class);
+    void sendsContactAsDiscordEmbed() {
+        server.expect(requestTo(WEBHOOK_URL))
+                .andExpect(method(POST))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("""
+                        {"embeds":[{"title":"New Contact Form Submission","color":5814783,"fields":[
+                          {"name":"Name","value":"John Doe","inline":false},
+                          {"name":"Email","value":"john@example.com","inline":false},
+                          {"name":"Message","value":"Hello from the portfolio.","inline":false}
+                        ]}]}
+                        """))
+                .andRespond(withSuccess());
 
-        when(restClientBuilder.build()).thenReturn(restClient);
-        when(restClient.post()).thenReturn(requestBodyUriSpec);
-        when(requestBodyUriSpec.uri(anyString())).thenReturn(requestBodySpec);
-        when(requestBodySpec.retrieve()).thenReturn(responseSpec);
-        when(responseSpec.toBodilessEntity()).thenReturn(null);
+        new DiscordWebhookClient(WEBHOOK_URL, builder).sendMessage(CONTACT);
 
-        var client = new DiscordWebhookClient("https://discord.webhook.url", restClientBuilder);
+        server.verify();
+    }
 
-        client.sendMessage("John Doe", "john@example.com", "Test message");
-
-        verify(restClient).post();
-        verify(requestBodyUriSpec).uri("https://discord.webhook.url");
-        verify(requestBodySpec).contentType(MediaType.APPLICATION_JSON);
-        verify(requestBodySpec).retrieve();
-        verify(responseSpec).toBodilessEntity();
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = " ")
+    void skipsDeliveryWithoutWebhookUrl(String url) {
+        new DiscordWebhookClient(url, builder).sendMessage(CONTACT);
+        server.verify();
     }
 
     @Test
-    @DisplayName("should skip sending when webhook URL is not configured")
-    void sendMessage_withoutConfiguredUrl_skips() {
-        var restClient = mock(RestClient.class);
-        var restClientBuilder = mock(RestClient.Builder.class);
+    void webhookFailureDoesNotFailContactSubmission() {
+        server.expect(requestTo(WEBHOOK_URL)).andRespond(withServerError());
 
-        when(restClientBuilder.build()).thenReturn(restClient);
+        assertThatCode(() -> new DiscordWebhookClient(WEBHOOK_URL, builder).sendMessage(CONTACT)).doesNotThrowAnyException();
 
-        var client = new DiscordWebhookClient("", restClientBuilder);
-
-        client.sendMessage("John Doe", "john@example.com", "Test message");
-
-        verifyNoInteractions(restClient);
-    }
-
-    @Test
-    @DisplayName("should handle errors gracefully when webhook fails")
-    void sendMessage_whenWebhookFails_logsError() {
-        var requestBodyUriSpec = mock(RestClient.RequestBodyUriSpec.class, Answers.RETURNS_SELF);
-        var requestBodySpec = mock(RestClient.RequestBodySpec.class, Answers.RETURNS_SELF);
-        var responseSpec = mock(RestClient.ResponseSpec.class);
-        var restClient = mock(RestClient.class);
-        var restClientBuilder = mock(RestClient.Builder.class);
-
-        when(restClientBuilder.build()).thenReturn(restClient);
-        when(restClient.post()).thenReturn(requestBodyUriSpec);
-        when(requestBodyUriSpec.uri(anyString())).thenReturn(requestBodySpec);
-        when(requestBodySpec.retrieve()).thenReturn(responseSpec);
-        when(responseSpec.toBodilessEntity()).thenThrow(new RuntimeException("Webhook error"));
-
-        var client = new DiscordWebhookClient("https://discord.webhook.url", restClientBuilder);
-
-        client.sendMessage("John Doe", "john@example.com", "Test message");
-
-        verify(requestBodySpec).retrieve();
+        server.verify();
     }
 }

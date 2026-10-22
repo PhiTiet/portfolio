@@ -1,78 +1,39 @@
 # Portfolio Website
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/PhiTiet/portfolio/build_and_publish.yaml?branch=main)
-![Last Commit](https://img.shields.io/github/last-commit/PhiTiet/portfolio)
-![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fphitiet.nl)
+![Build Status](https://img.shields.io/github/actions/workflow/status/PhiTiet/portfolio/build.yaml?branch=main)
 ![License](https://img.shields.io/github/license/PhiTiet/portfolio)
 
-My personal portfolio website. Built to showcase my experience, skills, and work as a software engineer while reflecting how I approach software development in practice.
-
-## Live Website
-
-[phitiet.nl](https://phitiet.nl)
-
-## Tech Stack
-
-- **Java 25** with **Spring Boot 4**
-- **Thymeleaf** with Layout Dialect for server-side rendering
-- **Tailwind CSS 4** and **Alpine.js** for the frontend
-- **Spring Security** for access control
-- **Docker** for containerized deployment
-- **GitHub Actions** for CI/CD, pushing images to GHCR
-- **Dependabot** and **CodeQL** for dependency updates and code quality
+My personal portfolio at [phitiet.nl](https://phitiet.nl), built with Java 25,
+Spring Boot 4, Thymeleaf, Tailwind CSS 4, and Alpine.js.
 
 ## Features
 
-- Single-page design with anchor-linked sections: experience timeline, skills, projects, certificates, recommendations, hobbies, and contact
-- All career content is driven by YAML configuration -- adding a job, skill, or certificate requires no code changes
-- Optional career highlights include a lead achievement, responsibilities, and clearly labelled incident-coverage links; the Ahold Delhaize recovery highlight is available in English and Dutch
-- Dynamic values like age, years of experience, and runtime versions are computed at request time
-- Light/dark theme toggle with system preference detection and localStorage persistence
-- Custom error pages (404, 500) with consistent layout
-- Full i18n support (English and Dutch)
-- Contact form (frontend-ready, backend wiring pending)
-- Accessibility-first: semantic HTML, ARIA labels, keyboard navigation, skip links, reduced-motion support
-- Scroll-reveal animations and interactive components (carousel with keyboard nav, expandable text, photo slideshow)
-- Layered architecture with clear separation between API, core, and domain layers
-- Test coverage using JUnit 5, Mockito, AssertJ, and EqualsVerifier with dedicated test factories
+- English/Dutch career content from YAML, with calculated age and experience.
+- Experience, projects, skills, certificates, recommendations, hobbies, and a Discord-backed contact form.
+- Persistent light/dark themes, responsive layouts, keyboard navigation, and reduced-motion support.
+- A five-chapter architecture opening: 34 seconds on desktop, 20 seconds on phones, and a static reduced-motion alternative. Includes skip, pause, seeking, replay, and a seamless hero handoff. Autoplay is limited to the first normal visit per tab.
+- An SVG Smith-Morra chess animation with stepping, seeking, pause, and replay. Playback pauses offscreen and in background tabs.
 
-## Project Structure
+## Run locally
 
-```
-src/main/java/nl/personal/portfolio/
-  api/          controllers, security config, exception handling
-  core/         services and mappers
-  domain/       records, interfaces, configuration binding
-
-src/main/resources/
-  config/       career.yml (all portfolio content)
-  templates/    Thymeleaf layout and fragment files
-  static/       CSS, JS, images, PDFs
-
-src/test/       mirrors main structure, includes test factories
-```
-
-## Getting Started
+Use Java 25 and Maven:
 
 ```bash
-git clone https://github.com/PhiTiet/portfolio.git
-cd portfolio
-mvn clean install
-mvn spring-boot:run
+mvn package
+java -jar target/portfolio.jar --server.port=8080
 ```
 
-Then visit `http://localhost` in your browser.
+Visit `http://localhost:8080`. Set `DISCORD_WEBHOOK_URL` to enable contact delivery;
+without it, submissions are accepted but no message is sent.
 
-### Frontend build
+Career content lives in `src/main/resources/config/career-en.yml` and
+`career-nl.yml`; recommendations live in `recommendations.yml`. Translations are
+in `src/main/resources/messages*.properties`, and page fragments are under
+`src/main/resources/templates/`.
 
-The hero features a permanent portrait. The hobbies section includes an original, flat SVG chess set.
-chess.js validates the Smith-Morra opening; the native Web Animations API animates
-the pieces. Playback supports pause, restart, stepping, and seeking, respects
-reduced motion, and stops advancing when offscreen or in a background tab.
+## Frontend
 
-Tailwind CSS is compiled locally rather than in the browser. Generated CSS and
-JavaScript are checked in, so Maven and Docker builds do not need Node.js.
-After changing templates or frontend sources, use Node.js 22 or newer:
+Use Node.js 22 or newer:
 
 ```bash
 npm ci
@@ -80,97 +41,43 @@ npm run test:scene
 npm run build
 ```
 
-Edit `src/main/frontend/site.css`, `chess-scene.js`, and `opening.js`, not the
-generated `src/main/resources/static/site.css` or `hero-scene.js` files.
-CSS source detection includes all Thymeleaf templates and static JavaScript.
+Edit CSS and animation sources in `src/main/frontend/`, not the generated
+`static/site.css`, `static/hero-scene.js`, or `static/architecture-opening.js`.
+The `hero-scene.js` bundle contains the current 2D chess scene. Other scripts in
+`src/main/resources/static/` are maintained directly.
 
-### Architecture opening
+Generated assets are committed, so Maven and Docker builds do not require Node.js.
+Rebuild them after changing templates, frontend sources, or static scripts.
+Third-party library notices are retained in `hero-scene.js.LEGAL.txt`.
 
-The desktop opening lasts 34 seconds and uses native Web Animations and original HTML/CSS artwork,
-with no extra runtime libraries. Five chapters cover architecture, the Java/Kotlin
-stack, an OpenCode agentic workflow, career history and target roles, and a hiring
-invitation. The first chapter travels vertically through C4 context, container,
-component, and code levels; Kubernetes is explicitly a separate deployment context.
-Four generically named services exchange events through Kafka topics. The camera
-then follows Service A into nested adapter, application/port, and domain layers,
-with inward source dependencies. The example is not a diagram of a client system.
-The C4 zoom levels follow [c4model.com](https://c4model.com/diagrams).
+## Verify
 
-It plays once per tab session on a normal first visit, never on deep links,
-reloads, or with reduced motion. Skip, pause, chapter selection, Escape, and
-replay remain available. Reduced-motion replay opens a static, navigable version.
-Background tabs pause playback. Overlapping transitions carry shared elements
-between chapters instead of fading to an empty screen. The AI-to-experience handoff
-crossfades at natural text size rather than squeezing a label into a numeric badge.
-The animation background is flat, without ambient gradients. Career entries and years
-of experience come from the existing career data. The hiring chapter links to the
-real contact and project sections. Reduced motion shows a static architecture
-overview and the complete career list.
+```bash
+mvn clean verify
+npm run test:scene
+npx playwright install chromium
+npm run test:browser
+```
 
-The original portrait-left, large “Hire me” composition is used for both the
-hiring frame and the page hero through the same `hero-content.html` fragment.
-The opening measures the live hero to match its layout, portrait crop, typography,
-buttons, responsive breakpoints, and theme. The final reveal crossfades the frame
-without moving the underlying hero; browser tests check element bounds before
-and after the handoff. A 0.5-second entrance is followed by a 1.5-second hold,
-then the final frame crossfades into the page.
+Playwright starts the packaged application on port 8080 with webhook delivery
+disabled, or reuses a local server. Set `PORTFOLIO_URL` to use another running server.
+Shared interactions run once; layout-sensitive scenarios also cover Dutch/light
+mode and phone widths of 390px and 320px. Tests include automated axe checks,
+keyboard navigation, motion preferences, and mocked contact submission.
+Screenshots and traces are saved under `target/playwright/` on failure. Manual
+assistive-technology checks are still needed for a full accessibility audit.
 
-Phones use a 20-second version with the same five chapters, a compact architecture
-overview, short opacity-only transitions, and a complete career list without automatic scrolling.
-It avoids camera pans, flying tiles, and staggered agent animations. The profile is
-selected when playback starts, using viewport width and coarse-pointer capabilities;
-it also covers phone landscape layouts. Reduced motion remains a separate static
-alternative, and both profiles preserve the final hero alignment and hiring links.
-
-The site uses an orange-led palette: warm off-white type on charcoal/ink surfaces,
-with teal supporting technical content and violet distinguishing credentials.
-Light mode uses warm porcelain and burnt orange. Shared CSS tokens keep the
-opening's final frame and the real hero in the same theme.
-
-Edit `architecture-opening.js`, `architecture-opening.css`, and the
-`architecture-opening.html` fragment, then run `npm run build`. The generated
-`static/architecture-opening.js` is checked in alongside the other browser assets.
-
-## Docker
+## Deployment
 
 ```bash
 docker build -t phitiet/portfolio .
 docker run -p 80:80 phitiet/portfolio
 ```
 
-## Testing
-
-```bash
-mvn test
-```
-
-Uses JUnit 5, Mockito, AssertJ, and EqualsVerifier. Test data is created through dedicated factory classes.
-
-With the application running at `http://127.0.0.1:8080` and Chrome installed:
-
-```bash
-npm run test:scene
-npm run test:browser
-```
-
-Set `PORTFOLIO_URL` to test another local port. Playwright covers English/Dutch,
-light/dark themes, desktop/mobile layouts down to 320px, keyboard interactions,
-chess playback, reduced motion, doubled text, and mocked contact submission.
-axe-core checks the page and dialog; manual assistive-technology verification
-is still needed for a full accessibility audit. Screenshots are written to
-`target/playwright/`.
-
-## CI/CD
-
-GitHub Actions handles the pipeline:
-- **Pull requests** -- build and verify
-- **Push to main** -- build, package, and push a Docker image to GHCR
+GitHub Actions verifies Java, frontend assets, and browser behavior on pull
+requests and pushes to `main`. Pushes to `main` and manual workflow runs publish
+the verified JAR as a Docker image to `ghcr.io/phitiet/portfolio:latest`.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-Third-party library notices are included in `hero-scene.js.LEGAL.txt`.
-Retained assets from the earlier 3D prototype keep their original attribution
-in `src/main/resources/static/images/chess-scene/v1/CREDITS.txt`; the current
-page does not load them.
+[MIT](LICENSE).

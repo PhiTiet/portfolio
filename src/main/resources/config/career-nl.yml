@@ -45,9 +45,9 @@ career-nl:
         classes: fa-solid fa-gamepad fa-shake
         style: "color: #c93c0d;"
 
-    - name: Koken
+    - name: Tatoeages
       icon:
-        classes: fa-solid fa-kitchen-set
+        classes: fa-solid fa-pen-nib
         style: "color: #636fab"
 
     - name: Anime

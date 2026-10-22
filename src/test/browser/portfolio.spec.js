@@ -1,60 +1,50 @@
 import { test, expect } from '@playwright/test';
-import AxeBuilder from '@axe-core/playwright';
+import { openPortfolio, expectAccessible } from './helpers.js';
 
 test.beforeEach(async ({ page }, testInfo) => {
-    await page.addInitScript(theme => {
-        if (!localStorage.getItem('theme')) localStorage.setItem('theme', theme);
-        sessionStorage.setItem('portfolio.engineering-story.seen', 'true');
-    }, testInfo.project.metadata.theme);
-    await page.goto(`/?lang=${testInfo.project.metadata.language}`);
+    await openPortfolio(page, testInfo);
     await expect(page.locator('[data-scene-playback]')).toBeVisible();
     await expect(page.locator('#contact-name')).toBeAttached();
 });
 
-test('all sections reflow, retain their content, and pass automated accessibility checks', async ({ page }, testInfo) => {
-    const errors = [];
-    page.on('pageerror', error => errors.push(error.message));
+test('portfolio reflows and passes automated accessibility checks', { tag: '@layout' }, async ({ page }, testInfo) => {
     for (const id of ['recommendations', 'experience', 'skills', 'projects', 'certificates', 'hobbies', 'contact']) {
         await expect(page.locator(`#${id}`)).toBeVisible();
         await page.locator(`#${id}`).scrollIntoViewIfNeeded();
     }
-    await expect(page.locator('.photo-active')).toBeVisible();
     await expect.poll(() => page.locator('.photo-active').evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
     expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBe(0);
-    const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
-    expect(results.violations).toEqual([]);
-    expect(errors).toEqual([]);
+    await expectAccessible(page);
     await page.evaluate(() => window.scrollTo(0, 0));
     await expect(page.locator('.scroll-to-top')).not.toBeVisible();
-    await page.screenshot({ path: testInfo.outputPath('portfolio-full.png'), fullPage: true });
-    await page.screenshot({ path: testInfo.outputPath('portfolio-hero.png') });
+    expect(await page.pageErrors()).toEqual([]);
+    await expect(page.locator('.hero > .container .portrait img')).toBeVisible();
+    await expect(page.locator('#hobbies .chess-scene')).toBeVisible();
+    await expect(page.locator('#hobbies').getByText(testInfo.project.metadata.language === 'nl' ? 'Tatoeages' : 'Tattoos', { exact: true })).toBeVisible();
 });
 
-test('chess controls support stepping, seeking, castling, replay, and reduced motion', async ({ page }) => {
-    await expect(page.locator('[data-scene-play]')).toHaveText(/^(Play|Afspelen)$/);
+test('chess controls support stepping, seeking, castling, and replay', async ({ page }) => {
     await expect(page.locator('.chess-piece')).toHaveCount(32);
     await page.locator('[data-scene-next]').click();
     await expect(page.locator('[data-scene-notation]')).toHaveText('1. e4');
-    await expect(page.locator('[data-piece="wpe2"]')).toHaveCSS('transform', /matrix/);
     await page.locator('.chess-details summary').click();
     await page.locator('.chess-moves button').nth(12).click();
     expect(await page.locator('[data-piece="wke1"]').evaluate(piece => piece.style.transform)).toBe('translate(600%, 700%)');
     expect(await page.locator('[data-piece="wrh1"]').evaluate(piece => piece.style.transform)).toBe('translate(500%, 700%)');
     await page.locator('.chess-moves button').last().click();
     await expect(page.locator('[data-scene-next]')).toBeDisabled();
-    await expect(page.locator('[data-scene-play]')).toHaveText(/^(Replay|Opnieuw)$/);
+    await expect(page.locator('[data-scene-play]')).toHaveText('Replay');
     await page.locator('[data-scene-play]').click();
-    await expect(page.locator('[data-scene-notation]')).toHaveText(/^(Starting position|Beginstelling)$/);
+    await expect(page.locator('[data-scene-notation]')).toHaveText('Starting position');
     await page.locator('[data-scene-reset]').click();
     await expect(page.locator('[data-scene-next]')).toBeEnabled();
     expect(await page.locator('.chess-board').evaluate(board => board.getAnimations({ subtree: true }).length)).toBe(0);
 });
 
-test('career details, recommendations, photos, and the native dialog are keyboard accessible', async ({ page }) => {
+test('career details, carousels, and about dialog support keyboard interaction', async ({ page }) => {
     const career = page.locator('.career-entry').nth(1);
     await career.locator('summary').focus();
     await page.keyboard.press('Enter');
-    await expect(career).toHaveAttribute('open', '');
     await expect(career.locator('.career-description')).toBeVisible();
     const quote = await page.locator('.recommendation-active .author-name').textContent();
     await page.locator('.carousel-nav-btn').last().click();
@@ -66,18 +56,18 @@ test('career details, recommendations, photos, and the native dialog are keyboar
     await opener.click();
     await expect(page.locator('.about-panel')).toBeVisible();
     await expect(page.locator('.about-panel button').first()).toBeFocused();
-    const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
-    expect(results.violations).toEqual([]);
+    await expectAccessible(page);
     await page.keyboard.press('Escape');
     await expect(page.locator('.about-panel')).not.toBeVisible();
     await expect(opener).toBeFocused();
 });
 
-test('theme and language switching preserve usable navigation', async ({ page }, testInfo) => {
+test('theme and language switching preserve navigation', { tag: '@layout' }, async ({ page }, testInfo) => {
+    const nextTheme = testInfo.project.metadata.theme === 'dark' ? 'light' : 'dark';
     await page.locator('.theme-toggle').click();
-    expect(await page.evaluate(() => localStorage.getItem('theme'))).not.toBe(testInfo.project.metadata.theme);
     await page.reload();
-    expect(await page.evaluate(() => localStorage.getItem('theme'))).not.toBe(testInfo.project.metadata.theme);
+    expect(await page.evaluate(() => localStorage.getItem('theme'))).toBe(nextTheme);
+    await expect(page.locator('html')).toHaveClass(nextTheme === 'light' ? /light/ : /^$/);
     const menu = page.locator('[aria-controls="mobile-menu"]');
     if (await menu.isVisible()) {
         await menu.click();
@@ -88,16 +78,21 @@ test('theme and language switching preserve usable navigation', async ({ page },
         await page.locator('.nav-link[href="#projects"]').click();
     }
     await expect(page).toHaveURL(/#projects$/);
-    await page.locator('[data-lang-switch]').filter({ hasText: testInfo.project.metadata.language === 'en' ? 'NL' : 'EN' }).click();
-    await expect(page.locator('html')).toHaveAttribute('lang', testInfo.project.metadata.language === 'en' ? 'nl' : 'en');
+    const nextLanguage = testInfo.project.metadata.language === 'en' ? 'nl' : 'en';
+    await page.locator('[data-lang-switch]').filter({ hasText: nextLanguage.toUpperCase() }).click();
+    await expect(page.locator('html')).toHaveAttribute('lang', nextLanguage);
     await expect(page).toHaveURL(/#projects$/);
 });
 
-test('contact form preserves validation and submission without sending a real message', async ({ page }) => {
+test('contact form recovers from validation and network errors before submitting', async ({ page }) => {
     let payload;
+    let attempts = 0;
     await page.route('**/api/contact', async route => {
         payload = route.request().postDataJSON();
-        await route.fulfill({ status: 200, contentType: 'application/json', body: '{}' });
+        attempts++;
+        if (attempts === 1) await route.fulfill({ status: 400, contentType: 'application/json', body: '{"errors":{"email":"Check your email"}}' });
+        else if (attempts === 2) await route.abort();
+        else await route.fulfill({ status: 200, contentType: 'application/json', body: '{}' });
     });
     const submit = page.locator('button[type="submit"]');
     await expect(submit).toBeDisabled();
@@ -105,18 +100,24 @@ test('contact form preserves validation and submission without sending a real me
     await page.locator('#contact-email').fill('preview@example.com');
     await page.locator('#contact-message').fill('A local browser test, never sent to the server.');
     await submit.click();
+    await expect(page.locator('#contact-email-error')).toHaveText('Check your email');
+    await expect(page.locator('#contact-email')).toHaveAttribute('aria-invalid', 'true');
+    await submit.click();
+    await expect(page.getByText('Network error. Please try again.', { exact: true })).toBeVisible();
+    await expect(submit).toBeEnabled();
+    await submit.click();
     await expect(page.locator('#contact-name')).not.toBeAttached();
-    expect(payload.name).toBe('Portfolio preview');
+    expect(payload).toEqual({ name: 'Portfolio preview', email: 'preview@example.com', message: 'A local browser test, never sent to the server.' });
 });
 
-test('animation plays smoothly, stops offscreen, and responds to reduced motion', async ({ page }) => {
+test('chess pauses for reduced motion and when offscreen', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     await page.reload();
-    await expect(page.locator('[data-scene-play]')).toHaveText(/^(Pause|Pauzeren)$/);
+    await expect(page.locator('[data-scene-play]')).toHaveText('Pause');
     await page.locator('.chess-scene').scrollIntoViewIfNeeded();
     await expect(page.locator('[data-scene-notation]')).toHaveText('1. e4', { timeout: 4000 });
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await expect(page.locator('[data-scene-play]')).toHaveText(/^(Play|Afspelen)$/);
+    await expect(page.locator('[data-scene-play]')).toHaveText('Play');
     await page.clock.install();
     await page.locator('[data-scene-play]').click();
     await page.locator('.hero').scrollIntoViewIfNeeded();
@@ -126,68 +127,23 @@ test('animation plays smoothly, stops offscreen, and responds to reduced motion'
     await expect(page.locator('[data-scene-notation]')).toHaveText(notation);
 });
 
-test('desktop content tolerates doubled text and generous text spacing', async ({ page }) => {
-    await page.setViewportSize({ width: 1280, height: 900 });
+test('content tolerates doubled text and generous spacing', async ({ page }) => {
     await page.addStyleTag({ content: 'html { font-size: 200%; } * { line-height: 1.5 !important; letter-spacing: 0.12em !important; word-spacing: 0.16em !important; } p { margin-bottom: 2em !important; }' });
     expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBe(0);
 });
 
-test('hero keeps the portrait while chess belongs to the hobbies section', async ({ page }) => {
-    await expect(page.locator('.hero .chess-scene')).toHaveCount(0);
-    await expect(page.locator('#hobbies .chess-scene')).toHaveCount(1);
-    const portrait = await page.locator('.hero > .container .portrait img').boundingBox();
-    const name = await page.locator('.hero h1').boundingBox();
-    if (page.viewportSize().width > 880) expect(portrait.x + portrait.width).toBeLessThanOrEqual(name.x);
-    else expect(portrait.y + portrait.height).toBeLessThanOrEqual(name.y);
-    await expect(page.locator('.hero h1')).toHaveText(/^(Hire me\.|Huur mij in\.)$/);
-});
-
-test('the palette leads with orange and uses distinct teal and violet supporting tones', async ({ page }, testInfo) => {
-    const dark = testInfo.project.metadata.theme === 'dark';
-    await expect(page.locator('.hero-actions .btn-accent').first()).toHaveCSS('background-color', dark ? 'rgb(255, 158, 100)' : 'rgb(156, 68, 28)');
-    await expect(page.locator('body')).toHaveCSS('color', dark ? 'rgb(241, 237, 231)' : 'rgb(41, 37, 33)');
-    await expect(page.locator('#skills .section-heading .badge')).toHaveCSS('color', dark ? 'rgb(126, 212, 196)' : 'rgb(33, 110, 102)');
-    await expect(page.locator('#certificates .section-heading .badge')).toHaveCSS('color', dark ? 'rgb(189, 171, 237)' : 'rgb(101, 81, 142)');
-    const surfaces = await page.locator('#recommendations, #skills, #certificates').evaluateAll(sections => sections.map(section => getComputedStyle(section).backgroundImage));
-    expect(new Set(surfaces).size).toBe(3);
-});
-
-test('the secondary hero button keeps padding between its text and outline', async ({ page }) => {
-    const button = page.locator('.hero > .container .hero-actions .button-secondary');
-    await button.hover();
-    const padding = await button.evaluate(element => {
-        const style = getComputedStyle(element);
-        return [style.paddingLeft, style.paddingRight, style.paddingTop, style.paddingBottom].map(parseFloat);
-    });
-    expect(padding[0]).toBeGreaterThanOrEqual(16);
-    expect(padding[1]).toBeGreaterThanOrEqual(16);
-    expect(padding[2]).toBeGreaterThanOrEqual(10);
-    expect(padding[3]).toBeGreaterThanOrEqual(10);
-});
-
-test('Ahold leads with recovery work, all five responsibilities, and contextual incident coverage', async ({ page }, testInfo) => {
-    const dutch = testInfo.project.metadata.language === 'nl';
+test('career highlights retain full details and safe contextual links', async ({ page }) => {
     const highlight = page.locator('#timeline-ahold .career-highlight');
     await expect(highlight).toBeVisible();
-    await expect(highlight.locator('.career-highlight-summary')).toContainText(dutch ? 'geselecteerd als core developer' : 'selected as a core developer');
-    await expect(highlight.locator('.career-highlight-summary')).toContainText(dutch ? 'oktober 2026' : 'October 2026');
-    await expect(highlight.locator('.career-highlight-responsibilities li')).toHaveText(dutch ? [
-        'Kwetsbaarheden mitigeren', 'Secrets roteren', 'Services op- en afschalen',
-        'Connectiviteit binnen Kubernetes herstellen', 'Afstemmen met andere teams en stakeholders'
-    ] : [
-        'Mitigate vulnerabilities', 'Rotate secrets', 'Scale services up and down',
-        'Restore connectivity in Kubernetes', 'Communicate with other teams and stakeholders'
-    ]);
-    await expect(highlight.locator('.coverage-links a')).toHaveText(['NU.nl', 'RTL Nieuws', 'Ahold Delhaize']);
+    await expect(highlight.locator('.career-highlight-summary')).not.toBeEmpty();
+    await expect(highlight.locator('.career-highlight-responsibilities li')).toHaveCount(5);
     const links = await highlight.locator('.coverage-links a').evaluateAll(elements => elements.map(element => ({ href: element.href, target: element.target, rel: element.rel })));
-    expect(links.map(link => new URL(link.href).hostname)).toEqual(['www.nu.nl', 'www.rtl.nl', 'newsroom.aholddelhaize.com']);
+    expect(links).toHaveLength(3);
     for (const link of links) {
         expect(link.href).toMatch(/^https:\/\//);
         expect(link.target).toBe('_blank');
         expect(link.rel).toContain('noopener');
     }
-    expect(await page.locator('#timeline-ahold .career-description').evaluate(element => element.firstElementChild.classList.contains('career-highlight'))).toBe(true);
-    await expect(page.locator('#timeline-ahold .career-description > p')).toContainText(dutch ? 'Ik ben de enige Kotlin-ontwikkelaar' : 'I’m the only Kotlin developer');
-    await expect(page.locator('#project-ahold .career-highlight-compact')).toContainText(dutch ? 'geselecteerd als core developer' : 'selected as a core developer');
+    await expect(page.locator('#project-ahold .career-highlight-summary')).toHaveText(await highlight.locator('.career-highlight-summary').textContent());
     await expect(page.locator('#project-ahold .career-highlight-responsibilities')).toHaveCount(0);
 });

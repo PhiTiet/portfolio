@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="content(intro)" class="hero-layout">
-    <figure class="portrait" th:attr="data-shared=${intro} ? 'phi' : null,data-morph-label=${intro} ? 'Phi Tiet' : null">
+    <figure class="portrait">
         <img th:src="@{/images/main_picture_me_professional.png}" alt="Phi Tiet" width="320" height="400" loading="eager" decoding="async" fetchpriority="high">
         <figcaption th:text="#{hero.name}">Phi Tiet</figcaption>
     </figure>

@@ -203,7 +203,7 @@ export function initializeOpening(dialog) {
         active = index;
         const panel = panels[index];
         const final = index === panels.length - 1;
-        const gentle = compact || (previous?.dataset.introAct === 'ai' && index === 3);
+        const gentle = final || compact || (previous?.dataset.introAct === 'ai' && index === 3);
         const blending = moving && !motion.matches && previous && previous !== panel;
         dialog.dataset.static = String(!moving || motion.matches);
         panels.forEach(candidate => {
@@ -233,11 +233,11 @@ export function initializeOpening(dialog) {
             if (previous.contains(document.activeElement)) pauseButton.focus({ preventScroll: true });
             previous.inert = true;
             previous.setAttribute('aria-hidden', 'true');
-            const exit = animate(previous, gentle ? [{ opacity: 1 }, { opacity: 0 }] : [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-48px) scale(0.96)' }], { duration: gentle ? 160 : final ? HIRE_ENTRY : 1000, easing: gentle ? 'linear' : 'cubic-bezier(0.22, 0.8, 0.2, 1)' });
+            const exit = animate(previous, gentle ? [{ opacity: 1 }, { opacity: 0 }] : [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-48px) scale(0.96)' }], { duration: final ? HIRE_ENTRY : gentle ? 160 : 1000, easing: gentle ? 'linear' : 'cubic-bezier(0.22, 0.8, 0.2, 1)' });
             exit.finished.then(() => { if (currentTransition === transition) previous.hidden = true; }).catch(() => {});
-            if (!gentle) morphElements(sources, panel, final ? HIRE_ENTRY : 1250);
+            if (!gentle) morphElements(sources, panel);
         }
-        animate(panel, gentle ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: final ? 'translateY(12px)' : 'translateY(48px) scale(1.025)' }, { opacity: 1, transform: 'none' }], { duration: gentle ? 450 : final ? HIRE_ENTRY : 1250, delay: blending && !final ? gentle ? 100 : 120 : 0 });
+        animate(panel, gentle ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: 'translateY(48px) scale(1.025)' }, { opacity: 1, transform: 'none' }], { duration: final ? HIRE_ENTRY : gentle ? 450 : 1250, delay: blending && !final ? gentle ? 100 : 120 : 0 });
         if (compact) return;
         panel.querySelectorAll('.intro-act-copy > *').forEach((element, order) => {
             animate(element, gentle ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { delay: gentle ? 80 + order * 50 : 250 + order * 90, duration: gentle ? 450 : 800 });

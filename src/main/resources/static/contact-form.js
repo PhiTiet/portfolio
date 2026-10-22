@@ -22,7 +22,7 @@ document.addEventListener('alpine:init', () => {
                 }
                 const response = await fetch('/api/contact', {
                     method: 'POST',
-                    headers: headers,
+                    headers,
                     body: JSON.stringify({
                         name: this.name,
                         email: this.email,
@@ -32,21 +32,11 @@ document.addEventListener('alpine:init', () => {
                 if (response.ok) {
                     this.submitted = true;
                 } else {
-                    const contentType = response.headers.get('content-type');
-                    if (contentType && contentType.includes('application/json')) {
-                        try {
-                            const data = await response.json();
-                            if (data.errors) {
-                                this.fieldErrors = data.errors;
-                            } else {
-                                this.error = data.message || 'An error occurred. Please try again.';
-                            }
-                        } catch (parseError) {
-                            this.error = 'An error occurred. Please try again.';
-                        }
-                    } else {
-                        this.error = 'An error occurred. Please try again.';
-                    }
+                    const data = response.headers.get('content-type')?.includes('application/json')
+                        ? await response.json().catch(() => null)
+                        : null;
+                    if (data?.errors) this.fieldErrors = data.errors;
+                    else this.error = data?.message || 'An error occurred. Please try again.';
                 }
             } catch (e) {
                 this.error = 'Network error. Please try again.';

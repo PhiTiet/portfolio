@@ -1,13 +1,11 @@
 package nl.personal.portfolio.domain;
 
-import lombok.Builder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
 import static nl.personal.portfolio.domain.DatePatterns.INPUT_FORMAT;
 
-@Builder(toBuilder = true)
 public record TimelineEvent(
         String employer,
         String jobTitle,

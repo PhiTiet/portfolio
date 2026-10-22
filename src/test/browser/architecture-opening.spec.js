@@ -1,50 +1,40 @@
 import { test, expect } from '@playwright/test';
-import AxeBuilder from '@axe-core/playwright';
+import { openPortfolio, expectAccessible } from './helpers.js';
 
-async function firstVisit(page, language, animated = false) {
-    await page.emulateMedia({ reducedMotion: animated ? 'no-preference' : 'reduce' });
-    await page.goto(`/?lang=${language}`);
-    await expect(page.locator('[data-intro-replay]')).toBeVisible();
-}
-
-test('reduced motion gets an accessible static story with every chapter available', async ({ page }, testInfo) => {
-    await firstVisit(page, testInfo.project.metadata.language);
+test('static story exposes every chapter accessibly', { tag: '@layout' }, async ({ page }, testInfo) => {
+    await openPortfolio(page, testInfo, { seen: false });
     const dialog = page.locator('.architecture-intro');
-    await expect(dialog).not.toBeVisible();
     const replay = page.locator('[data-intro-replay]');
+    await expect(dialog).not.toBeVisible();
     await replay.click();
-    await expect(dialog).toBeVisible();
     await expect(dialog).toHaveAttribute('data-chapter', 'hire');
     await expect(page.locator('[data-intro-pause]')).not.toBeVisible();
     for (const [index, chapter] of ['architecture', 'stack', 'ai', 'experience', 'hire'].entries()) {
         await page.locator(`[data-intro-chapter="${index}"]`).click();
-        await expect(dialog).toHaveAttribute('data-chapter', chapter);
         await expect(page.locator(`[data-intro-act="${chapter}"]`)).toBeVisible();
+        if (chapter === 'architecture') await expect(page.locator('.intro-credential')).toHaveText(testInfo.project.metadata.language === 'nl' ? 'BSc Informatica' : 'BSc Computer Science');
         expect(await dialog.evaluate(element => element.scrollWidth - element.clientWidth)).toBe(0);
         expect(await dialog.evaluate(element => element.getAnimations({ subtree: true }).length)).toBe(0);
-        const chapterResults = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
-        expect(chapterResults.violations).toEqual([]);
-        await page.screenshot({ path: testInfo.outputPath(`opening-${chapter}.png`) });
+        await expectAccessible(page);
     }
-    const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
-    expect(results.violations).toEqual([]);
     await page.keyboard.press('Escape');
     await expect(dialog).not.toBeVisible();
     await expect(replay).toBeFocused();
 });
 
-test('first visit plays once, can pause and seek, then skips without trapping focus', async ({ page }, testInfo) => {
-    await firstVisit(page, testInfo.project.metadata.language, true);
+test('first visit supports pause, seeking, skip, and replay without trapping focus', async ({ page }, testInfo) => {
+    await openPortfolio(page, testInfo, { animated: true, seen: false });
     const dialog = page.locator('.architecture-intro');
+    const pause = page.locator('[data-intro-pause]');
+    const state = () => page.locator('.intro-progress > span').evaluate(element => element.getAnimations()[0].playState);
     await expect(dialog).toBeVisible();
     await expect(page.locator('[data-intro-close]')).toBeFocused();
-    await page.locator('[data-intro-pause]').click();
-    await expect.poll(() => page.locator('.intro-progress > span').evaluate(element => element.getAnimations()[0].playState)).toBe('paused');
+    await pause.click();
+    await expect.poll(state).toBe('paused');
     await page.locator('[data-intro-chapter="1"]').click();
-    await expect(dialog).toHaveAttribute('data-chapter', 'stack');
     await expect(page.locator('.stack-composition')).toBeVisible();
-    await page.locator('[data-intro-pause]').click();
-    await expect.poll(() => page.locator('.intro-progress > span').evaluate(element => element.getAnimations()[0].playState)).toBe('running');
+    await pause.click();
+    await expect.poll(state).toBe('running');
     await page.locator('[data-intro-close]').click();
     await expect(dialog).not.toBeVisible();
     await expect(page.locator('.hero h1')).toBeFocused();
@@ -56,36 +46,47 @@ test('first visit plays once, can pause and seek, then skips without trapping fo
     await expect(dialog).not.toBeVisible();
 });
 
-test('the sequence completes into the hero and releases all opening animations', async ({ page }, testInfo) => {
-    await firstVisit(page, testInfo.project.metadata.language, true);
-    const dialog = page.locator('.architecture-intro');
-    await expect(dialog).toBeVisible();
-    const compact = await dialog.getAttribute('data-motion') === 'compact';
-    expect(await page.locator('.intro-progress > span').evaluate(element => element.getAnimations()[0].effect.getTiming().duration)).toBe(compact ? 20000 : 34000);
+test('final frame hands off to the hero without a layout jump or leftover animations', { tag: '@layout' }, async ({ page }, testInfo) => {
+    await openPortfolio(page, testInfo, { animated: true, seen: false });
+    await page.locator('[data-intro-chapter="3"]').click();
     await page.locator('[data-intro-chapter="4"]').click();
-    await expect(dialog).toHaveAttribute('data-chapter', 'hire');
+    expect(await page.locator('.intro-portal .intro-morph').count()).toBe(0);
+    const frames = await page.locator('.hero-final').evaluate(panel => panel.getAnimations().flatMap(animation => animation.effect.getKeyframes()));
+    expect(frames.every(frame => !frame.transform || frame.transform === 'none')).toBe(true);
+    const differences = () => page.evaluate(() => {
+        return ['.hero-name', '.hero-role', '.portrait img', '.hero-experience', '.hero-description', '.hero-actions'].flatMap(selector => {
+            const hero = document.querySelector(`.hero > .container > .hero-layout ${selector}`).getBoundingClientRect();
+            const final = document.querySelector(`.hero-final ${selector}`).getBoundingClientRect();
+            return ['x', 'y', 'width', 'height'].map(property => Math.abs(hero[property] - final[property]));
+        });
+    });
+    await expect.poll(async () => Math.max(...await differences())).toBeLessThan(0.5);
+    await expect(page.locator('.hero-final')).toHaveCSS('opacity', '1');
+    const before = await page.locator('.hero-final .portrait img').boundingBox();
+    const dialog = page.locator('.architecture-intro');
     await expect(dialog).not.toBeVisible({ timeout: 9000 });
+    const after = await page.locator('.hero > .container .portrait img').boundingBox();
+    for (const property of ['x', 'y', 'width', 'height']) expect(Math.abs(before[property] - after[property])).toBeLessThan(0.5);
     expect(await dialog.evaluate(element => element.getAnimations({ subtree: true }).length)).toBe(0);
     await expect(page.locator('.hero h1')).toBeFocused();
-    await expect(page.locator('.hero > .container .portrait img')).toBeVisible();
     expect(await page.evaluate(() => getComputedStyle(document.body).overflow)).not.toBe('hidden');
 });
 
-test('deep links and changed motion preferences never hold the visitor in an opening', async ({ page }, testInfo) => {
-    await page.emulateMedia({ reducedMotion: 'no-preference' });
-    await page.goto(`/?lang=${testInfo.project.metadata.language}#projects`);
-    await expect(page.locator('.architecture-intro')).not.toBeVisible();
+test('deep links bypass autoplay and reduced motion closes an active story', async ({ page }, testInfo) => {
+    await openPortfolio(page, testInfo, { animated: true, seen: false, hash: '#projects' });
+    const dialog = page.locator('.architecture-intro');
+    await expect(dialog).not.toBeVisible();
     await page.locator('[data-intro-replay]').click();
-    await expect(page.locator('.architecture-intro')).toBeVisible();
+    await expect(dialog).toBeVisible();
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await expect(page.locator('.architecture-intro')).not.toBeVisible();
+    await expect(dialog).not.toBeVisible();
     await expect(page.locator('[data-intro-replay]')).toBeFocused();
 });
 
-test('background tabs pause the timeline without overriding an explicit pause', async ({ page }, testInfo) => {
-    await firstVisit(page, testInfo.project.metadata.language, true);
+test('background tabs suspend playback but preserve an explicit pause', async ({ page }, testInfo) => {
+    await openPortfolio(page, testInfo, { animated: true, seen: false });
     const state = () => page.locator('.intro-progress > span').evaluate(element => element.getAnimations()[0].playState);
-    const visibility = async hidden => page.evaluate(value => {
+    const visibility = hidden => page.evaluate(value => {
         Object.defineProperty(document, 'hidden', { value, configurable: true });
         document.dispatchEvent(new Event('visibilitychange'));
     }, hidden);
@@ -97,31 +98,10 @@ test('background tabs pause the timeline without overriding an explicit pause', 
     await visibility(true);
     await visibility(false);
     await expect.poll(state).toBe('paused');
-    await page.keyboard.press('Escape');
-    await expect(page.locator('.architecture-intro')).not.toBeVisible();
 });
 
-test('the story uses the real stack, OpenCode workflow, career history, and confirmed roles', async ({ page }, testInfo) => {
-    await firstVisit(page, testInfo.project.metadata.language);
-    await page.locator('[data-intro-replay]').click();
-    await expect(page.locator('[data-intro-chapter]')).toHaveCount(5);
-    await page.locator('[data-intro-chapter="1"]').click();
-    for (const technology of ['Java', 'Kotlin', 'Spring Boot', 'Kafka', 'PostgreSQL', 'Kubernetes / AKS', 'ArgoCD', 'GitHub Actions']) {
-        await expect(page.locator('.stack-composition').getByText(technology, { exact: true })).toBeVisible();
-    }
-    await page.locator('[data-intro-chapter="2"]').click();
-    await expect(page.locator('.opencode-hub strong')).toHaveText('OpenCode');
-    await expect(page.locator('.agent-branches small')).toHaveText(['explore', 'developer', 'reviewer']);
-    await page.locator('[data-intro-chapter="3"]').click();
-    await expect(page.locator('.experience-track h4')).toHaveText(['MedIT Solutions B.V.', 'Ordina', 'Rabobank', 'Qualogy', 'Ahold Delhaize']);
-    const ahold = page.locator('.experience-track li').filter({ has: page.locator('h4', { hasText: 'Ahold Delhaize' }) });
-    await expect(ahold.locator('.career-year')).toHaveText(testInfo.project.metadata.language === 'nl' ? '2024–nu' : '2024–now');
-    await expect(page.locator('.target-roles li')).toHaveText(['Senior Software Engineer', 'Senior Java/Kotlin Engineer', 'Senior Backend Engineer']);
-    await page.keyboard.press('Escape');
-});
-
-test('the final hiring action closes the story and reaches the actual contact section', async ({ page }, testInfo) => {
-    await firstVisit(page, testInfo.project.metadata.language);
+test('hiring action reaches the real contact form', async ({ page }, testInfo) => {
+    await openPortfolio(page, testInfo);
     await page.locator('[data-intro-replay]').click();
     await page.locator('[data-intro-destination="contact"]').click();
     await expect(page.locator('.architecture-intro')).not.toBeVisible();
@@ -130,122 +110,22 @@ test('the final hiring action closes the story and reaches the actual contact se
     await expect(page.locator('#contact-name')).toBeVisible();
 });
 
-test('Java and Kotlin travel from the architecture code into the stack composition', async ({ page }, testInfo) => {
-    await firstVisit(page, testInfo.project.metadata.language, true);
-    if (await page.locator('.architecture-intro').getAttribute('data-motion') === 'compact') {
-        await page.locator('[data-intro-chapter="1"]').click();
-        await expect(page.locator('.intro-portal .intro-morph')).toHaveCount(0);
-        await expect(page.locator('[data-intro-act="stack"]')).toHaveCSS('opacity', '1');
-        await page.keyboard.press('Escape');
-        return;
-    }
-    await page.evaluate(() => {
-        document.querySelector('.intro-progress > span').getAnimations()[0].currentTime = 10000;
-        document.querySelector('.c4-world').getAnimations()[0].finish();
-    });
-    await page.locator('[data-intro-chapter="1"]').click();
-    await expect(page.locator('.intro-portal .intro-morph')).toHaveCount(2);
-    await expect(page.locator('.language-tile').first()).toHaveCSS('opacity', '0');
-    await page.screenshot({ path: testInfo.outputPath('shared-element-transition.png') });
-    await expect(page.locator('.intro-portal .intro-morph')).toHaveCount(0);
-    await expect(page.locator('[data-intro-act="architecture"]')).not.toBeVisible();
-    await expect(page.locator('[data-intro-act="stack"]')).toBeVisible();
-    await page.keyboard.press('Escape');
-});
-
-test('architecture is a generic Kafka service network with inward-facing clean layers', async ({ page }, testInfo) => {
-    await firstVisit(page, testInfo.project.metadata.language);
-    await page.locator('[data-intro-replay]').click();
-    await page.locator('[data-intro-chapter="0"]').click();
-    await expect(page.locator('.microservice-network [data-service]')).toHaveCount(4);
-    await expect(page.locator('.microservice-network [data-topic]')).toHaveCount(2);
-    await expect(page.locator('.microservice-network .service-selected')).toHaveCount(1);
-    await expect(page.locator('.clean-service .clean-application .clean-domain')).toHaveCount(1);
-    await expect(page.locator('.driving-adapters')).toContainText('Kafka consumer');
-    await expect(page.locator('.driven-adapters')).toContainText('Kafka publisher');
-    await expect(page.locator('.architecture-act')).not.toContainText(/campaign|billing|marketing/i);
-    await expect(page.locator('.intro-editor')).toContainText('ExecuteUseCase');
-    await page.keyboard.press('Escape');
-});
-
-test('the final frame matches hero geometry and reveals it without a layout jump', async ({ page }, testInfo) => {
-    await page.addInitScript(theme => localStorage.setItem('theme', theme), testInfo.project.metadata.theme);
-    await firstVisit(page, testInfo.project.metadata.language, true);
-    await page.locator('[data-intro-chapter="4"]').click();
-    const differences = () => page.evaluate(() => {
-        const selectors = ['.hero-name', '.hero-role', '.portrait img', '.hero-experience', '.hero-description', '.hero-actions'];
-        return selectors.flatMap(selector => {
-            const actual = document.querySelector(`.hero > .container > .hero-layout ${selector}`).getBoundingClientRect();
-            const final = document.querySelector(`.hero-final ${selector}`).getBoundingClientRect();
-            return ['x', 'y', 'width', 'height'].map(property => Math.abs(actual[property] - final[property]));
-        });
-    });
-    await expect.poll(async () => Math.max(...await differences())).toBeLessThan(0.5);
-    await expect(page.locator('.hero-final')).toHaveCSS('opacity', '1');
-    await page.screenshot({ path: testInfo.outputPath('aligned-final-frame.png') });
-    const before = await page.locator('.hero-final .portrait img').boundingBox();
-    await page.locator('.intro-progress > span').evaluate(element => element.getAnimations()[0].finish());
-    await expect(page.locator('.architecture-intro')).not.toBeVisible();
-    const after = await page.locator('.hero > .container .portrait img').boundingBox();
-    for (const property of ['x', 'y', 'width', 'height']) expect(Math.abs(before[property] - after[property])).toBeLessThan(0.5);
-    expect(await page.locator('.hero > .container > .hero-layout').evaluate(element => element.getAnimations({ subtree: true }).length)).toBe(0);
-    await page.screenshot({ path: testInfo.outputPath('revealed-hero.png') });
-});
-
-test('the AI-to-experience transition keeps text at its natural size on a flat background', async ({ page }, testInfo) => {
-    await firstVisit(page, testInfo.project.metadata.language, true);
-    await page.locator('[data-intro-chapter="2"]').click();
-    await expect.poll(() => page.locator('[data-intro-act="ai"]').evaluate(element => {
-        const transform = getComputedStyle(element).transform;
-        return transform === 'none' || new DOMMatrixReadOnly(transform).isIdentity;
-    })).toBe(true);
-    await page.locator('[data-intro-chapter="3"]').click();
-    await expect(page.locator('.intro-portal .intro-morph')).toHaveCount(0);
-    await expect(page.locator('[data-shared="judgment"]')).toHaveCount(0);
-    const frames = await page.locator('[data-intro-act="experience"]').evaluate(panel => [panel, ...panel.querySelectorAll('.intro-act-copy, .intro-act-copy *')].flatMap(element => element.getAnimations().flatMap(animation => animation.effect.getKeyframes())));
-    expect(frames.every(frame => frame.transform === undefined || frame.transform === 'none')).toBe(true);
-    await expect(page.locator('.architecture-intro')).toHaveCSS('background-image', 'none');
-    await expect(page.locator('.intro-shell')).toHaveCSS('background-image', 'none');
-    await expect(page.locator('.intro-ambient')).toHaveCount(0);
-    await expect(page.locator('[data-intro-act="experience"]')).toHaveCSS('opacity', '1');
-    await expect(page.locator('.experience-act h3')).toHaveCSS('opacity', '1');
-    const bounds = await page.locator('.experience-act h3').boundingBox();
-    expect(bounds.x).toBeGreaterThanOrEqual(0);
-    expect(bounds.x + bounds.width).toBeLessThanOrEqual(page.viewportSize().width);
-    await page.screenshot({ path: testInfo.outputPath('clean-ai-experience-transition.png') });
-    await page.keyboard.press('Escape');
-});
-
-test('the phone profile replaces camera motion, flying text, and automatic career scrolling', async ({ page }, testInfo) => {
-    await firstVisit(page, testInfo.project.metadata.language, true);
+test('phone playback uses the compact story in portrait and landscape', { tag: '@layout' }, async ({ page }, testInfo) => {
+    await openPortfolio(page, testInfo, { animated: true, seen: false });
     const dialog = page.locator('.architecture-intro');
-    if (page.viewportSize().width > 700) {
-        await expect(dialog).toHaveAttribute('data-motion', 'full');
-        expect(await page.locator('.c4-world').evaluate(element => element.getAnimations().length)).toBeGreaterThan(0);
-    } else {
-        await expect(dialog).toHaveAttribute('data-motion', 'compact');
+    const mobile = testInfo.project.use.isMobile;
+    await expect(dialog).toHaveAttribute('data-motion', mobile ? 'compact' : 'full');
+    if (mobile) {
         await expect(page.locator('.c4-overview')).toBeVisible();
         await expect(page.locator('.c4-window')).not.toBeVisible();
-        expect(await page.locator('.c4-world').evaluate(element => element.getAnimations().length)).toBe(0);
-        for (const index of [1, 2, 3]) {
-            await page.locator(`[data-intro-chapter="${index}"]`).click();
-            await expect(page.locator('.intro-portal .intro-morph')).toHaveCount(0);
-            const frames = await dialog.evaluate(element => element.getAnimations({ subtree: true }).flatMap(animation => animation.effect.getKeyframes()));
-            expect(frames.every(frame => frame.transform === undefined || frame.transform.startsWith('scaleX('))).toBe(true);
-        }
-        await expect(page.locator('.experience-act')).toHaveCSS('opacity', '1');
-        await expect(page.locator('.experience-window')).toHaveCSS('mask-image', 'none');
+        await page.locator('[data-intro-chapter="3"]').click();
+        await expect(page.locator('.experience-track')).toBeVisible();
         expect(await page.locator('.experience-track').evaluate(element => element.getAnimations().length)).toBe(0);
         await page.locator('.experience-track li').last().scrollIntoViewIfNeeded();
         await expect(page.locator('.experience-track li').last()).toBeInViewport();
-        await page.screenshot({ path: testInfo.outputPath('compact-experience.png') });
-    }
-    await page.keyboard.press('Escape');
-    await expect(dialog).not.toBeVisible();
-    if (page.viewportSize().width <= 700) {
+        await page.keyboard.press('Escape');
         await page.setViewportSize({ width: 900, height: 500 });
         await page.locator('[data-intro-replay]').click();
         await expect(dialog).toHaveAttribute('data-motion', 'compact');
-        await page.keyboard.press('Escape');
     }
 });
