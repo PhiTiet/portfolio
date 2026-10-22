@@ -4,34 +4,18 @@
 <body>
 <section th:fragment="hero" id="about-me" class="hero" x-data @open-about.window="$refs.aboutDialog.showModal()">
     <div class="container">
-        <div class="hero-layout">
-            <div class="hero-copy">
-                <div class="hero-identity">
-                <div class="hero-heading">
-                <p class="eyebrow" th:text="#{hero.greeting}">Hi, I'm</p>
-                <h1 th:text="#{hero.name}">Phi Tiet</h1>
-                <p class="hero-role" th:text="#{hero.title}">Senior Software Engineer</p>
-                </div>
-                <figure class="portrait">
-                    <img th:src="@{/images/main_picture_me_professional.png}" alt="Phi Tiet" width="320" height="400" loading="eager" decoding="async" fetchpriority="high">
-                </figure>
-                </div>
-                <p class="hero-description" th:text="#{hero.description(${details.professionalProgrammerPeriod().getYears()})}"></p>
-                <div class="hero-actions">
-                    <a href="#projects" class="button btn-accent"><span th:text="#{hero.view.work}">View my work</span><span aria-hidden="true">↗</span></a>
-                    <a href="#contact" class="button button-secondary" th:text="#{hero.get.in.touch}">Get in touch</a>
-                </div>
-            </div>
-        </div>
+        <div th:replace="~{fragments/home-page/hero-content :: content(false)}"></div>
         <div class="hero-footnote">
             <div class="hero-links">
                 <a href="https://github.com/PhiTiet" target="_blank" rel="noopener noreferrer" th:attr="aria-label=#{hero.github.profile}"><svg th:replace="~{fragments/general/icons :: github(iconClass='w-4 h-4')}"></svg>GitHub</a>
                 <a href="https://www.linkedin.com/in/phi-tiet-804886220/" target="_blank" rel="noopener noreferrer" th:attr="aria-label=#{hero.linkedin.profile}"><svg th:replace="~{fragments/general/icons :: linkedin(iconClass='w-4 h-4')}"></svg>LinkedIn</a>
                 <button @click="$refs.aboutDialog.showModal()" type="button" th:text="#{hero.about.website}">About this site</button>
             </div>
+            <button type="button" class="intro-replay" data-intro-replay hidden><span class="replay-icon" aria-hidden="true">▷</span><span th:text="#{intro.replay}">Meet your next senior engineer</span><small>38s</small></button>
             <a href="#experience"><span th:text="#{hero.scroll.experience}">Explore my experience</span><span aria-hidden="true">↓</span></a>
         </div>
     </div>
+    <th:block th:replace="~{fragments/home-page/architecture-opening :: opening}"></th:block>
     <dialog x-ref="aboutDialog" class="about-panel" aria-labelledby="about-title" @click="if ($event.target === $el) $el.close()">
         <div>
 

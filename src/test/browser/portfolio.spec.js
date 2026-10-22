@@ -4,6 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 test.beforeEach(async ({ page }, testInfo) => {
     await page.addInitScript(theme => {
         if (!localStorage.getItem('theme')) localStorage.setItem('theme', theme);
+        sessionStorage.setItem('portfolio.engineering-story.seen', 'true');
     }, testInfo.project.metadata.theme);
     await page.goto(`/?lang=${testInfo.project.metadata.language}`);
     await expect(page.locator('[data-scene-playback]')).toBeVisible();
@@ -63,12 +64,12 @@ test('career details, recommendations, photos, and the native dialog are keyboar
     await expect(page.locator('.photo-active')).not.toHaveAttribute('src', photo);
     const opener = page.locator('.hero-links button');
     await opener.click();
-    await expect(page.locator('dialog')).toBeVisible();
-    await expect(page.locator('dialog button').first()).toBeFocused();
+    await expect(page.locator('.about-panel')).toBeVisible();
+    await expect(page.locator('.about-panel button').first()).toBeFocused();
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
     expect(results.violations).toEqual([]);
     await page.keyboard.press('Escape');
-    await expect(page.locator('dialog')).not.toBeVisible();
+    await expect(page.locator('.about-panel')).not.toBeVisible();
     await expect(opener).toBeFocused();
 });
 
@@ -134,10 +135,9 @@ test('desktop content tolerates doubled text and generous text spacing', async (
 test('hero keeps the portrait while chess belongs to the hobbies section', async ({ page }) => {
     await expect(page.locator('.hero .chess-scene')).toHaveCount(0);
     await expect(page.locator('#hobbies .chess-scene')).toHaveCount(1);
-    const portrait = await page.locator('.portrait img').boundingBox();
+    const portrait = await page.locator('.hero > .container .portrait img').boundingBox();
     const name = await page.locator('.hero h1').boundingBox();
-    expect(portrait.x).toBeGreaterThanOrEqual(name.x + name.width);
-    if (page.viewportSize().width <= 880) {
-        expect(portrait.y).toBeLessThan(name.y + name.height);
-    }
+    if (page.viewportSize().width > 880) expect(portrait.x + portrait.width).toBeLessThanOrEqual(name.x);
+    else expect(portrait.y + portrait.height).toBeLessThanOrEqual(name.y);
+    await expect(page.locator('.hero h1')).toHaveText(/^(Hire me\.|Huur mij in\.)$/);
 });

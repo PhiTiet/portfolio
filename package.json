@@ -3,9 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm run build:css && npm run build:scene",
+    "build": "npm run build:css && npm run build:scene && npm run build:opening",
     "build:css": "tailwindcss -i src/main/frontend/site.css -o src/main/resources/static/site.css --minify",
     "build:scene": "esbuild src/main/frontend/chess-scene.js --bundle --minify --format=iife --target=es2022 --legal-comments=external --outfile=src/main/resources/static/hero-scene.js",
+    "build:opening": "esbuild src/main/frontend/architecture-opening.js --bundle --minify --format=iife --target=es2022 --outfile=src/main/resources/static/architecture-opening.js",
     "test:scene": "node --test src/test/frontend/*.test.js",
     "test:browser": "playwright test"
   },

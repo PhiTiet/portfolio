@@ -83,6 +83,38 @@ Edit `src/main/frontend/site.css`, `chess-scene.js`, and `opening.js`, not the
 generated `src/main/resources/static/site.css` or `hero-scene.js` files.
 CSS source detection includes all Thymeleaf templates and static JavaScript.
 
+### Architecture opening
+
+The 38-second opening uses native Web Animations and original HTML/CSS artwork,
+with no extra runtime libraries. Five chapters cover architecture, the Java/Kotlin
+stack, an OpenCode agentic workflow, career history and target roles, and a hiring
+invitation. The first chapter travels vertically through C4 context, container,
+component, and code levels; Kubernetes is explicitly a separate deployment context.
+Four generically named services exchange events through Kafka topics. The camera
+then follows Service A into nested adapter, application/port, and domain layers,
+with inward source dependencies. The example is not a diagram of a client system.
+The C4 zoom levels follow [c4model.com](https://c4model.com/diagrams).
+
+It plays once per tab session on a normal first visit, never on deep links,
+reloads, or with reduced motion. Skip, pause, chapter selection, Escape, and
+replay remain available. Reduced-motion replay opens a static, navigable version.
+Background tabs pause playback. Overlapping transitions carry shared elements
+between chapters instead of fading to an empty screen. Career entries and years
+of experience come from the existing career data. The hiring chapter links to the
+real contact and project sections. Reduced motion shows a static architecture
+overview and the complete career list.
+
+The original portrait-left, large “Hire me” composition is used for both the
+hiring frame and the page hero through the same `hero-content.html` fragment.
+The opening measures the live hero to match its layout, portrait crop, typography,
+buttons, responsive breakpoints, and theme. The final reveal crossfades the frame
+without moving the underlying hero; browser tests check element bounds before
+and after the handoff.
+
+Edit `architecture-opening.js`, `architecture-opening.css`, and the
+`architecture-opening.html` fragment, then run `npm run build`. The generated
+`static/architecture-opening.js` is checked in alongside the other browser assets.
+
 ## Docker
 
 ```bash

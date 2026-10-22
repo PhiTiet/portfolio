@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content(intro)" class="hero-layout">
+    <figure class="portrait" th:attr="data-shared=${intro} ? 'phi' : null,data-morph-label=${intro} ? 'Phi Tiet' : null">
+        <img th:src="@{/images/main_picture_me_professional.png}" alt="Phi Tiet" width="320" height="400" loading="eager" decoding="async" fetchpriority="high">
+        <figcaption th:text="#{hero.name}">Phi Tiet</figcaption>
+    </figure>
+    <div class="hero-copy">
+        <div class="hero-heading">
+            <p class="eyebrow" th:text="#{hero.hiring.kicker}">Let's build what's next</p>
+            <h1 th:unless="${intro}" class="hero-name" th:text="#{story.hire.title}">Hire me.</h1>
+            <h3 th:if="${intro}" class="hero-name" th:text="#{story.hire.title}">Hire me.</h3>
+            <p class="hero-role" th:text="#{hero.title}">Senior Software Engineer</p>
+        </div>
+        <p class="hero-description" th:text="#{story.hire.description}"></p>
+        <p class="hero-experience"><span>Java / Kotlin</span><span th:text="#{story.hire.architecture}">Architecture-minded</span><span th:text="|${details.professionalProgrammerPeriod().getYears()}+ #{intro.hero.experience}|"></span></p>
+        <div class="hero-actions">
+            <a href="#contact" class="button btn-accent" th:attr="data-intro-destination=${intro} ? 'contact' : null"><span th:text="#{story.hire.contact}">Let's talk</span><span aria-hidden="true">↗</span></a>
+            <a href="#projects" class="button button-secondary" th:attr="data-intro-destination=${intro} ? 'projects' : null" th:text="#{story.hire.work}">Explore my work</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

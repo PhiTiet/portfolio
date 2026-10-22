@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../resources/templates";
 @source "../resources/static/*.js";
+@import "./architecture-opening.css";
 
 :root {
     --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -50,7 +51,7 @@ html.light {
     color-scheme: light;
 }
 
-html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+html { scroll-behavior: smooth; scroll-padding-top: 6rem; scrollbar-gutter: stable; }
 body { margin: 0; font-family: var(--font-sans); background: var(--color-bg-primary); color: var(--color-text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; }
 body:has(dialog[open]) { overflow: hidden; }
 a, button, summary { -webkit-tap-highlight-color: transparent; }
@@ -83,14 +84,19 @@ p { text-wrap: pretty; }
 .language-switch [aria-current] { color: var(--color-accent); }
 .theme-toggle { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 0.5rem; color: var(--color-text-secondary); }
 .theme-toggle:hover { background: var(--color-bg-secondary); }
-.hero { padding-block: 4rem 0; }
-.hero-layout { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 5rem; min-height: 27rem; padding-bottom: 3rem; }
+.hero { --hero-headline: #ff9e64; --hero-action: #73daca; --hero-action-contrast: #111c28; padding-block: 4rem 0; }
+html.light .hero { --hero-headline: #a74316; --hero-action: #1c6f64; --hero-action-contrast: #ffffff; }
+.hero-layout { position: relative; display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); align-items: center; gap: 5rem; width: 100%; max-width: 65rem; margin-inline: auto; min-height: 30rem; padding-bottom: 3rem; }
+.hero-copy { min-width: 0; }
 .eyebrow, .badge { display: block; color: var(--color-accent); font-size: 0.6875rem; line-height: 1.5; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
-.hero-heading > .eyebrow { margin-bottom: 1rem; }
-.hero h1 { font-size: clamp(3rem, 5.5vw, 5rem); font-weight: 600; line-height: 1.04; letter-spacing: -0.065em; margin: 0 0 1.25rem; }
-.hero-role { font-size: 1.125rem; font-weight: 500; margin-bottom: 1.25rem; }
-.hero-description { max-width: 43ch; font-size: 0.9375rem; color: var(--color-text-secondary); }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-block: 2rem 1.5rem; }
+.hero-heading > .eyebrow { margin-bottom: 1.5rem; }
+.hero .hero-name { font-size: clamp(4rem, 8vw, 8rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.065em; margin: 0; color: var(--hero-headline); }
+.hero-role { font-size: 1.5rem; font-weight: 400; letter-spacing: -0.04em; margin-top: 1.25rem; }
+.hero-description { max-width: 38ch; font-size: 0.875rem; line-height: 1.85; color: var(--color-text-secondary); margin-top: 1.5rem; }
+.hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-block: 2rem 0; }
+.hero-actions .btn-accent { background: var(--hero-action); color: var(--hero-action-contrast); }
+.hero-actions .btn-accent:hover { filter: brightness(1.08); }
+.hero-actions .button-secondary { border-color: transparent; padding-inline: 0; font-size: 0.75rem; color: var(--color-text-secondary); }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 1.5rem; padding: 0.7rem 1.1rem; min-height: 2.75rem; border: 1px solid transparent; border-radius: 0.5rem; font-size: 0.8125rem; font-weight: 600; transition: background 160ms, border-color 160ms; }
 .btn-accent { background: var(--color-accent); color: var(--color-accent-contrast); }
 .btn-accent:hover { background: var(--color-accent-hover); color: var(--color-accent-contrast); }
@@ -100,9 +106,10 @@ p { text-wrap: pretty; }
 .hero-links a { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2rem; }
 .hero-links button { min-height: 2rem; font-size: inherit; }
 .hero-links button:hover { color: var(--color-accent); }
-.portrait { position: absolute; top: 0; right: 1rem; width: 20rem; }
-.portrait img { width: 100%; height: 23rem; object-fit: cover; object-position: 50% 35%; border-radius: 10rem 10rem 1rem 1rem; background: var(--color-bg-tertiary); }
-.hero-footnote { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--color-border-light); padding-block: 1.25rem; font-size: 0.6875rem; color: var(--color-text-muted); }
+.portrait { position: relative; inset: auto; width: 100%; max-width: 18rem; }
+.portrait img { width: 100%; height: 21rem; object-fit: cover; object-position: 50% 35%; border-radius: 9rem 9rem 1rem 1rem; background: var(--color-bg-tertiary); }
+.portrait figcaption { margin-top: 1.5rem; font-size: 1rem; font-weight: 500; }
+.hero-footnote { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 1px solid var(--color-border-light); padding-block: 1.25rem; font-size: 0.6875rem; color: var(--color-text-muted); }
 .hero-footnote > a { display: flex; gap: 1rem; align-items: center; }
 .chess-scene { grid-column: 1 / -1; display: grid; grid-template-columns: 10rem minmax(0, 1fr); gap: 0.5rem 1.25rem; width: 100%; margin: 0; padding: 1.25rem; border: 1px solid var(--color-border); border-radius: 1rem; background: var(--color-bg-card); }
 .chess-scene-heading { grid-column: 2; display: flex; justify-content: space-between; align-items: center; color: var(--color-accent); }
@@ -260,12 +267,16 @@ html.light .fa-github { color: var(--color-text-primary) !important; }
 }
 
 @container (max-width: 55rem) {
-    .hero-layout { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
-    .hero-identity { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .hero-layout { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; min-height: 0; padding-bottom: 2rem; }
+    .hero-copy { text-align: center; }
+    .hero .hero-name { font-size: clamp(3rem, 9cqi, 4rem); }
     .hero-heading { min-width: 0; }
-    .hero-role { margin-bottom: 0; }
-    .portrait { position: static; width: 7rem; flex-shrink: 0; }
-    .portrait img { height: 8.5rem; border-radius: 4rem 4rem 0.75rem 0.75rem; }
+    .hero-role { font-size: 1.25rem; margin-top: 0.75rem; }
+    .hero-description { margin-inline: auto; }
+    .hero-experience, .hero-actions { justify-content: center; }
+    .portrait { width: 6rem; margin-inline: auto; }
+    .portrait img { height: 7.5rem; border-radius: 4rem 4rem 0.75rem 0.75rem; }
+    .portrait figcaption { margin-top: 0.5rem; font-size: 0.75rem; text-align: center; }
     .section-layout { grid-template-columns: 1fr; gap: 2rem; }
     .section-heading { max-width: 38rem; }
     .career-entry summary { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) 1rem; }
@@ -305,13 +316,10 @@ html.light .fa-github { color: var(--color-text-primary) !important; }
     .container { padding-inline: 1.25rem; }
     .hero { padding-top: 2.5rem; }
     .hero-layout { gap: 1.5rem; padding-bottom: 2rem; min-height: 0; }
-    .hero-identity { gap: 1rem; }
-    .hero h1 { font-size: clamp(2.5rem, 12vw, 3.5rem); margin-bottom: 0.75rem; }
-    .hero-role { font-size: 0.8125rem; }
-    .hero-description { max-width: none; }
-    .portrait { width: 5.25rem; }
-    .portrait img { height: 6.75rem; }
-    .hero-actions { margin-block: 1.5rem 0; }
+    .hero .hero-name { font-size: clamp(3rem, 12vw, 4rem); }
+    .hero-role { font-size: 1.125rem; }
+    .hero-description { max-width: none; font-size: 0.75rem; line-height: 1.75; margin-top: 1rem; }
+    .hero-actions { margin-block: 1.5rem 0; gap: 1.25rem; }
     .chess-scene { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); gap: 0.5rem 0.85rem; padding: 0.85rem; }
     .chess-scene h3 { font-size: 0.75rem; }
     .chess-playback { gap: 0.2rem; }
