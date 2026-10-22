@@ -13,7 +13,7 @@ test('portfolio reflows and passes automated accessibility checks', { tag: '@lay
         await page.locator(`#${id}`).scrollIntoViewIfNeeded();
     }
     await expect.poll(() => page.locator('.photo-active').evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBe(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(0);
     await expectAccessible(page);
     await page.evaluate(() => window.scrollTo(0, 0));
     await expect(page.locator('.scroll-to-top')).not.toBeVisible();
@@ -129,7 +129,7 @@ test('chess pauses for reduced motion and when offscreen', async ({ page }) => {
 
 test('content tolerates doubled text and generous spacing', async ({ page }) => {
     await page.addStyleTag({ content: 'html { font-size: 200%; } * { line-height: 1.5 !important; letter-spacing: 0.12em !important; word-spacing: 0.16em !important; } p { margin-bottom: 2em !important; }' });
-    expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBe(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(0);
 });
 
 test('career highlights retain full details and safe contextual links', async ({ page }) => {
