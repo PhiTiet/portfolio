@@ -21,6 +21,7 @@
                 <span class="disclosure-icon" aria-hidden="true">+</span>
             </summary>
             <div class="career-description">
+                <div th:replace="~{fragments/home-page/career-highlight :: highlight(${event.highlight}, false)}"></div>
                 <p th:text="${event.description}"></p>
                 <a th:if="${#strings.contains('Ahold Delhaize,Rabobank,Qualogy,MedIT Solutions B.V.', event.employer)}"
                    th:href="${'#project-' + #strings.toLowerCase(#strings.substringBefore(event.employer + ' ', ' '))}"

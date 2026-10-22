@@ -107,7 +107,7 @@ p { text-wrap: pretty; }
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-block: 2rem 0; }
 .hero-actions .btn-accent { background: var(--hero-action); color: var(--hero-action-contrast); }
 .hero-actions .btn-accent:hover { filter: brightness(1.08); }
-.hero-actions .button-secondary { border-color: transparent; padding-inline: 0; font-size: 0.75rem; color: var(--color-text-secondary); }
+.hero-actions .button-secondary { border-color: transparent; font-size: 0.75rem; color: var(--color-text-secondary); }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 1.5rem; padding: 0.7rem 1.1rem; min-height: 2.75rem; border: 1px solid transparent; border-radius: 0.5rem; font-size: 0.8125rem; font-weight: 600; transition: background 160ms, border-color 160ms; }
 .btn-accent { background: var(--color-accent); color: var(--color-accent-contrast); }
 .btn-accent:hover { background: var(--color-accent-hover); color: var(--color-accent-contrast); }
@@ -170,6 +170,18 @@ p { text-wrap: pretty; }
 .career-entry[open] .career-date { color: var(--color-accent); }
 .career-description { padding: 0 2rem 1.5rem 10rem; color: var(--color-text-secondary); font-size: 0.8125rem; }
 .career-description .project-timeline-link { margin-top: 0.75rem; }
+.career-highlight { padding: 1rem; margin-bottom: 1.25rem; border-left: 2px solid var(--color-accent); border-radius: 0 0.5rem 0.5rem 0; background: color-mix(in srgb, var(--color-accent) 7%, transparent); }
+.career-highlight .career-highlight-label { color: var(--color-accent); font-size: 0.625rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.career-highlight .career-highlight-summary { color: var(--color-text-primary); font-size: 0.8125rem; font-weight: 500; line-height: 1.75; margin-top: 0.5rem; }
+.career-highlight .career-highlight-subtitle { color: var(--color-text-muted); font-size: 0.625rem; margin-top: 0.85rem; margin-bottom: 0.4rem; }
+.career-highlight-responsibilities { display: grid; gap: 0.3rem; padding: 0; margin: 0; list-style: none; font-size: 0.75rem; }
+.career-highlight-responsibilities li { display: grid; grid-template-columns: 0.75rem minmax(0, 1fr); gap: 0.3rem; }
+.career-highlight-responsibilities li::before { content: '–'; color: var(--color-accent); }
+.coverage-links { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.coverage-links a { display: inline-flex; align-items: center; min-height: 1.75rem; padding: 0.25rem 0.6rem; border: 1px solid color-mix(in srgb, var(--color-accent) 35%, var(--color-border)); border-radius: 0.35rem; color: var(--color-accent); font-size: 0.625rem; }
+.coverage-links a:hover { background: var(--color-accent-subtle); }
+.career-highlight-compact { padding: 0.85rem; }
+.career-highlight-compact .career-highlight-summary { font-size: 0.75rem; }
 .skills-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 1.75rem; row-gap: 1.25rem; }
 .skill-item { min-width: 0; }
 .skill-item .justify-between { gap: 0.5rem; }

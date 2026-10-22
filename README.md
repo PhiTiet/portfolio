@@ -25,6 +25,7 @@ My personal portfolio website. Built to showcase my experience, skills, and work
 
 - Single-page design with anchor-linked sections: experience timeline, skills, projects, certificates, recommendations, hobbies, and contact
 - All career content is driven by YAML configuration -- adding a job, skill, or certificate requires no code changes
+- Optional career highlights include a lead achievement, responsibilities, and clearly labelled incident-coverage links; the Ahold Delhaize recovery highlight is available in English and Dutch
 - Dynamic values like age, years of experience, and runtime versions are computed at request time
 - Light/dark theme toggle with system preference detection and localStorage persistence
 - Custom error pages (404, 500) with consistent layout

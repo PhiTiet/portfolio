@@ -12,6 +12,6 @@ public final class TimelineEventTestFactory {
     }
 
     public static TimelineEvent defaultTimelineEvent() {
-        return new TimelineEvent("employer", "jobTitle", "description", defaultIcon(), LocalDate.now().minusDays(1), LocalDate.now());
+        return new TimelineEvent("employer", "jobTitle", "description", defaultIcon(), LocalDate.now().minusDays(1), LocalDate.now(), null);
     }
 }

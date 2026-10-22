@@ -149,9 +149,8 @@ career-en:
   events:
     - employer: DEEN Distribution Centre
       job-title: Storage employee
-      description:
-        I kicked off my career as an Order Picker at DEEN Distribution Centre. It wasn't all boxes and shelves,
-        though that was most of the work.
+      description: >-
+        My first job was as an order picker at DEEN’s distribution centre.
       start: 01-01-2015
       end: 01-06-2015
       icon:
@@ -160,9 +159,9 @@ career-en:
 
     - employer: McDonald's
       job-title: Crew member
-      description:
-        I started my Horeca journey under the golden arches at McDonald's — a crash course in fast-paced service,
-        teamwork, and the sizzling art of flipping burgers.
+      description: >-
+        Working at McDonald’s taught me to keep up in a busy environment, communicate clearly,
+        and work closely with a team. It was my first experience in hospitality.
       start: 01-06-2015
       end: 01-01-2016
       icon:
@@ -171,10 +170,9 @@ career-en:
 
     - employer: Lunchroom Cafetaria Celine
       job-title: All-around employee
-      description: I worked very hard under a strict owner to become disciplined, efficient and handy as a person with
-        a good work ethic. Turns out, navigating the Horeca world was a whole different ballgame compared to my
-        McDonald's days. It added layers to my experience, revealing the challenges and flavors of
-        the hospitality industry.
+      description: >-
+        I worked in an all-round role at Celine, helping with the day-to-day running of the lunchroom.
+        High expectations taught me to stay organised, work efficiently, and take responsibility for my work.
       start: 01-01-2016
       end: 01-01-2020
       icon:
@@ -183,11 +181,10 @@ career-en:
 
     - employer: MedIT Solutions B.V.
       job-title: Junior Software Engineer
-      description: Stepping into the world of software engineering at a small pharmaceutical company felt like entering
-        a new dimension. Armed with my CS degree, I dove into Java Spring and Scrum methodologies,
-        discovering a whole realm of real-world applications that academia had only hinted at. It was a hands-on
-        initiation that brought my coding skills to life. I cherish the memories of our extended daily standups,
-        brimming with laughter and jokes, to the point where they hardly felt like work.
+      description: >-
+        I started my software engineering career at MedIT, working on MediCheck, a web and mobile app
+        for medication management in nursing homes. It’s where I put Java and Spring into practice,
+        learned to work in a Scrum team, and saw how our software supported care teams in their daily work.
       start: 01-09-2020
       end: 01-07-2022
       icon:
@@ -196,9 +193,10 @@ career-en:
 
     - employer: Ordina
       job-title: Medior Software Engineer
-      description: In my role as a software engineer in secondment, I found a dynamic and ever-evolving environment.
-        This experience was a journey of growth, exposing me to diverse projects and challenges that kept me engaged
-        and motivated. This experience as a consultant surely contributed to my journey as an engineer.
+      description: >-
+        I joined Ordina as a Medior Software Engineer, working on assignment at Rabobank.
+        The role introduced me to consultancy: joining a client team, getting to know their systems,
+        and adapting to their way of working.
       start: 01-07-2022
       end: 01-04-2024
       icon:
@@ -207,9 +205,10 @@ career-en:
 
     - employer: Rabobank
       job-title: Medior Software Engineer
-      description: In my role at Rabobank, my journey unfolded as a software engineer, expanding my skills in Scrum
-        and delving deep into Java development and DevOps. The cutting-edge microservices environment introduced me to
-        Kubernetes and Azure, providing a rich landscape for honing my expertise in modern software engineering.
+      description: >-
+        I built and maintained services for MED, a mortgage dashboard used by advisors and customers
+        to plan mortgages, share documents, track progress, and stay in touch. Working in a microservices
+        environment also gave me hands-on experience with Kubernetes, Azure, and DevOps.
       start: 01-09-2022
       end: 01-04-2024
       icon:
@@ -218,9 +217,10 @@ career-en:
 
     - employer: Qualogy
       job-title: Senior Software Engineer
-      description: My consultancy career continues as I love my current role as Senior Java Software Engineer at Qualogy.
-        I'm excited for the amazing assignments Qualogy has in store for me!
-        First assignment — Senior Kotlin developer at Ahold Delhaize.
+      description: >-
+        I joined Qualogy as a Senior Software Engineer, with my first assignment at Ahold Delhaize.
+        Alongside client work, I’ve contributed to internal projects, helped assess candidates through
+        interviews and coding assignments, and organised knowledge-sharing sessions.
       start: 01-04-2024
       end:
       icon:
@@ -229,15 +229,34 @@ career-en:
 
     - employer: Ahold Delhaize
       job-title: Senior Software Engineer
-      description: In my role as the sole Kotlin developer on a cross-functional team of Salesforce admins and developers,
-        I revamped legacy Kotlin microservices into robust, compliant services using in-house frameworks.
-        I enforced event-driven Kafka protocols, regularly represented my team in architecture sessions, and introduced clean code,
-        architecture principles, pair programming, and quality gate practices.
-        I led knowledge-sharing initiatives, organized cross-team sessions, and drove our backlog with improvement and roadmap tasks.
-        I worked with Kotlin, Spring Boot, Kubernetes, ArgoCD, Kafka, and other key technologies.
+      highlight:
+        summary: I was selected as a core developer to help restore our cloud landscape during the Albert Heijn outage in October 2026.
+        responsibilities:
+          - Mitigate vulnerabilities
+          - Rotate secrets
+          - Scale services up and down
+          - Restore connectivity in Kubernetes
+          - Communicate with other teams and stakeholders
+        coverage:
+          - publisher: NU.nl
+            title: "12 October 2026: Security incident at Albert Heijn disrupts deliveries and store systems"
+            url: https://www.nu.nl/economie/6412835/veiligheidsincident-bij-albert-heijn-geen-bezorging-en-oude-prijzen-in-winkel.html
+          - publisher: RTL Nieuws
+            title: "12 October 2026: Albert Heijn distribution centres disrupted by the outage"
+            url: https://www.rtl.nl/nieuws/economie/artikel/5658604/chaos-albert-heijn-bevoorrading-distributiecentra-plat
+          - publisher: Ahold Delhaize
+            title: "19 October 2026: Official update on the cybersecurity incident and service restoration"
+            url: https://newsroom.aholddelhaize.com/ahold-delhaize-update-on-status-of-cybersecurity-incident/
+      description: >-
+        I’m the only Kotlin developer in a team of Salesforce admins and developers. My work focuses on
+        modernising our microservices and Kafka integrations, using internal frameworks and making the code
+        easier to maintain.
+
+        I also represent the team in architecture discussions and help improve how we work through pair
+        programming, quality checks, and knowledge sharing. Alongside day-to-day development, I help shape
+        our technical backlog and roadmap.
       start: 01-08-2024
       end:
       icon:
         classes: "fa-duotone fa-solid fa-cart-shopping"
         style:
-

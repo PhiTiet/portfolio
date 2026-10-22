@@ -151,3 +151,43 @@ test('the palette leads with orange and uses distinct teal and violet supporting
     const surfaces = await page.locator('#recommendations, #skills, #certificates').evaluateAll(sections => sections.map(section => getComputedStyle(section).backgroundImage));
     expect(new Set(surfaces).size).toBe(3);
 });
+
+test('the secondary hero button keeps padding between its text and outline', async ({ page }) => {
+    const button = page.locator('.hero > .container .hero-actions .button-secondary');
+    await button.hover();
+    const padding = await button.evaluate(element => {
+        const style = getComputedStyle(element);
+        return [style.paddingLeft, style.paddingRight, style.paddingTop, style.paddingBottom].map(parseFloat);
+    });
+    expect(padding[0]).toBeGreaterThanOrEqual(16);
+    expect(padding[1]).toBeGreaterThanOrEqual(16);
+    expect(padding[2]).toBeGreaterThanOrEqual(10);
+    expect(padding[3]).toBeGreaterThanOrEqual(10);
+});
+
+test('Ahold leads with recovery work, all five responsibilities, and contextual incident coverage', async ({ page }, testInfo) => {
+    const dutch = testInfo.project.metadata.language === 'nl';
+    const highlight = page.locator('#timeline-ahold .career-highlight');
+    await expect(highlight).toBeVisible();
+    await expect(highlight.locator('.career-highlight-summary')).toContainText(dutch ? 'geselecteerd als core developer' : 'selected as a core developer');
+    await expect(highlight.locator('.career-highlight-summary')).toContainText(dutch ? 'oktober 2026' : 'October 2026');
+    await expect(highlight.locator('.career-highlight-responsibilities li')).toHaveText(dutch ? [
+        'Kwetsbaarheden mitigeren', 'Secrets roteren', 'Services op- en afschalen',
+        'Connectiviteit binnen Kubernetes herstellen', 'Afstemmen met andere teams en stakeholders'
+    ] : [
+        'Mitigate vulnerabilities', 'Rotate secrets', 'Scale services up and down',
+        'Restore connectivity in Kubernetes', 'Communicate with other teams and stakeholders'
+    ]);
+    await expect(highlight.locator('.coverage-links a')).toHaveText(['NU.nl', 'RTL Nieuws', 'Ahold Delhaize']);
+    const links = await highlight.locator('.coverage-links a').evaluateAll(elements => elements.map(element => ({ href: element.href, target: element.target, rel: element.rel })));
+    expect(links.map(link => new URL(link.href).hostname)).toEqual(['www.nu.nl', 'www.rtl.nl', 'newsroom.aholddelhaize.com']);
+    for (const link of links) {
+        expect(link.href).toMatch(/^https:\/\//);
+        expect(link.target).toBe('_blank');
+        expect(link.rel).toContain('noopener');
+    }
+    expect(await page.locator('#timeline-ahold .career-description').evaluate(element => element.firstElementChild.classList.contains('career-highlight'))).toBe(true);
+    await expect(page.locator('#timeline-ahold .career-description > p')).toContainText(dutch ? 'Ik ben de enige Kotlin-ontwikkelaar' : 'I’m the only Kotlin developer');
+    await expect(page.locator('#project-ahold .career-highlight-compact')).toContainText(dutch ? 'geselecteerd als core developer' : 'selected as a core developer');
+    await expect(page.locator('#project-ahold .career-highlight-responsibilities')).toHaveCount(0);
+});

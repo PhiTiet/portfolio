@@ -26,6 +26,9 @@
                 </div>
                 <h4 class="font-semibold text-[0.9375rem] text-[var(--color-text-primary)]" th:text="#{projects.ahold.title}">Ahold Delhaize</h4>
             </div>
+            <th:block th:each="event : ${details.events}" th:if="${event.employer == 'Ahold Delhaize' and event.highlight != null}">
+                <div th:replace="~{fragments/home-page/career-highlight :: highlight(${event.highlight}, true)}"></div>
+            </th:block>
             <p class="text-sm text-[var(--color-text-secondary)] mb-4 flex-1" th:text="#{projects.ahold.description}"></p>
             <div class="flex flex-wrap gap-1.5 mb-3">
                 <span class="project-tag">Kotlin</span>

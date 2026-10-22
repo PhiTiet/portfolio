@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="highlight(highlight, compact)" th:if="${highlight != null}" class="career-highlight" th:classappend="${compact} ? 'career-highlight-compact' : ''">
+    <p class="career-highlight-label" th:text="#{career.highlight.priority}">Most importantly</p>
+    <p class="career-highlight-summary" th:text="${highlight.summary}"></p>
+    <th:block th:unless="${compact}">
+        <p class="career-highlight-subtitle" th:if="${!highlight.responsibilities.isEmpty()}" th:text="#{career.highlight.responsibilities}">Recovery responsibilities</p>
+        <ul class="career-highlight-responsibilities" th:if="${!highlight.responsibilities.isEmpty()}">
+            <li th:each="responsibility : ${highlight.responsibilities}" th:text="${responsibility}"></li>
+        </ul>
+    </th:block>
+    <div class="career-highlight-coverage" th:if="${!highlight.coverage.isEmpty()}">
+        <p class="career-highlight-subtitle" th:text="#{career.highlight.coverage}">Incident coverage</p>
+        <div class="coverage-links">
+            <a th:each="source : ${highlight.coverage}" th:href="${source.url}" th:text="${source.publisher}"
+               th:title="${source.title}" th:attr="aria-label=${source.publisher + ' — ' + source.title}"
+               target="_blank" rel="noopener noreferrer"></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

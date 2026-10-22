@@ -16,7 +16,8 @@ public record TimelineEvent(
         @DateTimeFormat(pattern = INPUT_FORMAT)
         LocalDate start,
         @DateTimeFormat(pattern = INPUT_FORMAT)
-        LocalDate end)
+        LocalDate end,
+        CareerHighlight highlight)
         implements Comparable<TimelineEvent> {
 
     @Override

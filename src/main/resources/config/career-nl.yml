@@ -149,9 +149,8 @@ career-nl:
   events:
     - employer: DEEN Distribution Centre
       job-title: Magazijnmedewerker
-      description:
-        Ik begon mijn carrière als orderpicker bij het DEEN Distributiecentrum. Het was niet alleen dozen en stellingen,
-        al was dat wel het grootste deel van het werk.
+      description: >-
+        Mijn eerste baan was als orderpicker bij het distributiecentrum van DEEN.
       start: 01-01-2015
       end: 01-06-2015
       icon:
@@ -160,9 +159,9 @@ career-nl:
 
     - employer: McDonald's
       job-title: Crewlid
-      description:
-        Ik begon mijn horeca-avontuur onder de gouden bogen van McDonald's — een spoedcursus in snel werken,
-        samenwerken en de kunst van het hamburgers bakken.
+      description: >-
+        Bij McDonald's leerde ik om mee te komen in een drukke omgeving, duidelijk te communiceren
+        en goed samen te werken. Het was mijn eerste ervaring in de horeca.
       start: 01-06-2015
       end: 01-01-2016
       icon:
@@ -171,9 +170,10 @@ career-nl:
 
     - employer: Lunchroom Cafetaria Celine
       job-title: Allround medewerker
-      description: Ik werkte keihard onder een strenge eigenaar om gedisciplineerd, efficiënt en handig te worden als
-        persoon met een goede werkhouding. De horeca bleek een heel ander verhaal dan mijn McDonald's-tijd. Het voegde
-        lagen toe aan mijn ervaring en liet me de uitdagingen en smaken van de horecawereld ontdekken.
+      description: >-
+        Bij Celine werkte ik als allround medewerker en hielp ik de lunchroom dagelijks draaiende te houden.
+        De hoge verwachtingen leerden me om georganiseerd en efficiënt te werken en verantwoordelijkheid
+        te nemen voor mijn werk.
       start: 01-01-2016
       end: 01-01-2020
       icon:
@@ -182,11 +182,10 @@ career-nl:
 
     - employer: MedIT Solutions B.V.
       job-title: Junior Software Engineer
-      description: De wereld van software engineering binnenstappen bij een klein farmaceutisch bedrijf voelde als een
-        nieuwe dimensie betreden. Gewapend met mijn informatica-diploma dook ik in Java Spring en Scrum, en ontdekte
-        een hele wereld van praktische toepassingen waar de universiteit alleen maar naar hintte. Het was een hands-on
-        kennismaking die mijn programmeervaardigheden tot leven bracht. Ik koester de herinneringen aan onze uitgelopen
-        daily standups, vol gelach en grappen, tot het punt waarop het nauwelijks voelde alsof ik aan het werk was.
+      description: >-
+        Mijn loopbaan als software engineer begon bij MedIT, waar ik werkte aan MediCheck, een web- en
+        mobiele app voor medicatiebeheer in verpleeghuizen. Daar bracht ik Java en Spring in de praktijk,
+        leerde ik samenwerken in een Scrum-team en zag ik hoe onze software zorgteams hielp bij hun dagelijkse werk.
       start: 01-09-2020
       end: 01-07-2022
       icon:
@@ -195,9 +194,10 @@ career-nl:
 
     - employer: Ordina
       job-title: Medior Software Engineer
-      description: In mijn vorige rol als software engineer in detachering vond ik een dynamische en steeds veranderende
-        omgeving. Deze ervaring was een reis van groei, met diverse projecten en uitdagingen die me betrokken en
-        gemotiveerd hielden. Deze ervaring als consultant heeft zeker bijgedragen aan mijn reis als engineer.
+      description: >-
+        Ik begon bij Ordina als Medior Software Engineer, met een opdracht bij Rabobank.
+        Daar maakte ik kennis met consultancy: aansluiten bij een klantteam, de systemen leren kennen
+        en me aanpassen aan hun manier van werken.
       start: 01-07-2022
       end: 01-04-2024
       icon:
@@ -206,10 +206,10 @@ career-nl:
 
     - employer: Rabobank
       job-title: Medior Software Engineer
-      description: In mijn vorige rol bij Rabobank ontvouwde mijn reis als software engineer zich, waarbij ik mijn
-        vaardigheden in Scrum uitbreidde en diep dook in Java-ontwikkeling en DevOps. De geavanceerde
-        microservices-omgeving introduceerde me in Kubernetes en Azure, een rijke omgeving om mijn expertise in moderne
-        software engineering aan te scherpen.
+      description: >-
+        Ik bouwde en onderhield services voor MED, een hypotheekdashboard waarmee adviseurs en klanten
+        hypotheken kunnen plannen, documenten delen, de voortgang volgen en contact houden. Werken in een
+        microservices-omgeving gaf me ook praktische ervaring met Kubernetes, Azure en DevOps.
       start: 01-09-2022
       end: 01-04-2024
       icon:
@@ -218,9 +218,10 @@ career-nl:
 
     - employer: Qualogy
       job-title: Senior Software Engineer
-      description: Mijn consultancy-carrière gaat door en ik ben dol op mijn huidige rol als Senior Java Software
-        Engineer bij Qualogy. Ik kijk uit naar de geweldige opdrachten die Qualogy voor me in petto heeft!
-        Eerste opdracht — Senior Kotlin-ontwikkelaar bij Ahold Delhaize.
+      description: >-
+        Ik begon bij Qualogy als Senior Software Engineer, met mijn eerste opdracht bij Ahold Delhaize.
+        Naast klantopdrachten heb ik bijgedragen aan interne projecten, meegeholpen bij het beoordelen van
+        kandidaten via gesprekken en programmeeropdrachten, en kennissessies georganiseerd.
       start: 01-04-2024
       end:
       icon:
@@ -229,16 +230,34 @@ career-nl:
 
     - employer: Ahold Delhaize
       job-title: Senior Software Engineer
-      description: In mijn rol als enige Kotlin-ontwikkelaar in een cross-functioneel team van Salesforce-beheerders
-        en -ontwikkelaars, heb ik legacy Kotlin-microservices omgebouwd tot robuuste, conforme services met interne
-        frameworks. Ik handhaafde event-driven Kafka-protocollen, vertegenwoordigde regelmatig mijn team in
-        architectuursessies en introduceerde clean code, architectuurprincipes, pair programming en quality
-        gate-praktijken. Ik leidde kennisdelingssessies, organiseerde cross-team sessies en stuurde onze backlog aan
-        met verbeter- en roadmaptaken. Mijn werk maakte gebruik van Kotlin, Spring Boot, Kubernetes, ArgoCD, Kafka en
-        andere belangrijke technologieën.
+      highlight:
+        summary: Ik werd geselecteerd als core developer om ons cloudlandschap te helpen herstellen tijdens de storing bij Albert Heijn in oktober 2026.
+        responsibilities:
+          - Kwetsbaarheden mitigeren
+          - Secrets roteren
+          - Services op- en afschalen
+          - Connectiviteit binnen Kubernetes herstellen
+          - Afstemmen met andere teams en stakeholders
+        coverage:
+          - publisher: NU.nl
+            title: "12 oktober 2026: Veiligheidsincident bij Albert Heijn verstoort bezorging en winkelsystemen"
+            url: https://www.nu.nl/economie/6412835/veiligheidsincident-bij-albert-heijn-geen-bezorging-en-oude-prijzen-in-winkel.html
+          - publisher: RTL Nieuws
+            title: "12 oktober 2026: Distributiecentra van Albert Heijn liggen plat door de storing"
+            url: https://www.rtl.nl/nieuws/economie/artikel/5658604/chaos-albert-heijn-bevoorrading-distributiecentra-plat
+          - publisher: Ahold Delhaize
+            title: "19 oktober 2026: Officiële update over het cybersecurity-incident en het herstel van diensten"
+            url: https://newsroom.aholddelhaize.com/ahold-delhaize-update-on-status-of-cybersecurity-incident/
+      description: >-
+        Ik ben de enige Kotlin-ontwikkelaar in een team van Salesforce-beheerders en -ontwikkelaars.
+        Ik richt me op het moderniseren van onze microservices en Kafka-integraties, met interne frameworks
+        en code die eenvoudiger te onderhouden is.
+
+        Daarnaast vertegenwoordig ik het team in architectuuroverleggen en help ik onze werkwijze te verbeteren
+        met pair programming, kwaliteitscontroles en kennisdeling. Naast de dagelijkse ontwikkeling denk ik mee
+        over onze technische backlog en roadmap.
       start: 01-08-2024
       end:
       icon:
         classes: "fa-duotone fa-solid fa-cart-shopping"
         style:
-
