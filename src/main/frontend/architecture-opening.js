@@ -1,15 +1,26 @@
+export const HIRE_HOLD = 1500;
+export const HIRE_ENTRY = 500;
 export const CHAPTERS = [
     { id: 'architecture', start: 0, duration: 11000 },
     { id: 'stack', start: 11000, duration: 6500 },
     { id: 'ai', start: 17500, duration: 6500 },
     { id: 'experience', start: 24000, duration: 8000 },
-    { id: 'hire', start: 32000, duration: 6000 }
+    { id: 'hire', start: 32000, duration: HIRE_ENTRY + HIRE_HOLD }
 ];
-export const DURATION = 38000;
+export const DURATION = CHAPTERS.at(-1).start + CHAPTERS.at(-1).duration;
+export const COMPACT_CHAPTERS = [
+    { id: 'architecture', start: 0, duration: 5000 },
+    { id: 'stack', start: 5000, duration: 4000 },
+    { id: 'ai', start: 9000, duration: 4500 },
+    { id: 'experience', start: 13500, duration: 4500 },
+    { id: 'hire', start: 18000, duration: HIRE_ENTRY + HIRE_HOLD }
+];
+export const COMPACT_DURATION = COMPACT_CHAPTERS.at(-1).start + COMPACT_CHAPTERS.at(-1).duration;
+export const COMPACT_QUERY = '(max-width: 700px), (pointer: coarse) and (max-width: 1000px)';
 export const STORAGE_KEY = 'portfolio.engineering-story.seen';
 
-export function chapterAt(time) {
-    return CHAPTERS.findLastIndex(chapter => time >= chapter.start);
+export function chapterAt(time, chapters = CHAPTERS) {
+    return chapters.findLastIndex(chapter => time >= chapter.start);
 }
 
 export function architectureLevelAt(time) {
@@ -26,6 +37,7 @@ export function shouldAutoplay({ reducedMotion, seen, hash, navigationType }) {
 export function initializeOpening(dialog) {
     if (typeof dialog.showModal !== 'function') return;
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const compactViewport = window.matchMedia(COMPACT_QUERY);
     const panels = [...dialog.querySelectorAll('[data-intro-act]')];
     const chapterButtons = [...dialog.querySelectorAll('[data-intro-chapter]')];
     const pauseButton = dialog.querySelector('[data-intro-pause]');
@@ -35,7 +47,9 @@ export function initializeOpening(dialog) {
     const hero = document.querySelector('.hero > .container > .hero-layout');
     const finalPanel = panels[panels.length - 1];
     const hireGreeting = finalPanel.querySelector('.eyebrow').textContent;
-    const ambient = dialog.querySelector('.intro-ambient');
+    let compact = false;
+    let chapters = CHAPTERS;
+    let duration = DURATION;
     let clock;
     let effects = [];
     let frame;
@@ -46,6 +60,14 @@ export function initializeOpening(dialog) {
     let run = 0;
     let transition = 0;
     let opener;
+
+    function configurePlayback() {
+        compact = compactViewport.matches;
+        chapters = compact ? COMPACT_CHAPTERS : CHAPTERS;
+        duration = compact ? COMPACT_DURATION : DURATION;
+        dialog.dataset.motion = compact ? 'compact' : 'full';
+        document.querySelectorAll('[data-intro-replay] small').forEach(label => { label.textContent = `${duration / 1000}s`; });
+    }
 
     function positionFinalPanel() {
         if (!dialog.open || active !== panels.length - 1) return;
@@ -99,7 +121,7 @@ export function initializeOpening(dialog) {
         return elements;
     }
 
-    function morphElements(sources, panel) {
+    function morphElements(sources, panel, duration = 1250) {
         const destinations = sharedElements(panel);
         sources.forEach(({ element: source, rect: from }, key) => {
             const destination = destinations.get(key);
@@ -122,14 +144,15 @@ export function initializeOpening(dialog) {
                 { transform: 'translate(0, 0) scale(1, 1)', opacity: 1, offset: 0, easing: 'cubic-bezier(0.76, 0, 0.24, 1)' },
                 { transform: destinationTransform, opacity: 1, offset: 0.85 },
                 { transform: destinationTransform, opacity: 0, offset: 1 }
-            ], { duration: 1250, easing: 'linear' });
-            animate(label, [{ transform: 'scale(1, 1)' }, { transform: `scale(${targetSize / sourceSize / (to.width / from.width)}, ${targetSize / sourceSize / (to.height / from.height)})` }], { duration: 1060, easing: 'cubic-bezier(0.76, 0, 0.24, 1)' });
-            animate(target, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: 0.8 }, { opacity: 1, offset: 1 }], { duration: 1300, easing: 'linear' });
+            ], { duration, easing: 'linear' });
+            animate(label, [{ transform: 'scale(1, 1)' }, { transform: `scale(${targetSize / sourceSize / (to.width / from.width)}, ${targetSize / sourceSize / (to.height / from.height)})` }], { duration: duration * 0.85, easing: 'cubic-bezier(0.76, 0, 0.24, 1)' });
+            animate(target, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: 0.8 }, { opacity: 1, offset: 1 }], { duration: duration + 50, easing: 'linear' });
             flight.finished.then(() => tile.remove()).catch(() => tile.remove());
         });
     }
 
     function choreograph(panel, index) {
+        if (compact) return;
         if (index === 0) {
             const step = panel.querySelector('.c4-window').clientHeight;
             animate(panel.querySelector('.c4-world'), [
@@ -179,6 +202,8 @@ export function initializeOpening(dialog) {
         const currentTransition = ++transition;
         active = index;
         const panel = panels[index];
+        const final = index === panels.length - 1;
+        const gentle = compact || (previous?.dataset.introAct === 'ai' && index === 3);
         const blending = moving && !motion.matches && previous && previous !== panel;
         dialog.dataset.static = String(!moving || motion.matches);
         panels.forEach(candidate => {
@@ -186,18 +211,15 @@ export function initializeOpening(dialog) {
         });
         resetPanel(panel);
         dialog.style.removeProperty('background-color');
-        ambient.style.opacity = '1';
-        if (index === panels.length - 1) {
+        if (final) {
             window.scrollTo({ top: 0, behavior: 'instant' });
             positionFinalPanel();
             finalPanel.querySelector('.eyebrow').textContent = hireGreeting;
             const background = getComputedStyle(document.body).backgroundColor;
             if (moving && !motion.matches) {
-                animate(dialog, [{ backgroundColor: '#111522' }, { backgroundColor: background }], { duration: 1250 });
-                animate(ambient, [{ opacity: 1 }, { opacity: 0 }], { duration: 1000 });
+                animate(dialog, [{ backgroundColor: getComputedStyle(dialog).backgroundColor }, { backgroundColor: background }], { duration: HIRE_ENTRY });
             } else {
                 dialog.style.backgroundColor = background;
-                ambient.style.opacity = '0';
             }
         }
         chapterButtons.forEach((button, buttonIndex) => {
@@ -211,13 +233,14 @@ export function initializeOpening(dialog) {
             if (previous.contains(document.activeElement)) pauseButton.focus({ preventScroll: true });
             previous.inert = true;
             previous.setAttribute('aria-hidden', 'true');
-            const exit = animate(previous, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-48px) scale(0.96)' }], { duration: 1000 });
+            const exit = animate(previous, gentle ? [{ opacity: 1 }, { opacity: 0 }] : [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-48px) scale(0.96)' }], { duration: gentle ? 160 : final ? HIRE_ENTRY : 1000, easing: gentle ? 'linear' : 'cubic-bezier(0.22, 0.8, 0.2, 1)' });
             exit.finished.then(() => { if (currentTransition === transition) previous.hidden = true; }).catch(() => {});
-            morphElements(sources, panel);
+            if (!gentle) morphElements(sources, panel, final ? HIRE_ENTRY : 1250);
         }
-        animate(panel, [{ opacity: 0, transform: 'translateY(48px) scale(1.025)' }, { opacity: 1, transform: 'none' }], { duration: 1250, delay: blending ? 120 : 0 });
+        animate(panel, gentle ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: final ? 'translateY(12px)' : 'translateY(48px) scale(1.025)' }, { opacity: 1, transform: 'none' }], { duration: gentle ? 450 : final ? HIRE_ENTRY : 1250, delay: blending && !final ? gentle ? 100 : 120 : 0 });
+        if (compact) return;
         panel.querySelectorAll('.intro-act-copy > *').forEach((element, order) => {
-            animate(element, [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { delay: 250 + order * 90, duration: 800 });
+            animate(element, gentle ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { delay: gentle ? 80 + order * 50 : 250 + order * 90, duration: gentle ? 450 : 800 });
         });
         choreograph(panel, index);
     }
@@ -225,8 +248,8 @@ export function initializeOpening(dialog) {
     function tick() {
         if (!dialog.open || closing) return;
         const time = clock?.currentTime || 0;
-        showChapter(Math.max(0, chapterAt(time)));
-        if (active === 0) {
+        showChapter(Math.max(0, chapterAt(time, chapters)));
+        if (active === 0 && !compact) {
             const level = architectureLevelAt(time);
             dialog.querySelectorAll('[data-c4-level]').forEach((element, index) => element.toggleAttribute('data-current', index === level));
         }
@@ -281,7 +304,7 @@ export function initializeOpening(dialog) {
                 positionFinalPanel();
                 finalPanel.querySelector('.eyebrow').textContent = hero.querySelector('.eyebrow').textContent;
             }
-            const exit = dialog.animate([{ opacity: 1 }, { opacity: 0 }], { duration: fold ? 850 : 200, fill: 'forwards' });
+            const exit = dialog.animate([{ opacity: 1 }, { opacity: 0 }], { duration: fold ? 650 : 200, fill: 'forwards' });
             effects.push(exit);
             await exit.finished.catch(() => {});
         }
@@ -305,6 +328,7 @@ export function initializeOpening(dialog) {
         if (dialog.open) return;
         opener = document.activeElement;
         stop();
+        configurePlayback();
         active = -1;
         remember();
         dialog.showModal();
@@ -320,7 +344,7 @@ export function initializeOpening(dialog) {
         }
         progress.style.transform = '';
         running = true;
-        clock = progress.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: DURATION, fill: 'forwards', easing: 'linear' });
+        clock = progress.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration, fill: 'forwards', easing: 'linear' });
         const currentRun = run;
         clock.finished.then(() => { if (currentRun === run) finish(true); }).catch(() => {});
         showChapter(0);
@@ -332,7 +356,7 @@ export function initializeOpening(dialog) {
     pauseButton.addEventListener('click', () => setPlaying(!running));
     chapterButtons.forEach((button, index) => button.addEventListener('click', () => {
         if (closing) return;
-        if (clock) clock.currentTime = CHAPTERS[index].start;
+        if (clock) clock.currentTime = chapters[index].start;
         showChapter(index, running && !motion.matches);
         dialog.scrollTop = 0;
     }));
@@ -344,9 +368,10 @@ export function initializeOpening(dialog) {
     dialog.addEventListener('close', stop);
     document.querySelectorAll('[data-intro-replay]').forEach(button => {
         button.hidden = false;
-        button.querySelector('small').textContent = `${DURATION / 1000}s`;
         button.addEventListener('click', start);
     });
+    configurePlayback();
+    compactViewport.addEventListener('change', () => { if (!dialog.open) configurePlayback(); });
     document.addEventListener('visibilitychange', () => {
         if (!dialog.open || closing) return;
         if (document.hidden) {

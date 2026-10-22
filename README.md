@@ -85,7 +85,7 @@ CSS source detection includes all Thymeleaf templates and static JavaScript.
 
 ### Architecture opening
 
-The 38-second opening uses native Web Animations and original HTML/CSS artwork,
+The desktop opening lasts 34 seconds and uses native Web Animations and original HTML/CSS artwork,
 with no extra runtime libraries. Five chapters cover architecture, the Java/Kotlin
 stack, an OpenCode agentic workflow, career history and target roles, and a hiring
 invitation. The first chapter travels vertically through C4 context, container,
@@ -99,7 +99,9 @@ It plays once per tab session on a normal first visit, never on deep links,
 reloads, or with reduced motion. Skip, pause, chapter selection, Escape, and
 replay remain available. Reduced-motion replay opens a static, navigable version.
 Background tabs pause playback. Overlapping transitions carry shared elements
-between chapters instead of fading to an empty screen. Career entries and years
+between chapters instead of fading to an empty screen. The AI-to-experience handoff
+crossfades at natural text size rather than squeezing a label into a numeric badge.
+The animation background is flat, without ambient gradients. Career entries and years
 of experience come from the existing career data. The hiring chapter links to the
 real contact and project sections. Reduced motion shows a static architecture
 overview and the complete career list.
@@ -109,7 +111,20 @@ hiring frame and the page hero through the same `hero-content.html` fragment.
 The opening measures the live hero to match its layout, portrait crop, typography,
 buttons, responsive breakpoints, and theme. The final reveal crossfades the frame
 without moving the underlying hero; browser tests check element bounds before
-and after the handoff.
+and after the handoff. A 0.5-second entrance is followed by a 1.5-second hold,
+then the final frame crossfades into the page.
+
+Phones use a 20-second version with the same five chapters, a compact architecture
+overview, short opacity-only transitions, and a complete career list without automatic scrolling.
+It avoids camera pans, flying tiles, and staggered agent animations. The profile is
+selected when playback starts, using viewport width and coarse-pointer capabilities;
+it also covers phone landscape layouts. Reduced motion remains a separate static
+alternative, and both profiles preserve the final hero alignment and hiring links.
+
+The site uses an orange-led palette: warm off-white type on charcoal/ink surfaces,
+with teal supporting technical content and violet distinguishing credentials.
+Light mode uses warm porcelain and burnt orange. Shared CSS tokens keep the
+opening's final frame and the real hero in the same theme.
 
 Edit `architecture-opening.js`, `architecture-opening.css`, and the
 `architecture-opening.html` fragment, then run `npm run build`. The generated

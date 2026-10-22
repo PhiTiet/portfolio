@@ -4,7 +4,6 @@
 <dialog th:fragment="opening" class="architecture-intro" aria-labelledby="intro-title" aria-describedby="intro-description"
         th:attr="data-pause=#{intro.pause},data-play=#{intro.play},data-enter=#{intro.enter},data-skip=#{intro.skip}">
     <div class="intro-shell">
-        <div class="intro-ambient" aria-hidden="true"></div>
         <header class="intro-header">
             <span class="intro-brand">Phi Tiet<span>.</span><small>JAVA / KOTLIN ENGINEER</small></span>
             <button type="button" class="intro-skip" data-intro-close autofocus><span th:text="#{intro.skip}">Skip to portfolio</span><span aria-hidden="true">↗</span></button>
@@ -84,7 +83,7 @@
                 </div>
             </section>
             <section class="intro-act ai-act" data-intro-act="ai" hidden>
-                <div class="intro-act-copy"><p class="intro-kicker" th:text="#{story.ai.kicker}">03 / HOW I WORK</p><h3><span th:text="#{story.ai.first}">Agentic speed.</span><br><em th:text="#{story.ai.second}">Human judgment.</em></h3><p class="intro-lede" th:text="#{story.ai.description}"></p><div class="judgment-tile" data-shared="judgment" th:attr="data-morph-label=#{story.ai.ownership}"><span>◇</span><b th:text="#{story.ai.ownership}">Engineering judgment</b><p th:text="#{story.ai.gate}">I own the direction, architecture, and final diff.</p></div></div>
+                <div class="intro-act-copy"><p class="intro-kicker" th:text="#{story.ai.kicker}">03 / HOW I WORK</p><h3><span th:text="#{story.ai.first}">Agentic speed.</span><br><em th:text="#{story.ai.second}">Human judgment.</em></h3><p class="intro-lede" th:text="#{story.ai.description}"></p><div class="judgment-tile"><span>◇</span><b th:text="#{story.ai.ownership}">Engineering judgment</b><p th:text="#{story.ai.gate}">I own the direction, architecture, and final diff.</p></div></div>
                 <div class="agent-workflow">
                     <div class="human-direction"><span>Phi Tiet</span><b th:text="#{story.ai.direction}">Intent · boundaries · acceptance criteria</b></div>
                     <div class="agent-spine"></div>
@@ -95,7 +94,7 @@
                 </div>
             </section>
             <section class="intro-act experience-act" data-intro-act="experience" hidden>
-                <div class="intro-act-copy"><p class="intro-kicker" th:text="#{story.experience.kicker}">04 / EXPERIENCE THAT COMPOUNDS</p><h3><span th:text="#{story.experience.first}">Built in practice.</span><br><em th:text="#{story.experience.second}">Ready for what's next.</em></h3><p class="intro-lede" th:text="#{story.experience.description}"></p><div class="experience-years" data-shared="judgment" th:attr="data-morph-label=#{story.ai.ownership}"><strong th:text="|${details.professionalProgrammerPeriod().getYears()}+|">6+</strong><span th:text="#{intro.hero.experience}">years of experience</span></div><ul class="target-roles"><li>Senior Software Engineer</li><li>Senior Java/Kotlin Engineer</li><li>Senior Backend Engineer</li></ul><div class="experience-signature" data-shared="phi" data-morph-label="Phi Tiet">Phi Tiet<span>↗</span></div></div>
+                <div class="intro-act-copy"><p class="intro-kicker" th:text="#{story.experience.kicker}">04 / EXPERIENCE THAT COMPOUNDS</p><h3><span th:text="#{story.experience.first}">Built in practice.</span><br><em th:text="#{story.experience.second}">Ready for what's next.</em></h3><p class="intro-lede" th:text="#{story.experience.description}"></p><div class="experience-years"><strong th:text="|${details.professionalProgrammerPeriod().getYears()}+|">6+</strong><span th:text="#{intro.hero.experience}">years of experience</span></div><ul class="target-roles"><li>Senior Software Engineer</li><li>Senior Java/Kotlin Engineer</li><li>Senior Backend Engineer</li></ul><div class="experience-signature" data-shared="phi" data-morph-label="Phi Tiet">Phi Tiet<span>↗</span></div></div>
                 <div class="experience-composition">
                     <div class="experience-window"><ol class="experience-track"><li th:each="event : ${details.events.reversed()}" th:if="${event.start.year >= 2020}"><span class="career-year" th:text="${#temporals.format(event.start, 'yyyy') + '–' + (event.end != null ? #temporals.format(event.end, 'yyyy') : #messages.msg('story.experience.now'))}"></span><div><h4 th:text="${event.employer}"></h4><p th:text="${event.jobTitle}"></p><span th:text="${#temporals.format(event.start, 'MM.yyyy') + ' — ' + (event.end != null ? #temporals.format(event.end, 'MM.yyyy') : #messages.msg('timeline.current'))}"></span></div></li></ol></div>
                     <div class="experience-summary"><span th:text="#{story.experience.focus}">Backend systems · architecture · coaching</span><small th:text="#{story.experience.overlap}">Consultancy and client assignments overlap.</small></div>

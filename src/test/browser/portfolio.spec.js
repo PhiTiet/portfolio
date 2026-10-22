@@ -141,3 +141,13 @@ test('hero keeps the portrait while chess belongs to the hobbies section', async
     else expect(portrait.y + portrait.height).toBeLessThanOrEqual(name.y);
     await expect(page.locator('.hero h1')).toHaveText(/^(Hire me\.|Huur mij in\.)$/);
 });
+
+test('the palette leads with orange and uses distinct teal and violet supporting tones', async ({ page }, testInfo) => {
+    const dark = testInfo.project.metadata.theme === 'dark';
+    await expect(page.locator('.hero-actions .btn-accent').first()).toHaveCSS('background-color', dark ? 'rgb(255, 158, 100)' : 'rgb(156, 68, 28)');
+    await expect(page.locator('body')).toHaveCSS('color', dark ? 'rgb(241, 237, 231)' : 'rgb(41, 37, 33)');
+    await expect(page.locator('#skills .section-heading .badge')).toHaveCSS('color', dark ? 'rgb(126, 212, 196)' : 'rgb(33, 110, 102)');
+    await expect(page.locator('#certificates .section-heading .badge')).toHaveCSS('color', dark ? 'rgb(189, 171, 237)' : 'rgb(101, 81, 142)');
+    const surfaces = await page.locator('#recommendations, #skills, #certificates').evaluateAll(sections => sections.map(section => getComputedStyle(section).backgroundImage));
+    expect(new Set(surfaces).size).toBe(3);
+});
