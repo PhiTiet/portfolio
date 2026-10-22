@@ -26,7 +26,7 @@ test('the compact story keeps all five chapters in a shorter contiguous timeline
         assert.equal(chapterAt(chapter.start + chapter.duration - 1, COMPACT_CHAPTERS), index);
         assert.equal(chapter.start + chapter.duration, COMPACT_CHAPTERS[index + 1]?.start ?? COMPACT_DURATION);
     });
-    assert.equal(COMPACT_DURATION, 20000);
+    assert.equal(COMPACT_DURATION, 22000);
     assert.ok(COMPACT_DURATION < DURATION);
 });
 

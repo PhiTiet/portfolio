@@ -12,8 +12,8 @@ export const COMPACT_CHAPTERS = [
     { id: 'architecture', start: 0, duration: 5000 },
     { id: 'stack', start: 5000, duration: 4000 },
     { id: 'ai', start: 9000, duration: 4500 },
-    { id: 'experience', start: 13500, duration: 4500 },
-    { id: 'hire', start: 18000, duration: HIRE_ENTRY + HIRE_HOLD }
+    { id: 'experience', start: 13500, duration: 6500 },
+    { id: 'hire', start: 20000, duration: HIRE_ENTRY + HIRE_HOLD }
 ];
 export const COMPACT_DURATION = COMPACT_CHAPTERS.at(-1).start + COMPACT_CHAPTERS.at(-1).duration;
 export const COMPACT_QUERY = '(max-width: 700px), (pointer: coarse) and (max-width: 1000px)';
@@ -152,7 +152,13 @@ export function initializeOpening(dialog) {
     }
 
     function choreograph(panel, index) {
-        if (compact) return;
+        if (compact) {
+            const cards = panel.querySelectorAll('.c4-overview li, .language-tile, .stack-lane, .agent-branches > div, .experience-track li');
+            cards.forEach((card, order) => {
+                animate(card, [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 350, delay: 80 + order * 70 });
+            });
+            return;
+        }
         if (index === 0) {
             const step = panel.querySelector('.c4-window').clientHeight;
             animate(panel.querySelector('.c4-world'), [
@@ -210,6 +216,7 @@ export function initializeOpening(dialog) {
             if (candidate !== panel && (!blending || candidate !== previous)) candidate.hidden = true;
         });
         resetPanel(panel);
+        if (compact && !final) dialog.scrollTop = 0;
         dialog.style.removeProperty('background-color');
         if (final) {
             window.scrollTo({ top: 0, behavior: 'instant' });
@@ -238,7 +245,10 @@ export function initializeOpening(dialog) {
             if (!gentle) morphElements(sources, panel);
         }
         animate(panel, gentle ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: 'translateY(48px) scale(1.025)' }, { opacity: 1, transform: 'none' }], { duration: final ? HIRE_ENTRY : gentle ? 450 : 1250, delay: blending && !final ? gentle ? 100 : 120 : 0 });
-        if (compact) return;
+        if (compact) {
+            choreograph(panel, index);
+            return;
+        }
         panel.querySelectorAll('.intro-act-copy > *').forEach((element, order) => {
             animate(element, gentle ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { delay: gentle ? 80 + order * 50 : 250 + order * 90, duration: gentle ? 450 : 800 });
         });

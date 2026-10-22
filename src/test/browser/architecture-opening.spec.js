@@ -13,6 +13,12 @@ test('static story exposes every chapter accessibly', { tag: '@layout' }, async 
         await page.locator(`[data-intro-chapter="${index}"]`).click();
         await expect(page.locator(`[data-intro-act="${chapter}"]`)).toBeVisible();
         if (chapter === 'architecture') await expect(page.locator('.intro-credential')).toHaveText(testInfo.project.metadata.language === 'nl' ? 'BSc Informatica' : 'BSc Computer Science');
+        if (chapter === 'experience') {
+            const education = page.locator('.experience-track li').first();
+            await expect(education.locator('h4')).toHaveText(testInfo.project.metadata.language === 'nl' ? 'BSc Informatica' : 'BSc Computer Science');
+            await expect(education.locator('p')).toHaveText('Vrije Universiteit Amsterdam');
+            await expect(education.locator('.career-year')).toHaveText('2021');
+        }
         expect(await dialog.evaluate(element => element.scrollWidth - element.clientWidth)).toBe(0);
         expect(await dialog.evaluate(element => element.getAnimations({ subtree: true }).length)).toBe(0);
         await expectAccessible(page);
@@ -118,6 +124,17 @@ test('phone playback uses the compact story in portrait and landscape', { tag: '
     if (mobile) {
         await expect(page.locator('.c4-overview')).toBeVisible();
         await expect(page.locator('.c4-window')).not.toBeVisible();
+        await page.locator('[data-intro-pause]').click();
+        for (const index of [0, 1, 2, 3]) {
+            await page.locator(`[data-intro-chapter="${index}"]`).click();
+            const panel = page.locator('.intro-act:visible');
+            const bounds = await panel.boundingBox();
+            const header = await page.locator('.intro-header').boundingBox();
+            const footer = await page.locator('.intro-footer').boundingBox();
+            expect(bounds.y).toBeGreaterThanOrEqual(header.y + header.height);
+            expect(bounds.y + bounds.height).toBeLessThanOrEqual(footer.y);
+            expect(await dialog.evaluate(element => element.scrollWidth - element.clientWidth)).toBe(0);
+        }
         await page.locator('[data-intro-chapter="3"]').click();
         await expect(page.locator('.experience-track')).toBeVisible();
         expect(await page.locator('.experience-track').evaluate(element => element.getAnimations().length)).toBe(0);
@@ -127,5 +144,13 @@ test('phone playback uses the compact story in portrait and landscape', { tag: '
         await page.setViewportSize({ width: 900, height: 500 });
         await page.locator('[data-intro-replay]').click();
         await expect(dialog).toHaveAttribute('data-motion', 'compact');
+        await page.locator('[data-intro-pause]').click();
+        for (const index of [0, 1, 2, 3]) {
+            await page.locator(`[data-intro-chapter="${index}"]`).click();
+            const lastContent = page.locator('.intro-act:visible').locator('.c4-overview li, .stack-lane, .verification-gate, .experience-track li').last();
+            await lastContent.scrollIntoViewIfNeeded();
+            await expect(lastContent).toBeInViewport();
+            await expect(page.locator('[data-intro-close]')).toBeInViewport();
+        }
     }
 });

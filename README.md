@@ -11,7 +11,7 @@ Spring Boot 4, Thymeleaf, Tailwind CSS 4, and Alpine.js.
 - English/Dutch career content from YAML, with calculated age and experience.
 - Experience, projects, skills, certificates, recommendations, hobbies, and a Discord-backed contact form.
 - Persistent light/dark themes, responsive layouts, keyboard navigation, and reduced-motion support.
-- A five-chapter architecture opening: 34 seconds on desktop, 20 seconds on phones, and a static reduced-motion alternative. Includes skip, pause, seeking, replay, and a seamless hero handoff. Autoplay is limited to the first normal visit per tab.
+- A five-chapter architecture opening: 34 seconds on desktop, 22 seconds on phones, and a static reduced-motion alternative. Phones use simplified cards and a stationary education/career timeline. Includes skip, pause, seeking, replay, and a seamless hero handoff. Autoplay is limited to the first normal visit per tab.
 - An SVG Smith-Morra chess animation with stepping, seeking, pause, and replay. Playback pauses offscreen and in background tabs.
 
 ## Run locally

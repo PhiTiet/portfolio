@@ -184,6 +184,7 @@
 .experience-track h4 { font-size: 1.25rem; font-weight: 500; letter-spacing: -0.04em; }
 .experience-track p { margin-top: 0.3rem; color: #d2d9ed; font-size: 0.75rem; }
 .experience-track div > span { display: inline-block; margin-top: 0.5rem; color: var(--intro-muted); font: 0.5625rem ui-monospace, monospace; }
+.experience-education h4, .experience-education .career-year { color: var(--intro-violet); }
 .experience-summary { display: flex; flex-direction: column; gap: 0.6rem; border-top: 1px solid #4c4850; padding-top: 1rem; color: var(--intro-amber); font-size: 0.625rem; }
 .experience-summary small { color: var(--intro-muted); font-size: 0.5625rem; }
 .intro-act.hero-final { position: fixed; display: block; container-type: inline-size; max-width: none; margin: 0; color: var(--color-text-primary); }
@@ -213,22 +214,59 @@
 .c4-overview span, .c4-overview small, .c4-overview code { color: var(--intro-muted); font-size: 0.625rem; overflow-wrap: anywhere; }
 .architecture-intro:is([data-static='true'], [data-motion='compact']) .experience-window { height: auto; mask-image: none; }
 .architecture-intro[data-playing='false'] .experience-window { overflow-y: auto; }
-.architecture-intro[data-motion='compact'] .intro-viewport { flex: 1 0 auto; min-height: 0; padding-block: 1.25rem; }
-.architecture-intro[data-motion='compact'] .intro-act:not(.hero-final) { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
-.architecture-intro[data-motion='compact'] .intro-footer { position: sticky; bottom: 0; padding-bottom: 0.5rem; background: #151619; }
-.architecture-intro[data-motion='compact'][data-chapter='hire'] .intro-footer { background: var(--color-bg-primary); }
-.architecture-intro[data-motion='compact'] .c4-levels { display: none; }
-.architecture-intro[data-motion='compact'] .c4-overview { gap: 0.5rem; }
-.architecture-intro[data-motion='compact'] .c4-overview li { padding: 0.75rem; }
+.architecture-intro[data-motion='compact'] .intro-shell { min-height: 100dvh; padding: 1rem 1.25rem; }
+.architecture-intro[data-motion='compact'] .intro-header { position: sticky; top: -1rem; padding-block: 0.5rem; background: #151619; }
+.architecture-intro[data-motion='compact'] .intro-viewport { flex: 1 0 auto; min-height: 0; padding-block: 1rem; align-items: center; }
+.architecture-intro[data-motion='compact'] .intro-act:not(.hero-final) { grid-template-columns: minmax(0, 1fr); gap: 1rem; max-width: 30rem; }
+.architecture-intro[data-motion='compact'] .intro-act:not(.hero-final) h3 { font-size: clamp(1.75rem, 7.5vw, 2.5rem); line-height: 1.12; text-wrap: balance; }
+.architecture-intro[data-motion='compact'] .intro-act:not(.hero-final) h3 br { display: none; }
+.architecture-intro[data-motion='compact'] .intro-act:not(.hero-final) h3 em::before { content: ' '; }
+.architecture-intro[data-motion='compact'] .intro-lede { font-size: 0.8125rem; line-height: 1.65; margin-top: 0.85rem; }
+.architecture-intro[data-motion='compact'] .intro-kicker { font-size: 0.5625rem; margin-bottom: 0.75rem; letter-spacing: 0.08em; }
+.architecture-intro[data-motion='compact'] .intro-footer { position: sticky; bottom: -1rem; padding-block: 0.75rem; background: #151619; }
+.architecture-intro[data-motion='compact'][data-chapter='hire'] :is(.intro-header, .intro-footer) { background: var(--color-bg-primary); }
+.architecture-intro[data-motion='compact'] :is(.c4-levels, .intro-credential, .intro-note, .c4-overview small, .stack-principle, .stack-ai-seed, .judgment-tile, .workflow-trace, .target-roles, .experience-signature, .experience-summary > span) { display: none; }
+.architecture-intro[data-motion='compact'] .c4-stage::before { display: none; }
+.architecture-intro[data-motion='compact'] .c4-overview { gap: 0; counter-reset: architecture-step; border: 1px solid #414149; border-radius: 1rem; background: #202127; overflow: hidden; }
+.architecture-intro[data-motion='compact'] .c4-overview li { display: grid; grid-template-columns: 1.25rem minmax(0, 1fr); gap: 0.35rem 0.75rem; padding: 0.85rem 1rem; border: 0; border-radius: 0; }
+.architecture-intro[data-motion='compact'] .c4-overview li + li { border-top: 1px solid #414149; }
+.architecture-intro[data-motion='compact'] .c4-overview li::before { counter-increment: architecture-step; content: '0' counter(architecture-step); grid-row: span 2; color: var(--intro-coral); font: 0.625rem / 1.6 ui-monospace, monospace; }
+.architecture-intro[data-motion='compact'] .c4-overview b { font-size: 0.8125rem; }
+.architecture-intro[data-motion='compact'] .c4-overview :is(span, code) { font-size: 0.6875rem; line-height: 1.5; }
+.architecture-intro[data-motion='compact'] .stack-composition { gap: 0.65rem; }
+.architecture-intro[data-motion='compact'] .language-tile { height: 5.5rem; padding: 1rem; }
+.architecture-intro[data-motion='compact'] .stack-lane { grid-template-columns: 1fr; gap: 0.5rem; padding: 0.75rem 1rem; }
+.architecture-intro[data-motion='compact'] .lane-label { font-size: 0.625rem; }
+.architecture-intro[data-motion='compact'] .stack-lane b { font-size: 0.75rem; }
+.architecture-intro[data-motion='compact'] .human-direction b { font-size: 0.625rem; line-height: 1.5; }
+.architecture-intro[data-motion='compact'] .opencode-hub { padding: 1.25rem 1rem; }
+.architecture-intro[data-motion='compact'] .opencode-hub small { font-size: 0.75rem; line-height: 1.6; }
+.architecture-intro[data-motion='compact'] .agent-branches { gap: 0.5rem; }
+.architecture-intro[data-motion='compact'] .agent-branches > div { padding: 0.85rem 0.25rem; }
+.architecture-intro[data-motion='compact'] .agent-branches small { font-size: 0.5625rem; }
+.architecture-intro[data-motion='compact'] .agent-branches b { font-size: 0.6875rem; }
+.architecture-intro[data-motion='compact'] .verification-gate p { font-size: 0.75rem; line-height: 1.6; }
 .architecture-intro[data-motion='compact'] .experience-act .intro-lede { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); }
-.architecture-intro[data-motion='compact'] .experience-act h3 { font-size: 1.75rem; }
+.architecture-intro[data-motion='compact'] .experience-act:not(.hero-final) h3 { font-size: 1.75rem; }
 .architecture-intro[data-motion='compact'] .experience-act .intro-kicker { margin-bottom: 0.5rem; }
-.architecture-intro[data-motion='compact'] .experience-years, .architecture-intro[data-motion='compact'] .target-roles { margin-top: 0.75rem; }
-.architecture-intro[data-motion='compact'] .experience-track { padding-block: 0; }
-.architecture-intro[data-motion='compact'] .experience-track li { padding-block: 0.5rem; }
-.architecture-intro[data-motion='compact'] .experience-track h4 { font-size: 0.875rem; }
-.architecture-intro[data-motion='compact'] .experience-track p { font-size: 0.625rem; margin-top: 0.2rem; }
+.architecture-intro[data-motion='compact'] .experience-years { margin-top: 0.75rem; }
+.architecture-intro[data-motion='compact'] .experience-years strong { font-size: 1.75rem; }
+.architecture-intro[data-motion='compact'] .experience-track { padding: 0 0 0 0.75rem; border-left: 1px solid #4c4850; }
+.architecture-intro[data-motion='compact'] .experience-track li { position: relative; grid-template-columns: 4rem minmax(0, 1fr); gap: 0.75rem; padding-block: 0.5rem; border: 0; }
+.architecture-intro[data-motion='compact'] .experience-track li::before { content: ''; position: absolute; left: -1rem; top: 1rem; width: 0.4375rem; height: 0.4375rem; border-radius: 50%; background: var(--intro-amber); box-shadow: 0 0 0 3px #151619; }
+.architecture-intro[data-motion='compact'] .experience-track .experience-education::before { background: var(--intro-violet); }
+.architecture-intro[data-motion='compact'] .career-year { font-size: 0.625rem; }
+.architecture-intro[data-motion='compact'] .experience-track h4 { font-size: 0.9375rem; line-height: 1.3; }
+.architecture-intro[data-motion='compact'] .experience-track p { font-size: 0.75rem; line-height: 1.4; margin-top: 0.2rem; }
 .architecture-intro[data-motion='compact'] .experience-track div > span { display: none; }
+.architecture-intro[data-motion='compact'] .experience-summary small { font-size: 0.625rem; line-height: 1.5; }
+.architecture-intro[data-motion='compact'] .intro-footer-heading { font-size: 0.625rem; letter-spacing: 0.04em; }
+.architecture-intro[data-motion='compact'] .intro-footer-controls { margin-top: 0.25rem; }
+.architecture-intro[data-motion='compact'] .intro-chapters { flex: 1; justify-content: space-between; gap: 0.25rem; }
+.architecture-intro[data-motion='compact'] .intro-chapters button { min-width: 1.75rem; min-height: 2.75rem; font-size: 0.75rem; }
+.architecture-intro[data-motion='compact'] .intro-chapters button span { display: none; }
+.architecture-intro[data-motion='compact'] .intro-chapters button[aria-current] { border-bottom: 2px solid var(--intro-coral); }
+.architecture-intro[data-motion='compact'] .intro-pause { min-width: 3.5rem; font-size: 0.75rem; }
 
 @container (max-width: 55rem) {
     .portrait::before { inset: -0.45rem; border-radius: 5rem 5rem 1rem 1rem; }
