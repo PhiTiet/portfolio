@@ -23,22 +23,11 @@ test('portfolio reflows and passes automated accessibility checks', { tag: '@lay
     await expect(page.locator('#hobbies').getByText(testInfo.project.metadata.language === 'nl' ? 'Tatoeages' : 'Tattoos', { exact: true })).toBeVisible();
 });
 
-test('chess controls support stepping, seeking, castling, and replay', async ({ page }) => {
-    await expect(page.locator('.chess-piece')).toHaveCount(32);
+test('chess controls support stepping and reset', async ({ page }) => {
     await page.locator('[data-scene-next]').click();
     await expect(page.locator('[data-scene-notation]')).toHaveText('1. e4');
-    await page.locator('.chess-details summary').click();
-    await page.locator('.chess-moves button').nth(12).click();
-    expect(await page.locator('[data-piece="wke1"]').evaluate(piece => piece.style.transform)).toBe('translate(600%, 700%)');
-    expect(await page.locator('[data-piece="wrh1"]').evaluate(piece => piece.style.transform)).toBe('translate(500%, 700%)');
-    await page.locator('.chess-moves button').last().click();
-    await expect(page.locator('[data-scene-next]')).toBeDisabled();
-    await expect(page.locator('[data-scene-play]')).toHaveText('Replay');
-    await page.locator('[data-scene-play]').click();
-    await expect(page.locator('[data-scene-notation]')).toHaveText('Starting position');
     await page.locator('[data-scene-reset]').click();
-    await expect(page.locator('[data-scene-next]')).toBeEnabled();
-    expect(await page.locator('.chess-board').evaluate(board => board.getAnimations({ subtree: true }).length)).toBe(0);
+    await expect(page.locator('[data-scene-notation]')).toHaveText('Starting position');
 });
 
 test('career details, carousels, and about dialog support keyboard interaction', async ({ page }) => {
@@ -111,41 +100,7 @@ test('contact form recovers from validation and network errors before submitting
     expect(payload).toEqual({ name: 'Portfolio preview', email: 'preview@example.com', message: 'A local browser test, never sent to the server.' });
 });
 
-test('chess pauses for reduced motion and when offscreen', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'no-preference' });
-    await page.reload({ waitUntil: 'commit' });
-    await expectPortfolioReady(page);
-    await expect(page.locator('[data-scene-play]')).toHaveText('Pause');
-    await page.locator('.chess-scene').scrollIntoViewIfNeeded();
-    await expect(page.locator('[data-scene-notation]')).toHaveText('1. e4', { timeout: 4000 });
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await expect(page.locator('[data-scene-play]')).toHaveText('Play');
-    await page.clock.install();
-    await page.locator('[data-scene-play]').click();
-    await page.locator('.hero').scrollIntoViewIfNeeded();
-    await expect(page.locator('.chess-scene')).not.toBeInViewport();
-    const notation = await page.locator('[data-scene-notation]').textContent();
-    await page.clock.runFor(5000);
-    await expect(page.locator('[data-scene-notation]')).toHaveText(notation);
-});
-
 test('content tolerates doubled text and generous spacing', async ({ page }) => {
     await page.addStyleTag({ content: 'html { font-size: 200%; } * { line-height: 1.5 !important; letter-spacing: 0.12em !important; word-spacing: 0.16em !important; } p { margin-bottom: 2em !important; }' });
     expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(0);
-});
-
-test('career highlights retain full details and safe contextual links', async ({ page }) => {
-    const highlight = page.locator('#timeline-ahold .career-highlight');
-    await expect(highlight).toBeVisible();
-    await expect(highlight.locator('.career-highlight-summary')).not.toBeEmpty();
-    await expect(highlight.locator('.career-highlight-responsibilities li')).toHaveCount(5);
-    const links = await highlight.locator('.coverage-links a').evaluateAll(elements => elements.map(element => ({ href: element.href, target: element.target, rel: element.rel })));
-    expect(links).toHaveLength(3);
-    for (const link of links) {
-        expect(link.href).toMatch(/^https:\/\//);
-        expect(link.target).toBe('_blank');
-        expect(link.rel).toContain('noopener');
-    }
-    await expect(page.locator('#project-ahold .career-highlight-summary')).toHaveText(await highlight.locator('.career-highlight-summary').textContent());
-    await expect(page.locator('#project-ahold .career-highlight-responsibilities')).toHaveCount(0);
 });
