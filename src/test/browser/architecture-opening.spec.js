@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { openPortfolio, expectAccessible } from './helpers.js';
+import { openPortfolio, expectAccessible, expectPortfolioReady } from './helpers.js';
 import { CHAPTERS, RECOMMENDATION_INTERVAL } from '../../main/frontend/architecture-opening.js';
 
 test('static story exposes every chapter accessibly', { tag: '@layout' }, async ({ page }, testInfo) => {
@@ -38,12 +38,11 @@ test('static story exposes every chapter accessibly', { tag: '@layout' }, async 
     await expect(replay).toBeFocused();
 });
 
-test('the introduction does not wait for the external icon kit', async ({ page }) => {
+test('the introduction does not wait for the external icon kit', async ({ page }, testInfo) => {
     let iconRequest;
-    await page.emulateMedia({ reducedMotion: 'no-preference' });
     await page.route('https://kit.fontawesome.com/**', route => { iconRequest = route; });
     try {
-        await page.goto('/?lang=en', { waitUntil: 'commit' });
+        await openPortfolio(page, testInfo, { animated: true, seen: false });
         await expect.poll(() => Boolean(iconRequest)).toBe(true);
         await expect(page.locator('.architecture-intro')).toBeVisible();
     } finally {
@@ -53,6 +52,7 @@ test('the introduction does not wait for the external icon kit', async ({ page }
 
 test('every recommendation takes over the full stage with readable attribution', { tag: '@layout' }, async ({ page }, testInfo) => {
     await openPortfolio(page, testInfo, { animated: true, seen: false });
+    await page.locator('.intro-progress > span').evaluate(element => element.getAnimations()[0].pause());
     for (const [index, author] of ['Pieter Bijl', 'Jeroen Dee', 'Rachid El Kaddouri', 'Rob Smorenburg', 'Armend Hoxha'].entries()) {
         await page.locator('.intro-progress > span').evaluate((element, time) => { element.getAnimations()[0].currentTime = time; }, index * RECOMMENDATION_INTERVAL + 900);
         const quote = page.locator('.intro-quote[data-current]');
@@ -71,6 +71,22 @@ test('every recommendation takes over the full stage with readable attribution',
         expect(caption.y + caption.height).toBeLessThanOrEqual(bounds.y + bounds.height);
     }
     await page.locator('[data-intro-pause]').click();
+    await expect(page.locator('.architecture-intro')).toHaveAttribute('data-chapter', 'recommendations');
+    await expectAccessible(page);
+});
+
+test('the paused experience timeline supports keyboard scrolling', async ({ page }, testInfo) => {
+    await openPortfolio(page, testInfo, { animated: true, seen: false });
+    await page.locator('.intro-progress > span').evaluate(element => element.getAnimations()[0].pause());
+    await page.locator('[data-intro-chapter="1"]').click();
+    await page.locator('[data-intro-pause]').click();
+    const timeline = page.locator('.experience-window');
+    await timeline.focus();
+    await expect(timeline).toBeFocused();
+    await page.keyboard.press('End');
+    await expect.poll(() => timeline.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+    await page.keyboard.press('Home');
+    await expect.poll(() => timeline.evaluate(element => element.scrollTop)).toBe(0);
     await expectAccessible(page);
 });
 
@@ -105,7 +121,8 @@ test('first visit supports pause, seeking, skip, and replay without trapping foc
     await page.locator('[data-intro-close]').click();
     await expect(dialog).not.toBeVisible();
     await expect(page.locator('.hero h1')).toBeFocused();
-    await page.reload();
+    await page.reload({ waitUntil: 'commit' });
+    await expectPortfolioReady(page);
     await expect(dialog).not.toBeVisible();
     await page.locator('[data-intro-replay]').click();
     await expect(dialog).toBeVisible();
@@ -168,7 +185,9 @@ test('technical highlights remain alive late in each chapter and pause cleanly',
         const index = CHAPTERS.findIndex(chapter => chapter.id === id);
         await page.locator(`[data-intro-chapter="${index}"]`).click();
         await page.evaluate(({ id, time, start }) => {
-            document.querySelector('.intro-progress > span').getAnimations()[0].currentTime = start + time;
+            const clock = document.querySelector('.intro-progress > span').getAnimations()[0];
+            clock.pause();
+            clock.currentTime = start + time;
             document.querySelector(`[data-intro-act="${id}"]`).getAnimations({ subtree: true }).forEach(effect => { effect.currentTime = time; });
         }, { id, time, start: CHAPTERS[index].start });
         const highlight = page.locator(selector).first();
@@ -176,6 +195,9 @@ test('technical highlights remain alive late in each chapter and pause cleanly',
         const before = await value();
         await expect.poll(value, { intervals: [50] }).not.toBe(before);
         await page.locator('[data-intro-pause]').click();
+        await page.locator(`[data-intro-act="${id}"]`).evaluate(async panel => {
+            await Promise.all(panel.getAnimations({ subtree: true }).map(effect => effect.ready));
+        });
         const paused = await value();
         await page.waitForTimeout(150);
         expect(await value()).toBe(paused);

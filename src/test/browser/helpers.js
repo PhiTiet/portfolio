@@ -8,8 +8,13 @@ export async function openPortfolio(page, testInfo, { animated = false, seen = t
         if (seen) sessionStorage.setItem(key, 'true');
     }, { theme: testInfo.project.metadata.theme, seen, key: STORAGE_KEY });
     await page.emulateMedia({ reducedMotion: animated ? 'no-preference' : 'reduce' });
-    await page.goto(`/?lang=${testInfo.project.metadata.language}${hash}`);
+    await page.goto(`/?lang=${testInfo.project.metadata.language}${hash}`, { waitUntil: 'commit' });
+    await expectPortfolioReady(page);
+}
+
+export async function expectPortfolioReady(page) {
     await expect(page.locator('[data-intro-replay]')).toBeVisible();
+    await page.waitForFunction(() => window.Alpine?.version);
 }
 
 export async function expectAccessible(page) {
