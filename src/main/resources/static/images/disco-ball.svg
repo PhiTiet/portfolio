@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
+  <defs>
+    <pattern id="mirrors" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(-8 80 80)">
+      <rect width="32" height="32" fill="#657181"/>
+      <path d="M1 1h14v14H1z" fill="#dce5ef"/>
+      <path d="M17 1h14v14H17z" fill="#a6b7ca"/>
+      <path d="M1 17h14v14H1z" fill="#8595aa"/>
+      <path d="M17 17h14v14H17z" fill="#f3f7fc"/>
+      <path d="M2 2h12M18 2h12M2 18h12M18 18h12" stroke="#fff" stroke-opacity=".65"/>
+    </pattern>
+    <radialGradient id="shade" cx="32%" cy="24%" r="78%">
+      <stop offset="0" stop-color="#fff" stop-opacity=".8"/>
+      <stop offset=".3" stop-color="#fff" stop-opacity=".12"/>
+      <stop offset=".6" stop-color="#1b263d" stop-opacity=".05"/>
+      <stop offset=".86" stop-color="#111a30" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#111a30" stop-opacity=".9"/>
+    </radialGradient>
+    <radialGradient id="glint">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="sphere"><circle cx="80" cy="80" r="77"/></clipPath>
+  </defs>
+  <circle cx="80" cy="80" r="77" fill="url(#mirrors)"/>
+  <g clip-path="url(#sphere)" fill="none" stroke="#263449" stroke-opacity=".25">
+    <ellipse cx="80" cy="80" rx="39" ry="77"/>
+    <ellipse cx="80" cy="80" rx="66" ry="77"/>
+    <ellipse cx="80" cy="80" rx="77" ry="39"/>
+    <ellipse cx="80" cy="80" rx="77" ry="66"/>
+  </g>
+  <circle cx="80" cy="80" r="77" fill="url(#shade)" stroke="#d8e0ed" stroke-width="1.5"/>
+  <ellipse cx="51" cy="39" rx="25" ry="20" fill="url(#glint)"/>
+  <path d="M46 19v26M33 32h26" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M127 92v18M118 101h18" stroke="#e6eeff" stroke-width="1.2" stroke-linecap="round" opacity=".75"/>
+</svg>

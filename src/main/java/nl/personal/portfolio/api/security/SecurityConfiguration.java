@@ -25,6 +25,7 @@ public class SecurityConfiguration {
                 PathPatternRequestMatcher.pathPattern("/*.css"),
                 PathPatternRequestMatcher.pathPattern("/favicon.ico"),
                 PathPatternRequestMatcher.pathPattern("/images/**"),
+                PathPatternRequestMatcher.pathPattern("/audio/**"),
                 PathPatternRequestMatcher.pathPattern("/pdf/**"),
                 PathPatternRequestMatcher.pathPattern("/*.js"),
                 PathPatternRequestMatcher.pathPattern("/webjars/**"),

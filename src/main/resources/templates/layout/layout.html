@@ -44,6 +44,19 @@
         </svg>
     </button>
 
+    <div class="disco" data-disco hidden role="region" th:attr="aria-label=#{disco.title}">
+        <audio th:src="@{/audio/disco.mp3}" preload="none" hidden></audio>
+        <div class="disco-lights" aria-hidden="true">
+            <span class="disco-beam"></span><span class="disco-beam"></span><span class="disco-beam"></span>
+            <span class="disco-ball"></span>
+        </div>
+        <div class="disco-controls">
+            <span role="status" th:text="#{disco.title}">Disco break</span>
+            <button type="button" data-disco-close th:text="#{disco.stop}">Stop disco</button>
+        </div>
+    </div>
+
+    <script th:src="@{/disco.js}" defer></script>
     <script th:src="@{/architecture-opening.js}" defer></script>
     <script th:src="@{/enhancements.js}" defer></script>
     <script th:src="@{/hero-scene.js}" defer></script>

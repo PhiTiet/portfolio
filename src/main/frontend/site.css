@@ -2,6 +2,7 @@
 @source "../resources/templates";
 @source "../resources/static/*.js";
 @import "./architecture-opening.css";
+@import "./disco.css";
 
 :root {
     --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;

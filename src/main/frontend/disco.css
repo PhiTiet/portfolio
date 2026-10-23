@@ -1,0 +1,18 @@
+.disco { position: fixed; inset: 0; z-index: 60; overflow: hidden; pointer-events: none; }
+.disco[hidden] { display: none; }
+.disco-lights { position: absolute; inset: 0; background: #191a201a; }
+.disco-beam { position: absolute; top: -20vh; left: 50%; width: 70vw; height: 150vh; transform-origin: 50% 0; background: linear-gradient(180deg, #bdabed55, #bdabed00); clip-path: polygon(48% 0, 52% 0, 100% 100%, 0 100%); animation: disco-sweep 5s ease-in-out infinite alternate; }
+.disco-beam:nth-child(2) { left: 5%; background: linear-gradient(180deg, #7ed4c455, #7ed4c400); animation-delay: -2s; animation-direction: alternate-reverse; }
+.disco-beam:nth-child(3) { left: -30%; background: linear-gradient(180deg, #ff9e6455, #ff9e6400); animation-delay: -4s; }
+.disco-ball { position: absolute; top: 5.5rem; left: 50%; width: clamp(6rem, 10vw, 8rem); aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: url('/images/disco-ball.svg') center / contain no-repeat; box-shadow: 0 0 2rem #bdabed55; animation: disco-drop 900ms cubic-bezier(0.22, 0.8, 0.2, 1) both; }
+.disco-ball::before { content: ''; position: absolute; left: calc(50% - 1px); bottom: 100%; width: 2px; height: 5.5rem; background: linear-gradient(90deg, #687387, #dce3ef); }
+.disco-controls { position: absolute; right: 1rem; bottom: 1rem; display: flex; align-items: center; gap: 1rem; max-width: calc(100% - 2rem); padding: 0.5rem 0.75rem; border: 1px solid var(--color-border); border-radius: 0.75rem; background: var(--color-bg-card); color: var(--color-text-primary); font-size: 0.8125rem; pointer-events: auto; }
+.disco-controls button { min-height: 2.75rem; padding-inline: 0.5rem; color: var(--color-accent); }
+@keyframes disco-sweep { from { transform: rotate(-35deg); } to { transform: rotate(35deg); } }
+@keyframes disco-drop { from { translate: 0 -15rem; } to { translate: 0 0; } }
+@media (prefers-reduced-motion: reduce) {
+    .disco-beam, .disco-ball { animation: none; }
+    .disco-beam { transform: rotate(-25deg); }
+    .disco-beam:nth-child(2) { transform: rotate(25deg); }
+    .disco-beam:nth-child(3) { transform: none; }
+}

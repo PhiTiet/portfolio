@@ -35,7 +35,7 @@
                        lang="nl" hreflang="nl" th:attr="aria-current=${#locale.language == 'nl'} ? 'true' : null">NL</a>
                 </div>
                 <button x-data="{ light: document.documentElement.classList.contains('light') }"
-                        @click="light = !light; document.documentElement.classList.toggle('light'); localStorage.setItem('theme', light ? 'light' : 'dark')"
+                        @click="light = !light; document.documentElement.classList.toggle('light'); localStorage.setItem('theme', light ? 'light' : 'dark'); $dispatch('theme-changed')"
                         type="button"
                         class="theme-toggle"
                         th:attr="data-label-dark=#{theme.toggle.dark},data-label-light=#{theme.toggle.light}"
