@@ -1,17 +1,19 @@
 .disco { position: fixed; inset: 0; z-index: 60; overflow: hidden; pointer-events: none; }
 .disco[hidden] { display: none; }
 .disco-lights { position: absolute; inset: 0; background: #191a201a; }
-.disco-beam { position: absolute; top: -20vh; left: 50%; width: 70vw; height: 150vh; transform-origin: 50% 0; background: linear-gradient(180deg, #bdabed55, #bdabed00); clip-path: polygon(48% 0, 52% 0, 100% 100%, 0 100%); animation: disco-sweep 5s ease-in-out infinite alternate; }
-.disco-beam:nth-child(2) { left: 5%; background: linear-gradient(180deg, #7ed4c455, #7ed4c400); animation-delay: -2s; animation-direction: alternate-reverse; }
-.disco-beam:nth-child(3) { left: -30%; background: linear-gradient(180deg, #ff9e6455, #ff9e6400); animation-delay: -4s; }
-.disco-ball { position: absolute; top: 5.5rem; left: 50%; width: clamp(6rem, 10vw, 8rem); aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: url('/images/disco-ball.svg') center / contain no-repeat; box-shadow: 0 0 2rem #bdabed55; animation: disco-drop 900ms cubic-bezier(0.22, 0.8, 0.2, 1) both; }
+.disco-beam { position: absolute; top: calc(5.5rem + clamp(3rem, 5vw, 4rem)); left: calc(50% - 35vw); width: 70vw; height: 130vh; transform-origin: 50% 0; background: linear-gradient(180deg, #bdabed55, #bdabed00); clip-path: polygon(49% 0, 51% 0, 100% 100%, 0 100%); animation: disco-sweep 5s ease-in-out infinite alternate; }
+.disco-beam:nth-child(2) { background: linear-gradient(180deg, #7ed4c455, #7ed4c400); animation-delay: -2s; animation-direction: alternate-reverse; }
+.disco-beam:nth-child(3) { background: linear-gradient(180deg, #ff9e6455, #ff9e6400); animation-delay: -4s; }
+.disco-ball { position: absolute; top: 5.5rem; left: 50%; width: clamp(6rem, 10vw, 8rem); aspect-ratio: 1; transform: translateX(-50%); isolation: isolate; border-radius: 50%; background: url('/images/disco-ball.svg') center / contain no-repeat; box-shadow: 0 0 2rem #bdabed55; animation: disco-drop 900ms cubic-bezier(0.22, 0.8, 0.2, 1) both; }
 .disco-ball::before { content: ''; position: absolute; left: calc(50% - 1px); bottom: 100%; width: 2px; height: 5.5rem; background: linear-gradient(90deg, #687387, #dce3ef); }
+.disco-ball::after { content: ''; position: absolute; z-index: -1; inset: -7rem; border-radius: 50%; background: repeating-conic-gradient(from 10deg, transparent 0deg 22deg, #d6e4ff44 25deg 27deg, transparent 30deg 45deg); mask-image: radial-gradient(closest-side, transparent 18%, #0008 30%, transparent 95%); animation: disco-rays 8s ease-in-out infinite alternate; }
 .disco-controls { position: absolute; right: 1rem; bottom: 1rem; display: flex; align-items: center; gap: 1rem; max-width: calc(100% - 2rem); padding: 0.5rem 0.75rem; border: 1px solid var(--color-border); border-radius: 0.75rem; background: var(--color-bg-card); color: var(--color-text-primary); font-size: 0.8125rem; pointer-events: auto; }
 .disco-controls button { min-height: 2.75rem; padding-inline: 0.5rem; color: var(--color-accent); }
 @keyframes disco-sweep { from { transform: rotate(-35deg); } to { transform: rotate(35deg); } }
 @keyframes disco-drop { from { translate: 0 -15rem; } to { translate: 0 0; } }
+@keyframes disco-rays { from { rotate: -15deg; } to { rotate: 20deg; } }
 @media (prefers-reduced-motion: reduce) {
-    .disco-beam, .disco-ball { animation: none; }
+    .disco-beam, .disco-ball, .disco-ball::after { animation: none; }
     .disco-beam { transform: rotate(-25deg); }
     .disco-beam:nth-child(2) { transform: rotate(25deg); }
     .disco-beam:nth-child(3) { transform: none; }

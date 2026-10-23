@@ -1,35 +1,55 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
+  <style>
+    .mirrors { animation: mirror-turn 4s linear infinite; }
+    .glints { animation: reflection-drift 4s ease-in-out infinite alternate; }
+    @keyframes mirror-turn { to { transform: translateX(32px); } }
+    @keyframes reflection-drift { from { transform: translateX(-10px); } to { transform: translateX(14px); } }
+    @media (prefers-reduced-motion: reduce) { .mirrors, .glints { animation: none; } }
+  </style>
   <defs>
-    <pattern id="mirrors" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(-8 80 80)">
-      <rect width="32" height="32" fill="#657181"/>
-      <path d="M1 1h14v14H1z" fill="#dce5ef"/>
-      <path d="M17 1h14v14H17z" fill="#a6b7ca"/>
-      <path d="M1 17h14v14H1z" fill="#8595aa"/>
-      <path d="M17 17h14v14H17z" fill="#f3f7fc"/>
-      <path d="M2 2h12M18 2h12M2 18h12M18 18h12" stroke="#fff" stroke-opacity=".65"/>
+    <linearGradient id="silver" x2="1" y2="1">
+      <stop stop-color="#f7fbff"/>
+      <stop offset=".45" stop-color="#b6c8dc"/>
+      <stop offset="1" stop-color="#71879f"/>
+    </linearGradient>
+    <pattern id="mirrors" width="32" height="32" patternUnits="userSpaceOnUse">
+      <rect width="32" height="32" fill="#384d65"/>
+      <path d="M.7.7h14.6v14.6H.7zM16.7 16.7h14.6v14.6H16.7z" fill="url(#silver)"/>
+      <path d="M16.7.7h14.6v14.6H16.7z" fill="#c7d3e4"/>
+      <path d="M.7 16.7h14.6v14.6H.7z" fill="#9baec5"/>
+      <path d="M1.5 1.5h13M17.5 1.5h13M1.5 17.5h13M17.5 17.5h13" stroke="#fff" stroke-opacity=".7" stroke-width=".65"/>
+      <path d="M15 2v12M31 18v12" stroke="#4e637c" stroke-opacity=".6" stroke-width=".65"/>
     </pattern>
-    <radialGradient id="shade" cx="32%" cy="24%" r="78%">
-      <stop offset="0" stop-color="#fff" stop-opacity=".8"/>
-      <stop offset=".3" stop-color="#fff" stop-opacity=".12"/>
-      <stop offset=".6" stop-color="#1b263d" stop-opacity=".05"/>
-      <stop offset=".86" stop-color="#111a30" stop-opacity=".55"/>
-      <stop offset="1" stop-color="#111a30" stop-opacity=".9"/>
+    <radialGradient id="shade" cx="37%" cy="30%" r="73%">
+      <stop offset="0" stop-color="#fff" stop-opacity=".6"/>
+      <stop offset=".35" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".65" stop-color="#101f37" stop-opacity=".14"/>
+      <stop offset=".88" stop-color="#101f37" stop-opacity=".6"/>
+      <stop offset="1" stop-color="#091326" stop-opacity=".95"/>
     </radialGradient>
+    <linearGradient id="reflections">
+      <stop stop-color="#7ed4c4" stop-opacity=".45"/>
+      <stop offset=".35" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".7" stop-color="#bdabed" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#ff9e64" stop-opacity=".35"/>
+    </linearGradient>
     <radialGradient id="glint">
       <stop stop-color="#fff"/>
       <stop offset="1" stop-color="#fff" stop-opacity="0"/>
     </radialGradient>
     <clipPath id="sphere"><circle cx="80" cy="80" r="77"/></clipPath>
   </defs>
-  <circle cx="80" cy="80" r="77" fill="url(#mirrors)"/>
-  <g clip-path="url(#sphere)" fill="none" stroke="#263449" stroke-opacity=".25">
-    <ellipse cx="80" cy="80" rx="39" ry="77"/>
-    <ellipse cx="80" cy="80" rx="66" ry="77"/>
-    <ellipse cx="80" cy="80" rx="77" ry="39"/>
-    <ellipse cx="80" cy="80" rx="77" ry="66"/>
+  <g clip-path="url(#sphere)">
+    <rect class="mirrors" x="-32" width="224" height="160" fill="url(#mirrors)"/>
+    <circle cx="80" cy="80" r="77" fill="url(#reflections)"/>
+    <circle cx="80" cy="80" r="77" fill="url(#shade)"/>
+    <g class="glints">
+      <ellipse cx="51" cy="42" rx="30" ry="24" fill="url(#glint)"/>
+      <path d="M49 20v36M31 38h36" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M49 26v24M37 38h24" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="120" cy="104" rx="14" ry="12" fill="url(#glint)"/>
+      <path d="M120 93v22M109 104h22" stroke="#d8edff" stroke-width="1.2" stroke-linecap="round"/>
+    </g>
   </g>
-  <circle cx="80" cy="80" r="77" fill="url(#shade)" stroke="#d8e0ed" stroke-width="1.5"/>
-  <ellipse cx="51" cy="39" rx="25" ry="20" fill="url(#glint)"/>
-  <path d="M46 19v26M33 32h26" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M127 92v18M118 101h18" stroke="#e6eeff" stroke-width="1.2" stroke-linecap="round" opacity=".75"/>
+  <circle cx="80" cy="80" r="77" fill="none" stroke="#d8e0ed" stroke-width="1.25"/>
 </svg>
