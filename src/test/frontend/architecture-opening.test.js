@@ -9,12 +9,12 @@ test('the people-first story has six contiguous chapters and a bounded duration'
         assert.equal(chapterAt(chapter.start + chapter.duration - 1), index);
         assert.equal(chapter.start + chapter.duration, CHAPTERS[index + 1]?.start ?? DURATION);
     });
-    assert.equal(DURATION, 41000);
+    assert.equal(DURATION, 40500);
 });
 
 test('the final frame leaves time for an explicit portfolio entrance', () => {
     assert.equal(HIRE_ENTRY, 1400);
-    assert.equal(HIRE_HOLD, 2600);
+    assert.equal(HIRE_HOLD, 2100);
     assert.equal(CHAPTERS.at(-1).duration, HIRE_ENTRY + HIRE_HOLD);
     assert.equal(COMPACT_CHAPTERS.at(-1).duration, HIRE_ENTRY + HIRE_HOLD);
 });
@@ -26,7 +26,7 @@ test('the compact story keeps all six chapters in a shorter contiguous timeline'
         assert.equal(chapterAt(chapter.start + chapter.duration - 1, COMPACT_CHAPTERS), index);
         assert.equal(chapter.start + chapter.duration, COMPACT_CHAPTERS[index + 1]?.start ?? COMPACT_DURATION);
     });
-    assert.equal(COMPACT_DURATION, 33000);
+    assert.equal(COMPACT_DURATION, 32500);
     assert.ok(COMPACT_DURATION < DURATION);
 });
 
