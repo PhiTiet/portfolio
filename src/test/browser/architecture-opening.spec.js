@@ -23,9 +23,15 @@ test('intro supports pause, quote selection, skip, and replay', async ({ page },
     await openPortfolio(page, testInfo, { animated: true, seen: false });
     const dialog = page.locator('.architecture-intro');
     await page.locator('.intro-quote-window').focus();
+    await expect(page.locator('[data-intro-pause]')).toHaveText('Pause');
+    await page.locator('.intro-quote-window').click();
+    await expect(page.locator('[data-intro-pause]')).toHaveText('Pause');
+    await page.locator('[data-intro-pause]').click();
     await expect(page.locator('[data-intro-pause]')).toHaveText('Play');
     await page.locator('[data-intro-quote-button="3"]').click();
     await expect(page.locator('.intro-quote[data-current] figcaption strong')).toHaveText('Rob Smorenburg');
+    await page.locator('[data-intro-pause]').click();
+    await expect(page.locator('[data-intro-pause]')).toHaveText('Pause');
     await page.locator('[data-intro-chapter="3"]').click();
     await expect(page.locator('.stack-composition')).toBeVisible();
     await page.locator('[data-intro-close]').click();

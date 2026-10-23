@@ -548,18 +548,6 @@ export function initializeOpening(dialog) {
 
     closeButton.addEventListener('click', () => finish());
     pauseButton.addEventListener('click', () => setPlaying(!running));
-    ['pointerdown', 'focus'].forEach(event => quoteWindow.addEventListener(event, () => {
-        if (!running || activeQuote < 0) return;
-        setPlaying(false);
-        const panel = panels[active];
-        const entry = new Set([...panel.getAnimations(), ...panel.querySelector('.intro-act-copy').getAnimations({ subtree: true })]);
-        entry.forEach(effect => effect.cancel());
-        effects = effects.filter(effect => !entry.has(effect));
-        panel.style.opacity = '1';
-        const index = activeQuote;
-        activeQuote = -1;
-        showQuote(index, false);
-    }));
     quoteButtons.forEach((button, index) => button.addEventListener('click', () => {
         if (closing) return;
         if (clock) clock.currentTime = chapters[0].start + index * RECOMMENDATION_INTERVAL;
