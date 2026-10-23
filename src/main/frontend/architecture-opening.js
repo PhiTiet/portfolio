@@ -377,7 +377,6 @@ export function initializeOpening(dialog) {
                 animate(dialog, [{ backgroundColor: getComputedStyle(dialog).backgroundColor }, { backgroundColor: background }], { duration: 640, delay: blending ? 320 : 0, easing: 'ease-in-out' });
                 frameArrival(sources.get('opencode'), panel);
                 animate(panel.querySelector('.portrait img'), [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 650, delay: 560 });
-                animate(panel.querySelector('.portrait figcaption'), [{ opacity: 0 }, { opacity: 1 }], { duration: 350, delay: 900 });
                 panel.querySelectorAll('.hero-heading, .hero-description, .hero-experience, .hero-actions').forEach((element, order) => {
                     animate(element, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 450, delay: 650 + order * 100 });
                 });
