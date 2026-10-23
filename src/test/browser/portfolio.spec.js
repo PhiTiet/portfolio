@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { openPortfolio, expectAccessible } from './helpers.js';
+import { openPortfolio, expectAccessible, expectPortfolioReady } from './helpers.js';
 
 test.beforeEach(async ({ page }, testInfo) => {
     await openPortfolio(page, testInfo);
@@ -65,7 +65,8 @@ test('career details, carousels, and about dialog support keyboard interaction',
 test('theme and language switching preserve navigation', { tag: '@layout' }, async ({ page }, testInfo) => {
     const nextTheme = testInfo.project.metadata.theme === 'dark' ? 'light' : 'dark';
     await page.locator('.theme-toggle').click();
-    await page.reload();
+    await page.reload({ waitUntil: 'commit' });
+    await expectPortfolioReady(page);
     expect(await page.evaluate(() => localStorage.getItem('theme'))).toBe(nextTheme);
     await expect(page.locator('html')).toHaveClass(nextTheme === 'light' ? /light/ : /^$/);
     const menu = page.locator('[aria-controls="mobile-menu"]');
@@ -112,7 +113,8 @@ test('contact form recovers from validation and network errors before submitting
 
 test('chess pauses for reduced motion and when offscreen', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'no-preference' });
-    await page.reload();
+    await page.reload({ waitUntil: 'commit' });
+    await expectPortfolioReady(page);
     await expect(page.locator('[data-scene-play]')).toHaveText('Pause');
     await page.locator('.chess-scene').scrollIntoViewIfNeeded();
     await expect(page.locator('[data-scene-notation]')).toHaveText('1. e4', { timeout: 4000 });
