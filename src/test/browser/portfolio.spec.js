@@ -74,7 +74,7 @@ test('theme and language switching preserve navigation', { tag: '@layout' }, asy
     await expect(page).toHaveURL(/#projects$/);
 });
 
-test('contact form recovers from validation and network errors before submitting', async ({ page }) => {
+test('contact form recovers from validation and network errors before submitting', { tag: '@layout' }, async ({ page }) => {
     let payload;
     let attempts = 0;
     await page.route('**/api/contact', async route => {
@@ -92,8 +92,10 @@ test('contact form recovers from validation and network errors before submitting
     await submit.click();
     await expect(page.locator('#contact-email-error')).toHaveText('Check your email');
     await expect(page.locator('#contact-email')).toHaveAttribute('aria-invalid', 'true');
+    await expectAccessible(page);
     await submit.click();
     await expect(page.getByText('Network error. Please try again.', { exact: true })).toBeVisible();
+    await expectAccessible(page);
     await expect(submit).toBeEnabled();
     await submit.click();
     await expect(page.locator('#contact-name')).not.toBeAttached();

@@ -18,6 +18,9 @@
     --color-accent-light: #443025;
     --color-accent-subtle: #332720;
     --color-accent-contrast: #21170f;
+    --color-action: var(--color-accent);
+    --color-action-hover: var(--color-accent-hover);
+    --color-action-contrast: var(--color-accent-contrast);
     --color-secondary: #7ed4c4;
     --color-violet: #bdabed;
     --color-surface-warm: #27211f;
@@ -37,29 +40,34 @@
 }
 
 html.light {
-    --color-bg-primary: #f6f1e9;
-    --color-bg-secondary: #efe8dd;
-    --color-bg-tertiary: #ded5c9;
-    --color-bg-card: #fffaf3;
-    --color-bg-card-hover: #f6ecdf;
-    --color-text-primary: #292521;
-    --color-text-secondary: #514a43;
-    --color-text-muted: #6b6259;
-    --color-accent: #9c441c;
-    --color-accent-hover: #843512;
-    --color-accent-light: #f3d7bf;
-    --color-accent-subtle: #f1e1d0;
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f4f6f6;
+    --color-bg-tertiary: #e9eeee;
+    --color-bg-card: #ffffff;
+    --color-bg-card-hover: #f4f6f6;
+    --color-text-primary: #202729;
+    --color-text-secondary: #505d61;
+    --color-text-muted: #626d70;
+    --color-accent: #175f5a;
+    --color-accent-hover: #104b47;
+    --color-accent-light: #dcebe9;
+    --color-accent-subtle: #eef3f2;
     --color-accent-contrast: #ffffff;
-    --color-secondary: #216e66;
-    --color-violet: #65518e;
-    --color-surface-warm: #f0e5d6;
-    --color-surface-cool: #e8eeea;
-    --color-surface-violet: #eee9f2;
-    --color-card-violet: #faf7ff;
-    --color-success: #346332;
-    --color-success-subtle: #dfebd8;
-    --color-border: #c9bfb1;
-    --color-border-light: #ddd3c6;
+    --color-action: var(--color-accent);
+    --color-action-hover: var(--color-accent-hover);
+    --color-action-contrast: #ffffff;
+    --color-secondary: var(--color-accent);
+    --color-violet: var(--color-text-secondary);
+    --color-surface-warm: var(--color-bg-secondary);
+    --color-surface-cool: var(--color-bg-secondary);
+    --color-surface-violet: var(--color-bg-secondary);
+    --color-card-violet: var(--color-bg-card);
+    --color-success: #326343;
+    --color-success-subtle: #e7f1e9;
+    --color-red-400: #b42318;
+    --color-red-500: #b42318;
+    --color-border: #828d90;
+    --color-border-light: #d9dfe0;
     color-scheme: light;
 }
 
@@ -96,7 +104,7 @@ p { text-wrap: pretty; }
 .language-switch [aria-current] { color: var(--color-accent); }
 .theme-toggle { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 0.5rem; color: var(--color-text-secondary); }
 .theme-toggle:hover { background: var(--color-bg-secondary); }
-.hero { --hero-headline: var(--color-accent); --hero-action: var(--color-accent); --hero-action-contrast: var(--color-accent-contrast); padding-block: 4rem 0; }
+.hero { --hero-headline: var(--color-accent); --hero-action: var(--color-action); --hero-action-contrast: var(--color-action-contrast); padding-block: 4rem 0; }
 .hero-layout { position: relative; display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); align-items: center; gap: 5rem; width: 100%; max-width: 65rem; margin-inline: auto; min-height: 30rem; padding-bottom: 3rem; }
 .hero-copy { min-width: 0; }
 .eyebrow, .badge { display: block; color: var(--section-accent, var(--color-accent)); font-size: 0.6875rem; line-height: 1.5; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
@@ -109,8 +117,8 @@ p { text-wrap: pretty; }
 .hero-actions .btn-accent:hover { filter: brightness(1.08); }
 .hero-actions .button-secondary { border-color: transparent; font-size: 0.875rem; color: var(--color-text-secondary); }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 1.5rem; padding: 0.7rem 1.1rem; min-height: 2.75rem; border: 1px solid transparent; border-radius: 0.5rem; font-size: 0.8125rem; font-weight: 600; transition: background 160ms, border-color 160ms; }
-.btn-accent { background: var(--color-accent); color: var(--color-accent-contrast); }
-.btn-accent:hover { background: var(--color-accent-hover); color: var(--color-accent-contrast); }
+.btn-accent { background: var(--color-action); color: var(--color-action-contrast); }
+.btn-accent:hover { background: var(--color-action-hover); color: var(--color-action-contrast); }
 .button-secondary { border-color: var(--color-border); }
 .button-secondary:hover { border-color: var(--color-accent); }
 .hero-links { display: flex; align-items: center; flex-wrap: wrap; gap: 1.25rem; color: var(--color-text-muted); font-size: 0.6875rem; }
@@ -290,6 +298,12 @@ footer .text-sm { font-size: 0.6875rem; }
 .about-github-cta { display: flex; justify-content: space-between; align-items: center; }
 .about-github-icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; }
 html.light .fa-github { color: var(--color-text-primary) !important; }
+html.light .hero { --hero-headline: var(--color-text-primary); }
+html.light .portrait::before { border-color: var(--color-action); }
+html.light :is(#recommendations, #contact, #skills, #hobbies, #certificates) { --section-surface: var(--color-bg-secondary); }
+html.light .project-card { background: var(--color-bg-card); }
+html.light a.project-card:is(:hover, :focus-visible) { background: var(--color-bg-card-hover); }
+html.light .career-highlight { background: var(--color-bg-secondary); }
 
 @container (min-width: 70rem) {
     .desktop-nav { display: flex; }
