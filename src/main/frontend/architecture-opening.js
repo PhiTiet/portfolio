@@ -1,20 +1,27 @@
-export const HIRE_HOLD = 1500;
-export const HIRE_ENTRY = 500;
-export const CHAPTERS = [
-    { id: 'architecture', start: 0, duration: 11000 },
-    { id: 'stack', start: 11000, duration: 6500 },
-    { id: 'ai', start: 17500, duration: 6500 },
-    { id: 'experience', start: 24000, duration: 8000 },
-    { id: 'hire', start: 32000, duration: HIRE_ENTRY + HIRE_HOLD }
-];
+export const HIRE_HOLD = 2600;
+export const HIRE_ENTRY = 1400;
+export const RECOMMENDATION_INTERVAL = 2800;
+export const RECOMMENDATIONS_DURATION = RECOMMENDATION_INTERVAL * 5;
+
+export function createChapters(compact = false, recommendationCount = 5) {
+    let start = 0;
+    return [
+        ['recommendations', RECOMMENDATION_INTERVAL * recommendationCount],
+        ['experience', compact ? 5000 : 6000],
+        ['architecture', compact ? 4000 : 8000],
+        ['stack', compact ? 3000 : 4500],
+        ['ai', compact ? 3000 : 4500],
+        ['hire', HIRE_ENTRY + HIRE_HOLD]
+    ].map(([id, duration]) => {
+        const chapter = { id, start, duration };
+        start += duration;
+        return chapter;
+    });
+}
+
+export const CHAPTERS = createChapters();
 export const DURATION = CHAPTERS.at(-1).start + CHAPTERS.at(-1).duration;
-export const COMPACT_CHAPTERS = [
-    { id: 'architecture', start: 0, duration: 5000 },
-    { id: 'stack', start: 5000, duration: 4000 },
-    { id: 'ai', start: 9000, duration: 4500 },
-    { id: 'experience', start: 13500, duration: 4500 },
-    { id: 'hire', start: 18000, duration: HIRE_ENTRY + HIRE_HOLD }
-];
+export const COMPACT_CHAPTERS = createChapters(true);
 export const COMPACT_DURATION = COMPACT_CHAPTERS.at(-1).start + COMPACT_CHAPTERS.at(-1).duration;
 export const COMPACT_QUERY = '(max-width: 700px), (pointer: coarse) and (max-width: 1000px)';
 export const STORAGE_KEY = 'portfolio.engineering-story.seen';
@@ -24,9 +31,10 @@ export function chapterAt(time, chapters = CHAPTERS) {
 }
 
 export function architectureLevelAt(time) {
-    if (time >= 8580) return 3;
-    if (time >= 5610) return 2;
-    if (time >= 2640) return 1;
+    const duration = CHAPTERS.find(chapter => chapter.id === 'architecture').duration;
+    if (time >= duration * 0.78) return 3;
+    if (time >= duration * 0.51) return 2;
+    if (time >= duration * 0.24) return 1;
     return 0;
 }
 
@@ -44,6 +52,9 @@ export function initializeOpening(dialog) {
     const closeButton = dialog.querySelector('[data-intro-close]');
     const progress = dialog.querySelector('.intro-progress > span');
     const portal = dialog.querySelector('.intro-portal');
+    const quoteWindow = dialog.querySelector('.intro-quote-window');
+    const quotes = [...dialog.querySelectorAll('[data-intro-quote]')];
+    const quoteButtons = [...dialog.querySelectorAll('[data-intro-quote-button]')];
     const hero = document.querySelector('.hero > .container > .hero-layout');
     const finalPanel = panels[panels.length - 1];
     const hireGreeting = finalPanel.querySelector('.eyebrow').textContent;
@@ -60,11 +71,13 @@ export function initializeOpening(dialog) {
     let run = 0;
     let transition = 0;
     let opener;
+    let activeQuote = -1;
+    let quoteTransition = 0;
 
     function configurePlayback() {
         compact = compactViewport.matches;
-        chapters = compact ? COMPACT_CHAPTERS : CHAPTERS;
-        duration = compact ? COMPACT_DURATION : DURATION;
+        chapters = createChapters(compact, quotes.length);
+        duration = chapters.at(-1).start + chapters.at(-1).duration;
         dialog.dataset.motion = compact ? 'compact' : 'full';
         document.querySelectorAll('[data-intro-replay] small').forEach(label => { label.textContent = `${duration / 1000}s`; });
     }
@@ -91,17 +104,19 @@ export function initializeOpening(dialog) {
     }
 
     function freezeEffects() {
+        quoteTransition++;
         effects.forEach(effect => {
             try { effect.commitStyles(); } catch {}
             effect.cancel();
         });
         effects = [];
         portal.replaceChildren();
+        dialog.querySelectorAll('[data-intro-effect]').forEach(element => element.remove());
     }
 
     function resetPanel(panel) {
         [panel, ...panel.querySelectorAll('[style]')].forEach(element => {
-            ['transform', 'opacity', 'transform-origin'].forEach(property => element.style.removeProperty(property));
+            ['transform', 'opacity', 'transform-origin', 'background-color', 'background-position', 'border-color', 'color', 'filter', 'stroke', 'stroke-width', 'clip-path', 'box-shadow'].forEach(property => element.style.removeProperty(property));
         });
         panel.hidden = false;
         panel.inert = false;
@@ -121,39 +136,159 @@ export function initializeOpening(dialog) {
         return elements;
     }
 
-    function morphElements(sources, panel, duration = 1250) {
+    function morphElements(sources, panel, duration = 750) {
         const destinations = sharedElements(panel);
         sources.forEach(({ element: source, rect: from }, key) => {
             const destination = destinations.get(key);
             if (!destination) return;
             const { element: target, rect: to } = destination;
             const tile = document.createElement('div');
-            tile.className = 'intro-morph';
+            const thread = key === 'story-thread';
+            tile.className = thread ? 'intro-morph intro-thread-morph' : 'intro-morph';
             tile.dataset.shared = key;
-            const label = document.createElement('span');
-            label.textContent = source.dataset.morphLabel || source.textContent.trim();
-            const sourceSize = parseFloat(getComputedStyle(source.querySelector('strong, b') || source).fontSize);
-            const targetSize = parseFloat(getComputedStyle(target.querySelector('strong, b') || target).fontSize);
-            label.style.fontSize = `${sourceSize}px`;
-            tile.append(label);
+            tile.setAttribute('aria-hidden', 'true');
+            if (!thread) {
+                const label = document.createElement('span');
+                label.textContent = source.dataset.morphLabel || source.textContent.trim();
+                const sourceSize = parseFloat(getComputedStyle(source.querySelector('strong, b') || source).fontSize);
+                const targetLabel = target.querySelector('strong, b') || target;
+                const targetSize = parseFloat(getComputedStyle(targetLabel).fontSize);
+                const labelRect = targetLabel.getBoundingClientRect();
+                Object.assign(label.style, { position: 'absolute', transform: 'translate(-50%, -50%)', whiteSpace: 'nowrap' });
+                tile.append(label);
+                animate(label, [
+                    { left: `${from.width / 2}px`, top: `${from.height / 2}px`, fontSize: `${sourceSize}px` },
+                    { left: `${labelRect.left - to.left + labelRect.width / 2}px`, top: `${labelRect.top - to.top + labelRect.height / 2}px`, fontSize: `${targetSize}px` }
+                ], { duration: duration * 0.8, easing: 'cubic-bezier(0.22, 0.8, 0.2, 1)' });
+            }
             Object.assign(tile.style, { left: `${from.left}px`, top: `${from.top}px`, width: `${from.width}px`, height: `${from.height}px` });
             portal.append(tile);
             source.style.opacity = '0';
-            const destinationTransform = `translate(${to.left - from.left}px, ${to.top - from.top}px) scale(${to.width / from.width}, ${to.height / from.height})`;
+            const destinationFrame = { transform: `translate(${to.left - from.left}px, ${to.top - from.top}px)`, width: `${to.width}px`, height: `${to.height}px`, borderRadius: getComputedStyle(target).borderRadius };
             const flight = animate(tile, [
-                { transform: 'translate(0, 0) scale(1, 1)', opacity: 1, offset: 0, easing: 'cubic-bezier(0.76, 0, 0.24, 1)' },
-                { transform: destinationTransform, opacity: 1, offset: 0.85 },
-                { transform: destinationTransform, opacity: 0, offset: 1 }
+                { transform: 'translate(0, 0)', width: `${from.width}px`, height: `${from.height}px`, borderRadius: getComputedStyle(source).borderRadius, opacity: 1, offset: 0, easing: 'cubic-bezier(0.22, 0.8, 0.2, 1)' },
+                { ...destinationFrame, opacity: 1, offset: 0.8 },
+                { ...destinationFrame, opacity: 0, offset: 1 }
             ], { duration, easing: 'linear' });
-            animate(label, [{ transform: 'scale(1, 1)' }, { transform: `scale(${targetSize / sourceSize / (to.width / from.width)}, ${targetSize / sourceSize / (to.height / from.height)})` }], { duration: duration * 0.85, easing: 'cubic-bezier(0.76, 0, 0.24, 1)' });
-            animate(target, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: 0.8 }, { opacity: 1, offset: 1 }], { duration: duration + 50, easing: 'linear' });
+            animate(target, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: 0.75 }, { opacity: 1, offset: 1 }], { duration, easing: 'linear' });
             flight.finished.then(() => tile.remove()).catch(() => tile.remove());
         });
     }
 
+    function energize(element, delay = 0, color = 'var(--intro-teal)') {
+        const energy = document.createElement('span');
+        energy.className = 'intro-energy';
+        energy.dataset.introEffect = '';
+        energy.setAttribute('aria-hidden', 'true');
+        energy.style.color = color;
+        const beam = document.createElement('span');
+        beam.className = 'intro-energy-beam';
+        energy.append(beam);
+        element.append(energy);
+        animate(energy, [{ opacity: 0.08 }, { opacity: compact ? 0.4 : 0.7, offset: 0.4 }, { opacity: 0.08 }], { duration: 2600, delay, iterations: Infinity, easing: 'ease-in-out' });
+        animate(beam, [{ transform: 'translateX(-150%)', opacity: 0 }, { opacity: 0.16, offset: 0.3 }, { transform: 'translateX(350%)', opacity: 0 }], { duration: 2600, delay, iterations: Infinity, easing: 'ease-in-out' });
+    }
+
+    function frameArrival(source, panel) {
+        if (!source) return;
+        const image = panel.querySelector('.portrait img');
+        const to = image.getBoundingClientRect();
+        const from = source.rect;
+        const bridge = document.createElement('div');
+        bridge.className = 'intro-arrival-bridge';
+        portal.append(bridge);
+        const destination = { left: `${to.left - 10}px`, top: `${to.top - 10}px`, width: `${to.width + 20}px`, height: `${to.height + 20}px`, borderRadius: getComputedStyle(image).borderRadius };
+        const flight = animate(bridge, [
+            { left: `${from.left}px`, top: `${from.top}px`, width: `${from.width}px`, height: `${from.height}px`, borderRadius: '16px', opacity: 0, offset: 0 },
+            { left: `${from.left}px`, top: `${from.top + from.height / 2}px`, width: `${from.width}px`, height: '2px', borderRadius: '2px', opacity: 1, offset: 0.23, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' },
+            { left: destination.left, top: destination.top, width: destination.width, height: '2px', borderRadius: '2px', opacity: 1, offset: 0.5, easing: 'cubic-bezier(0.22, 0.8, 0.2, 1)' },
+            { ...destination, opacity: 0.8, borderColor: getComputedStyle(document.body).getPropertyValue('--color-accent'), offset: 0.85 },
+            { ...destination, opacity: 0, offset: 1 }
+        ], { duration: HIRE_ENTRY, easing: 'linear' });
+        flight.finished.then(() => bridge.remove()).catch(() => bridge.remove());
+    }
+
+    function updateQuoteProgress(time) {
+        quoteButtons.forEach((button, index) => {
+            const progress = Math.max(0, Math.min(1, (time - index * RECOMMENDATION_INTERVAL) / RECOMMENDATION_INTERVAL));
+            button.querySelector('i').style.transform = `scaleX(${progress})`;
+        });
+    }
+
+    function showQuote(index, moving = true) {
+        if (index === activeQuote) return;
+        const previous = quotes[activeQuote];
+        const outgoingOpacity = previous ? getComputedStyle(previous.querySelector('blockquote')).opacity : 1;
+        const outgoingCaptionOpacity = previous ? getComputedStyle(previous.querySelector('figcaption')).opacity : 1;
+        const stale = new Set(quotes.flatMap(quote => quote.getAnimations({ subtree: true })));
+        stale.forEach(effect => effect.cancel());
+        effects = effects.filter(effect => !stale.has(effect));
+        const currentTransition = ++quoteTransition;
+        activeQuote = index;
+        const current = quotes[index];
+        quoteWindow.scrollTop = 0;
+        quotes.forEach(quote => {
+            quote.hidden = quote !== current && (!moving || quote !== previous);
+            quote.inert = quote !== current;
+            quote.toggleAttribute('data-current', quote === current);
+            if (quote !== current) quote.setAttribute('aria-hidden', 'true');
+        });
+        resetPanel(current);
+        quoteButtons.forEach((button, order) => {
+            if (order === index) button.setAttribute('aria-current', 'true');
+            else button.removeAttribute('aria-current');
+        });
+        updateQuoteProgress((clock?.currentTime || 0) - chapters[0].start);
+        if (!moving || motion.matches) return;
+        if (previous) animate(previous.querySelector('blockquote'), [{ opacity: outgoingOpacity }, { opacity: 0 }], { duration: 180, easing: 'linear' });
+        if (previous) animate(previous.querySelector('figcaption'), [{ opacity: outgoingCaptionOpacity }, { opacity: 0 }], { duration: 180, easing: 'linear' });
+        const reveal = animate(current, [{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)' }], { duration: 650, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' });
+        animate(current.querySelector('blockquote'), [{ opacity: 0, transform: 'translateX(24px)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: previous ? 220 : 100 });
+        animate(current.querySelector('figcaption'), [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 400, delay: 300 });
+        animate(current, [{ backgroundPosition: '0% 50%' }, { backgroundPosition: '100% 50%' }], { duration: RECOMMENDATION_INTERVAL, easing: 'linear' });
+        reveal.finished.then(() => {
+            if (currentTransition !== quoteTransition) return;
+            if (previous) previous.hidden = true;
+            reveal.cancel();
+            effects = effects.filter(effect => effect !== reveal);
+        }).catch(() => {});
+    }
+
     function choreograph(panel, index) {
-        if (compact) return;
-        if (index === 0) {
+        const { id, duration } = chapters[index];
+        if (id === 'recommendations') {
+            showQuote(Math.min(quotes.length - 1, Math.max(0, Math.floor(((clock?.currentTime || 0) - chapters[index].start) / RECOMMENDATION_INTERVAL))));
+        }
+        if (id === 'stack') {
+            panel.querySelectorAll('.language-tile, .stack-lane, .stack-ai-seed').forEach((block, order) => {
+                energize(block, 500 + order * 350, order === 0 ? 'var(--intro-coral)' : order === 1 ? 'var(--intro-violet)' : 'var(--intro-teal)');
+            });
+        }
+        if (compact) {
+            if (id === 'architecture') panel.querySelectorAll('.c4-overview li').forEach((card, order) => energize(card, order * 450, 'var(--intro-blue)'));
+            if (id === 'ai') animate(panel.querySelector('.verification-gate'), [{ color: 'var(--intro-teal)' }, { color: 'var(--intro-amber)', offset: 0.5 }, { color: 'var(--intro-teal)' }], { duration: 1200, delay: 1000, easing: 'ease-in-out' });
+            const cards = panel.querySelectorAll('.c4-overview li, .language-tile, .stack-lane, .agent-branches > div, .experience-track li');
+            cards.forEach((card, order) => {
+                animate(card, [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 350, delay: 80 + order * 70 });
+            });
+            return;
+        }
+        if (id === 'recommendations') {
+            animate(panel.querySelector('.story-spine'), [{ transform: 'scaleY(0)', transformOrigin: 'top' }, { transform: 'scaleY(1)', transformOrigin: 'top' }], { duration: 1000, delay: 100 });
+        }
+        if (id === 'architecture') {
+            panel.querySelectorAll('.context-person, .system-core').forEach((block, order) => {
+                animate(block, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 450, delay: 150 + order * 180 });
+                energize(block, 300 + order * 450, 'var(--intro-blue)');
+            });
+            panel.querySelectorAll('.driving-adapters > span, .clean-application, .clean-domain, .driven-adapters > span').forEach((block, order) => {
+                animate(block, [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 350, delay: duration * 0.51 + order * 100 });
+                energize(block, duration * 0.51 + order * 180, order === 3 ? 'var(--intro-teal)' : 'var(--intro-blue)');
+            });
+            panel.querySelectorAll('.code-line').forEach((line, order) => {
+                animate(line, [{ opacity: 0, transform: 'translateX(-8px)' }, { opacity: 1, transform: 'none' }], { duration: 250, delay: duration * 0.78 + order * 55 });
+                animate(line, [{ backgroundColor: '#7ed4c400' }, { backgroundColor: '#7ed4c426', offset: 0.35 }, { backgroundColor: '#7ed4c400' }], { duration: 1400, delay: duration * 0.78 + order * 140, iterations: Infinity, easing: 'ease-in-out' });
+            });
             const step = panel.querySelector('.c4-window').clientHeight;
             animate(panel.querySelector('.c4-world'), [
                 { transform: 'translateY(0)', offset: 0 },
@@ -164,33 +299,44 @@ export function initializeOpening(dialog) {
                 { transform: `translateY(-${step * 2}px)`, offset: 0.69, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' },
                 { transform: `translateY(-${step * 3}px)`, offset: 0.78 },
                 { transform: `translateY(-${step * 3}px)`, offset: 1 }
-            ], { duration: CHAPTERS[0].duration, easing: 'linear' });
+            ], { duration, easing: 'linear' });
             const routes = [
                 [[130, 55], [205, 55], [355, 55], [430, 55]],
                 [[130, 175], [205, 175], [355, 175], [430, 175]],
                 [[355, 65], [385, 65], [400, 165], [430, 165]]
             ];
             panel.querySelectorAll('[data-network-packet]').forEach((packet, order) => {
-                animate(packet, routes[order].map(([x, y], index) => ({ transform: `translate(${x}px, ${y}px)`, opacity: index === 0 || index === 3 ? 0 : 1 })), { delay: 2450 + order * 150, duration: 1000, iterations: 2, easing: 'linear' });
+                animate(packet, routes[order].map(([x, y], index) => ({ transform: `translate(${x}px, ${y}px)`, opacity: index === 0 || index === 3 ? 0 : 1 })), { delay: duration * 0.24 + order * 160, duration: 1100, iterations: Infinity, easing: 'linear' });
+            });
+            panel.querySelectorAll('.network-service rect, .network-topic rect').forEach((node, order) => {
+                animate(node, [{ filter: 'drop-shadow(0 0 0px #7ed4c400)' }, { filter: 'drop-shadow(0 0 6px #7ed4c499)', offset: 0.4 }, { filter: 'drop-shadow(0 0 0px #7ed4c400)' }], { duration: 1800, delay: duration * 0.24 + order * 160, iterations: Infinity, easing: 'ease-in-out' });
             });
         }
-        if (index === 1) panel.querySelectorAll('.stack-lane').forEach((lane, order) => {
-            animate(lane, [{ opacity: 0, transform: 'translateX(60px)' }, { opacity: 1, transform: 'none' }], { delay: 400 + order * 200 });
+        if (id === 'stack') panel.querySelectorAll('.stack-lane').forEach((lane, order) => {
+            animate(lane, [{ opacity: 0, transform: 'translateX(24px)' }, { opacity: 1, transform: 'none' }], { delay: 350 + order * 400, duration: 500 });
+            lane.querySelectorAll('b').forEach((tag, tagIndex) => {
+                animate(tag, [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { delay: 550 + order * 400 + tagIndex * 120, duration: 350 });
+            });
         });
-        if (index === 2) {
-            panel.querySelectorAll('.agent-branches > div, .verification-gate, .workflow-trace > span').forEach((node, order) => {
-                animate(node, [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { delay: 650 + order * 300, duration: 700 });
+        if (id === 'ai') {
+            panel.querySelectorAll('.agent-branches > div').forEach((node, order) => {
+                animate(node, [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { delay: 400 + order * 450, duration: 500 });
             });
+            panel.querySelectorAll('.workflow-trace > span').forEach((step, order) => {
+                animate(step, [{ opacity: 0 }, { opacity: 1 }], { delay: 650 + order * 500, duration: 400 });
+            });
+            animate(panel.querySelector('.verification-gate'), [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 450, delay: 2100 });
+            animate(panel.querySelector('.verification-gate'), [{ color: 'var(--intro-teal)' }, { color: 'var(--intro-amber)', offset: 0.5 }, { color: 'var(--intro-teal)' }], { duration: 1400, delay: 2400, easing: 'ease-in-out' });
         }
-        if (index === 3) {
+        if (id === 'experience') {
             const track = panel.querySelector('.experience-track');
             const distance = Math.max(0, track.scrollHeight - panel.querySelector('.experience-window').clientHeight);
             animate(track, [
                 { transform: 'translateY(0)', offset: 0 },
-                { transform: 'translateY(0)', offset: 0.15 },
+                { transform: 'translateY(0)', offset: 0.3 },
                 { transform: `translateY(-${distance}px)`, offset: 0.9 },
                 { transform: `translateY(-${distance}px)`, offset: 1 }
-            ], { duration: CHAPTERS[index].duration, easing: 'linear' });
+            ], { duration, easing: 'linear' });
         }
     }
 
@@ -203,13 +349,24 @@ export function initializeOpening(dialog) {
         active = index;
         const panel = panels[index];
         const final = index === panels.length - 1;
-        const gentle = final || compact || (previous?.dataset.introAct === 'ai' && index === 3);
         const blending = moving && !motion.matches && previous && previous !== panel;
         dialog.dataset.static = String(!moving || motion.matches);
         panels.forEach(candidate => {
             if (candidate !== panel && (!blending || candidate !== previous)) candidate.hidden = true;
         });
         resetPanel(panel);
+        if (chapters[index].id === 'recommendations') {
+            activeQuote = -1;
+            quoteWindow.scrollTop = 0;
+            quotes.forEach(quote => {
+                quote.hidden = false;
+                quote.inert = false;
+                quote.removeAttribute('aria-hidden');
+                quote.removeAttribute('data-current');
+            });
+        }
+        dialog.dataset.arrival = final && blending ? 'bridging' : 'ready';
+        if (compact && !final) dialog.scrollTop = 0;
         dialog.style.removeProperty('background-color');
         if (final) {
             window.scrollTo({ top: 0, behavior: 'instant' });
@@ -217,7 +374,14 @@ export function initializeOpening(dialog) {
             finalPanel.querySelector('.eyebrow').textContent = hireGreeting;
             const background = getComputedStyle(document.body).backgroundColor;
             if (moving && !motion.matches) {
-                animate(dialog, [{ backgroundColor: getComputedStyle(dialog).backgroundColor }, { backgroundColor: background }], { duration: HIRE_ENTRY });
+                animate(dialog, [{ backgroundColor: getComputedStyle(dialog).backgroundColor }, { backgroundColor: background }], { duration: 640, delay: blending ? 320 : 0, easing: 'ease-in-out' });
+                animate(dialog.querySelector('.intro-handoff'), [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 400, delay: 1000 });
+                frameArrival(sources.get('opencode'), panel);
+                animate(panel.querySelector('.portrait img'), [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 650, delay: 560 });
+                animate(panel.querySelector('.portrait figcaption'), [{ opacity: 0 }, { opacity: 1 }], { duration: 350, delay: 900 });
+                panel.querySelectorAll('.hero-heading, .hero-description, .hero-experience, .hero-actions').forEach((element, order) => {
+                    animate(element, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 450, delay: 650 + order * 100 });
+                });
             } else {
                 dialog.style.backgroundColor = background;
             }
@@ -226,21 +390,39 @@ export function initializeOpening(dialog) {
             if (buttonIndex === index) button.setAttribute('aria-current', 'step');
             else button.removeAttribute('aria-current');
         });
-        dialog.dataset.chapter = CHAPTERS[index].id;
+        dialog.dataset.chapter = chapters[index].id;
         dialog.querySelector('[data-intro-status]').textContent = panel.querySelector('.intro-kicker').textContent;
         if (!moving || motion.matches) return;
         if (blending) {
             if (previous.contains(document.activeElement)) pauseButton.focus({ preventScroll: true });
             previous.inert = true;
             previous.setAttribute('aria-hidden', 'true');
-            const exit = animate(previous, gentle ? [{ opacity: 1 }, { opacity: 0 }] : [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-48px) scale(0.96)' }], { duration: final ? HIRE_ENTRY : gentle ? 160 : 1000, easing: gentle ? 'linear' : 'cubic-bezier(0.22, 0.8, 0.2, 1)' });
-            exit.finished.then(() => { if (currentTransition === transition) previous.hidden = true; }).catch(() => {});
-            if (!gentle) morphElements(sources, panel);
+            const previousCopy = previous.querySelector('.intro-act-copy');
+            if (previousCopy) animate(previousCopy, [{ opacity: getComputedStyle(previousCopy).opacity, transform: 'none' }, { opacity: 0, transform: 'translateY(-8px)' }], { duration: 180 });
+            if (final && previous.dataset.introAct === 'ai') {
+                const hub = previous.querySelector('.opencode-hub').getBoundingClientRect();
+                previous.querySelectorAll('.human-direction, .agent-branches > div, .verification-gate, .workflow-trace').forEach(element => {
+                    const rect = element.getBoundingClientRect();
+                    const x = (hub.left + hub.width / 2 - rect.left - rect.width / 2) * 0.25;
+                    const y = (hub.top + hub.height / 2 - rect.top - rect.height / 2) * 0.25;
+                    animate(element, [{ transform: 'none', opacity: 1 }, { transform: `translate(${x}px, ${y}px)`, opacity: 0 }], { duration: 300 });
+                });
+            }
+            const exit = animate(previous, [{ opacity: getComputedStyle(previous).opacity }, { opacity: 0 }], { duration: final ? 320 : compact ? 160 : 400, easing: 'linear' });
+            exit.finished.then(() => {
+                if (currentTransition !== transition) return;
+                previous.hidden = true;
+                if (final) dialog.dataset.arrival = 'ready';
+            }).catch(() => {});
+            if (!compact && !final) morphElements(sources, panel);
         }
-        animate(panel, gentle ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: 'translateY(48px) scale(1.025)' }, { opacity: 1, transform: 'none' }], { duration: final ? HIRE_ENTRY : gentle ? 450 : 1250, delay: blending && !final ? gentle ? 100 : 120 : 0 });
-        if (compact) return;
+        animate(panel, final ? [{ opacity: 0, offset: 0 }, { opacity: 0, offset: 0.36 }, { opacity: 1, offset: 0.68 }, { opacity: 1, offset: 1 }] : [{ opacity: 0 }, { opacity: 1 }], { duration: final ? HIRE_ENTRY : compact ? 350 : 650, delay: blending && !final ? 100 : 0, easing: final ? 'linear' : 'cubic-bezier(0.22, 0.8, 0.2, 1)' });
+        if (compact) {
+            choreograph(panel, index);
+            return;
+        }
         panel.querySelectorAll('.intro-act-copy > *').forEach((element, order) => {
-            animate(element, gentle ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { delay: gentle ? 80 + order * 50 : 250 + order * 90, duration: gentle ? 450 : 800 });
+            animate(element, final ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { delay: (blending ? 220 : 100) + order * 60, duration: 500 });
         });
         choreograph(panel, index);
     }
@@ -249,8 +431,13 @@ export function initializeOpening(dialog) {
         if (!dialog.open || closing) return;
         const time = clock?.currentTime || 0;
         showChapter(Math.max(0, chapterAt(time, chapters)));
-        if (active === 0 && !compact) {
-            const level = architectureLevelAt(time);
+        if (chapters[active].id === 'recommendations') {
+            const elapsed = time - chapters[active].start;
+            showQuote(Math.min(quotes.length - 1, Math.floor(elapsed / RECOMMENDATION_INTERVAL)));
+            updateQuoteProgress(elapsed);
+        }
+        if (chapters[active].id === 'architecture' && !compact) {
+            const level = architectureLevelAt(time - chapters[active].start);
             dialog.querySelectorAll('[data-c4-level]').forEach((element, index) => element.toggleAttribute('data-current', index === level));
         }
         if (running && !document.hidden) frame = requestAnimationFrame(tick);
@@ -286,6 +473,9 @@ export function initializeOpening(dialog) {
         effects.forEach(effect => effect.cancel());
         effects = [];
         portal.replaceChildren();
+        dialog.querySelectorAll('[data-intro-effect]').forEach(element => element.remove());
+        ['clip-path', 'opacity'].forEach(property => dialog.style.removeProperty(property));
+        dialog.querySelector('.intro-reveal-line').style.removeProperty('transform');
         running = false;
         closing = false;
         suspended = false;
@@ -304,7 +494,12 @@ export function initializeOpening(dialog) {
                 positionFinalPanel();
                 finalPanel.querySelector('.eyebrow').textContent = hero.querySelector('.eyebrow').textContent;
             }
-            const exit = dialog.animate([{ opacity: 1 }, { opacity: 0 }], { duration: fold ? 650 : 200, fill: 'forwards' });
+            const reveal = fold && active === panels.length - 1;
+            const exit = dialog.animate(reveal ? [{ clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)' }] : [{ opacity: 1 }, { opacity: 0 }], { duration: reveal ? 1100 : 200, easing: reveal ? 'cubic-bezier(0.76, 0, 0.24, 1)' : 'linear', fill: 'forwards' });
+            if (reveal) {
+                const line = dialog.querySelector('.intro-reveal-line');
+                effects.push(line.animate([{ transform: 'translateY(calc(100dvh - 3px))', opacity: 0 }, { opacity: 1, offset: 0.1 }, { transform: 'translateY(-3px)', opacity: 0 }], { duration: 1100, easing: 'cubic-bezier(0.76, 0, 0.24, 1)', fill: 'both' }));
+            }
             effects.push(exit);
             await exit.finished.catch(() => {});
         }
@@ -353,7 +548,25 @@ export function initializeOpening(dialog) {
     }
 
     closeButton.addEventListener('click', () => finish());
+    dialog.querySelector('[data-intro-enter]').addEventListener('click', () => finish(true));
     pauseButton.addEventListener('click', () => setPlaying(!running));
+    ['pointerdown', 'focus'].forEach(event => quoteWindow.addEventListener(event, () => {
+        if (!running || activeQuote < 0) return;
+        setPlaying(false);
+        const entry = new Set(panels[active].getAnimations());
+        entry.forEach(effect => effect.cancel());
+        effects = effects.filter(effect => !entry.has(effect));
+        panels[active].style.opacity = '1';
+        const index = activeQuote;
+        activeQuote = -1;
+        showQuote(index, false);
+    }));
+    quoteButtons.forEach((button, index) => button.addEventListener('click', () => {
+        if (closing) return;
+        if (clock) clock.currentTime = chapters[0].start + index * RECOMMENDATION_INTERVAL;
+        showQuote(index, running && !motion.matches);
+        updateQuoteProgress(index * RECOMMENDATION_INTERVAL);
+    }));
     chapterButtons.forEach((button, index) => button.addEventListener('click', () => {
         if (closing) return;
         if (clock) clock.currentTime = chapters[index].start;
