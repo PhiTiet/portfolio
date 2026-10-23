@@ -13,14 +13,11 @@
         <div class="intro-viewport">
             <section class="intro-act recommendations-act" data-intro-act="recommendations">
                 <div class="intro-act-copy">
-                    <p class="intro-kicker" th:text="#{story.recommendations.kicker}">01 / The people I've had the pleasure to work with</p>
                     <h3><span th:text="#{story.recommendations.first}">Good work.</span><br><em th:text="#{story.recommendations.second}">In their words.</em></h3>
                     <p class="intro-lede" th:text="#{story.recommendations.description}"></p>
-                    <a class="intro-recommendations-link" href="#recommendations" data-intro-destination="recommendations"><span th:text="#{story.recommendations.read}">Read the recommendations</span><span aria-hidden="true">↗</span></a>
                 </div>
                 <div class="recommendation-composition">
-                    <p id="intro-quote-description" class="intro-quote-note" th:text="#{story.recommendations.excerpts}">Selected excerpts from written recommendations.</p>
-                    <div class="intro-quote-window" role="region" tabindex="0" aria-describedby="intro-quote-description" th:attr="aria-label=#{recommendations.title}">
+                    <div class="intro-quote-window" role="region" tabindex="0" th:attr="aria-label=#{recommendations.title}">
                         <span class="story-spine" data-shared="story-thread" aria-hidden="true"></span>
                         <div class="intro-quote-stage">
                             <figure class="intro-quote" th:each="recommendation, item : ${details.recommendations()}" th:attr="data-intro-quote=${item.index}">
@@ -36,7 +33,7 @@
                 </div>
             </section>
             <section class="intro-act experience-act" data-intro-act="experience" hidden>
-                <div class="intro-act-copy"><p class="intro-kicker" th:text="#{story.experience.kicker}">02 / EXPERIENCE THAT COMPOUNDS</p><h3><span th:text="#{story.experience.first}">Built in practice.</span><br><em th:text="#{story.experience.second}">Ready for what's next.</em></h3><p class="intro-lede" th:text="#{story.experience.description}"></p><div class="experience-years"><strong th:text="|${details.professionalProgrammerPeriod().getYears()}+|">6+</strong><span th:text="#{intro.hero.experience}">years of experience</span></div><ul class="target-roles"><li>Senior Software Engineer</li></ul></div>
+                <div class="intro-act-copy"><h3><span th:text="#{story.experience.first}">Built in practice.</span><br><em th:text="#{story.experience.second}">Ready for what's next.</em></h3><p class="intro-lede" th:text="#{story.experience.description}"></p><div class="experience-years"><strong th:text="|${details.professionalProgrammerPeriod().getYears()}+|">6+</strong><span th:text="#{intro.hero.experience}">years of experience</span></div><ul class="target-roles"><li>Senior Software Engineer</li></ul></div>
                 <div class="experience-composition">
                     <span class="story-spine" data-shared="story-thread" aria-hidden="true"></span>
                     <div class="experience-window" role="region" tabindex="0" th:attr="aria-label=#{story.chapter.experience}"><ol class="experience-track">
@@ -48,7 +45,6 @@
             </section>
             <section class="intro-act architecture-act" data-intro-act="architecture" hidden>
                 <div class="intro-act-copy">
-                    <p class="intro-kicker" th:text="#{story.architecture.kicker}">03 / HOW I THINK</p>
                     <h3><span th:text="#{story.architecture.first}">The big picture.</span><br><em th:text="#{story.architecture.second}">Every little detail.</em></h3>
                     <p class="intro-lede" th:text="#{story.architecture.description}"></p>
                     <p class="intro-credential" th:text="#{story.architecture.education}">BSc Computer Science</p>
@@ -106,7 +102,7 @@
                 </div>
             </section>
             <section class="intro-act stack-act" data-intro-act="stack" hidden>
-                <div class="intro-act-copy"><p class="intro-kicker" th:text="#{story.stack.kicker}">04 / WHAT I BUILD WITH</p><h3><span th:text="#{story.stack.first}">Java at heart.</span><br><em th:text="#{story.stack.second}">Kotlin by instinct.</em></h3><p class="intro-lede" th:text="#{story.stack.description}"></p><p class="stack-principle" th:text="#{story.stack.principle}">Clean code is the thread through all of it.</p></div>
+                <div class="intro-act-copy"><h3><span th:text="#{story.stack.first}">Java at heart.</span><br><em th:text="#{story.stack.second}">Kotlin by instinct.</em></h3><p class="intro-lede" th:text="#{story.stack.description}"></p><p class="stack-principle" th:text="#{story.stack.principle}">Clean code is the thread through all of it.</p></div>
                 <div class="stack-composition">
                     <div class="language-pair"><div class="language-tile java-tile" data-shared="java" data-morph-label="Java"><strong>Java</strong></div><div class="language-tile kotlin-tile" data-shared="kotlin" data-morph-label="Kotlin"><strong>Kotlin</strong></div></div>
                     <div class="stack-lane"><span class="lane-label" th:text="#{story.stack.services}">Services</span><div><b class="spring-tag">Spring Boot</b><b>Microservices</b><b>OAuth2</b></div></div>
@@ -116,7 +112,7 @@
                 </div>
             </section>
             <section class="intro-act ai-act" data-intro-act="ai" hidden>
-                <div class="intro-act-copy"><p class="intro-kicker" th:text="#{story.ai.kicker}">05 / HOW I WORK</p><h3><span th:text="#{story.ai.first}">Agentic speed.</span><br><em th:text="#{story.ai.second}">Human judgment.</em></h3><p class="intro-lede" th:text="#{story.ai.description}"></p></div>
+                <div class="intro-act-copy"><h3><span th:text="#{story.ai.first}">Agentic speed.</span><br><em th:text="#{story.ai.second}">Human judgment.</em></h3><p class="intro-lede" th:text="#{story.ai.description}"></p></div>
                 <div class="agent-workflow">
                     <div class="human-direction"><span>Phi Tiet</span></div>
                     <div class="agent-spine"></div>
@@ -126,7 +122,6 @@
                 </div>
             </section>
             <section class="intro-act hero-final" data-intro-act="hire" hidden>
-                <p class="intro-kicker sr-only" th:text="#{story.hire.kicker}"></p>
                 <div th:replace="~{fragments/home-page/hero-content :: content(true)}"></div>
             </section>
         </div>
@@ -134,7 +129,7 @@
         <div class="intro-reveal-line" aria-hidden="true"></div>
         <footer class="intro-footer">
             <span class="sr-only" data-intro-status role="status"></span>
-            <div class="intro-handoff"><span th:text="#{story.hire.arrival}">The introduction ends. The work begins.</span><button type="button" data-intro-enter><span th:text="#{intro.enter}">View portfolio</span><span aria-hidden="true">↗</span></button></div>
+            <div class="intro-handoff"><button type="button" data-intro-enter><span th:text="#{intro.enter}">View portfolio</span><span aria-hidden="true">↗</span></button></div>
             <div class="intro-footer-controls"><nav class="intro-chapters" th:attr="aria-label=#{intro.chapters}"><button type="button" data-intro-chapter="0" th:attr="aria-label=#{story.chapter.recommendations}">01<span th:text="#{story.chapter.recommendations}">Recommendations</span></button><button type="button" data-intro-chapter="1" th:attr="aria-label=#{story.chapter.experience}">02<span th:text="#{story.chapter.experience}">Experience</span></button><button type="button" data-intro-chapter="2" th:attr="aria-label=#{story.chapter.architecture}">03<span th:text="#{story.chapter.architecture}">Architecture</span></button><button type="button" data-intro-chapter="3" th:attr="aria-label=#{story.chapter.stack}">04<span th:text="#{story.chapter.stack}">Stack</span></button><button type="button" data-intro-chapter="4" th:attr="aria-label=#{story.chapter.ai}">05<span th:text="#{story.chapter.ai}">AI</span></button><button type="button" data-intro-chapter="5" th:attr="aria-label=#{story.chapter.hire}">06<span th:text="#{story.chapter.hire}">Hire me</span></button></nav><button type="button" class="intro-pause" data-intro-pause th:text="#{intro.pause}">Pause</button></div>
             <div class="intro-progress" aria-hidden="true"><span></span></div>
         </footer>

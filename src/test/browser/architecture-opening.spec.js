@@ -6,6 +6,7 @@ test('intro chapters are accessible and can be dismissed', { tag: '@layout' }, a
     const dialog = page.locator('.architecture-intro');
     const replay = page.locator('[data-intro-replay]');
     await expect(dialog).not.toBeVisible();
+    await expect(replay.locator('small')).toHaveText(/^\d{2}s$/);
     await replay.click();
     for (const [index, chapter] of ['recommendations', 'experience', 'architecture', 'stack', 'ai', 'hire'].entries()) {
         await page.locator(`[data-intro-chapter="${index}"]`).click();
@@ -51,16 +52,13 @@ test('experience timeline supports keyboard scrolling', async ({ page }, testInf
     await expectAccessible(page);
 });
 
-test('intro links reach recommendations and the contact form', async ({ page }, testInfo) => {
+test('intro contact link reaches the contact form', async ({ page }, testInfo) => {
     await openPortfolio(page, testInfo);
-    for (const destination of ['recommendations', 'contact']) {
-        await page.locator('[data-intro-replay]').click();
-        if (destination === 'recommendations') await page.locator('[data-intro-chapter="0"]').click();
-        await page.locator(`[data-intro-destination="${destination}"]`).click();
-        await expect(page.locator('.architecture-intro')).not.toBeVisible();
-        await expect(page).toHaveURL(new RegExp(`#${destination}$`));
-        await expect(page.locator(`#${destination}-heading`)).toBeInViewport();
-    }
+    await page.locator('[data-intro-replay]').click();
+    await page.locator('[data-intro-destination="contact"]').click();
+    await expect(page.locator('.architecture-intro')).not.toBeVisible();
+    await expect(page).toHaveURL(/#contact$/);
+    await expect(page.locator('#contact-heading')).toBeInViewport();
     await expect(page.locator('#contact-name')).toBeVisible();
 });
 

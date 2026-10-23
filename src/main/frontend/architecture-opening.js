@@ -79,7 +79,7 @@ export function initializeOpening(dialog) {
         chapters = createChapters(compact, quotes.length);
         duration = chapters.at(-1).start + chapters.at(-1).duration;
         dialog.dataset.motion = compact ? 'compact' : 'full';
-        document.querySelectorAll('[data-intro-replay] small').forEach(label => { label.textContent = `${duration / 1000}s`; });
+        document.querySelectorAll('[data-intro-replay] small').forEach(label => { label.textContent = `${Math.floor(duration / 1000)}s`; });
     }
 
     function positionFinalPanel() {
@@ -388,7 +388,7 @@ export function initializeOpening(dialog) {
             else button.removeAttribute('aria-current');
         });
         dialog.dataset.chapter = chapters[index].id;
-        dialog.querySelector('[data-intro-status]').textContent = panel.querySelector('.intro-kicker').textContent;
+        dialog.querySelector('[data-intro-status]').textContent = chapterButtons[index].getAttribute('aria-label');
         if (!moving || motion.matches) return;
         if (blending) {
             if (previous.contains(document.activeElement)) pauseButton.focus({ preventScroll: true });
