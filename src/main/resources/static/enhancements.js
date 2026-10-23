@@ -1,4 +1,49 @@
 (function() {
+  document.addEventListener('alpine:init', function() {
+    Alpine.data('photoCarousel', function() {
+      var timer;
+      var observer;
+      var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var motionChanged;
+      return {
+        active: 0,
+        paused: false,
+        hovered: false,
+        focused: false,
+        visible: false,
+        reducedMotion: motion.matches,
+        init() {
+          observer = new IntersectionObserver(entries => {
+            this.visible = entries[0].isIntersecting && entries[0].intersectionRatio >= 0.25;
+            this.sync();
+          }, { threshold: 0.25 });
+          observer.observe(this.$el);
+          motionChanged = event => {
+            this.reducedMotion = event.matches;
+            this.sync();
+          };
+          motion.addEventListener('change', motionChanged);
+        },
+        sync() {
+          clearInterval(timer);
+          if (this.paused || this.hovered || this.focused || !this.visible || this.reducedMotion || document.hidden) return;
+          timer = setInterval(() => {
+            this.active = (this.active + 1) % this.$el.querySelectorAll('.photo-slide').length;
+          }, 5000);
+        },
+        go(index) {
+          this.active = index;
+          this.sync();
+        },
+        destroy() {
+          clearInterval(timer);
+          observer.disconnect();
+          motion.removeEventListener('change', motionChanged);
+        }
+      };
+    });
+  });
+
   function focusMainIfHash() {
     if (window.location.hash) {
       var target = document.getElementById(window.location.hash.slice(1));

@@ -15,8 +15,10 @@
     </div>
 
     <div class="hobbies-layout">
-        <div class="relative"
-             x-data="{ active: 0, go(index) { this.active = index } }">
+        <div class="relative" x-data="photoCarousel"
+             @mouseenter="hovered = true; sync()" @mouseleave="hovered = false; sync()"
+             @focusin="focused = true; sync()" @focusout="focused = $el.contains($event.relatedTarget); sync()"
+             @visibilitychange.document="sync()">
             
             <div class="relative aspect-[4/3] rounded-[var(--radius-xl)] overflow-hidden bg-[var(--color-bg-tertiary)] shadow-[var(--shadow-lg)]">
                 <img th:src="@{/images/self_chess.png}" 
@@ -54,6 +56,10 @@
             </div>
             
             <div class="flex justify-center gap-2 mt-4">
+                <button type="button" class="photo-playback" data-photo-playback
+                        x-show="!reducedMotion" x-cloak @click="paused = !paused; if (!paused) focused = false; sync()"
+                        th:attr="data-pause=#{hobbies.photo.pause},data-play=#{hobbies.photo.play}"
+                        x-text="paused ? $el.dataset.play : $el.dataset.pause">Pause photos</button>
                 <button class="photo-dot" :class="active === 0 ? 'active' : ''" @click="go(0)" th:attr="aria-label=#{hobbies.photo.view(1)}"></button>
                 <button class="photo-dot" :class="active === 1 ? 'active' : ''" @click="go(1)" th:attr="aria-label=#{hobbies.photo.view(2)}"></button>
                 <button class="photo-dot" :class="active === 2 ? 'active' : ''" @click="go(2)" th:attr="aria-label=#{hobbies.photo.view(3)}"></button>

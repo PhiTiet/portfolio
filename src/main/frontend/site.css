@@ -266,6 +266,8 @@ a.project-card:hover, a.project-card:focus-visible { border-color: var(--color-a
 .hobbies-layout .p-6 p { font-size: 0.75rem; }
 .photo-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .photo-active { z-index: 1; }
+.photo-playback { min-height: 1.5rem; padding-inline: 0.25rem; font-size: 0.6875rem; color: var(--color-text-muted); }
+.photo-playback:hover { color: var(--color-accent); }
 .language-name { font-size: 0.6875rem; }
 .language-level { font-size: 0.625rem; color: var(--color-text-muted); }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 7rem; align-items: start; }
@@ -401,4 +403,5 @@ html.light .career-highlight { background: var(--color-bg-secondary); }
     html { scroll-behavior: auto; }
     .disclosure-icon, .recommendation-card, .recommendation-dot::after, .photo-dot::after { transition: none; }
     [x-transition] { transition: none !important; }
+    .photo-slide { transition: none !important; }
 }
