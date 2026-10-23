@@ -1,4 +1,4 @@
-export const HIRE_HOLD = 2600;
+export const HIRE_HOLD = 2100;
 export const HIRE_ENTRY = 1400;
 export const RECOMMENDATION_INTERVAL = 2800;
 export const RECOMMENDATIONS_DURATION = RECOMMENDATION_INTERVAL * 5;
@@ -23,7 +23,7 @@ export const CHAPTERS = createChapters();
 export const DURATION = CHAPTERS.at(-1).start + CHAPTERS.at(-1).duration;
 export const COMPACT_CHAPTERS = createChapters(true);
 export const COMPACT_DURATION = COMPACT_CHAPTERS.at(-1).start + COMPACT_CHAPTERS.at(-1).duration;
-export const COMPACT_QUERY = '(max-width: 700px), (pointer: coarse) and (max-width: 1000px)';
+export const COMPACT_QUERY = '(max-width: 900px), (pointer: coarse) and (max-width: 1000px)';
 export const STORAGE_KEY = 'portfolio.engineering-story.seen';
 
 export function chapterAt(time, chapters = CHAPTERS) {
@@ -322,9 +322,6 @@ export function initializeOpening(dialog) {
             panel.querySelectorAll('.agent-branches > div').forEach((node, order) => {
                 animate(node, [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { delay: 400 + order * 450, duration: 500 });
             });
-            panel.querySelectorAll('.workflow-trace > span').forEach((step, order) => {
-                animate(step, [{ opacity: 0 }, { opacity: 1 }], { delay: 650 + order * 500, duration: 400 });
-            });
             animate(panel.querySelector('.verification-gate'), [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 450, delay: 2100 });
             animate(panel.querySelector('.verification-gate'), [{ color: 'var(--intro-teal)' }, { color: 'var(--intro-amber)', offset: 0.5 }, { color: 'var(--intro-teal)' }], { duration: 1400, delay: 2400, easing: 'ease-in-out' });
         }
@@ -401,7 +398,7 @@ export function initializeOpening(dialog) {
             if (previousCopy) animate(previousCopy, [{ opacity: getComputedStyle(previousCopy).opacity, transform: 'none' }, { opacity: 0, transform: 'translateY(-8px)' }], { duration: 180 });
             if (final && previous.dataset.introAct === 'ai') {
                 const hub = previous.querySelector('.opencode-hub').getBoundingClientRect();
-                previous.querySelectorAll('.human-direction, .agent-branches > div, .verification-gate, .workflow-trace').forEach(element => {
+                previous.querySelectorAll('.human-direction, .agent-branches > div, .verification-gate').forEach(element => {
                     const rect = element.getBoundingClientRect();
                     const x = (hub.left + hub.width / 2 - rect.left - rect.width / 2) * 0.25;
                     const y = (hub.top + hub.height / 2 - rect.top - rect.height / 2) * 0.25;
@@ -553,10 +550,11 @@ export function initializeOpening(dialog) {
     ['pointerdown', 'focus'].forEach(event => quoteWindow.addEventListener(event, () => {
         if (!running || activeQuote < 0) return;
         setPlaying(false);
-        const entry = new Set(panels[active].getAnimations());
+        const panel = panels[active];
+        const entry = new Set([...panel.getAnimations(), ...panel.querySelector('.intro-act-copy').getAnimations({ subtree: true })]);
         entry.forEach(effect => effect.cancel());
         effects = effects.filter(effect => !entry.has(effect));
-        panels[active].style.opacity = '1';
+        panel.style.opacity = '1';
         const index = activeQuote;
         activeQuote = -1;
         showQuote(index, false);

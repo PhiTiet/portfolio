@@ -5,7 +5,7 @@
         th:attr="data-pause=#{intro.pause},data-play=#{intro.play},data-enter=#{intro.enter},data-skip=#{intro.skip}">
     <div class="intro-shell">
         <header class="intro-header">
-            <span class="intro-brand">Phi Tiet<span>.</span><small>JAVA / KOTLIN ENGINEER</small></span>
+            <span class="intro-brand">Phi Tiet<span>.</span></span>
             <button type="button" class="intro-skip" data-intro-close autofocus><span th:text="#{intro.skip}">Skip to portfolio</span><span aria-hidden="true">↗</span></button>
         </header>
         <h2 id="intro-title" class="sr-only" th:text="#{intro.title}">From architecture to impact</h2>
@@ -13,35 +13,35 @@
         <div class="intro-viewport">
             <section class="intro-act recommendations-act" data-intro-act="recommendations">
                 <div class="intro-act-copy">
-                    <p class="intro-kicker" th:text="#{story.recommendations.kicker}">01 / THE PEOPLE I'VE BUILT WITH</p>
+                    <p class="intro-kicker" th:text="#{story.recommendations.kicker}">01 / My people I've had the pleasure to work with</p>
                     <h3><span th:text="#{story.recommendations.first}">Good work.</span><br><em th:text="#{story.recommendations.second}">In their words.</em></h3>
                     <p class="intro-lede" th:text="#{story.recommendations.description}"></p>
                     <a class="intro-recommendations-link" href="#recommendations" data-intro-destination="recommendations"><span th:text="#{story.recommendations.read}">Read the recommendations</span><span aria-hidden="true">↗</span></a>
                 </div>
                 <div class="recommendation-composition">
-                    <span class="story-spine" data-shared="story-thread" aria-hidden="true"></span>
-                    <div class="intro-quote-window" role="region" tabindex="0" th:attr="aria-label=#{recommendations.title}">
+                    <p id="intro-quote-description" class="intro-quote-note" th:text="#{story.recommendations.excerpts}">Selected excerpts from written recommendations.</p>
+                    <div class="intro-quote-window" role="region" tabindex="0" aria-describedby="intro-quote-description" th:attr="aria-label=#{recommendations.title}">
+                        <span class="story-spine" data-shared="story-thread" aria-hidden="true"></span>
                         <div class="intro-quote-stage">
                             <figure class="intro-quote" th:each="recommendation, item : ${details.recommendations()}" th:attr="data-intro-quote=${item.index}">
                                 <span class="intro-quote-mark" aria-hidden="true">“</span>
                                 <blockquote th:text="${recommendation.openingQuote() ?: recommendation.quote()}"></blockquote>
-                                <figcaption><span class="intro-quote-avatar" aria-hidden="true" th:text="${recommendation.authorInitials()}"></span><span><strong th:text="${recommendation.authorName()}"></strong><small th:text="${recommendation.authorRole()}"></small></span></figcaption>
+                                <figcaption><span><strong th:text="${recommendation.authorName()}"></strong><small th:text="${recommendation.authorRole()}"></small></span></figcaption>
                             </figure>
                         </div>
                     </div>
                     <nav class="intro-quote-controls" th:attr="aria-label=#{recommendations.title}">
                         <button type="button" th:each="recommendation, item : ${details.recommendations()}" th:attr="data-intro-quote-button=${item.index},aria-label=#{story.recommendations.choose(${recommendation.authorName()})}"><span th:text="${#numbers.formatInteger(item.count, 2)}"></span><span class="intro-quote-meter" aria-hidden="true"><i></i></span></button>
                     </nav>
-                    <p class="intro-quote-note" th:text="#{story.recommendations.excerpts}">Excerpts from written recommendations.</p>
                 </div>
             </section>
             <section class="intro-act experience-act" data-intro-act="experience" hidden>
-                <div class="intro-act-copy"><p class="intro-kicker" th:text="#{story.experience.kicker}">02 / EXPERIENCE THAT COMPOUNDS</p><h3><span th:text="#{story.experience.first}">Built in practice.</span><br><em th:text="#{story.experience.second}">Ready for what's next.</em></h3><p class="intro-lede" th:text="#{story.experience.description}"></p><div class="experience-years"><strong th:text="|${details.professionalProgrammerPeriod().getYears()}+|">6+</strong><span th:text="#{intro.hero.experience}">years of experience</span></div><ul class="target-roles"><li>Senior Software Engineer</li></ul><div class="experience-signature">Phi Tiet<span>↗</span></div></div>
+                <div class="intro-act-copy"><p class="intro-kicker" th:text="#{story.experience.kicker}">02 / EXPERIENCE THAT COMPOUNDS</p><h3><span th:text="#{story.experience.first}">Built in practice.</span><br><em th:text="#{story.experience.second}">Ready for what's next.</em></h3><p class="intro-lede" th:text="#{story.experience.description}"></p><div class="experience-years"><strong th:text="|${details.professionalProgrammerPeriod().getYears()}+|">6+</strong><span th:text="#{intro.hero.experience}">years of experience</span></div><ul class="target-roles"><li>Senior Software Engineer</li></ul></div>
                 <div class="experience-composition">
                     <span class="story-spine" data-shared="story-thread" aria-hidden="true"></span>
                     <div class="experience-window" role="region" tabindex="0" th:attr="aria-label=#{story.chapter.experience}"><ol class="experience-track">
-                        <li th:each="event : ${details.events}" th:if="${event.start.year >= 2020}"><span class="career-year" th:text="${#temporals.format(event.start, 'yyyy') + '–' + (event.end != null ? #temporals.format(event.end, 'yyyy') : #messages.msg('story.experience.now'))}"></span><div><h4 th:text="${event.employer}"></h4><p th:text="${event.jobTitle}"></p><span th:text="${#temporals.format(event.start, 'MM.yyyy') + ' — ' + (event.end != null ? #temporals.format(event.end, 'MM.yyyy') : #messages.msg('timeline.current'))}"></span></div></li>
-                        <li class="experience-education" th:each="certificate : ${details.certificates}" th:if="${#strings.startsWith(certificate.title, 'BSc')}"><span class="career-year" th:text="${#temporals.format(certificate.acquisitionDate, 'yyyy')}"></span><div><h4 th:text="#{story.architecture.education}">BSc Computer Science</h4><p th:text="${certificate.institution}"></p><span th:text="${#temporals.format(certificate.acquisitionDate, 'MM.yyyy')}"></span></div></li>
+                        <li th:each="event : ${details.events}" th:if="${event.start.year >= 2020}"><span class="career-year" th:text="${#temporals.format(event.start, 'yyyy') + '–' + (event.end != null ? #temporals.format(event.end, 'yyyy') : #messages.msg('story.experience.now'))}"></span><div><h4 th:text="${event.employer}"></h4><p th:text="${event.jobTitle}"></p></div></li>
+                        <li class="experience-education" th:each="certificate : ${details.certificates}" th:if="${#strings.startsWith(certificate.title, 'BSc')}"><span class="career-year" th:text="${#temporals.format(certificate.acquisitionDate, 'yyyy')}"></span><div><h4 th:text="#{story.architecture.education}">BSc Computer Science</h4><p th:text="${certificate.institution}"></p></div></li>
                     </ol></div>
                     <div class="experience-summary"><span th:text="#{story.experience.focus}">Backend systems · architecture · coaching</span><small th:text="#{story.experience.overlap}">Consultancy and client assignments overlap.</small></div>
                 </div>
@@ -70,27 +70,23 @@
                                 <div class="camera-heading"><span>02 / CONTAINERS</span><span>Java / Kotlin microservices</span></div>
                                 <div class="kubernetes-boundary network-boundary">
                                     <span class="deployment-label">DEPLOYMENT · Kubernetes / AKS</span>
-                                    <div class="ingress-label">Ingress · OAuth2 · REST</div>
                                     <svg class="microservice-network" viewBox="0 0 560 230" role="presentation">
                                         <defs><marker id="service-network-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 8 4 0 8z" fill="#7aa2f7"/></marker></defs>
                                         <g class="network-edges" marker-end="url(#service-network-arrow)"><path d="M130 55H205"/><path d="M355 55H430"/><path d="M130 175H205"/><path d="M355 175H430"/><path class="network-crosslink" d="M355 65C395 65 390 165 430 165"/><path class="network-crosslink" d="M492 90C492 122 390 123 355 164"/></g>
-                                        <g class="network-service service-selected" data-service="a"><rect x="5" y="20" width="125" height="70" rx="12"/><text x="20" y="49">Service A</text><text class="network-detail" x="20" y="70">Kotlin / Spring</text><circle cx="113" cy="36" r="4"/></g>
-                                        <g class="network-service" data-service="b"><rect x="5" y="140" width="125" height="70" rx="12"/><text x="20" y="169">Service B</text><text class="network-detail" x="20" y="190">Java / Spring</text></g>
-                                        <g class="network-service" data-service="c"><rect x="430" y="20" width="125" height="70" rx="12"/><text x="445" y="49">Service C</text><text class="network-detail" x="445" y="70">Java / Spring</text></g>
-                                        <g class="network-service" data-service="d"><rect x="430" y="140" width="125" height="70" rx="12"/><text x="445" y="169">Service D</text><text class="network-detail" x="445" y="190">Kotlin / Spring</text></g>
-                                        <g class="network-topic" data-topic="events.created"><rect x="205" y="30" width="150" height="50" rx="25"/><text x="280" y="60" text-anchor="middle">events.created</text></g>
-                                        <g class="network-topic" data-topic="events.updated"><rect x="205" y="150" width="150" height="50" rx="25"/><text x="280" y="180" text-anchor="middle">events.updated</text></g>
+                                        <g class="network-service service-selected" data-service="a"><rect x="5" y="20" width="125" height="70" rx="12"/><text x="20" y="63">Service A</text><circle cx="113" cy="36" r="4"/></g>
+                                        <g class="network-service" data-service="b"><rect x="5" y="140" width="125" height="70" rx="12"/><text x="20" y="183">Service B</text></g>
+                                        <g class="network-service" data-service="c"><rect x="430" y="20" width="125" height="70" rx="12"/><text x="445" y="63">Service C</text></g>
+                                        <g class="network-service" data-service="d"><rect x="430" y="140" width="125" height="70" rx="12"/><text x="445" y="183">Service D</text></g>
+                                        <g class="network-topic" data-topic="events.created"><rect x="205" y="30" width="150" height="50" rx="25"/><text x="280" y="63" text-anchor="middle">created</text></g>
+                                        <g class="network-topic" data-topic="events.updated"><rect x="205" y="150" width="150" height="50" rx="25"/><text x="280" y="183" text-anchor="middle">updated</text></g>
                                         <text class="network-kafka-label" x="280" y="119" text-anchor="middle">KAFKA TOPICS</text>
                                         <circle class="network-packet" data-network-packet="0" r="4"/><circle class="network-packet" data-network-packet="1" r="4"/><circle class="network-packet" data-network-packet="2" r="4"/>
                                     </svg>
-                                    <div class="network-legend"><span th:text="#{story.c4.eventflow}">Publish → topic → consume</span><span>PostgreSQL · service-owned data</span></div>
                                 </div>
-                                <div class="deployment-pipeline"><span>GitHub Actions</span><i>→</i><span>ArgoCD</span><i>→</i><span>Kubernetes</span></div>
                             </div>
                             <div class="c4-layer">
                                 <div class="camera-heading"><span>03 / COMPONENTS</span><span>Service A · Clean Architecture</span></div>
                                 <div class="clean-service"><span class="clean-layer-label">FRAMEWORKS & ADAPTERS</span><div class="driving-adapters"><span>REST controller</span><span>Kafka consumer</span></div><div class="clean-application"><span class="clean-layer-label">APPLICATION · USE CASES & PORTS</span><div class="clean-domain"><span>◇</span><strong>Domain</strong><small th:text="#{story.c4.domain}">Entities · invariants · business rules</small></div><div class="application-ports"><span>Repository port</span><span>Event port</span></div></div><div class="driven-adapters"><span>PostgreSQL adapter</span><span>Kafka publisher</span></div></div>
-                                <div class="dependency-rule"><span>↑</span><small th:text="#{story.c4.dependencies}">Source dependencies point inward, toward policy.</small></div>
                             </div>
                             <div class="c4-layer c4-code-layer">
                                 <div class="camera-heading"><span>04 / CODE</span><span th:text="#{story.c4.intent}">Names that explain intent</span></div>
@@ -101,12 +97,12 @@
 <span class="code-line">        <b>val</b> entity = repository.get(id)</span>
 <span class="code-line code-return">        repository.save(entity.applyRules())</span>
 <span class="code-line">    }</span>
-<span class="code-line">}</span></code></pre><div class="editor-status" th:text="#{story.c4.clean}">One use case. Explicit dependencies. Testable behaviour.</div></div>
+<span class="code-line">}</span></code></pre></div>
                                 <div class="c4-language-seeds"><span data-shared="java" data-morph-label="Java">Java</span><span data-shared="kotlin" data-morph-label="Kotlin">Kotlin</span></div>
                             </div>
                         </div>
                     </div>
-                    <ol class="c4-overview"><li><b>Context</b><span th:text="#{story.c4.system}"></span></li><li><b>Containers</b><span>Service A / B / C / D · Kafka topics: events.created / events.updated</span><small>Deployment: Kubernetes / AKS · ArgoCD · PostgreSQL</small></li><li><b>Components</b><span>Service A: adapters → application / ports → domain</span><small th:text="#{story.c4.dependencies}"></small></li><li><b>Code</b><code>repository.save(entity.applyRules())</code></li></ol>
+                    <ol class="c4-overview"><li><b>Context</b><span th:text="#{story.c4.system}"></span></li><li><b>Containers</b><span>Java / Kotlin services · Kafka</span><small>Deployment: Kubernetes / AKS · ArgoCD · PostgreSQL</small></li><li><b>Components</b><span>Adapters → application → domain</span><small th:text="#{story.c4.dependencies}"></small></li><li><b>Code</b><code>repository.save(entity.applyRules())</code></li></ol>
                 </div>
             </section>
             <section class="intro-act stack-act" data-intro-act="stack" hidden>
@@ -116,18 +112,17 @@
                     <div class="stack-lane"><span class="lane-label" th:text="#{story.stack.services}">Services</span><div><b class="spring-tag">Spring Boot</b><b>Microservices</b><b>OAuth2</b></div></div>
                     <div class="stack-lane"><span class="lane-label" th:text="#{story.stack.flow}">Data & flow</span><div><b class="kafka-tag">Kafka</b><b>PostgreSQL</b><b>REST APIs</b></div></div>
                     <div class="stack-lane"><span class="lane-label" th:text="#{story.stack.delivery}">Delivery</span><div><b class="kubernetes-tag">Kubernetes / AKS</b><b>ArgoCD</b><b>GitHub Actions</b></div></div>
-                    <div class="stack-ai-seed" data-shared="opencode" data-morph-label="OpenCode"><span>⌘</span><b>OpenCode</b><small th:text="#{story.stack.ai}">The way I work is evolving, too. →</small></div>
+                    <div class="stack-ai-seed" data-shared="opencode" data-morph-label="OpenCode"><span>⌘</span><b>OpenCode</b></div>
                 </div>
             </section>
             <section class="intro-act ai-act" data-intro-act="ai" hidden>
-                <div class="intro-act-copy"><p class="intro-kicker" th:text="#{story.ai.kicker}">05 / HOW I WORK</p><h3><span th:text="#{story.ai.first}">Agentic speed.</span><br><em th:text="#{story.ai.second}">Human judgment.</em></h3><p class="intro-lede" th:text="#{story.ai.description}"></p><div class="judgment-tile"><span>◇</span><b th:text="#{story.ai.ownership}">Engineering judgment</b><p th:text="#{story.ai.gate}">I own the direction, architecture, and final diff.</p></div></div>
+                <div class="intro-act-copy"><p class="intro-kicker" th:text="#{story.ai.kicker}">05 / HOW I WORK</p><h3><span th:text="#{story.ai.first}">Agentic speed.</span><br><em th:text="#{story.ai.second}">Human judgment.</em></h3><p class="intro-lede" th:text="#{story.ai.description}"></p></div>
                 <div class="agent-workflow">
-                    <div class="human-direction"><span>Phi Tiet</span><b th:text="#{story.ai.direction}">Intent · boundaries · acceptance criteria</b></div>
+                    <div class="human-direction"><span>Phi Tiet</span></div>
                     <div class="agent-spine"></div>
-                    <div class="opencode-hub" data-shared="opencode" data-morph-label="OpenCode"><span>⌘</span><strong>OpenCode</strong><small th:text="#{story.ai.hub}">Agentic development, deliberately orchestrated.</small></div>
-                    <div class="agent-branches"><div><small>explore</small><b th:text="#{story.ai.explore}">Understand</b></div><div><small>developer</small><b th:text="#{story.ai.develop}">Implement</b></div><div><small>reviewer</small><b th:text="#{story.ai.review}">Challenge</b></div></div>
+                    <div class="opencode-hub" data-shared="opencode" data-morph-label="OpenCode"><span>⌘</span><strong>OpenCode</strong></div>
+                    <div class="agent-branches"><div><b th:text="#{story.ai.explore}">Understand</b></div><div><b th:text="#{story.ai.develop}">Implement</b></div><div><b th:text="#{story.ai.review}">Challenge</b></div></div>
                     <div class="verification-gate"><span>✓</span><p th:text="#{story.ai.verification}">Tests. Browser checks. Review. Then a human decision.</p></div>
-                    <div class="workflow-trace" aria-hidden="true"><span><i>01</i> inspect → plan</span><span><i>02</i> implement → test</span><span><i>03</i> review → refine</span></div>
                 </div>
             </section>
             <section class="intro-act hero-final" data-intro-act="hire" hidden>
@@ -138,7 +133,7 @@
         <div class="intro-portal" aria-hidden="true"></div>
         <div class="intro-reveal-line" aria-hidden="true"></div>
         <footer class="intro-footer">
-            <div class="intro-footer-heading"><span data-intro-status role="status" th:text="#{story.recommendations.kicker}"></span><span class="intro-example" th:text="#{story.footer}">The people. The practice. The craft.</span></div>
+            <span class="sr-only" data-intro-status role="status"></span>
             <div class="intro-handoff"><span th:text="#{story.hire.arrival}">The introduction ends. The work begins.</span><button type="button" data-intro-enter><span th:text="#{intro.enter}">View portfolio</span><span aria-hidden="true">↗</span></button></div>
             <div class="intro-footer-controls"><nav class="intro-chapters" th:attr="aria-label=#{intro.chapters}"><button type="button" data-intro-chapter="0" th:attr="aria-label=#{story.chapter.recommendations}">01<span th:text="#{story.chapter.recommendations}">Recommendations</span></button><button type="button" data-intro-chapter="1" th:attr="aria-label=#{story.chapter.experience}">02<span th:text="#{story.chapter.experience}">Experience</span></button><button type="button" data-intro-chapter="2" th:attr="aria-label=#{story.chapter.architecture}">03<span th:text="#{story.chapter.architecture}">Architecture</span></button><button type="button" data-intro-chapter="3" th:attr="aria-label=#{story.chapter.stack}">04<span th:text="#{story.chapter.stack}">Stack</span></button><button type="button" data-intro-chapter="4" th:attr="aria-label=#{story.chapter.ai}">05<span th:text="#{story.chapter.ai}">AI</span></button><button type="button" data-intro-chapter="5" th:attr="aria-label=#{story.chapter.hire}">06<span th:text="#{story.chapter.hire}">Hire me</span></button></nav><button type="button" class="intro-pause" data-intro-pause th:text="#{intro.pause}">Pause</button></div>
             <div class="intro-progress" aria-hidden="true"><span></span></div>

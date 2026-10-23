@@ -14,7 +14,6 @@
             <p class="hero-role" th:text="#{hero.title}">Senior Software Engineer</p>
         </div>
         <p class="hero-description" th:text="#{story.hire.description}"></p>
-        <p class="hero-experience"><span>Java / Kotlin</span><span th:text="#{story.hire.architecture}">Architecture-minded</span><span th:text="|${details.professionalProgrammerPeriod().getYears()}+ #{intro.hero.experience}|"></span></p>
         <div class="hero-actions">
             <a href="#contact" class="button btn-accent" th:attr="data-intro-destination=${intro} ? 'contact' : null"><span th:text="#{story.hire.contact}">Let's talk</span><span aria-hidden="true">↗</span></a>
             <a href="#projects" class="button button-secondary" th:attr="data-intro-destination=${intro} ? 'projects' : null" th:text="#{story.hire.work}">Explore my work</a>
