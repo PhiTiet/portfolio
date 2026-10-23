@@ -35,7 +35,7 @@ class CareerServiceTest {
         var english = career("English");
         var dutch = career("Nederlands");
         var recommendations = new RecommendationConfigProperties();
-        recommendations.setItems(List.of(new Recommendation("Great work", "Jane", "J", "Engineer", "/letter.pdf", LocalDate.of(2024, 1, 1))));
+        recommendations.setItems(List.of(new Recommendation("Great work", "Great work", "Jane", "J", "Engineer", "/letter.pdf", LocalDate.of(2024, 1, 1))));
         var clock = Clock.fixed(LocalDate.of(2026, 2, 10).atStartOfDay(ZoneOffset.UTC).toInstant(), ZoneOffset.UTC);
         var service = new CareerService(english, dutch, clock, recommendations);
         LocaleContextHolder.setLocale(Locale.forLanguageTag(language));
