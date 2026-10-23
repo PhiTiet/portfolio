@@ -2,13 +2,14 @@ export const HIRE_HOLD = 2100;
 export const HIRE_ENTRY = 1400;
 export const RECOMMENDATION_INTERVAL = 2800;
 export const RECOMMENDATIONS_DURATION = RECOMMENDATION_INTERVAL * 5;
+export const ARCHITECTURE_ENTRY = 1500;
 
 export function createChapters(compact = false, recommendationCount = 5) {
     let start = 0;
     return [
         ['recommendations', RECOMMENDATION_INTERVAL * recommendationCount],
         ['experience', compact ? 5000 : 6000],
-        ['architecture', compact ? 4000 : 8000],
+        ['architecture', compact ? 4000 : 8000 + ARCHITECTURE_ENTRY],
         ['stack', compact ? 3000 : 4500],
         ['ai', compact ? 3000 : 4500],
         ['hire', HIRE_ENTRY + HIRE_HOLD]
@@ -31,7 +32,8 @@ export function chapterAt(time, chapters = CHAPTERS) {
 }
 
 export function architectureLevelAt(time) {
-    const duration = CHAPTERS.find(chapter => chapter.id === 'architecture').duration;
+    time = Math.max(0, time - ARCHITECTURE_ENTRY);
+    const duration = CHAPTERS.find(chapter => chapter.id === 'architecture').duration - ARCHITECTURE_ENTRY;
     if (time >= duration * 0.78) return 3;
     if (time >= duration * 0.51) return 2;
     if (time >= duration * 0.24) return 1;
@@ -277,27 +279,28 @@ export function initializeOpening(dialog) {
             animate(panel.querySelector('.story-spine'), [{ transform: 'scaleY(0)', transformOrigin: 'top' }, { transform: 'scaleY(1)', transformOrigin: 'top' }], { duration: 1000, delay: 100 });
         }
         if (id === 'architecture') {
+            const architectureTime = fraction => ARCHITECTURE_ENTRY + (duration - ARCHITECTURE_ENTRY) * fraction;
             panel.querySelectorAll('.context-person, .system-core').forEach((block, order) => {
                 animate(block, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 450, delay: 150 + order * 180 });
                 energize(block, 300 + order * 450, 'var(--intro-blue)');
             });
             panel.querySelectorAll('.driving-adapters > span, .clean-application, .clean-domain, .driven-adapters > span').forEach((block, order) => {
-                animate(block, [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 350, delay: duration * 0.51 + order * 100 });
-                energize(block, duration * 0.51 + order * 180, order === 3 ? 'var(--intro-teal)' : 'var(--intro-blue)');
+                animate(block, [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 350, delay: architectureTime(0.51) + order * 100 });
+                energize(block, architectureTime(0.51) + order * 180, order === 3 ? 'var(--intro-teal)' : 'var(--intro-blue)');
             });
             panel.querySelectorAll('.code-line').forEach((line, order) => {
-                animate(line, [{ opacity: 0, transform: 'translateX(-8px)' }, { opacity: 1, transform: 'none' }], { duration: 250, delay: duration * 0.78 + order * 55 });
-                animate(line, [{ backgroundColor: '#7ed4c400' }, { backgroundColor: '#7ed4c426', offset: 0.35 }, { backgroundColor: '#7ed4c400' }], { duration: 1400, delay: duration * 0.78 + order * 140, iterations: Infinity, easing: 'ease-in-out' });
+                animate(line, [{ opacity: 0, transform: 'translateX(-8px)' }, { opacity: 1, transform: 'none' }], { duration: 250, delay: architectureTime(0.78) + order * 55 });
+                animate(line, [{ backgroundColor: '#7ed4c400' }, { backgroundColor: '#7ed4c426', offset: 0.35 }, { backgroundColor: '#7ed4c400' }], { duration: 1400, delay: architectureTime(0.78) + order * 140, iterations: Infinity, easing: 'ease-in-out' });
             });
             const step = panel.querySelector('.c4-window').clientHeight;
             animate(panel.querySelector('.c4-world'), [
                 { transform: 'translateY(0)', offset: 0 },
-                { transform: 'translateY(0)', offset: 0.16, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' },
-                { transform: `translateY(-${step}px)`, offset: 0.24 },
-                { transform: `translateY(-${step}px)`, offset: 0.43, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' },
-                { transform: `translateY(-${step * 2}px)`, offset: 0.51 },
-                { transform: `translateY(-${step * 2}px)`, offset: 0.69, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' },
-                { transform: `translateY(-${step * 3}px)`, offset: 0.78 },
+                { transform: 'translateY(0)', offset: architectureTime(0.16) / duration, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' },
+                { transform: `translateY(-${step}px)`, offset: architectureTime(0.24) / duration },
+                { transform: `translateY(-${step}px)`, offset: architectureTime(0.43) / duration, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' },
+                { transform: `translateY(-${step * 2}px)`, offset: architectureTime(0.51) / duration },
+                { transform: `translateY(-${step * 2}px)`, offset: architectureTime(0.69) / duration, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' },
+                { transform: `translateY(-${step * 3}px)`, offset: architectureTime(0.78) / duration },
                 { transform: `translateY(-${step * 3}px)`, offset: 1 }
             ], { duration, easing: 'linear' });
             const routes = [
@@ -306,10 +309,10 @@ export function initializeOpening(dialog) {
                 [[355, 65], [385, 65], [400, 165], [430, 165]]
             ];
             panel.querySelectorAll('[data-network-packet]').forEach((packet, order) => {
-                animate(packet, routes[order].map(([x, y], index) => ({ transform: `translate(${x}px, ${y}px)`, opacity: index === 0 || index === 3 ? 0 : 1 })), { delay: duration * 0.24 + order * 160, duration: 1100, iterations: Infinity, easing: 'linear' });
+                animate(packet, routes[order].map(([x, y], index) => ({ transform: `translate(${x}px, ${y}px)`, opacity: index === 0 || index === 3 ? 0 : 1 })), { delay: architectureTime(0.24) + order * 160, duration: 1100, iterations: Infinity, easing: 'linear' });
             });
             panel.querySelectorAll('.network-service rect, .network-topic rect').forEach((node, order) => {
-                animate(node, [{ filter: 'drop-shadow(0 0 0px #7ed4c400)' }, { filter: 'drop-shadow(0 0 6px #7ed4c499)', offset: 0.4 }, { filter: 'drop-shadow(0 0 0px #7ed4c400)' }], { duration: 1800, delay: duration * 0.24 + order * 160, iterations: Infinity, easing: 'ease-in-out' });
+                animate(node, [{ filter: 'drop-shadow(0 0 0px #7ed4c400)' }, { filter: 'drop-shadow(0 0 6px #7ed4c499)', offset: 0.4 }, { filter: 'drop-shadow(0 0 0px #7ed4c400)' }], { duration: 1800, delay: architectureTime(0.24) + order * 160, iterations: Infinity, easing: 'ease-in-out' });
             });
         }
         if (id === 'stack') panel.querySelectorAll('.stack-lane').forEach((lane, order) => {
@@ -372,7 +375,6 @@ export function initializeOpening(dialog) {
             const background = getComputedStyle(document.body).backgroundColor;
             if (moving && !motion.matches) {
                 animate(dialog, [{ backgroundColor: getComputedStyle(dialog).backgroundColor }, { backgroundColor: background }], { duration: 640, delay: blending ? 320 : 0, easing: 'ease-in-out' });
-                animate(dialog.querySelector('.intro-handoff'), [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 400, delay: 1000 });
                 frameArrival(sources.get('opencode'), panel);
                 animate(panel.querySelector('.portrait img'), [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 650, delay: 560 });
                 animate(panel.querySelector('.portrait figcaption'), [{ opacity: 0 }, { opacity: 1 }], { duration: 350, delay: 900 });
@@ -545,7 +547,6 @@ export function initializeOpening(dialog) {
     }
 
     closeButton.addEventListener('click', () => finish());
-    dialog.querySelector('[data-intro-enter]').addEventListener('click', () => finish(true));
     pauseButton.addEventListener('click', () => setPlaying(!running));
     ['pointerdown', 'focus'].forEach(event => quoteWindow.addEventListener(event, () => {
         if (!running || activeQuote < 0) return;

@@ -9,7 +9,7 @@ test('the people-first story has six contiguous chapters and a bounded duration'
         assert.equal(chapterAt(chapter.start + chapter.duration - 1), index);
         assert.equal(chapter.start + chapter.duration, CHAPTERS[index + 1]?.start ?? DURATION);
     });
-    assert.equal(DURATION, 40500);
+    assert.equal(DURATION, 42000);
 });
 
 test('the final frame leaves time for an explicit portfolio entrance', () => {
@@ -42,12 +42,12 @@ test('the recommendation sequence gives all five authors a full-stage turn in fo
 
 test('the architecture camera progresses down through all four C4 levels', () => {
     assert.equal(architectureLevelAt(0), 0);
-    assert.equal(architectureLevelAt(1919), 0);
-    assert.equal(architectureLevelAt(1920), 1);
-    assert.equal(architectureLevelAt(4079), 1);
-    assert.equal(architectureLevelAt(4080), 2);
-    assert.equal(architectureLevelAt(6239), 2);
-    assert.equal(architectureLevelAt(6240), 3);
+    assert.equal(architectureLevelAt(3419), 0);
+    assert.equal(architectureLevelAt(3420), 1);
+    assert.equal(architectureLevelAt(5579), 1);
+    assert.equal(architectureLevelAt(5580), 2);
+    assert.equal(architectureLevelAt(7739), 2);
+    assert.equal(architectureLevelAt(7740), 3);
     assert.equal(architectureLevelAt(CHAPTERS.find(chapter => chapter.id === 'architecture').duration), 3);
 });
 

@@ -1,9 +1,9 @@
 .hero h1[tabindex='-1']:focus { outline: none; }
-.intro-replay { display: inline-flex; align-items: center; gap: 0.65rem; min-height: 2.75rem; padding: 0.65rem 1rem; border: 1px solid var(--color-accent); border-radius: 0.75rem; background: var(--color-accent-subtle); font-size: 0.875rem; font-weight: 600; color: var(--color-accent); }
-.intro-replay:hover { background: var(--color-accent-light); }
+.intro-replay { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; font-size: 0.875rem; color: var(--color-text-secondary); }
+.intro-replay:hover { color: var(--color-accent); }
 .intro-replay[hidden] { display: none; }
-.replay-icon { display: grid; place-items: center; flex-shrink: 0; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: var(--color-accent); color: var(--color-accent-contrast); }
-.intro-replay small { padding: 0.15rem 0.35rem; border: 1px solid currentColor; border-radius: 0.25rem; font: 0.875rem ui-monospace, monospace; }
+.replay-icon { color: var(--color-accent); }
+.intro-replay small { color: var(--color-text-muted); font: 0.75rem ui-monospace, monospace; }
 .portrait { isolation: isolate; }
 .portrait::before { content: ''; position: absolute; z-index: -1; inset: -0.75rem; border: 1px solid var(--color-accent); border-radius: 9rem 9rem 1.5rem 1.5rem; transform: rotate(-4deg); opacity: 0.65; }
 .architecture-intro {
@@ -188,9 +188,6 @@
 .architecture-intro[data-chapter='hire'][data-arrival='ready'] .intro-footer { --intro-muted: var(--color-text-muted); --intro-teal: var(--color-accent); --intro-coral: var(--color-accent); color: var(--color-text-primary); }
 .architecture-intro[data-chapter='hire'][data-arrival='ready'] .intro-pause { color: var(--color-text-primary); }
 .intro-footer { position: relative; z-index: 5; border-top: 1px solid #323c55; padding-top: 1.25rem; background: transparent; }
-.intro-handoff { display: none; align-items: center; justify-content: space-between; gap: 1rem; color: var(--intro-muted); font-size: 0.875rem; }
-.intro-handoff button { display: inline-flex; align-items: center; justify-content: center; gap: 1.25rem; min-height: 2.75rem; padding: 0.5rem 1.25rem; border: 1px solid var(--color-accent); border-radius: 2rem; background: var(--color-accent); color: var(--color-accent-contrast); font-size: 0.875rem; }
-.architecture-intro[data-chapter='hire'][data-arrival='ready'][data-static='false'] .intro-handoff { display: flex; }
 .intro-reveal-line { position: fixed; z-index: 10; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--intro-amber), #fff4dd, var(--intro-teal), transparent); box-shadow: 0 0 2rem var(--intro-amber); opacity: 0; pointer-events: none; }
 .intro-footer-controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 0.75rem; }
 .intro-chapters { display: flex; gap: 1.25rem; }
@@ -230,11 +227,10 @@
 .architecture-intro[data-motion='compact'] .intro-quote blockquote { font-size: 0.875rem; line-height: 1.5; }
 .architecture-intro[data-motion='compact'] .intro-quote figcaption strong { font-size: 1.125rem; line-height: 1.4; }
 .architecture-intro[data-motion='compact'] .intro-quote-mark, .architecture-intro[data-motion='compact'] .recommendations-act .intro-lede { display: none; }
-.architecture-intro[data-motion='compact'] .intro-handoff button { width: 100%; }
-.architecture-intro[data-chapter='hire'][data-arrival='ready'][data-static='false'] .intro-footer { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 0.5rem; padding-block: 0.375rem; }
+.architecture-intro[data-chapter='hire'][data-arrival='ready'][data-static='false'] .intro-footer { padding-block: 0.375rem; }
 .architecture-intro[data-chapter='hire'][data-arrival='ready'][data-static='false'] .intro-footer-controls { margin: 0; }
 .architecture-intro[data-chapter='hire'][data-arrival='ready'][data-static='false'] .intro-chapters { display: none; }
-.architecture-intro[data-chapter='hire'][data-arrival='ready'][data-static='false'] .intro-progress { grid-column: 1 / -1; margin: 0; }
+.architecture-intro[data-chapter='hire'][data-arrival='ready'][data-static='false'] .intro-progress { margin: 0; }
 .architecture-intro[data-motion='compact'] .intro-recommendations-link { margin-top: 0.5rem; font-size: 0.875rem; }
 .architecture-intro[data-motion='compact'] .story-spine { display: none; }
 .architecture-intro[data-motion='compact'] .intro-footer { position: sticky; bottom: -1rem; padding-block: 0.75rem; background: #151619; }
