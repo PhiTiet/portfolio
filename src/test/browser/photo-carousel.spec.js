@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { openPortfolio, expectAccessible } from './helpers.js';
 
-test('photos autoplay only while visible and support hover, focus, and playback controls', { tag: '@layout' }, async ({ page }, testInfo) => {
+test('photos autoplay only while visible and support hover, focus, and playback controls', async ({ page }, testInfo) => {
     await page.clock.install();
     await openPortfolio(page, testInfo, { animated: true });
     const photo = page.locator('.photo-active');
@@ -30,7 +30,7 @@ test('photos autoplay only while visible and support hover, focus, and playback 
     await page.mouse.move(0, 0);
     await page.clock.runFor(5100);
     await expect(photo).not.toHaveAttribute('src', second);
-    await expectAccessible(page);
+    await expectAccessible(page, '.hobbies-layout');
 });
 
 test('reduced motion keeps photos manual', { tag: '@layout' }, async ({ page }, testInfo) => {

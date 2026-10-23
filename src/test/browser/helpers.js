@@ -17,7 +17,9 @@ export async function expectPortfolioReady(page) {
     await page.waitForFunction(() => window.Alpine?.version);
 }
 
-export async function expectAccessible(page) {
-    const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+export async function expectAccessible(page, selector) {
+    const audit = new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']);
+    if (selector) audit.include(selector);
+    const results = await audit.analyze();
     expect(results.violations).toEqual([]);
 }

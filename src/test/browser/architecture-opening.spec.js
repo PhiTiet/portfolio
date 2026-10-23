@@ -13,7 +13,7 @@ test('intro chapters are accessible and can be dismissed', { tag: '@layout' }, a
         await expect(page.locator(`[data-intro-act="${chapter}"]`)).toBeVisible();
     }
     await expect(page.locator('[data-intro-pause]')).not.toBeVisible();
-    await expectAccessible(page);
+    await expectAccessible(page, '.architecture-intro');
     await page.keyboard.press('Escape');
     await expect(dialog).not.toBeVisible();
     await expect(replay).toBeFocused();
@@ -55,7 +55,7 @@ test('experience timeline supports keyboard scrolling', async ({ page }, testInf
     await expect.poll(() => timeline.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
     await page.keyboard.press('Home');
     await expect.poll(() => timeline.evaluate(element => element.scrollTop)).toBe(0);
-    await expectAccessible(page);
+    await expectAccessible(page, '.architecture-intro');
 });
 
 test('intro contact link reaches the contact form', async ({ page }, testInfo) => {

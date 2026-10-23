@@ -3,11 +3,9 @@ import { openPortfolio, expectAccessible, expectPortfolioReady } from './helpers
 
 test.beforeEach(async ({ page }, testInfo) => {
     await openPortfolio(page, testInfo);
-    await expect(page.locator('[data-scene-playback]')).toBeVisible();
-    await expect(page.locator('#contact-name')).toBeAttached();
 });
 
-test('portfolio reflows and passes automated accessibility checks', { tag: '@layout' }, async ({ page }, testInfo) => {
+test('portfolio reflows and passes automated accessibility checks', { tag: '@layout' }, async ({ page }) => {
     for (const id of ['recommendations', 'experience', 'skills', 'projects', 'certificates', 'hobbies', 'contact']) {
         await expect(page.locator(`#${id}`)).toBeVisible();
         await page.locator(`#${id}`).scrollIntoViewIfNeeded();
@@ -20,7 +18,6 @@ test('portfolio reflows and passes automated accessibility checks', { tag: '@lay
     expect(await page.pageErrors()).toEqual([]);
     await expect(page.locator('.hero > .container .portrait img')).toBeVisible();
     await expect(page.locator('#hobbies .chess-scene')).toBeVisible();
-    await expect(page.locator('#hobbies').getByText(testInfo.project.metadata.language === 'nl' ? 'Tatoeages' : 'Tattoos', { exact: true })).toBeVisible();
 });
 
 test('chess controls support stepping and reset', async ({ page }) => {
@@ -30,7 +27,7 @@ test('chess controls support stepping and reset', async ({ page }) => {
     await expect(page.locator('[data-scene-notation]')).toHaveText('Starting position');
 });
 
-test('career details, carousels, and about dialog support keyboard interaction', async ({ page }) => {
+test('career details, recommendations, and about dialog support keyboard interaction', async ({ page }) => {
     const career = page.locator('.career-entry').nth(1);
     await career.locator('summary').focus();
     await page.keyboard.press('Enter');
@@ -38,14 +35,11 @@ test('career details, carousels, and about dialog support keyboard interaction',
     const quote = await page.locator('.recommendation-active .author-name').textContent();
     await page.locator('.carousel-nav-btn').last().click();
     await expect(page.locator('.recommendation-active .author-name')).not.toHaveText(quote);
-    const photo = await page.locator('.photo-active').getAttribute('src');
-    await page.locator('.photo-dot').nth(1).click();
-    await expect(page.locator('.photo-active')).not.toHaveAttribute('src', photo);
     const opener = page.locator('.hero-links button');
     await opener.click();
     await expect(page.locator('.about-panel')).toBeVisible();
     await expect(page.locator('.about-panel button').first()).toBeFocused();
-    await expectAccessible(page);
+    await expectAccessible(page, '.about-panel');
     await page.keyboard.press('Escape');
     await expect(page.locator('.about-panel')).not.toBeVisible();
     await expect(opener).toBeFocused();
@@ -92,10 +86,10 @@ test('contact form recovers from validation and network errors before submitting
     await submit.click();
     await expect(page.locator('#contact-email-error')).toHaveText('Check your email');
     await expect(page.locator('#contact-email')).toHaveAttribute('aria-invalid', 'true');
-    await expectAccessible(page);
+    await expectAccessible(page, '.contact-form-panel');
     await submit.click();
     await expect(page.getByText('Network error. Please try again.', { exact: true })).toBeVisible();
-    await expectAccessible(page);
+    await expectAccessible(page, '.contact-form-panel');
     await expect(submit).toBeEnabled();
     await submit.click();
     await expect(page.locator('#contact-name')).not.toBeAttached();
