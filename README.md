@@ -78,6 +78,12 @@ GitHub Actions verifies Java, frontend assets, and browser behavior on pull
 requests and pushes to `main`. Pushes to `main` and manual workflow runs publish
 the verified JAR as a Docker image to `ghcr.io/phitiet/portfolio:latest`.
 
+The JAR is compiled with JDK 25 because the current Lombok processor does not
+support javac 27; the Docker runtime is Java 27. The image rebuilds Java's trust
+store from patched Alpine CA anchors rather than relying on the JRE's bundled
+store. Review digest updates and run the runtime TLS checks before removing
+that step or changing the compiler/runtime split.
+
 ## License
 
 [MIT](LICENSE).
