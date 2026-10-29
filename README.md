@@ -28,6 +28,6 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-Successful builds on `main` publish `ghcr.io/phitiet/portfolio:latest`.
+CI scans full Git history with Gitleaks before building; secret findings block publishing. Successful builds on `main` publish `ghcr.io/phitiet/portfolio:latest`.
 
 [MIT license](LICENSE).
