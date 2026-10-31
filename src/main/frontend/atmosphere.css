@@ -1,0 +1,52 @@
+.hero { overflow-x: clip; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E"); }
+.hero-layout { isolation: isolate; }
+.hero-layout::before { content: ''; position: absolute; z-index: -1; inset: -3rem -12% 0; pointer-events: none; background: radial-gradient(22rem 18rem at 22% 48%, color-mix(in srgb, var(--color-accent) 28%, transparent), transparent 70%), radial-gradient(26rem 16rem at 72% 30%, color-mix(in srgb, var(--color-secondary) 14%, transparent), transparent 70%); filter: blur(12px); }
+html.light .hero-layout::before { opacity: 0.55; }
+
+.tech-marquee { overflow: hidden; border-top: 1px solid var(--color-border-light); padding-block: 1rem; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.tech-marquee-track { display: flex; width: max-content; }
+.tech-marquee ul { display: flex; flex-shrink: 0; gap: 2.5rem; margin: 0; padding: 0 1.25rem; list-style: none; }
+.tech-marquee li { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.8125rem; font-weight: 500; color: var(--color-text-secondary); white-space: nowrap; }
+.tech-marquee li::after { content: '✦'; margin-left: 1.9rem; font-size: 0.5rem; color: var(--color-accent); }
+.tech-marquee li i { font-size: 1rem; }
+
+.project-card, .certificate-card { position: relative; isolation: isolate; transition: translate 260ms var(--ease-out), box-shadow 260ms var(--ease-out), border-color 180ms, background 180ms; }
+.project-card::before, .certificate-card::before { content: ''; position: absolute; z-index: -1; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 240ms; background: radial-gradient(16rem circle at var(--spot-x, 50%) var(--spot-y, 0%), color-mix(in srgb, var(--section-accent, var(--color-accent)) 18%, transparent), transparent 70%); }
+.project-card:hover::before, .certificate-card:hover::before { opacity: 1; }
+.project-card:hover, .certificate-card:hover { box-shadow: 0 1.25rem 2.5rem -1.5rem color-mix(in srgb, var(--section-accent, var(--color-accent)) 55%, transparent); }
+.certificate-card:hover { border-color: color-mix(in srgb, var(--color-violet) 60%, var(--color-border-light)); }
+
+@media (prefers-reduced-motion: no-preference) {
+    .hero-layout::before { animation: glow-drift 16s ease-in-out infinite alternate; }
+    .tech-marquee-track { animation: marquee 45s linear infinite; }
+    .tech-marquee:hover .tech-marquee-track, .tech-marquee:focus-within .tech-marquee-track { animation-play-state: paused; }
+    .project-card:hover, .certificate-card:hover { translate: 0 -4px; }
+
+    @keyframes glow-drift { to { transform: translate(3%, -4%) scale(1.08); } }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    @supports (animation-timeline: view()) {
+        .site-nav::after { content: ''; position: absolute; inset: auto 0 -1px; height: 2px; background: linear-gradient(90deg, var(--color-accent), var(--color-secondary)); transform-origin: 0 50%; animation: scroll-progress linear both; animation-timeline: scroll(root); }
+        .hero > .container .hero-layout { animation: hero-recede linear both; animation-timeline: view(); animation-range: exit 10% exit 90%; }
+        :is(.career-entry, .skill-item, .expertise-card, .project-card, .certificate-card, .oss-contribution-item) { animation: scroll-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+        .progress-fill { transform-origin: 0 50%; animation: scroll-fill linear both; animation-timeline: view(); animation-range: entry 20% cover 40%; }
+
+        @keyframes scroll-progress { from { transform: scaleX(0); } }
+        @keyframes hero-recede { to { opacity: 0.25; transform: translateY(-3rem) scale(0.97); } }
+        @keyframes scroll-rise { from { opacity: 0; transform: translateY(1.75rem) scale(0.98); } }
+        @keyframes scroll-fill { from { transform: scaleX(0); } }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tech-marquee { mask-image: none; }
+    .tech-marquee-track { width: auto; }
+    .tech-marquee ul { flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.5rem; flex-shrink: 1; }
+    .tech-marquee ul[aria-hidden] { display: none; }
+    .tech-marquee li::after { display: none; }
+}
+
+@media (max-width: 580px) {
+    .tech-marquee ul { gap: 1.75rem; }
+    .tech-marquee li::after { margin-left: 1.15rem; }
+}

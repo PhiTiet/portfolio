@@ -78,9 +78,21 @@
     });
   }
 
+  function initCardSpotlight() {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    document.addEventListener('pointermove', function(e) {
+      var card = e.target.closest && e.target.closest('.project-card, .certificate-card');
+      if (!card) return;
+      var rect = card.getBoundingClientRect();
+      card.style.setProperty('--spot-x', (e.clientX - rect.left) + 'px');
+      card.style.setProperty('--spot-y', (e.clientY - rect.top) + 'px');
+    }, { passive: true });
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     focusMainIfHash();
     initLangSwitchLinks();
+    initCardSpotlight();
     var sections = document.querySelectorAll('main > div > section[id]');
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {

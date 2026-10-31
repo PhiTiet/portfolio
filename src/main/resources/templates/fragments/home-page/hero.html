@@ -15,6 +15,16 @@
             <a href="#experience"><span th:text="#{hero.scroll.experience}">Explore my experience</span><span aria-hidden="true">↓</span></a>
         </div>
     </div>
+    <div class="tech-marquee">
+        <div class="tech-marquee-track">
+            <ul th:attr="aria-label=#{hero.stack}">
+                <li th:each="skill : ${details.skills}"><i th:classappend="${skill.icon.classes}" th:style="${skill.icon.style}" aria-hidden="true"></i><span th:text="${skill.name}"></span></li>
+            </ul>
+            <ul aria-hidden="true">
+                <li th:each="skill : ${details.skills}"><i th:classappend="${skill.icon.classes}" th:style="${skill.icon.style}"></i><span th:text="${skill.name}"></span></li>
+            </ul>
+        </div>
+    </div>
     <th:block th:replace="~{fragments/home-page/architecture-opening :: opening}"></th:block>
     <dialog x-ref="aboutDialog" class="about-panel" aria-labelledby="about-title" @click="if ($event.target === $el) $el.close()">
         <div>
