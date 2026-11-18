@@ -5,7 +5,7 @@ Thymeleaf, Tailwind CSS, and Alpine.js.
 
 ## Run locally
 
-Requires Java 25 and Maven.
+Requires Java 27 and Maven.
 
 ```bash
 mvn package
