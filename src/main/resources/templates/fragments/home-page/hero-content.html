@@ -3,7 +3,7 @@
 <body>
 <div th:fragment="content(intro)" class="hero-layout">
     <figure class="portrait">
-        <img th:src="@{/images/main_picture_me_professional.png}" alt="Phi Tiet" width="320" height="400" loading="eager" decoding="async" fetchpriority="high">
+        <img th:src="@{/images/portrait-288.webp}" th:srcset="@{/images/portrait-288.webp} + ' 1x, ' + @{/images/portrait-576.webp} + ' 2x'" alt="Phi Tiet" width="288" height="336" loading="eager" decoding="async" fetchpriority="high">
     </figure>
     <div class="hero-copy">
         <div class="hero-heading">

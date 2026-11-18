@@ -21,7 +21,9 @@
              @visibilitychange.document="sync()">
             
             <div class="relative aspect-[4/3] rounded-[var(--radius-xl)] overflow-hidden bg-[var(--color-bg-tertiary)] shadow-[var(--shadow-lg)]">
-                <img th:src="@{/images/self_chess.png}" 
+                <img th:src="@{/images/chess-1200.webp}"
+                     th:srcset="@{/images/chess-600.webp} + ' 600w, ' + @{/images/chess-1200.webp} + ' 1200w'"
+                     sizes="(min-width: 850px) 36rem, 100vw"
                      th:alt="#{hobbies.photo.chess}"
                      class="photo-slide"
                      loading="lazy"
@@ -29,7 +31,9 @@
                      x-transition.opacity.duration.300ms
                      x-cloak
                      :class="active === 0 ? 'photo-active' : ''">
-                <img th:src="@{/images/self_cat.png}" 
+                <img th:src="@{/images/cat-1200.webp}"
+                     th:srcset="@{/images/cat-600.webp} + ' 600w, ' + @{/images/cat-1200.webp} + ' 1200w'"
+                     sizes="(min-width: 850px) 36rem, 100vw"
                      th:alt="#{hobbies.photo.cat}"
                      class="photo-slide"
                      loading="lazy"
@@ -37,7 +41,9 @@
                      x-transition.opacity.duration.300ms
                      x-cloak
                      :class="active === 1 ? 'photo-active' : ''">
-                <img th:src="@{/images/self_pieter.png}" 
+                <img th:src="@{/images/pieter-1200.webp}"
+                     th:srcset="@{/images/pieter-600.webp} + ' 600w, ' + @{/images/pieter-1200.webp} + ' 1200w'"
+                     sizes="(min-width: 850px) 36rem, 100vw"
                      th:alt="#{hobbies.photo.pieter}"
                      class="photo-slide"
                      loading="lazy"
@@ -45,7 +51,9 @@
                      x-transition.opacity.duration.300ms
                      x-cloak
                      :class="active === 2 ? 'photo-active' : ''">
-                <img th:src="@{/images/self_beach.png}" 
+                <img th:src="@{/images/beach-1200.webp}"
+                     th:srcset="@{/images/beach-600.webp} + ' 600w, ' + @{/images/beach-1200.webp} + ' 1200w'"
+                     sizes="(min-width: 850px) 36rem, 100vw"
                      th:alt="#{hobbies.photo.beach}"
                      class="photo-slide"
                      loading="lazy"
@@ -72,7 +80,7 @@
                 <div th:each="hobby, iterStat : ${details.hobbies}" 
                      class="card-interactive flex flex-col items-center gap-2 p-4 text-center">
                     <div class="text-2xl text-[var(--color-accent)]">
-                        <i th:classappend="${hobby.icon.classes}" th:style="${hobby.icon.style}" aria-hidden="true"></i>
+                        <svg th:replace="~{fragments/general/icons :: icon(${hobby.icon}, '')}"></svg>
                     </div>
                     <span class="text-[0.8125rem] font-semibold text-[var(--color-text-primary)]" th:text="${hobby.name}"></span>
                 </div>
