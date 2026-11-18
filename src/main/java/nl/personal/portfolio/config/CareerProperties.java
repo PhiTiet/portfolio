@@ -25,8 +25,6 @@ import static nl.personal.portfolio.domain.DatePatterns.INPUT_FORMAT;
 @Validated
 @ConfigurationProperties("career")
 public record CareerProperties(
-        @NotNull @DateTimeFormat(pattern = INPUT_FORMAT) LocalDate birthday,
-        @NotNull @DateTimeFormat(pattern = INPUT_FORMAT) LocalDate programmingStartDate,
         @NotNull @DateTimeFormat(pattern = INPUT_FORMAT) LocalDate professionalCareerStartDate,
         @NotEmpty List<@Valid CertificateEntry> certificates,
         @NotEmpty List<@Valid HobbyEntry> hobbies,

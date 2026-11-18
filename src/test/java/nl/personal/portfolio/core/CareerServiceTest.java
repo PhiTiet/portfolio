@@ -45,16 +45,12 @@ class CareerServiceTest {
         assertThat(details.events()).extracting(TimelineEvent::employer).containsExactly("Recent", "Previous");
         assertThat(details.contributions()).extracting(Contribution::title).containsExactly("Newer fix", "Older fix");
         assertThat(details.recommendations()).isEqualTo(recommendations.items());
-        assertThat(details.age()).isEqualTo(26);
         assertThat(details.professionalProgrammerPeriod()).isEqualTo(Period.of(5, 1, 9));
-        assertThat(details.programmerPeriod()).isEqualTo(Period.of(13, 1, 29));
     }
 
     private static CareerProperties career() {
         var text = LocalizedText.of("");
         return new CareerProperties(
-                LocalDate.of(1999, 12, 9),
-                LocalDate.of(2012, 12, 12),
                 LocalDate.of(2021, 1, 1),
                 List.of(
                         new CertificateEntry(LocalizedText.of("Old"), "Institute", LocalDate.of(2020, 1, 1), null),
