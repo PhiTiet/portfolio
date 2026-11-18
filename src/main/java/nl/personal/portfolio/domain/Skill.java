@@ -1,6 +1,12 @@
 package nl.personal.portfolio.domain;
 
-public record Skill(String name, int proficiency, Icon icon) implements Comparable<Skill> {
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record Skill(@NotBlank String name, @Min(1) @Max(10) int proficiency, @NotNull @Valid Icon icon) implements Comparable<Skill> {
 
     @Override
     public int compareTo(final Skill other) {

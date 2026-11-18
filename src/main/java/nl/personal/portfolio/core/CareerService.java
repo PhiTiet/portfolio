@@ -1,11 +1,9 @@
 package nl.personal.portfolio.core;
 
+import nl.personal.portfolio.config.CareerProperties;
+import nl.personal.portfolio.config.RecommendationProperties;
 import nl.personal.portfolio.domain.HomePageDetails;
-import nl.personal.portfolio.domain.config.career.CareerConfigProperties;
-import nl.personal.portfolio.domain.config.recommendation.RecommendationConfigProperties;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringBootVersion;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.Clock;
@@ -13,46 +11,37 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
 
 import static java.util.Comparator.reverseOrder;
 
 @Service
 public final class CareerService {
 
-    private final Map<String, CareerConfigProperties> careerPropertiesByLocale;
+    private final CareerProperties career;
+    private final RecommendationProperties recommendations;
     private final Clock clock;
-    private final RecommendationConfigProperties recommendations;
 
-    public CareerService(
-            @Qualifier("englishCareerProperties") CareerConfigProperties englishCareerProperties,
-            @Qualifier("dutchCareerProperties") CareerConfigProperties dutchCareerProperties,
-            Clock clock,
-            RecommendationConfigProperties recommendations) {
-        this.careerPropertiesByLocale = Map.of(
-                "en", englishCareerProperties,
-                "nl", dutchCareerProperties
-        );
-        this.clock = clock;
+    public CareerService(CareerProperties career, RecommendationProperties recommendations, Clock clock) {
+        this.career = career;
         this.recommendations = recommendations;
+        this.clock = clock;
     }
 
-    public HomePageDetails getDetails() {
-        var locale = LocaleContextHolder.getLocale().getLanguage();
-        var properties = careerPropertiesByLocale.getOrDefault(locale, careerPropertiesByLocale.get("en"));
+    public HomePageDetails getDetails(Locale locale) {
         var today = LocalDate.now(clock);
-        return HomePageDetails.builder()
-                .age(Math.toIntExact(ChronoUnit.YEARS.between(properties.getBirthday(), today)))
-                .professionalProgrammerPeriod(Period.between(properties.getProfessionalCareerStartDate(), today))
-                .programmerPeriod(Period.between(properties.getProgrammingStartDate(), today))
-                .certificates(sortedDescending(properties.getCertificates()))
-                .skills(sortedDescending(properties.getSkills()))
-                .events(sortedDescending(properties.getEvents()))
-                .hobbies(properties.getHobbies())
-                .recommendations(recommendations.getItems())
-                .springBootVersion(SpringBootVersion.getVersion())
-                .javaVersion(System.getProperty("java.version"))
-                .build();
+        return new HomePageDetails(
+                Math.toIntExact(ChronoUnit.YEARS.between(career.birthday(), today)),
+                Period.between(career.professionalCareerStartDate(), today),
+                Period.between(career.programmingStartDate(), today),
+                sortedDescending(career.certificates(locale)),
+                career.hobbies(locale),
+                sortedDescending(career.skills()),
+                sortedDescending(career.events(locale)),
+                sortedDescending(career.contributions(locale)),
+                recommendations.items(),
+                SpringBootVersion.getVersion(),
+                System.getProperty("java.version"));
     }
 
     private static <T extends Comparable<T>> List<T> sortedDescending(List<T> items) {

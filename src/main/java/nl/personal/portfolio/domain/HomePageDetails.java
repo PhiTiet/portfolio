@@ -1,11 +1,8 @@
 package nl.personal.portfolio.domain;
 
-import lombok.Builder;
-
 import java.time.Period;
 import java.util.List;
 
-@Builder
 public record HomePageDetails(
         int age,
         Period professionalProgrammerPeriod,
@@ -14,6 +11,7 @@ public record HomePageDetails(
         List<Hobby> hobbies,
         List<Skill> skills,
         List<TimelineEvent> events,
+        List<Contribution> contributions,
         List<Recommendation> recommendations,
         String springBootVersion,
         String javaVersion) {

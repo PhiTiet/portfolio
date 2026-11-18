@@ -55,14 +55,15 @@ class PortfolioApplicationTest {
     private DiscordWebhookClient webhook;
 
     @ParameterizedTest
-    @CsvSource({"/,en,Hire me.,A live Android app", "/nl/,nl,Huur mij in.,Een live Android-app"})
-    void rendersLocalizedPortfolio(String path, String language, String heading, String projectDescription) throws Exception {
+    @CsvSource({"/,en,Hire me.,A live Android app,Storage employee", "/nl/,nl,Huur mij in.,Een live Android-app,Magazijnmedewerker"})
+    void rendersLocalizedPortfolio(String path, String language, String heading, String projectDescription, String jobTitle) throws Exception {
         mvc.perform(get(path))
                 .andExpect(status().isOk())
                 .andExpect(view().name("home-page"))
                 .andExpect(content().string(containsString("lang=\"" + language + "\"")))
                 .andExpect(content().string(containsString(heading)))
                 .andExpect(content().string(containsString(projectDescription)))
+                .andExpect(content().string(containsString(jobTitle)))
                 .andExpect(content().string(containsString("<link rel=\"canonical\" href=\"https://phitiet.nl" + path + "\">")));
     }
 
