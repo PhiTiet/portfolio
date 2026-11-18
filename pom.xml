@@ -16,12 +16,16 @@
     <name>portfolio</name>
 
     <properties>
-        <java.version>25</java.version>
+        <java.version>27</java.version>
         <thymeleaf-layout-dialect.version>4.0.1</thymeleaf-layout-dialect.version>
         <alpinejs.version>3.15.12</alpinejs.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>

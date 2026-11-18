@@ -156,6 +156,11 @@ class PortfolioApplicationTest {
     }
 
     @Test
+    void reportsHealthForContainerChecks() throws Exception {
+        mvc.perform(get("/actuator/health")).andExpect(status().isOk()).andExpect(jsonPath("$.status").value("UP"));
+    }
+
+    @Test
     void doesNotCreateSessionsForVisitors() throws Exception {
         mvc.perform(get("/")).andExpect(result -> assertThat(result.getRequest().getSession(false)).isNull());
     }
