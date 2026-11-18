@@ -10,7 +10,6 @@ public record TimelineEvent(
         String employer,
         String jobTitle,
         String description,
-        Icon icon,
         @DateTimeFormat(pattern = INPUT_FORMAT)
         LocalDate start,
         @DateTimeFormat(pattern = INPUT_FORMAT)

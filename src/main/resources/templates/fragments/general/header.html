@@ -16,14 +16,16 @@
     <meta property="og:url" content="https://phitiet.nl">
     <meta property="og:site_name" content="Phi Tiet Portfolio">
     <meta property="og:locale" th:attr="content=${#locale.language == 'nl'} ? 'nl_NL' : 'en_US'" content="en_US">
-    <meta property="og:image" content="https://phitiet.nl/images/main_picture_me_professional.png">
+    <meta property="og:image" content="https://phitiet.nl/images/social-card.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:image:alt" th:attr="content=#{seo.og.image.alt}" content="Phi Tiet - Senior Software Engineer">
-    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:type" content="image/jpeg">
     
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" th:attr="content=#{seo.og.title}" content="Phi Tiet - Senior Software Engineer">
     <meta name="twitter:description" th:attr="content=#{seo.twitter.description}" content="Senior Software Engineer specializing in Java, Kotlin, and Spring Boot.">
-    <meta name="twitter:image" content="https://phitiet.nl/images/main_picture_me_professional.png">
+    <meta name="twitter:image" content="https://phitiet.nl/images/social-card.jpg">
     <meta name="twitter:image:alt" th:attr="content=#{seo.og.image.alt}" content="Phi Tiet - Senior Software Engineer">
     
     <meta name="theme-color" content="#ff9e64">
@@ -38,7 +40,7 @@
             "name": "Phi Tiet",
             "alternateName": ["Anh Phi", "Anh Phi Tiet", "anhphi"],
             "url": "https://phitiet.nl",
-            "image": "https://phitiet.nl/images/main_picture_me_professional.png",
+            "image": "https://phitiet.nl/images/social-card.jpg",
             "jobTitle": "Senior Software Engineer",
             "worksFor": {
                 "@type": "Organization",
@@ -58,9 +60,7 @@
     </script>
     
     <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" th:href="@{/fonts/inter-latin.woff2}" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" type="text/css" th:href="@{/site.css}">
 </head>
 <body>

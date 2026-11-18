@@ -27,124 +27,123 @@ career-nl:
   hobbies:
     - name: Programmeren
       icon:
-        classes: fa-solid fa-laptop-code
-        style: "color: #1ad5c0;"
+        name: solid/laptop-code
+        color: "#1ad5c0"
 
     - name: Eten
       icon:
-        classes: fa-solid fa-utensils fa-bounce
-        style:
+        name: solid/utensils
+        animation: bounce
 
     - name: Schaken
       icon:
-        classes: fa-solid fa-chess-board fa-xl
-        style:
+        name: solid/chess-board
 
     - name: Gamen
       icon:
-        classes: fa-solid fa-gamepad fa-shake
-        style: "color: #c93c0d;"
+        name: solid/gamepad
+        color: "#c93c0d"
+        animation: shake
 
     - name: Tatoeages
       icon:
-        classes: fa-solid fa-pen-nib
-        style: "color: #636fab"
+        name: solid/pen-nib
+        color: "#636fab"
 
     - name: Anime
       icon:
-        classes: fa-solid fa-user-secret
-        style:
+        name: solid/user-secret
 
   skills:
     - name: Java
       proficiency: 9
       icon:
-        classes: fa-brands fa-java
-        style: color:#f89820
+        name: brands/java
+        color: "#f89820"
 
     - name: Kotlin
       proficiency: 9
       icon:
-        classes: fa-solid fa-k
-        style: color:#7F52FF
+        name: solid/k
+        color: "#7F52FF"
 
     - name: Microservice architecture
       proficiency: 7
       icon:
-        classes: fa-solid fa-cubes
-        style: color:#2dd4bf
+        name: solid/cubes
+        color: "#2dd4bf"
 
     - name: Agile/Scrum
       proficiency: 7
       icon:
-        classes: fa-solid fa-arrows-spin
-        style: color:#2dd4bf
+        name: solid/arrows-spin
+        color: "#2dd4bf"
 
     - name: Kubernetes
       proficiency: 7
       icon:
-        classes: fa-solid fa-dharmachakra
-        style: color:#326CE5
+        name: solid/dharmachakra
+        color: "#326CE5"
 
     - name: AKS
       proficiency: 6
       icon:
-        classes: fa-brands fa-microsoft
-        style: color:#0078D4
+        name: brands/microsoft
+        color: "#0078D4"
 
     - name: OAuth2
       proficiency: 7
       icon:
-        classes: fa-solid fa-key
-        style: color:#2dd4bf
+        name: solid/key
+        color: "#2dd4bf"
 
     - name: Spring Boot
       proficiency: 8
       icon:
-        classes: fa-solid fa-leaf
-        style: color:#6DB33F
+        name: solid/leaf
+        color: "#6DB33F"
 
     - name: Coaching
       proficiency: 7
       icon:
-        classes: fa-solid fa-chalkboard-user
-        style: color:#2dd4bf
+        name: solid/chalkboard-user
+        color: "#2dd4bf"
 
     - name: Clean Code & Architecture
       proficiency: 7
       icon:
-        classes: fa-solid fa-broom
-        style: color:#2dd4bf
+        name: solid/broom
+        color: "#2dd4bf"
 
     - name: GitHub Actions
       proficiency: 6
       icon:
-        classes: fa-brands fa-github
-        style: color:#f1f5f9
+        name: brands/github
+        color: "#f1f5f9"
 
     - name: Python
       proficiency: 6
       icon:
-        classes: fa-brands fa-python
-        style: color:#3776AB
+        name: brands/python
+        color: "#3776AB"
 
     - name: Tailwind CSS & Thymeleaf
       proficiency: 6
       icon:
-        classes: fa-solid fa-wind
-        style: color:#38BDF8
+        name: solid/wind
+        color: "#38BDF8"
 
     - name: AI-Driven Development
       proficiency: 9
       icon:
-        classes: fa-solid fa-wand-magic-sparkles
-        style: color:#a78bfa
+        name: solid/wand-magic-sparkles
+        color: "#a78bfa"
 
     - name: OpenCode AI
       proficiency: 8
       icon:
-        classes: fa-solid fa-robot
-        style: color:#a78bfa
+        name: solid/robot
+        color: "#a78bfa"
 
   events:
     - employer: DEEN Distribution Centre
@@ -153,9 +152,6 @@ career-nl:
         Mijn eerste baan was als orderpicker bij het distributiecentrum van DEEN.
       start: 01-01-2015
       end: 01-06-2015
-      icon:
-        classes: fa-solid fa-flag-checkered fa-beat
-        style: "color: #149f2b;"
 
     - employer: McDonald's
       job-title: Crewlid
@@ -164,9 +160,6 @@ career-nl:
         en goed samen te werken. Het was mijn eerste ervaring in de horeca.
       start: 01-06-2015
       end: 01-01-2016
-      icon:
-        classes: fas fa-regular fa-burger fa-bounce
-        style: "color: #e18709;"
 
     - employer: Lunchroom Cafetaria Celine
       job-title: Allround medewerker
@@ -176,9 +169,6 @@ career-nl:
         te nemen voor mijn werk.
       start: 01-01-2016
       end: 01-01-2020
-      icon:
-        classes: fa-solid fa-utensils style
-        style: "color: #5f7395;"
 
     - employer: MedIT Solutions B.V.
       job-title: Junior Software Engineer
@@ -188,9 +178,6 @@ career-nl:
         leerde ik samenwerken in een Scrum-team en zag ik hoe onze software zorgteams hielp bij hun dagelijkse werk.
       start: 01-09-2020
       end: 01-07-2022
-      icon:
-        classes: fa-solid fa-laptop
-        style: "color: #0cac59;"
 
     - employer: Ordina
       job-title: Medior Software Engineer
@@ -200,9 +187,6 @@ career-nl:
         en me aanpassen aan hun manier van werken.
       start: 01-07-2022
       end: 01-04-2024
-      icon:
-        classes: fa-solid fa-laptop-code
-        style: "color: #cc0f5b;"
 
     - employer: Rabobank
       job-title: Medior Software Engineer
@@ -212,9 +196,6 @@ career-nl:
         microservices-omgeving gaf me ook praktische ervaring met Kubernetes, Azure en DevOps.
       start: 01-09-2022
       end: 01-04-2024
-      icon:
-        classes: fa-solid fa-piggy-bank fa-shake
-        style: "color: #e49bd0;"
 
     - employer: Qualogy
       job-title: Senior Software Engineer
@@ -224,9 +205,6 @@ career-nl:
         kandidaten via gesprekken en programmeeropdrachten, en kennissessies georganiseerd.
       start: 01-04-2024
       end:
-      icon:
-        classes: fa-solid fa-q
-        style: "color: #b91d1d;"
 
     - employer: Ahold Delhaize
       job-title: Senior Software Engineer
@@ -258,6 +236,3 @@ career-nl:
         over onze technische backlog en roadmap.
       start: 01-08-2024
       end:
-      icon:
-        classes: "fa-duotone fa-solid fa-cart-shopping"
-        style:

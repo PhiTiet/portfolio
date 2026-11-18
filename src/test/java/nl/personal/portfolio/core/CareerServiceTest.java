@@ -64,8 +64,8 @@ class CareerServiceTest {
                 new Certificate("New", "Institute", LocalDate.of(2024, 1, 1), null)));
         properties.setSkills(List.of(new Skill("Beginner", 2, null), new Skill("Advanced", 9, null)));
         properties.setEvents(List.of(
-                new TimelineEvent("Previous", "Engineer", "", null, LocalDate.of(2020, 1, 1), LocalDate.of(2023, 1, 1), null),
-                new TimelineEvent("Recent", "Engineer", "", null, LocalDate.of(2024, 1, 1), null, null)));
+                new TimelineEvent("Previous", "Engineer", "", LocalDate.of(2020, 1, 1), LocalDate.of(2023, 1, 1), null),
+                new TimelineEvent("Recent", "Engineer", "", LocalDate.of(2024, 1, 1), null, null)));
         properties.setHobbies(List.of(new Hobby(hobby, null)));
         return properties;
     }

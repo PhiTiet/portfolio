@@ -29,11 +29,13 @@ public class SecurityConfiguration {
                             .policy("camera=(), microphone=(), geolocation=(), payment=()"));
                     headers.contentSecurityPolicy(csp -> csp.policyDirectives(
                             "default-src 'self'; " +
-                            "script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net https://kit.fontawesome.com https://ka-p.fontawesome.com; " +
-                            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://ka-p.fontawesome.com https://ka-f.fontawesome.com; " +
-                            "font-src 'self' https://fonts.gstatic.com https://ka-p.fontawesome.com https://ka-f.fontawesome.com; " +
+                            "script-src 'self' 'unsafe-eval'; " +
+                            "style-src 'self' 'unsafe-inline'; " +
                             "img-src 'self' data:; " +
-                            "connect-src 'self' https://ka-p.fontawesome.com https://ka-f.fontawesome.com https://cdn.jsdelivr.net"
+                            "object-src 'none'; " +
+                            "base-uri 'self'; " +
+                            "form-action 'self'; " +
+                            "frame-ancestors 'self'"
                     ));
                 })
                 .authorizeHttpRequests(authorization -> authorization.anyRequest().permitAll())
