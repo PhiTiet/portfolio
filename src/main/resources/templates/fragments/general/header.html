@@ -6,16 +6,16 @@
     <title th:text="#{seo.title}">Phi Tiet</title>
     
     <meta name="description" th:attr="content=#{seo.description}" content="Portfolio of Phi Tiet (Anh Phi), Senior Software Engineer specializing in Java, Kotlin, Spring Boot, Kubernetes, and microservices architecture. Based in the Netherlands.">
-    <meta name="keywords" content="Phi Tiet, Anh Phi, Anh Phi Tiet, anhphi, Software Engineer, Java Developer, Kotlin, Spring Boot, Microservices, Backend Developer, Netherlands">
     <meta name="author" content="Phi Tiet">
     <meta name="robots" content="index, follow">
     
     <meta property="og:type" content="website">
     <meta property="og:title" th:attr="content=#{seo.og.title}" content="Phi Tiet - Senior Software Engineer">
     <meta property="og:description" th:attr="content=#{seo.og.description}" content="Senior Software Engineer specializing in Java, Kotlin, and Spring Boot. Building robust backend systems and mentoring teams.">
-    <meta property="og:url" content="https://phitiet.nl">
+    <meta property="og:url" th:content="${#locale.language == 'nl'} ? 'https://phitiet.nl/nl/' : 'https://phitiet.nl/'" content="https://phitiet.nl/">
     <meta property="og:site_name" content="Phi Tiet Portfolio">
     <meta property="og:locale" th:attr="content=${#locale.language == 'nl'} ? 'nl_NL' : 'en_US'" content="en_US">
+    <meta property="og:locale:alternate" th:attr="content=${#locale.language == 'nl'} ? 'en_US' : 'nl_NL'" content="nl_NL">
     <meta property="og:image" content="https://phitiet.nl/images/social-card.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -31,7 +31,10 @@
     <meta name="theme-color" content="#ff9e64">
     <meta name="color-scheme" content="dark light">
     
-    <link rel="canonical" href="https://phitiet.nl">
+    <link rel="canonical" th:href="${#locale.language == 'nl'} ? 'https://phitiet.nl/nl/' : 'https://phitiet.nl/'" href="https://phitiet.nl/">
+    <link rel="alternate" hreflang="en" href="https://phitiet.nl/">
+    <link rel="alternate" hreflang="nl" href="https://phitiet.nl/nl/">
+    <link rel="alternate" hreflang="x-default" href="https://phitiet.nl/">
 
     <script type="application/ld+json">
         {
