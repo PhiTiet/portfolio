@@ -74,6 +74,7 @@
                         <h3 class="text-lg font-semibold text-[var(--color-text-primary)] mb-6" th:text="#{contact.form.title}">Send a Message</h3>
                         <form x-data="contactForm"
                               @submit.prevent="submit()"
+                              th:attr="data-error-generic=#{contact.form.error.generic},data-error-network=#{contact.form.error.network}"
                               class="space-y-4 text-left">
 
                             <template x-if="!submitted">
@@ -106,6 +107,10 @@
                                                   :class="fieldErrors.message ? 'contact-form-input resize-none border-red-500 focus:border-red-500 focus:ring-red-500' : 'contact-form-input resize-none'"
                                                   th:attr="placeholder=#{contact.form.message.placeholder},data-required-message=#{contact.validation.message.required}"></textarea>
                                         <p id="contact-message-error" x-show="fieldErrors.message" x-text="fieldErrors.message" class="mt-1 text-sm text-red-400"></p>
+                                    </div>
+                                    <div class="contact-honeypot" aria-hidden="true">
+                                        <label for="contact-website" th:text="#{contact.form.website}">Website</label>
+                                        <input type="text" id="contact-website" name="website" x-model="website" tabindex="-1" autocomplete="off">
                                     </div>
                                     <button type="submit"
                                             :disabled="submitting || !name || !email || !message"

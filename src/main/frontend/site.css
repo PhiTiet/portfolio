@@ -283,6 +283,7 @@ a.project-card:hover, a.project-card:focus-visible { border-color: var(--color-a
 .contact-label { font-size: 0.75rem; font-weight: 500; }
 .contact-value { font-size: 0.6875rem; color: var(--color-text-muted); }
 .contact-form-label { display: block; font-size: 0.6875rem; margin-bottom: 0.35rem; }
+.contact-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .contact-form-input { width: 100%; min-height: 2.75rem; padding: 0.65rem 0.8rem; border: 1px solid var(--color-border); border-radius: 0.5rem; background: var(--color-bg-card); color: var(--color-text-primary); font-size: 0.8125rem; }
 .contact-form-input::placeholder { color: var(--color-text-muted); }
 .contact-form-input:focus-visible { border-color: var(--color-accent); }

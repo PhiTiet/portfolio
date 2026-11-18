@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
 
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -26,36 +28,31 @@ public class DiscordWebhookClient {
     }
 
     public void sendMessage(ContactRequest request) {
-        log.debug("Received contact form from {} with message length: {}", request.name(), request.message().length());
-        log.info("Contact form submitted - message length: {}", request.message().length());
         if (webhookUrl == null || webhookUrl.isBlank()) {
-            log.warn("Discord webhook URL not configured, skipping message send");
-            return;
+            throw new ContactDeliveryException("Discord webhook URL is not configured", null);
         }
 
+        var embed = Map.of(
+                "title", "New Contact Form Submission",
+                "color", 5814783,
+                "description", request.message(),
+                "fields", List.of(
+                        Map.of("name", "Name", "value", request.name(), "inline", false),
+                        Map.of("name", "Email", "value", request.email(), "inline", false)));
+        var payload = Map.of(
+                "embeds", List.of(embed),
+                "allowed_mentions", Map.of("parse", List.of()));
+
         try {
-            var embed = Map.of(
-                    "title", "New Contact Form Submission",
-                    "color", 5814783,
-                    "fields", new Object[]{
-                            Map.of("name", "Name", "value", request.name(), "inline", false),
-                            Map.of("name", "Email", "value", request.email(), "inline", false),
-                            Map.of("name", "Message", "value", request.message(), "inline", false)
-                    }
-            );
-
-            var payload = Map.of("embeds", new Object[]{embed});
-
             restClient.post()
                     .uri(webhookUrl)
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(payload)
                     .retrieve()
                     .toBodilessEntity();
-
-            log.info("Successfully sent contact form to Discord");
-        } catch (Exception e) {
-            log.error("Failed to send message to Discord webhook: {}", e.getMessage(), e);
+        } catch (RestClientException e) {
+            throw new ContactDeliveryException("Discord webhook delivery failed", e);
         }
+        log.info("Contact form delivered to Discord - message length: {}", request.message().length());
     }
 }

@@ -16,5 +16,11 @@ public record ContactRequest(
 
         @NotBlank(message = "{contact.validation.message.required}")
         @Size(min = 10, max = 2000, message = "{contact.validation.message.size}")
-        String message) {
+        String message,
+
+        String website) {
+
+    public boolean isSpam() {
+        return website != null && !website.isBlank();
+    }
 }

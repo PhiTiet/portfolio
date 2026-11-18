@@ -1,6 +1,7 @@
 package nl.personal.portfolio;
 
 import jakarta.validation.ConstraintViolationException;
+import nl.personal.portfolio.core.ContactDeliveryException;
 import nl.personal.portfolio.core.DiscordWebhookClient;
 import nl.personal.portfolio.domain.ContactRequest;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -25,7 +25,9 @@ import tools.jackson.databind.json.JsonMapper;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -40,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(PortfolioApplicationTest.FailingController.class)
 class PortfolioApplicationTest {
 
-    private static final ContactRequest VALID_CONTACT = new ContactRequest("John Doe", "john@example.com", "Hello from the portfolio test.");
+    private static final ContactRequest VALID_CONTACT = new ContactRequest("John Doe", "john@example.com", "Hello from the portfolio test.", null);
 
     @Autowired
     private MockMvc mvc;
@@ -82,7 +84,7 @@ class PortfolioApplicationTest {
     void rejectsInvalidContact(String field, ContactRequest request) throws Exception {
         contact(json.writeValueAsString(request))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("Validation failed"))
+                .andExpect(jsonPath("$.detail").value("Validation failed"))
                 .andExpect(jsonPath("$.errors." + field).isNotEmpty());
 
         verifyNoInteractions(webhook);
@@ -90,20 +92,38 @@ class PortfolioApplicationTest {
 
     static Stream<Arguments> invalidContacts() {
         return Stream.of(
-                Arguments.of("name", new ContactRequest("", VALID_CONTACT.email(), VALID_CONTACT.message())),
-                Arguments.of("name", new ContactRequest("x", VALID_CONTACT.email(), VALID_CONTACT.message())),
-                Arguments.of("name", new ContactRequest("x".repeat(101), VALID_CONTACT.email(), VALID_CONTACT.message())),
-                Arguments.of("email", new ContactRequest(VALID_CONTACT.name(), "not-an-email", VALID_CONTACT.message())),
-                Arguments.of("email", new ContactRequest(VALID_CONTACT.name(), "x".repeat(243) + "@example.com", VALID_CONTACT.message())),
-                Arguments.of("message", new ContactRequest(VALID_CONTACT.name(), VALID_CONTACT.email(), "Hi")),
-                Arguments.of("message", new ContactRequest(VALID_CONTACT.name(), VALID_CONTACT.email(), "x".repeat(2001))),
-                Arguments.of("name", new ContactRequest(null, null, null)));
+                Arguments.of("name", new ContactRequest("", VALID_CONTACT.email(), VALID_CONTACT.message(), null)),
+                Arguments.of("name", new ContactRequest("x", VALID_CONTACT.email(), VALID_CONTACT.message(), null)),
+                Arguments.of("name", new ContactRequest("x".repeat(101), VALID_CONTACT.email(), VALID_CONTACT.message(), null)),
+                Arguments.of("email", new ContactRequest(VALID_CONTACT.name(), "not-an-email", VALID_CONTACT.message(), null)),
+                Arguments.of("email", new ContactRequest(VALID_CONTACT.name(), "x".repeat(243) + "@example.com", VALID_CONTACT.message(), null)),
+                Arguments.of("message", new ContactRequest(VALID_CONTACT.name(), VALID_CONTACT.email(), "Hi", null)),
+                Arguments.of("message", new ContactRequest(VALID_CONTACT.name(), VALID_CONTACT.email(), "x".repeat(2001), null)),
+                Arguments.of("name", new ContactRequest(null, null, null, null)));
     }
 
     @Test
     void rejectsMalformedContactJson() throws Exception {
-        contact("{").andExpect(status().isBadRequest()).andExpect(view().name("error/400"));
+        contact("{").andExpect(status().isBadRequest()).andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON));
         verifyNoInteractions(webhook);
+    }
+
+    @Test
+    void dropsHoneypotSubmissionsWithoutForwarding() throws Exception {
+        var spam = new ContactRequest(VALID_CONTACT.name(), VALID_CONTACT.email(), VALID_CONTACT.message(), "https://spam.example");
+
+        contact(json.writeValueAsString(spam)).andExpect(status().isOk());
+
+        verifyNoInteractions(webhook);
+    }
+
+    @Test
+    void reportsFailedDeliveryToTheVisitor() throws Exception {
+        doThrow(new ContactDeliveryException("Discord is down", null)).when(webhook).sendMessage(VALID_CONTACT);
+
+        contact(json.writeValueAsString(VALID_CONTACT))
+                .andExpect(status().isServiceUnavailable())
+                .andExpect(jsonPath("$.detail").value("Your message could not be sent. Please try again later."));
     }
 
     @Test
@@ -120,14 +140,13 @@ class PortfolioApplicationTest {
     }
 
     @Test
-    void deniesAnonymousAccessOutsidePublicRoutes() throws Exception {
-        mvc.perform(get("/private")).andExpect(status().isForbidden());
+    void rendersNotFoundForUnknownRoutes() throws Exception {
+        mvc.perform(get("/private")).andExpect(status().isNotFound()).andExpect(view().name("error/404"));
     }
 
     @Test
-    @WithMockUser
-    void allowsAuthenticatedRequestsThroughSecurity() throws Exception {
-        mvc.perform(get("/private")).andExpect(status().isNotFound());
+    void doesNotCreateSessionsForVisitors() throws Exception {
+        mvc.perform(get("/")).andExpect(result -> assertThat(result.getRequest().getSession(false)).isNull());
     }
 
     private ResultActions contact(String body) throws Exception {
