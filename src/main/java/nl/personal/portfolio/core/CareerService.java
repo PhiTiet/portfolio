@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,9 +30,7 @@ public final class CareerService {
     public HomePageDetails getDetails(Locale locale) {
         var today = LocalDate.now(clock);
         return new HomePageDetails(
-                Math.toIntExact(ChronoUnit.YEARS.between(career.birthday(), today)),
                 Period.between(career.professionalCareerStartDate(), today),
-                Period.between(career.programmingStartDate(), today),
                 sortedDescending(career.certificates(locale)),
                 career.hobbies(locale),
                 sortedDescending(career.skills()),
