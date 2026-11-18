@@ -16,7 +16,7 @@
                 <p class="text-[var(--color-text-secondary)] mb-8" th:text="#{error.400.message}">
                     The request could not be understood. Please check your input and try again.
                 </p>
-                <a href="/" class="btn-accent inline-flex items-center gap-2 py-2.5 px-5 font-medium text-sm rounded-[var(--radius-md)]">
+                <a href="/" th:href="${#locale.language == 'nl'} ? '/nl/' : '/'" class="btn-accent inline-flex items-center gap-2 py-2.5 px-5 font-medium text-sm rounded-[var(--radius-md)]">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>

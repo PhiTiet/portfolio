@@ -3,6 +3,7 @@ document.addEventListener('alpine:init', () => {
         name: '',
         email: '',
         message: '',
+        website: '',
         submitted: false,
         submitting: false,
         error: null,
@@ -12,34 +13,27 @@ document.addEventListener('alpine:init', () => {
             this.error = null;
             this.fieldErrors = {};
             try {
-                const csrfMeta = document.querySelector('meta[name="_csrf"]');
-                const csrfHeaderMeta = document.querySelector('meta[name="_csrf_header"]');
-                const headers = {
-                    'Content-Type': 'application/json'
-                };
-                if (csrfMeta && csrfHeaderMeta) {
-                    headers[csrfHeaderMeta.getAttribute('content')] = csrfMeta.getAttribute('content');
-                }
                 const response = await fetch('/api/contact', {
                     method: 'POST',
-                    headers,
+                    headers: { 'Content-Type': 'application/json', 'Accept-Language': document.documentElement.lang },
                     body: JSON.stringify({
                         name: this.name,
                         email: this.email,
-                        message: this.message
+                        message: this.message,
+                        website: this.website
                     })
                 });
                 if (response.ok) {
                     this.submitted = true;
                 } else {
-                    const data = response.headers.get('content-type')?.includes('application/json')
+                    const data = /json/.test(response.headers.get('content-type') ?? '')
                         ? await response.json().catch(() => null)
                         : null;
                     if (data?.errors) this.fieldErrors = data.errors;
-                    else this.error = data?.message || 'An error occurred. Please try again.';
+                    else this.error = data?.detail || this.$root.dataset.errorGeneric;
                 }
             } catch (e) {
-                this.error = 'Network error. Please try again.';
+                this.error = this.$root.dataset.errorNetwork;
             } finally {
                 this.submitting = false;
             }

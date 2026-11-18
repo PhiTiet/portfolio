@@ -21,7 +21,7 @@
               class="skill-item">
             <div class="flex justify-between items-center mb-3">
                 <div class="flex items-center gap-2">
-                    <i th:classappend="${skill.icon.classes}" th:style="${skill.icon.style}" class="text-lg" aria-hidden="true"></i>
+                    <svg th:replace="~{fragments/general/icons :: icon(${skill.icon}, 'text-lg')}"></svg>
                     <span class="font-semibold text-[0.9375rem] text-[var(--color-text-primary)]" th:text="${skill.name}"></span>
                 </div>
                 <span class="text-xs font-medium text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] py-0.5 px-2 rounded-full" th:text="${skill.proficiency} + '/10'"></span>

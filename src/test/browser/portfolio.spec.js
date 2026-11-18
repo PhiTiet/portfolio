@@ -88,12 +88,13 @@ test('contact form recovers from validation and network errors before submitting
     await expect(page.locator('#contact-email')).toHaveAttribute('aria-invalid', 'true');
     await expectAccessible(page, '.contact-form-panel');
     await submit.click();
-    await expect(page.getByText('Network error. Please try again.', { exact: true })).toBeVisible();
+    const networkError = await page.locator('form[x-data="contactForm"]').getAttribute('data-error-network');
+    await expect(page.getByText(networkError, { exact: true })).toBeVisible();
     await expectAccessible(page, '.contact-form-panel');
     await expect(submit).toBeEnabled();
     await submit.click();
     await expect(page.locator('#contact-name')).not.toBeAttached();
-    expect(payload).toEqual({ name: 'Portfolio preview', email: 'preview@example.com', message: 'A local browser test, never sent to the server.' });
+    expect(payload).toEqual({ name: 'Portfolio preview', email: 'preview@example.com', message: 'A local browser test, never sent to the server.', website: '' });
 });
 
 test('content tolerates doubled text and generous spacing', async ({ page }) => {
