@@ -1,0 +1,341 @@
+career:
+  birthday: 09-12-1999
+
+  programming-start-date: 01-07-2018
+
+  professional-career-start-date: 01-09-2020
+
+  certificates:
+    - title: Level 2 Certificate in ESOL International (Advanced)
+      institution: Cambridge University Press & Assessment English
+      acquisitionDate: 01-06-2016
+
+    - title: M18 English A Language and Literature Higher Level
+      institution: International Baccalaureate
+      acquisitionDate: 01-07-2018
+
+    - title: Bilingual VWO - Atheneum
+      institution: Tabor College Werenfridus
+      acquisitionDate: 02-07-2018
+
+    - title:
+        en: BSc Computer Science (7.7 NL / 3.3 US GPA)
+        nl: BSc Computer Science (7,7 NL / 3.3 US GPA)
+      institution: Vrije Universiteit Amsterdam
+      acquisitionDate: 01-08-2021
+      thesisUrl: https://www.cs.vu.nl/~wanf/theses/bijl-tiet-bscthesis.pdf
+
+    - title: Train De Trainer
+      institution: ICM
+      acquisitionDate: 01-07-2023
+
+  hobbies:
+    - name:
+        en: Programming
+        nl: Programmeren
+      icon:
+        name: solid/laptop-code
+        color: "#1ad5c0"
+
+    - name:
+        en: Food
+        nl: Eten
+      icon:
+        name: solid/utensils
+        animation: bounce
+
+    - name:
+        en: Chess
+        nl: Schaken
+      icon:
+        name: solid/chess-board
+
+    - name:
+        en: Gaming
+        nl: Gamen
+      icon:
+        name: solid/gamepad
+        color: "#c93c0d"
+        animation: shake
+
+    - name:
+        en: Tattoos
+        nl: Tatoeages
+      icon:
+        name: solid/pen-nib
+        color: "#636fab"
+
+    - name: Anime
+      icon:
+        name: solid/user-secret
+
+  skills:
+    - name: Java
+      proficiency: 9
+      icon:
+        name: brands/java
+        color: "#f89820"
+
+    - name: Kotlin
+      proficiency: 9
+      icon:
+        name: solid/k
+        color: "#7F52FF"
+
+    - name: Microservice architecture
+      proficiency: 7
+      icon:
+        name: solid/cubes
+        color: "#2dd4bf"
+
+    - name: Agile/Scrum
+      proficiency: 7
+      icon:
+        name: solid/arrows-spin
+        color: "#2dd4bf"
+
+    - name: Kubernetes
+      proficiency: 7
+      icon:
+        name: solid/dharmachakra
+        color: "#326CE5"
+
+    - name: AKS
+      proficiency: 6
+      icon:
+        name: brands/microsoft
+        color: "#0078D4"
+
+    - name: OAuth2
+      proficiency: 7
+      icon:
+        name: solid/key
+        color: "#2dd4bf"
+
+    - name: Spring Boot
+      proficiency: 8
+      icon:
+        name: solid/leaf
+        color: "#6DB33F"
+
+    - name: Coaching
+      proficiency: 7
+      icon:
+        name: solid/chalkboard-user
+        color: "#2dd4bf"
+
+    - name: Clean Code & Architecture
+      proficiency: 7
+      icon:
+        name: solid/broom
+        color: "#2dd4bf"
+
+    - name: GitHub Actions
+      proficiency: 6
+      icon:
+        name: brands/github
+        color: "#f1f5f9"
+
+    - name: Python
+      proficiency: 6
+      icon:
+        name: brands/python
+        color: "#3776AB"
+
+    - name: Tailwind CSS & Thymeleaf
+      proficiency: 6
+      icon:
+        name: solid/wind
+        color: "#38BDF8"
+
+    - name: AI-Driven Development
+      proficiency: 9
+      icon:
+        name: solid/wand-magic-sparkles
+        color: "#a78bfa"
+
+    - name: OpenCode AI
+      proficiency: 8
+      icon:
+        name: solid/robot
+        color: "#a78bfa"
+
+  events:
+    - employer: DEEN Distribution Centre
+      job-title:
+        en: Storage employee
+        nl: Magazijnmedewerker
+      description:
+        en: My first job was as an order picker at DEEN’s distribution centre.
+        nl: Mijn eerste baan was als orderpicker bij het distributiecentrum van DEEN.
+      start: 01-01-2015
+      end: 01-06-2015
+
+    - employer: McDonald's
+      job-title:
+        en: Crew member
+        nl: Crewlid
+      description:
+        en: Working at McDonald’s taught me to keep up in a busy environment, communicate clearly, and work closely
+          with a team. It was my first experience in hospitality.
+        nl: Bij McDonald's leerde ik om mee te komen in een drukke omgeving, duidelijk te communiceren en goed samen
+          te werken. Het was mijn eerste ervaring in de horeca.
+      start: 01-06-2015
+      end: 01-01-2016
+
+    - employer: Lunchroom Cafetaria Celine
+      job-title:
+        en: All-around employee
+        nl: Allround medewerker
+      description:
+        en: I worked in an all-round role at Celine, helping with the day-to-day running of the lunchroom. High
+          expectations taught me to stay organised, work efficiently, and take responsibility for my work.
+        nl: Bij Celine werkte ik als allround medewerker en hielp ik de lunchroom dagelijks draaiende te houden. De
+          hoge verwachtingen leerden me om georganiseerd en efficiënt te werken en verantwoordelijkheid te
+          nemen voor mijn werk.
+      start: 01-01-2016
+      end: 01-01-2020
+
+    - employer: MedIT Solutions B.V.
+      job-title: Junior Software Engineer
+      description:
+        en: I started my software engineering career at MedIT, working on MediCheck, a web and mobile app for
+          medication management in nursing homes. It’s where I put Java and Spring into practice, learned to
+          work in a Scrum team, and saw how our software supported care teams in their daily work.
+        nl: Mijn loopbaan als software engineer begon bij MedIT, waar ik werkte aan MediCheck, een web- en mobiele app
+          voor medicatiebeheer in verpleeghuizen. Daar bracht ik Java en Spring in de praktijk, leerde ik
+          samenwerken in een Scrum-team en zag ik hoe onze software zorgteams hielp bij hun dagelijkse werk.
+      start: 01-09-2020
+      end: 01-07-2022
+
+    - employer: Ordina
+      job-title: Medior Software Engineer
+      description:
+        en: "I joined Ordina as a Medior Software Engineer, working on assignment at Rabobank. The role introduced me
+          to consultancy: joining a client team, getting to know their systems, and adapting to their way of
+          working."
+        nl: "Ik begon bij Ordina als Medior Software Engineer, met een opdracht bij Rabobank. Daar maakte ik kennis
+          met consultancy: aansluiten bij een klantteam, de systemen leren kennen en me aanpassen aan hun
+          manier van werken."
+      start: 01-07-2022
+      end: 01-04-2024
+
+    - employer: Rabobank
+      job-title: Medior Software Engineer
+      description:
+        en: I built and maintained services for MED, a mortgage dashboard used by advisors and customers to plan
+          mortgages, share documents, track progress, and stay in touch. Working in a microservices
+          environment also gave me hands-on experience with Kubernetes, Azure, and DevOps.
+        nl: Ik bouwde en onderhield services voor MED, een hypotheekdashboard waarmee adviseurs en klanten hypotheken
+          kunnen plannen, documenten delen, de voortgang volgen en contact houden. Werken in een
+          microservices-omgeving gaf me ook praktische ervaring met Kubernetes, Azure en DevOps.
+      start: 01-09-2022
+      end: 01-04-2024
+
+    - employer: Qualogy
+      job-title: Senior Software Engineer
+      description:
+        en: I joined Qualogy as a Senior Software Engineer, with my first assignment at Ahold Delhaize. Alongside
+          client work, I’ve contributed to internal projects, helped assess candidates through interviews and
+          coding assignments, and organised knowledge-sharing sessions.
+        nl: Ik begon bij Qualogy als Senior Software Engineer, met mijn eerste opdracht bij Ahold Delhaize. Naast
+          klantopdrachten heb ik bijgedragen aan interne projecten, meegeholpen bij het beoordelen van
+          kandidaten via gesprekken en programmeeropdrachten, en kennissessies georganiseerd.
+      start: 01-04-2024
+
+    - employer: Ahold Delhaize
+      job-title: Senior Software Engineer
+      highlight:
+        summary:
+          en: I was selected as a core developer to help restore our cloud landscape during the Albert Heijn outage in
+            October 2026.
+          nl: Ik werd geselecteerd als core developer om ons cloudlandschap te helpen herstellen tijdens de storing bij
+            Albert Heijn in oktober 2026.
+        responsibilities:
+          - en: Mitigate vulnerabilities
+            nl: Kwetsbaarheden mitigeren
+          - en: Rotate secrets
+            nl: Secrets roteren
+          - en: Scale services up and down
+            nl: Services op- en afschalen
+          - en: Restore connectivity in Kubernetes
+            nl: Connectiviteit binnen Kubernetes herstellen
+          - en: Communicate with other teams and stakeholders
+            nl: Afstemmen met andere teams en stakeholders
+        coverage:
+          - publisher: NU.nl
+            title:
+              en: "12 October 2026: Security incident at Albert Heijn disrupts deliveries and store systems"
+              nl: "12 oktober 2026: Veiligheidsincident bij Albert Heijn verstoort bezorging en winkelsystemen"
+            url: https://www.nu.nl/economie/6412835/veiligheidsincident-bij-albert-heijn-geen-bezorging-en-oude-prijzen-in-winkel.html
+          - publisher: RTL Nieuws
+            title:
+              en: "12 October 2026: Albert Heijn distribution centres disrupted by the outage"
+              nl: "12 oktober 2026: Distributiecentra van Albert Heijn liggen plat door de storing"
+            url: https://www.rtl.nl/nieuws/economie/artikel/5658604/chaos-albert-heijn-bevoorrading-distributiecentra-plat
+          - publisher: Ahold Delhaize
+            title:
+              en: "19 October 2026: Official update on the cybersecurity incident and service restoration"
+              nl: "19 oktober 2026: Officiële update over het cybersecurity-incident en het herstel van diensten"
+            url: https://newsroom.aholddelhaize.com/ahold-delhaize-update-on-status-of-cybersecurity-incident/
+      description:
+        en: >-
+          I’m the only Kotlin developer in a team of Salesforce admins and developers. My work focuses on
+          modernising our microservices and Kafka integrations, using internal frameworks and making the code
+          easier to maintain.
+
+          I also represent the team in architecture discussions and help improve how we work through pair
+          programming, quality checks, and knowledge sharing. Alongside day-to-day development, I help shape
+          our technical backlog and roadmap.
+        nl: >-
+          Ik ben de enige Kotlin-ontwikkelaar in een team van Salesforce-beheerders en -ontwikkelaars. Ik
+          richt me op het moderniseren van onze microservices en Kafka-integraties, met interne frameworks en
+          code die eenvoudiger te onderhouden is.
+
+          Daarnaast vertegenwoordig ik het team in architectuuroverleggen en help ik onze werkwijze te
+          verbeteren met pair programming, kwaliteitscontroles en kennisdeling. Naast de dagelijkse
+          ontwikkeling denk ik mee over onze technische backlog en roadmap.
+      start: 01-08-2024
+
+  contributions:
+    - repository: ryansheehan/terraria
+      title:
+        en: Save vanilla world on container shutdown
+        nl: Vanilla-wereld opslaan bij het stoppen van de container
+      url: https://github.com/ryansheehan/terraria/pull/196
+      merged: 30-10-2026
+
+    - repository: ValveSoftware/source-sdk-2013
+      title:
+        en: "fix: holiday lights not disabled when grappling hooks enabled outside Mannpower"
+        nl: "fix: feestverlichting niet uitgeschakeld bij grappling hooks buiten Mannpower"
+      url: https://github.com/ValveSoftware/source-sdk-2013/pull/1853
+      merged: 24-03-2026
+
+    - repository: ValveSoftware/source-sdk-2013
+      title:
+        en: "fix: Half-Zatoichi honor kill survivable with damage reduction runes"
+        nl: "fix: Half-Zatoichi honor kill overleefbaar met schade-reductie runes"
+      url: https://github.com/ValveSoftware/source-sdk-2013/pull/1852
+      merged: 24-03-2026
+
+    - repository: ValveSoftware/source-sdk-2013
+      title:
+        en: "fix: Haste and King rune fire rate not affecting flamethrowers"
+        nl: "fix: Haste- en King-rune vuursnelheid werkt niet op vlammenwerpers"
+      url: https://github.com/ValveSoftware/source-sdk-2013/pull/1851
+      merged: 24-03-2026
+
+    - repository: thijsvanloef/palworld-server-docker
+      title:
+        en: "fix: wrong variable in broadcast & undefined function in restore"
+        nl: "fix: verkeerde variabele in broadcast & ongedefinieerde functie in restore"
+      url: https://github.com/thijsvanloef/palworld-server-docker/pull/815
+      merged: 24-03-2026
+
+    - repository: thijsvanloef/palworld-server-docker
+      title:
+        en: "docs: surface logging env options"
+        nl: "docs: logging-omgevingsvariabelen zichtbaar gemaakt"
+      url: https://github.com/thijsvanloef/palworld-server-docker/pull/811
+      merged: 14-03-2026

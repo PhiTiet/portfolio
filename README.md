@@ -5,11 +5,11 @@ Thymeleaf, Tailwind CSS, and Alpine.js.
 
 ## Run locally
 
-Requires Java 25 and Maven.
+Requires Java 27 and Maven.
 
 ```bash
 mvn package
-java -jar target/portfolio.jar --server.port=8080
+java -jar target/portfolio.jar
 ```
 
 Open [localhost:8080](http://localhost:8080). Set `DISCORD_WEBHOOK_URL` to enable the contact form's message delivery.
@@ -28,6 +28,6 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-CI scans full Git history with Gitleaks before building; secret findings block publishing. Successful builds on `main` publish `ghcr.io/phitiet/portfolio:latest`.
+CI scans full Git history with Gitleaks before building; secret findings block publishing. Pull requests build the container image without pushing it. Successful builds on `main` publish `ghcr.io/phitiet/portfolio` with the `latest` and `sha-<commit>` tags. The container runs as a non-root user on port 8080 and reports health at `/actuator/health`.
 
 [MIT license](LICENSE).

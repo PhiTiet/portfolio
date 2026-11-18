@@ -1,6 +1,5 @@
 package nl.personal.portfolio.api.controller;
 
-import lombok.RequiredArgsConstructor;
 import nl.personal.portfolio.core.CareerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,16 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.net.URI;
+import java.util.Locale;
 
 @Controller
-@RequiredArgsConstructor
 public final class HomeController {
 
     private final CareerService careerService;
 
+    public HomeController(final CareerService careerService) {
+        this.careerService = careerService;
+    }
+
     @GetMapping({"/", "/nl", "/nl/"})
-    public String home(final Model model) {
-        model.addAttribute("details", careerService.getDetails());
+    public String home(final Model model, final Locale locale) {
+        model.addAttribute("details", careerService.getDetails(locale));
         return "home-page";
     }
 
