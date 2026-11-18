@@ -29,9 +29,9 @@
 
             <div class="flex items-center gap-2">
                 <div class="language-switch">
-                    <a href="?lang=en" data-lang-switch aria-label="English"
+                    <a th:href="@{/}" href="/" data-lang-switch aria-label="English"
                        lang="en" hreflang="en" th:attr="aria-current=${#locale.language == 'en'} ? 'true' : null">EN</a>
-                    <a href="?lang=nl" data-lang-switch aria-label="Nederlands"
+                    <a th:href="@{/nl/}" href="/nl/" data-lang-switch aria-label="Nederlands"
                        lang="nl" hreflang="nl" th:attr="aria-current=${#locale.language == 'nl'} ? 'true' : null">NL</a>
                 </div>
                 <button x-data="{ light: document.documentElement.classList.contains('light') }"

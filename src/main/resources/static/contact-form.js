@@ -15,7 +15,7 @@ document.addEventListener('alpine:init', () => {
             try {
                 const response = await fetch('/api/contact', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', 'Accept-Language': document.documentElement.lang },
                     body: JSON.stringify({
                         name: this.name,
                         email: this.email,

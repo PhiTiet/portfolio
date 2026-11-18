@@ -8,7 +8,7 @@ export async function openPortfolio(page, testInfo, { animated = false, seen = t
         if (seen) sessionStorage.setItem(key, 'true');
     }, { theme: testInfo.project.metadata.theme, seen, key: STORAGE_KEY });
     await page.emulateMedia({ reducedMotion: animated ? 'no-preference' : 'reduce' });
-    await page.goto(`/?lang=${testInfo.project.metadata.language}${hash}`, { waitUntil: 'commit' });
+    await page.goto(`${testInfo.project.metadata.language === 'nl' ? '/nl/' : '/'}${hash}`, { waitUntil: 'commit' });
     await expectPortfolioReady(page);
 }
 

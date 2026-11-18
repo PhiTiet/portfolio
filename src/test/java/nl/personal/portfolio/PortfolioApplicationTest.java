@@ -33,6 +33,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -54,14 +55,23 @@ class PortfolioApplicationTest {
     private DiscordWebhookClient webhook;
 
     @ParameterizedTest
-    @CsvSource({"en,Hire me.,A live Android app", "nl,Huur mij in.,Een live Android-app"})
-    void rendersLocalizedPortfolio(String language, String heading, String projectDescription) throws Exception {
-        mvc.perform(get("/").param("lang", language))
+    @CsvSource({"/,en,Hire me.,A live Android app", "/nl/,nl,Huur mij in.,Een live Android-app"})
+    void rendersLocalizedPortfolio(String path, String language, String heading, String projectDescription) throws Exception {
+        mvc.perform(get(path))
                 .andExpect(status().isOk())
                 .andExpect(view().name("home-page"))
                 .andExpect(content().string(containsString("lang=\"" + language + "\"")))
                 .andExpect(content().string(containsString(heading)))
-                .andExpect(content().string(containsString(projectDescription)));
+                .andExpect(content().string(containsString(projectDescription)))
+                .andExpect(content().string(containsString("<link rel=\"canonical\" href=\"https://phitiet.nl" + path + "\">")));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"en,/", "nl,/nl/"})
+    void redirectsLegacyLanguageLinks(String language, String location) throws Exception {
+        mvc.perform(get("/").param("lang", language))
+                .andExpect(status().isMovedPermanently())
+                .andExpect(header().string("Location", location));
     }
 
     @ParameterizedTest
@@ -150,7 +160,7 @@ class PortfolioApplicationTest {
     }
 
     private ResultActions contact(String body) throws Exception {
-        return mvc.perform(post("/api/contact").param("lang", "en").contentType(MediaType.APPLICATION_JSON).content(body));
+        return mvc.perform(post("/api/contact").header("Accept-Language", "en").contentType(MediaType.APPLICATION_JSON).content(body));
     }
 
     @RestController
