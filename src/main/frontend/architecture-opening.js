@@ -57,6 +57,17 @@ export function initializeOpening(dialog) {
     const quoteWindow = dialog.querySelector('.intro-quote-window');
     const quotes = [...dialog.querySelectorAll('[data-intro-quote]')];
     const quoteButtons = [...dialog.querySelectorAll('[data-intro-quote-button]')];
+    const composition = dialog.querySelector('.recommendation-composition');
+    quotes.forEach(quote => {
+        const blockquote = quote.querySelector('blockquote');
+        const words = blockquote.textContent.trim().split(/\s+/).map(text => {
+            const word = document.createElement('span');
+            word.className = 'intro-word';
+            word.textContent = text;
+            return word;
+        });
+        blockquote.replaceChildren(...words.flatMap((word, index) => index ? [' ', word] : [word]));
+    });
     const hero = document.querySelector('.hero > .container > .hero-layout');
     const finalPanel = panels[panels.length - 1];
     const hireGreeting = finalPanel.querySelector('.eyebrow').textContent;
@@ -220,9 +231,10 @@ export function initializeOpening(dialog) {
     function showQuote(index, moving = true) {
         if (index === activeQuote) return;
         const previous = quotes[activeQuote];
-        const outgoingOpacity = previous ? getComputedStyle(previous.querySelector('blockquote')).opacity : 1;
-        const outgoingCaptionOpacity = previous ? getComputedStyle(previous.querySelector('figcaption')).opacity : 1;
         const stale = new Set(quotes.flatMap(quote => quote.getAnimations({ subtree: true })));
+        previous?.getAnimations({ subtree: true }).forEach(effect => {
+            try { effect.commitStyles(); } catch {}
+        });
         stale.forEach(effect => effect.cancel());
         effects = effects.filter(effect => !stale.has(effect));
         const currentTransition = ++quoteTransition;
@@ -241,18 +253,27 @@ export function initializeOpening(dialog) {
             else button.removeAttribute('aria-current');
         });
         updateQuoteProgress((clock?.currentTime || 0) - chapters[0].start);
+        composition.dataset.tone = String(index % 5);
         if (!moving || motion.matches) return;
-        if (previous) animate(previous.querySelector('blockquote'), [{ opacity: outgoingOpacity }, { opacity: 0 }], { duration: 180, easing: 'linear' });
-        if (previous) animate(previous.querySelector('figcaption'), [{ opacity: outgoingCaptionOpacity }, { opacity: 0 }], { duration: 180, easing: 'linear' });
-        const reveal = animate(current, [{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)' }], { duration: 520, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' });
-        animate(current.querySelector('blockquote'), [{ opacity: 0, transform: 'translateX(24px)' }, { opacity: 1, transform: 'none' }], { duration: 420, delay: previous ? 160 : 80 });
-        animate(current.querySelector('figcaption'), [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 400, delay: 300 });
-        animate(current, [{ backgroundPosition: '0% 50%' }, { backgroundPosition: '100% 50%' }], { duration: RECOMMENDATION_INTERVAL, easing: 'linear' });
-        reveal.finished.then(() => {
-            if (currentTransition !== quoteTransition) return;
-            if (previous) previous.hidden = true;
-            reveal.cancel();
-            effects = effects.filter(effect => effect !== reveal);
+        let exit;
+        if (previous) {
+            previous.querySelectorAll('.intro-word').forEach((word, order) => {
+                exit = animate(word, [{ opacity: 0, transform: 'translateY(-0.4em)', filter: 'blur(6px)' }], { duration: 260, delay: Math.min(order * 10, 160), easing: 'cubic-bezier(0.55, 0, 1, 0.45)' });
+            });
+            animate(previous.querySelector('figcaption'), [{ opacity: 0, transform: 'translateX(-16px)' }], { duration: 220 });
+            animate(previous.querySelector('.intro-quote-mark'), [{ opacity: 0, transform: 'scale(0.7)' }], { duration: 220 });
+        }
+        const start = previous ? 240 : 80;
+        const words = [...current.querySelectorAll('.intro-word')];
+        const stagger = Math.min(45, 650 / words.length);
+        animate(current.querySelector('.intro-quote-mark'), [{ opacity: 0, transform: 'translateY(1.5rem) scale(0.6) rotate(-12deg)' }, { opacity: 0.35, transform: 'none' }], { duration: 700, delay: start, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)' });
+        words.forEach((word, order) => {
+            animate(word, [{ opacity: 0, transform: 'translateY(0.6em)', filter: 'blur(8px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 520, delay: start + order * stagger });
+        });
+        animate(current.querySelector('blockquote'), [{ transform: 'none' }, { transform: 'translateX(-0.75rem)' }], { duration: RECOMMENDATION_INTERVAL + 600, easing: 'linear' });
+        animate(current.querySelector('figcaption'), [{ opacity: 0, transform: 'translateX(-24px)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: start + Math.min(words.length * stagger, 650) });
+        exit?.finished.then(() => {
+            if (currentTransition === quoteTransition) previous.hidden = true;
         }).catch(() => {});
     }
 
@@ -260,6 +281,7 @@ export function initializeOpening(dialog) {
         const { id, duration } = chapters[index];
         if (id === 'recommendations') {
             showQuote(Math.min(quotes.length - 1, Math.max(0, Math.floor(((clock?.currentTime || 0) - chapters[index].start) / RECOMMENDATION_INTERVAL))));
+            animate(panel.querySelector('.intro-quote-glow'), [{ transform: 'translate(-12%, -8%) scale(0.9)' }, { transform: 'translate(14%, 10%) scale(1.15)' }], { duration: 5200, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' });
         }
         if (id === 'stack') {
             panel.querySelectorAll('.language-tile, .stack-lane, .stack-ai-seed').forEach((block, order) => {
