@@ -17,6 +17,7 @@
                     <p class="intro-lede" th:text="#{story.recommendations.description}"></p>
                 </div>
                 <div class="recommendation-composition">
+                    <span class="intro-quote-glow" aria-hidden="true"></span>
                     <div class="intro-quote-window" role="region" tabindex="0" th:attr="aria-label=#{recommendations.title}">
                         <span class="story-spine" data-shared="story-thread" aria-hidden="true"></span>
                         <div class="intro-quote-stage">
@@ -28,7 +29,8 @@
                         </div>
                     </div>
                     <nav class="intro-quote-controls" th:attr="aria-label=#{recommendations.title}">
-                        <button type="button" th:each="recommendation, item : ${details.recommendations()}" th:attr="data-intro-quote-button=${item.index},aria-label=#{story.recommendations.choose(${recommendation.authorName()})}"><span th:text="${#numbers.formatInteger(item.count, 2)}"></span><span class="intro-quote-meter" aria-hidden="true"><i></i></span></button>
+                        <p class="intro-quote-rail-title" aria-hidden="true" th:text="#{story.recommendations.second}">In their words.</p>
+                        <button type="button" th:each="recommendation, item : ${details.recommendations()}" th:attr="data-intro-quote-button=${item.index},aria-label=#{story.recommendations.choose(${recommendation.authorName()})}"><span class="intro-quote-avatar" aria-hidden="true" th:text="${recommendation.authorInitials()}"></span><span class="intro-quote-person" aria-hidden="true"><b th:text="${recommendation.authorName()}"></b><small th:text="${recommendation.authorRole()}"></small></span><span class="intro-quote-meter" aria-hidden="true"><i></i></span></button>
                     </nav>
                 </div>
             </section>

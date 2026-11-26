@@ -78,9 +78,42 @@
     });
   }
 
+  var REVEAL_TARGETS = [
+    '.section-heading', '#recommendations .section-body', '.career-entry', '.skill-item', '.expertise-card',
+    '.project-group-title', '.project-card', '.oss-list li', '.certificate-card',
+    '.hobbies-layout > *', '.contact-intro', '.contact-form-panel'
+  ].join(', ');
+
+  function initScrollReveal() {
+    var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (motion.matches || !('IntersectionObserver' in window)) return;
+    var targets = document.getElementById('main-content').querySelectorAll(REVEAL_TARGETS);
+    var reveal = function(target, delay) {
+      target.style.setProperty('--reveal-delay', delay + 'ms');
+      target.setAttribute('data-revealed', '');
+    };
+    var observer = new IntersectionObserver(function(entries) {
+      entries.filter(function(entry) { return entry.isIntersecting; }).forEach(function(entry, index) {
+        reveal(entry.target, Math.min(index, 4) * 80);
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '-64px 0px -8% 0px', threshold: 0.12 });
+    targets.forEach(function(target) {
+      target.setAttribute('data-scroll-reveal', '');
+      observer.observe(target);
+    });
+    document.documentElement.classList.add('scroll-motion');
+    motion.addEventListener('change', function(event) {
+      if (!event.matches) return;
+      observer.disconnect();
+      targets.forEach(function(target) { reveal(target, 0); });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     focusMainIfHash();
     initLangSwitchLinks();
+    initScrollReveal();
     var sections = document.querySelectorAll('main > div > section[id]');
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
@@ -89,11 +122,6 @@
           if (link.hash === '#' + entry.target.id) link.setAttribute('aria-current', 'location');
           else link.removeAttribute('aria-current');
         });
-        var content = entry.target.querySelector('.section-layout');
-        if (content && !content.dataset.revealed) {
-          content.classList.add('reveal');
-          content.dataset.revealed = 'true';
-        }
       });
     }, { rootMargin: '-15% 0px -25% 0px', threshold: 0 });
     sections.forEach(function(section) { observer.observe(section); });

@@ -1,17 +1,17 @@
-export const HIRE_HOLD = 2100;
-export const HIRE_ENTRY = 1400;
-export const RECOMMENDATION_INTERVAL = 2800;
+export const HIRE_HOLD = 500;
+export const HIRE_ENTRY = 900;
+export const RECOMMENDATION_INTERVAL = 2200;
 export const RECOMMENDATIONS_DURATION = RECOMMENDATION_INTERVAL * 5;
-export const ARCHITECTURE_ENTRY = 1500;
+export const ARCHITECTURE_ENTRY = 1000;
 
 export function createChapters(compact = false, recommendationCount = 5) {
     let start = 0;
     return [
         ['recommendations', RECOMMENDATION_INTERVAL * recommendationCount],
-        ['experience', compact ? 5000 : 6000],
-        ['architecture', compact ? 4000 : 8000 + ARCHITECTURE_ENTRY],
-        ['stack', compact ? 3000 : 4500],
-        ['ai', compact ? 3000 : 4500],
+        ['experience', compact ? 3500 : 4200],
+        ['architecture', compact ? 3200 : 6000 + ARCHITECTURE_ENTRY],
+        ['stack', compact ? 2400 : 3200],
+        ['ai', compact ? 2400 : 3200],
         ['hire', HIRE_ENTRY + HIRE_HOLD]
     ].map(([id, duration]) => {
         const chapter = { id, start, duration };
@@ -57,6 +57,17 @@ export function initializeOpening(dialog) {
     const quoteWindow = dialog.querySelector('.intro-quote-window');
     const quotes = [...dialog.querySelectorAll('[data-intro-quote]')];
     const quoteButtons = [...dialog.querySelectorAll('[data-intro-quote-button]')];
+    const composition = dialog.querySelector('.recommendation-composition');
+    quotes.forEach(quote => {
+        const blockquote = quote.querySelector('blockquote');
+        const words = blockquote.textContent.trim().split(/\s+/).map(text => {
+            const word = document.createElement('span');
+            word.className = 'intro-word';
+            word.textContent = text;
+            return word;
+        });
+        blockquote.replaceChildren(...words.flatMap((word, index) => index ? [' ', word] : [word]));
+    });
     const hero = document.querySelector('.hero > .container > .hero-layout');
     const finalPanel = panels[panels.length - 1];
     const hireGreeting = finalPanel.querySelector('.eyebrow').textContent;
@@ -220,9 +231,10 @@ export function initializeOpening(dialog) {
     function showQuote(index, moving = true) {
         if (index === activeQuote) return;
         const previous = quotes[activeQuote];
-        const outgoingOpacity = previous ? getComputedStyle(previous.querySelector('blockquote')).opacity : 1;
-        const outgoingCaptionOpacity = previous ? getComputedStyle(previous.querySelector('figcaption')).opacity : 1;
         const stale = new Set(quotes.flatMap(quote => quote.getAnimations({ subtree: true })));
+        previous?.getAnimations({ subtree: true }).forEach(effect => {
+            try { effect.commitStyles(); } catch {}
+        });
         stale.forEach(effect => effect.cancel());
         effects = effects.filter(effect => !stale.has(effect));
         const currentTransition = ++quoteTransition;
@@ -241,18 +253,27 @@ export function initializeOpening(dialog) {
             else button.removeAttribute('aria-current');
         });
         updateQuoteProgress((clock?.currentTime || 0) - chapters[0].start);
+        composition.dataset.tone = String(index % 5);
         if (!moving || motion.matches) return;
-        if (previous) animate(previous.querySelector('blockquote'), [{ opacity: outgoingOpacity }, { opacity: 0 }], { duration: 180, easing: 'linear' });
-        if (previous) animate(previous.querySelector('figcaption'), [{ opacity: outgoingCaptionOpacity }, { opacity: 0 }], { duration: 180, easing: 'linear' });
-        const reveal = animate(current, [{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)' }], { duration: 650, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' });
-        animate(current.querySelector('blockquote'), [{ opacity: 0, transform: 'translateX(24px)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: previous ? 220 : 100 });
-        animate(current.querySelector('figcaption'), [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 400, delay: 300 });
-        animate(current, [{ backgroundPosition: '0% 50%' }, { backgroundPosition: '100% 50%' }], { duration: RECOMMENDATION_INTERVAL, easing: 'linear' });
-        reveal.finished.then(() => {
-            if (currentTransition !== quoteTransition) return;
-            if (previous) previous.hidden = true;
-            reveal.cancel();
-            effects = effects.filter(effect => effect !== reveal);
+        let exit;
+        if (previous) {
+            previous.querySelectorAll('.intro-word').forEach((word, order) => {
+                exit = animate(word, [{ opacity: 0, transform: 'translateY(-0.4em)', filter: 'blur(6px)' }], { duration: 260, delay: Math.min(order * 10, 160), easing: 'cubic-bezier(0.55, 0, 1, 0.45)' });
+            });
+            animate(previous.querySelector('figcaption'), [{ opacity: 0, transform: 'translateX(-16px)' }], { duration: 220 });
+            animate(previous.querySelector('.intro-quote-mark'), [{ opacity: 0, transform: 'scale(0.7)' }], { duration: 220 });
+        }
+        const start = previous ? 240 : 80;
+        const words = [...current.querySelectorAll('.intro-word')];
+        const stagger = Math.min(45, 650 / words.length);
+        animate(current.querySelector('.intro-quote-mark'), [{ opacity: 0, transform: 'translateY(1.5rem) scale(0.6) rotate(-12deg)' }, { opacity: 0.35, transform: 'none' }], { duration: 700, delay: start, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)' });
+        words.forEach((word, order) => {
+            animate(word, [{ opacity: 0, transform: 'translateY(0.6em)', filter: 'blur(8px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 520, delay: start + order * stagger });
+        });
+        animate(current.querySelector('blockquote'), [{ transform: 'none' }, { transform: 'translateX(-0.75rem)' }], { duration: RECOMMENDATION_INTERVAL + 600, easing: 'linear' });
+        animate(current.querySelector('figcaption'), [{ opacity: 0, transform: 'translateX(-24px)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: start + Math.min(words.length * stagger, 650) });
+        exit?.finished.then(() => {
+            if (currentTransition === quoteTransition) previous.hidden = true;
         }).catch(() => {});
     }
 
@@ -260,10 +281,11 @@ export function initializeOpening(dialog) {
         const { id, duration } = chapters[index];
         if (id === 'recommendations') {
             showQuote(Math.min(quotes.length - 1, Math.max(0, Math.floor(((clock?.currentTime || 0) - chapters[index].start) / RECOMMENDATION_INTERVAL))));
+            animate(panel.querySelector('.intro-quote-glow'), [{ transform: 'translate(-12%, -8%) scale(0.9)' }, { transform: 'translate(14%, 10%) scale(1.15)' }], { duration: 5200, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' });
         }
         if (id === 'stack') {
             panel.querySelectorAll('.language-tile, .stack-lane, .stack-ai-seed').forEach((block, order) => {
-                energize(block, 500 + order * 350, order === 0 ? 'var(--intro-coral)' : order === 1 ? 'var(--intro-violet)' : 'var(--intro-teal)');
+                energize(block, 300 + order * 250, order === 0 ? 'var(--intro-coral)' : order === 1 ? 'var(--intro-violet)' : 'var(--intro-teal)');
             });
         }
         if (compact) {
@@ -316,17 +338,17 @@ export function initializeOpening(dialog) {
             });
         }
         if (id === 'stack') panel.querySelectorAll('.stack-lane').forEach((lane, order) => {
-            animate(lane, [{ opacity: 0, transform: 'translateX(24px)' }, { opacity: 1, transform: 'none' }], { delay: 350 + order * 400, duration: 500 });
+            animate(lane, [{ opacity: 0, transform: 'translateX(24px)' }, { opacity: 1, transform: 'none' }], { delay: 250 + order * 280, duration: 420 });
             lane.querySelectorAll('b').forEach((tag, tagIndex) => {
-                animate(tag, [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { delay: 550 + order * 400 + tagIndex * 120, duration: 350 });
+                animate(tag, [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { delay: 400 + order * 280 + tagIndex * 90, duration: 350 });
             });
         });
         if (id === 'ai') {
             panel.querySelectorAll('.agent-branches > div').forEach((node, order) => {
-                animate(node, [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { delay: 400 + order * 450, duration: 500 });
+                animate(node, [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { delay: 300 + order * 320, duration: 420 });
             });
-            animate(panel.querySelector('.verification-gate'), [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 450, delay: 2100 });
-            animate(panel.querySelector('.verification-gate'), [{ color: 'var(--intro-teal)' }, { color: 'var(--intro-amber)', offset: 0.5 }, { color: 'var(--intro-teal)' }], { duration: 1400, delay: 2400, easing: 'ease-in-out' });
+            animate(panel.querySelector('.verification-gate'), [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 450, delay: 1350 });
+            animate(panel.querySelector('.verification-gate'), [{ color: 'var(--intro-teal)' }, { color: 'var(--intro-amber)', offset: 0.5 }, { color: 'var(--intro-teal)' }], { duration: 1200, delay: 1600, easing: 'ease-in-out' });
         }
         if (id === 'experience') {
             const track = panel.querySelector('.experience-track');
@@ -374,11 +396,11 @@ export function initializeOpening(dialog) {
             finalPanel.querySelector('.eyebrow').textContent = hireGreeting;
             const background = getComputedStyle(document.body).backgroundColor;
             if (moving && !motion.matches) {
-                animate(dialog, [{ backgroundColor: getComputedStyle(dialog).backgroundColor }, { backgroundColor: background }], { duration: 640, delay: blending ? 320 : 0, easing: 'ease-in-out' });
+                animate(dialog, [{ backgroundColor: getComputedStyle(dialog).backgroundColor }, { backgroundColor: background }], { duration: 480, delay: blending ? 200 : 0, easing: 'ease-in-out' });
                 frameArrival(sources.get('opencode'), panel);
-                animate(panel.querySelector('.portrait img'), [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 650, delay: 560 });
+                animate(panel.querySelector('.portrait img'), [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 420, delay: 320 });
                 panel.querySelectorAll('.hero-heading, .hero-description, .hero-experience, .hero-actions').forEach((element, order) => {
-                    animate(element, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 450, delay: 650 + order * 100 });
+                    animate(element, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 320, delay: 380 + order * 50 });
                 });
             } else {
                 dialog.style.backgroundColor = background;
@@ -406,7 +428,7 @@ export function initializeOpening(dialog) {
                     animate(element, [{ transform: 'none', opacity: 1 }, { transform: `translate(${x}px, ${y}px)`, opacity: 0 }], { duration: 300 });
                 });
             }
-            const exit = animate(previous, [{ opacity: getComputedStyle(previous).opacity }, { opacity: 0 }], { duration: final ? 320 : compact ? 160 : 400, easing: 'linear' });
+            const exit = animate(previous, [{ opacity: getComputedStyle(previous).opacity }, { opacity: 0 }], { duration: final ? 240 : compact ? 160 : 320, easing: 'linear' });
             exit.finished.then(() => {
                 if (currentTransition !== transition) return;
                 previous.hidden = true;
@@ -414,7 +436,7 @@ export function initializeOpening(dialog) {
             }).catch(() => {});
             if (!compact && !final) morphElements(sources, panel);
         }
-        animate(panel, final ? [{ opacity: 0, offset: 0 }, { opacity: 0, offset: 0.36 }, { opacity: 1, offset: 0.68 }, { opacity: 1, offset: 1 }] : [{ opacity: 0 }, { opacity: 1 }], { duration: final ? HIRE_ENTRY : compact ? 350 : 650, delay: blending && !final ? 100 : 0, easing: final ? 'linear' : 'cubic-bezier(0.22, 0.8, 0.2, 1)' });
+        animate(panel, final ? [{ opacity: 0, offset: 0 }, { opacity: 0, offset: 0.36 }, { opacity: 1, offset: 0.68 }, { opacity: 1, offset: 1 }] : [{ opacity: 0 }, { opacity: 1 }], { duration: final ? HIRE_ENTRY : compact ? 350 : 520, delay: blending && !final ? 100 : 0, easing: final ? 'linear' : 'cubic-bezier(0.22, 0.8, 0.2, 1)' });
         if (compact) {
             choreograph(panel, index);
             return;
@@ -493,10 +515,10 @@ export function initializeOpening(dialog) {
                 finalPanel.querySelector('.eyebrow').textContent = hero.querySelector('.eyebrow').textContent;
             }
             const reveal = fold && active === panels.length - 1;
-            const exit = dialog.animate(reveal ? [{ clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)' }] : [{ opacity: 1 }, { opacity: 0 }], { duration: reveal ? 1100 : 200, easing: reveal ? 'cubic-bezier(0.76, 0, 0.24, 1)' : 'linear', fill: 'forwards' });
+            const exit = dialog.animate(reveal ? [{ clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)' }] : [{ opacity: 1 }, { opacity: 0 }], { duration: reveal ? 700 : 200, easing: reveal ? 'cubic-bezier(0.76, 0, 0.24, 1)' : 'linear', fill: 'forwards' });
             if (reveal) {
                 const line = dialog.querySelector('.intro-reveal-line');
-                effects.push(line.animate([{ transform: 'translateY(calc(100dvh - 3px))', opacity: 0 }, { opacity: 1, offset: 0.1 }, { transform: 'translateY(-3px)', opacity: 0 }], { duration: 1100, easing: 'cubic-bezier(0.76, 0, 0.24, 1)', fill: 'both' }));
+                effects.push(line.animate([{ transform: 'translateY(calc(100dvh - 3px))', opacity: 0 }, { opacity: 1, offset: 0.1 }, { transform: 'translateY(-3px)', opacity: 0 }], { duration: 700, easing: 'cubic-bezier(0.76, 0, 0.24, 1)', fill: 'both' }));
             }
             effects.push(exit);
             await exit.finished.catch(() => {});
