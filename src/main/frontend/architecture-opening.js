@@ -1,5 +1,5 @@
-export const HIRE_HOLD = 1500;
-export const HIRE_ENTRY = 1200;
+export const HIRE_HOLD = 500;
+export const HIRE_ENTRY = 900;
 export const RECOMMENDATION_INTERVAL = 2200;
 export const RECOMMENDATIONS_DURATION = RECOMMENDATION_INTERVAL * 5;
 export const ARCHITECTURE_ENTRY = 1000;
@@ -396,11 +396,11 @@ export function initializeOpening(dialog) {
             finalPanel.querySelector('.eyebrow').textContent = hireGreeting;
             const background = getComputedStyle(document.body).backgroundColor;
             if (moving && !motion.matches) {
-                animate(dialog, [{ backgroundColor: getComputedStyle(dialog).backgroundColor }, { backgroundColor: background }], { duration: 640, delay: blending ? 320 : 0, easing: 'ease-in-out' });
+                animate(dialog, [{ backgroundColor: getComputedStyle(dialog).backgroundColor }, { backgroundColor: background }], { duration: 480, delay: blending ? 200 : 0, easing: 'ease-in-out' });
                 frameArrival(sources.get('opencode'), panel);
-                animate(panel.querySelector('.portrait img'), [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 560, delay: 480 });
+                animate(panel.querySelector('.portrait img'), [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 420, delay: 320 });
                 panel.querySelectorAll('.hero-heading, .hero-description, .hero-experience, .hero-actions').forEach((element, order) => {
-                    animate(element, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 400, delay: 560 + order * 80 });
+                    animate(element, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 320, delay: 380 + order * 50 });
                 });
             } else {
                 dialog.style.backgroundColor = background;
@@ -428,7 +428,7 @@ export function initializeOpening(dialog) {
                     animate(element, [{ transform: 'none', opacity: 1 }, { transform: `translate(${x}px, ${y}px)`, opacity: 0 }], { duration: 300 });
                 });
             }
-            const exit = animate(previous, [{ opacity: getComputedStyle(previous).opacity }, { opacity: 0 }], { duration: final ? 320 : compact ? 160 : 320, easing: 'linear' });
+            const exit = animate(previous, [{ opacity: getComputedStyle(previous).opacity }, { opacity: 0 }], { duration: final ? 240 : compact ? 160 : 320, easing: 'linear' });
             exit.finished.then(() => {
                 if (currentTransition !== transition) return;
                 previous.hidden = true;
@@ -515,10 +515,10 @@ export function initializeOpening(dialog) {
                 finalPanel.querySelector('.eyebrow').textContent = hero.querySelector('.eyebrow').textContent;
             }
             const reveal = fold && active === panels.length - 1;
-            const exit = dialog.animate(reveal ? [{ clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)' }] : [{ opacity: 1 }, { opacity: 0 }], { duration: reveal ? 900 : 200, easing: reveal ? 'cubic-bezier(0.76, 0, 0.24, 1)' : 'linear', fill: 'forwards' });
+            const exit = dialog.animate(reveal ? [{ clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)' }] : [{ opacity: 1 }, { opacity: 0 }], { duration: reveal ? 700 : 200, easing: reveal ? 'cubic-bezier(0.76, 0, 0.24, 1)' : 'linear', fill: 'forwards' });
             if (reveal) {
                 const line = dialog.querySelector('.intro-reveal-line');
-                effects.push(line.animate([{ transform: 'translateY(calc(100dvh - 3px))', opacity: 0 }, { opacity: 1, offset: 0.1 }, { transform: 'translateY(-3px)', opacity: 0 }], { duration: 900, easing: 'cubic-bezier(0.76, 0, 0.24, 1)', fill: 'both' }));
+                effects.push(line.animate([{ transform: 'translateY(calc(100dvh - 3px))', opacity: 0 }, { opacity: 1, offset: 0.1 }, { transform: 'translateY(-3px)', opacity: 0 }], { duration: 700, easing: 'cubic-bezier(0.76, 0, 0.24, 1)', fill: 'both' }));
             }
             effects.push(exit);
             await exit.finished.catch(() => {});
