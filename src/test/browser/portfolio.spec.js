@@ -20,6 +20,17 @@ test('portfolio reflows and passes automated accessibility checks', { tag: '@lay
     await expect(page.locator('#hobbies .chess-scene')).toBeVisible();
 });
 
+test('work reveals on scroll only when motion is allowed', async ({ page }) => {
+    const card = page.locator('#project-ahold');
+    await expect(card).toHaveCSS('opacity', '1');
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    await page.reload({ waitUntil: 'commit' });
+    await expectPortfolioReady(page);
+    await expect(card).toHaveCSS('opacity', '0');
+    await card.scrollIntoViewIfNeeded();
+    await expect(card).toHaveCSS('opacity', '1');
+});
+
 test('chess controls support stepping and reset', async ({ page }) => {
     await page.locator('[data-scene-next]').click();
     await expect(page.locator('[data-scene-notation]')).toHaveText('1. e4');
