@@ -40,6 +40,13 @@ export function architectureLevelAt(time) {
     return 0;
 }
 
+const TRANSITION_LIMIT = 1000;
+
+function isTransition(effect) {
+    const { duration, iterations } = effect.effect.getTiming();
+    return iterations !== Infinity && duration <= TRANSITION_LIMIT;
+}
+
 export function shouldAutoplay({ reducedMotion, seen, hash, navigationType }) {
     return !reducedMotion && !seen && !hash && navigationType === 'navigate';
 }
@@ -478,7 +485,10 @@ export function initializeOpening(dialog) {
         }
         const play = value && !document.hidden;
         [clock, ...effects].filter(Boolean).forEach(effect => {
-            if (effect.playState !== 'finished') play ? effect.play() : effect.pause();
+            if (effect.playState === 'finished') return;
+            if (play) effect.play();
+            else if (effect !== clock && isTransition(effect)) effect.finish();
+            else effect.pause();
         });
         updatePlayback();
         if (play) tick();
